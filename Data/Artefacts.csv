@@ -1,0 +1,2941 @@
+ItemID,IndividualID,SiteID,PhaseID,RiteID,GraveGoods,Object,Material,MaterialType
+Item-10326,C04756,S10527,BUDAK1,R02453,1,vessel,clay,clay: pottery
+Item-10326,C04756,S10527,BUDAK1,R02453,1,vessel,clay,clay: pottery
+Item-10326,C04756,S10527,BUDAK1,R02453,1,,tooth,animal
+Item-10327,C04760,S10527,BUDAK1,R02457,1,bead,,
+Item-10327,C04760,S10527,BUDAK1,R02457,1,vessel,clay,clay: pottery
+Item-10327,C04760,S10527,BUDAK1,R02457,1,bead,metal,copper
+Item-10327,C04760,S10527,BUDAK1,R02457,1,bead,metal,copper
+Item-10327,C04760,S10527,BUDAK1,R02457,1,bead,stone,limestone
+Item-10327,C04760,S10527,BUDAK1,R02457,1,blade,stone,radiolarite
+Item-10327,C04760,S10527,BUDAK1,R02457,1,flake,stone,radiolarite
+Item-10327,C04760,S10527,BUDAK1,R02457,1,trapeze,stone,flint/chert
+Item-10327,C04760,S10527,BUDAK1,R02457,1,debitage,stone,limnic quartzite
+Item-10327,C04760,S10527,BUDAK1,R02457,1,,shell,animal: mollusca
+Item-10327,C04760,S10527,BUDAK1,R02457,1,bead,shell,animal: mollusca
+Item-10328,C04761,S10527,BUDAK1,R02458,1,vessel,clay,clay: pottery
+Item-10330,C04763,S10527,BUDAK1,R02460,1,bead,,
+Item-10330,C04763,S10527,BUDAK1,R02460,1,vessel,clay,clay: pottery
+Item-10330,C04763,S10527,BUDAK1,R02460,1,,shell,
+Item-10330,C04763,S10527,BUDAK1,R02460,1,plaque,shell,
+Item-10330,C04763,S10527,BUDAK1,R02460,1,,stone,
+Item-10332,C04767,S10527,BUDAK1,R02464,1,vessel,clay,clay: pottery
+Item-10332,C04767,S10527,BUDAK1,R02464,1,vessel,clay,clay: pottery
+Item-10332,C04767,S10527,BUDAK1,R02464,1,vessel,clay,clay: pottery
+Item-10332,C04767,S10527,BUDAK1,R02464,1,bead,stone,limestone
+Item-10334,C04769,S10527,BUDAK1,R02466,1,segment,stone,hornstone
+Item-10334,C04769,S10527,BUDAK1,R02466,1,bead,stone,limestone
+Item-10334,C04769,S10527,BUDAK1,R02466,1,bead,stone,limestone
+Item-10334,C04769,S10527,BUDAK1,R02466,1,bead,shell,animal: mollusca
+Item-10335,C04770,S10527,BUDAK1,R02467,1,vessel,clay,clay: pottery
+Item-10335,C04770,S10527,BUDAK1,R02467,1,vessel,clay,clay: pottery
+Item-10335,C04770,S10527,BUDAK1,R02467,1,vessel,clay,clay: pottery
+Item-10335,C04770,S10527,BUDAK1,R02467,1,vessel,clay,clay: pottery
+Item-10335,C04770,S10527,BUDAK1,R02467,1,bead,stone,limestone
+Item-10336,C04771,S10527,BUDAK1,R02468,1,bead,stone,limestone
+Item-10336,C04771,S10527,BUDAK1,R02468,1,blade,stone,radiolarite
+Item-10338,C04773,S10527,BUDAK1,R02470,1,vessel,clay,clay: pottery
+Item-10338,C04773,S10527,BUDAK1,R02470,1,plaque,metal,copper
+Item-10338,C04773,S10527,BUDAK1,R02470,1,,stone,
+Item-10339,C04774,S10527,BUDAK1,R02471,1,vessel,clay,clay: pottery
+Item-10340,C04775,S10527,BUDAK1,R02472,1,vessel,clay,clay: pottery
+Item-10340,C04775,S10527,BUDAK1,R02472,1,vessel,clay,clay: pottery
+Item-10340,C04775,S10527,BUDAK1,R02472,1,,shell,animal: mollusca
+Item-10340,C04775,S10527,BUDAK1,R02472,1,,shell,animal: mollusca
+Item-10342,C04777,S10527,BUDAK1,R02474,1,vessel,clay,clay: pottery
+Item-10342,C04777,S10527,BUDAK1,R02474,1,vessel,clay,clay: pottery
+Item-10342,C04777,S10527,BUDAK1,R02474,1,bead,metal,copper
+Item-10342,C04777,S10527,BUDAK1,R02474,1,bead,metal,copper
+Item-10342,C04777,S10527,BUDAK1,R02474,1,bead,stone,limestone
+Item-10342,C04777,S10527,BUDAK1,R02474,1,bead,shell,animal: mollusca
+Item-10345,C04780,S10527,BUDAK1,R02477,1,vessel,clay,clay: pottery
+Item-10349,C04784,S10527,BUDAK1,R02481,1,vessel,clay,clay: pottery
+Item-10349,C04784,S10527,BUDAK1,R02481,1,scraper: side,stone,radiolarite
+Item-10349,C04784,S10527,BUDAK1,R02481,1,,stone,
+Item-10350,C04785,S10527,BUDAK1,R02482,1,vessel,clay,clay: pottery
+Item-10350,C04785,S10527,BUDAK1,R02482,1,trapeze,stone,limnic quartzite
+Item-10350,C04785,S10527,BUDAK1,R02482,1,,shell,animal: mollusca
+Item-10350,C04785,S10527,BUDAK1,R02482,1,bead,shell,animal: mollusca
+Item-10350,C04785,S10527,BUDAK1,R02482,1,bead,shell,animal: mollusca
+Item-10351,C04786,S10527,BUDAK1,R02483,1,pebble,stone,radiolarite
+Item-10352,C04787,S10527,BUDAK1,R02484,1,bead,,
+Item-10352,C04787,S10527,BUDAK1,R02484,1,bead,,
+Item-10352,C04787,S10527,BUDAK1,R02484,1,bead,metal,copper
+Item-10352,C04787,S10527,BUDAK1,R02484,1,bead,stone,limestone
+Item-10352,C04787,S10527,BUDAK1,R02484,1,,shell,animal: mollusca
+Item-10352,C04787,S10527,BUDAK1,R02484,1,,shell,animal: mollusca
+Item-10352,C04787,S10527,BUDAK1,R02484,1,plaque,,animal: mollusca
+Item-10352,C04787,S10527,BUDAK1,R02484,1,plaque,shell,animal: mollusca
+Item-10353,C04788,S10527,BUDAK1,R02485,1,vessel,clay,clay: pottery
+Item-10354,C04789,S10527,BUDAK1,R02486,1,vessel,clay,clay: pottery
+Item-10354,C04789,S10527,BUDAK1,R02486,1,scraper: side,stone,radiolarite
+Item-10354,C04789,S10527,BUDAK1,R02486,1,bead,shell,animal: mollusca
+Item-10356,C04791,S10527,BUDAK1,R02488,1,vessel,clay,clay: pottery
+Item-10356,C04791,S10527,BUDAK1,R02488,1,vessel,clay,clay: pottery
+Item-10356,C04791,S10527,BUDAK1,R02488,1,vessel,clay,clay: pottery
+Item-10358,C04793,S10527,BUDAK1,R02490,1,vessel,clay,clay: pottery
+Item-10358,C04793,S10527,BUDAK1,R02490,1,bead,stone,limestone
+Item-10360,C04795,S10527,BUDAK1,R02492,1,blade,stone,limnic quartzite
+Item-10360,C04795,S10527,BUDAK1,R02492,1,blade,stone,flint/chert
+Item-10361,C04797,S10527,BUDAK1,R02494,1,bead,stone,limestone
+Item-10361,C04797,S10527,BUDAK1,R02494,1,,shell,animal: mollusca
+Item-10361,C04797,S10527,BUDAK1,R02494,1,bead,shell,animal: mollusca
+Item-10362,C04799,S10527,BUDAK1,R02496,1,vessel,clay,clay: pottery
+Item-10362,C04799,S10527,BUDAK1,R02496,1,vessel,clay,clay: pottery
+Item-10362,C04799,S10527,BUDAK1,R02496,1,vessel,clay,clay: pottery
+Item-10364,C04801,S10527,BUDAK1,R02498,1,,bone,
+Item-10364,C04801,S10527,BUDAK1,R02498,1,implement,bone,animal
+Item-10364,C04801,S10527,BUDAK1,R02498,1,vessel,clay,clay: pottery
+Item-10364,C04801,S10527,BUDAK1,R02498,1,vessel,clay,clay: pottery
+Item-10364,C04801,S10527,BUDAK1,R02498,1,bead,stone,limestone
+Item-10364,C04801,S10527,BUDAK1,R02498,1,bead,stone,limestone
+Item-10364,C04801,S10527,BUDAK1,R02498,1,bead,stone,
+Item-10366,C04803,S10527,BUDAK1,R02500,1,plaque,antler,
+Item-10366,C04803,S10527,BUDAK1,R02500,1,vessel,clay,clay: pottery
+Item-10366,C04803,S10527,BUDAK1,R02500,1,vessel,clay,clay: pottery
+Item-10366,C04803,S10527,BUDAK1,R02500,1,vessel,clay,clay: pottery
+Item-10366,C04803,S10527,BUDAK1,R02500,1,vessel,clay,clay: pottery
+Item-10366,C04803,S10527,BUDAK1,R02500,1,trapeze,stone,limnic quartzite
+Item-10366,C04803,S10527,BUDAK1,R02500,1,trapeze,stone,radiolarite
+Item-10366,C04803,S10527,BUDAK1,R02500,1,blade,stone,radiolarite
+Item-10366,C04803,S10527,BUDAK1,R02500,1,blade,stone,radiolarite
+Item-10366,C04803,S10527,BUDAK1,R02500,1,trapeze,stone,limnic quartzite
+Item-10368,C04805,S10527,BUDAK1,R02502,1,bead,,
+Item-10368,C04805,S10527,BUDAK1,R02502,1,bead,metal,copper
+Item-10368,C04805,S10527,BUDAK1,R02502,1,point,stone,radiolarite
+Item-10368,C04805,S10527,BUDAK1,R02502,1,blade,stone,radiolarite
+Item-10368,C04805,S10527,BUDAK1,R02502,1,bead,shell,animal: mollusca
+Item-10368,C04805,S10527,BUDAK1,R02502,1,bead,shell,animal: mollusca
+Item-10368,C04805,S10527,BUDAK1,R02502,1,plaque,shell,animal: mollusca
+Item-10369,C04806,S10527,BUDAK1,R02503,1,vessel,clay,clay: pottery
+Item-10370,C04807,S10527,BUDAK1,R02504,1,bead,stone,limestone
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,,
+Item-10372,C04809,S10527,BUDAK1,R02506,1,axe,antler,
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,bone: tibia,animal: small ruminant
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,bone: tibia,animal: small ruminant
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage: chip,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,stone,chalk
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,hornstone
+Item-10372,C04809,S10527,BUDAK1,R02506,1,end-scraper,stone,flint/chert
+Item-10372,C04809,S10527,BUDAK1,R02506,1,axe,stone,serpentinite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,stone,haematite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,stone,
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,stone,
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,flint/chert
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,flint/chert
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,flint
+Item-10372,C04809,S10527,BUDAK1,R02506,1,segment,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,burin,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,segment,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,segment,stone,flint
+Item-10372,C04809,S10527,BUDAK1,R02506,1,segment,stone,hornstone
+Item-10372,C04809,S10527,BUDAK1,R02506,1,segment,stone,obsidian
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,trapeze,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,flint/chert
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,obsidian
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,obsidian
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,flint
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,flint/chert
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,trapeze,stone,flint/chert
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,flint/chert
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,trapeze,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,triangle,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,trapeze,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,burin,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,jasper
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,debitage,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,hornstone
+Item-10372,C04809,S10527,BUDAK1,R02506,1,end-scraper,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,trapeze,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,limnic quartzite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,flake,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,blade,stone,radiolarite
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,bone: tibia,animal: roe deer
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,bone: tibia,animal: roe deer
+Item-10372,C04809,S10527,BUDAK1,R02506,1,awl,bone: metatarsal,animal: deer
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,bone: tibia,animal: sheep/goat
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,bone: tibia,animal: sheep/goat
+Item-10372,C04809,S10527,BUDAK1,R02506,1,,tooth: canine,animal: wild boar
+Item-10372,C04809,S10527,BUDAK1,R02506,1,awl,tooth: canine,animal: wild boar
+Item-10374,C04811,S10527,BUDAK1,R02508,1,,stone,
+Item-10374,C04811,S10527,BUDAK1,R02508,1,flake,stone,radiolarite
+Item-10374,C04811,S10527,BUDAK1,R02508,1,bead,stone,limestone
+Item-10374,C04811,S10527,BUDAK1,R02508,1,,shell,animal: mollusca
+Item-10374,C04811,S10527,BUDAK1,R02508,1,,shell,animal: mollusca
+Item-10374,C04811,S10527,BUDAK1,R02508,1,,shell,animal: mollusca
+Item-10377,C04814,S10527,BUDAK1,R02511,1,vessel,clay,clay: pottery
+Item-10379,C04816,S10527,BUDAK1,R02513,1,axe,antler,
+Item-10379,C04816,S10527,BUDAK1,R02513,1,vessel,clay,clay: pottery
+Item-10379,C04816,S10527,BUDAK1,R02513,1,vessel,clay,clay: pottery
+Item-10379,C04816,S10527,BUDAK1,R02513,1,vessel,clay,clay: pottery
+Item-10379,C04816,S10527,BUDAK1,R02513,1,blade,stone,radiolarite
+Item-10379,C04816,S10527,BUDAK1,R02513,1,burin,stone,
+Item-10381,C04818,S10527,BUDAK1,R02515,1,vessel,clay,clay: pottery
+Item-10381,C04818,S10527,BUDAK1,R02515,1,scraper: side,stone,radiolarite
+Item-10382,C04819,S10527,BUDAK1,R02516,1,vessel,clay,clay: pottery
+Item-10383,C04820,S10527,BUDAK1,R02517,1,rectangle,stone,flint/chert
+Item-10383,C04820,S10527,BUDAK1,R02517,1,flake,stone,radiolarite
+Item-10383,C04820,S10527,BUDAK1,R02517,1,plaque,shell,animal: mollusca
+Item-10384,C04821,S10527,BUDAK1,R02518,1,vessel,clay,clay: pottery
+Item-10384,C04821,S10527,BUDAK1,R02518,1,vessel,clay,clay: pottery
+Item-10385,C04822,S10527,BUDAK1,R02519,1,vessel,clay,clay: pottery
+Item-10387,C04824,S10527,BUDAK1,R02521,1,bead,stone,limestone
+Item-10387,C04824,S10527,BUDAK1,R02521,1,debitage,stone,radiolarite
+Item-10387,C04824,S10527,BUDAK1,R02521,1,,shell,animal: mollusca
+Item-10388,C04825,S10527,BUDAK1,R02522,1,bead,stone,limestone
+Item-10388,C04825,S10527,BUDAK1,R02522,1,,shell,animal: mollusca
+Item-10389,C04826,S10527,BUDAK1,R02523,1,vessel,clay,clay: pottery
+Item-10389,C04826,S10527,BUDAK1,R02523,1,vessel,clay,clay: pottery
+Item-10390,C04828,S10527,BUDAK1,R02525,1,vessel,clay,clay: pottery
+Item-10390,C04828,S10527,BUDAK1,R02525,1,pigment: lump,stone,ochre
+Item-10390,C04828,S10527,BUDAK1,R02525,1,bead,stone,limestone
+Item-10392,C04832,S10527,BUDAK1,R02529,1,vessel,clay,clay: pottery
+Item-10392,C04832,S10527,BUDAK1,R02529,1,,stone,
+Item-10394,C04834,S10527,BUDAK1,R02531,1,vessel,clay,clay: pottery
+Item-10394,C04834,S10527,BUDAK1,R02531,1,bead,stone,limestone
+Item-10395,C04836,S10527,BUDAK1,R02533,1,vessel,clay,clay: pottery
+Item-10395,C04836,S10527,BUDAK1,R02533,1,bead,stone,limestone
+Item-10395,C04836,S10527,BUDAK1,R02533,1,plaque,shell,animal: mollusca
+Item-10396,C04838,S10527,BUDAK1,R02535,1,vessel,clay,clay: pottery
+Item-10396,C04838,S10527,BUDAK1,R02535,1,vessel,clay,clay: pottery
+Item-10396,C04838,S10527,BUDAK1,R02535,1,vessel,clay,clay: pottery
+Item-10396,C04838,S10527,BUDAK1,R02535,1,bead,stone,limestone
+Item-10396,C04838,S10527,BUDAK1,R02535,1,bead,stone,limestone
+Item-10396,C04838,S10527,BUDAK1,R02535,1,flake,stone,radiolarite
+Item-10397,C04840,S10527,BUDAK1,R02537,1,triangle,stone,flint/chert
+Item-10397,C04840,S10527,BUDAK1,R02537,1,vessel,clay,clay: pottery
+Item-10397,C04840,S10527,BUDAK1,R02537,1,vessel,clay,clay: pottery
+Item-10397,C04840,S10527,BUDAK1,R02537,1,bead,metal,copper
+Item-10397,C04840,S10527,BUDAK1,R02537,1,axe: hammer,stone,serpentinite
+Item-10397,C04840,S10527,BUDAK1,R02537,1,axe: hammer,stone,serpentinite
+Item-10397,C04840,S10527,BUDAK1,R02537,1,flake,stone,flint/chert
+Item-10397,C04840,S10527,BUDAK1,R02537,1,flake,stone,flint/chert
+Item-10397,C04840,S10527,BUDAK1,R02537,1,point,stone,limnic quartzite
+Item-10397,C04840,S10527,BUDAK1,R02537,1,trapeze,stone,limnic quartzite
+Item-10397,C04840,S10527,BUDAK1,R02537,1,trapeze,stone,radiolarite
+Item-10397,C04840,S10527,BUDAK1,R02537,1,flake,stone,limnic quartzite
+Item-10397,C04840,S10527,BUDAK1,R02537,1,bead,stone,
+Item-10397,C04840,S10527,BUDAK1,R02537,1,bead,shell,animal: mollusca
+Item-10398,C04841,S10527,BUDAK1,R02538,1,bead,clay,clay: pottery
+Item-10398,C04841,S10527,BUDAK1,R02538,1,trapeze,stone,jasper
+Item-10399,C04842,S10527,BUDAK1,R02539,1,,shell,animal: mollusca
+Item-10400,C04844,S10527,BUDAK1,R02541,1,implement,bone,animal
+Item-10400,C04844,S10527,BUDAK1,R02541,1,implement,bone,animal
+Item-10400,C04844,S10527,BUDAK1,R02541,1,vessel,clay,clay: pottery
+Item-10400,C04844,S10527,BUDAK1,R02541,1,vessel,clay,clay: pottery
+Item-10400,C04844,S10527,BUDAK1,R02541,1,bead,metal,copper
+Item-10400,C04844,S10527,BUDAK1,R02541,1,bead,metal,copper
+Item-10400,C04844,S10527,BUDAK1,R02541,1,bead,stone,limestone
+Item-10400,C04844,S10527,BUDAK1,R02541,1,flake,stone,radiolarite
+Item-10400,C04844,S10527,BUDAK1,R02541,1,trapeze,stone,flint/chert
+Item-10400,C04844,S10527,BUDAK1,R02541,1,blade,stone,radiolarite
+Item-10400,C04844,S10527,BUDAK1,R02541,1,trapeze,stone,flint/chert
+Item-10400,C04844,S10527,BUDAK1,R02541,1,bead,shell,animal: mollusca
+Item-10400,C04844,S10527,BUDAK1,R02541,1,bead,shell,animal: mollusca
+Item-10401,C04845,S10527,BUDAK1,R02542,1,core,stone,obsidian
+Item-10402,C04846,S10527,BUDAK1,R02543,1,vessel,clay,clay: pottery
+Item-10404,C04848,S10527,BUDAK1,R02545,1,vessel,clay,clay: pottery
+Item-10404,C04848,S10527,BUDAK1,R02545,1,bead,stone,limestone
+Item-10404,C04848,S10527,BUDAK1,R02545,1,plaque,shell,animal: mollusca
+Item-10406,C04850,S10527,BUDAK1,R02547,1,vessel,clay,clay: pottery
+Item-10406,C04850,S10527,BUDAK1,R02547,1,vessel,clay,clay: pottery
+Item-10406,C04850,S10527,BUDAK1,R02547,1,vessel,clay,clay: pottery
+Item-10406,C04850,S10527,BUDAK1,R02547,1,debitage,stone,
+Item-10406,C04850,S10527,BUDAK1,R02547,1,,stone,
+Item-10407,C04851,S10527,BUDAK1,R02548,1,axe: hammer,stone,serpentinite
+Item-10407,C04851,S10527,BUDAK1,R02548,1,bead,stone,limestone
+Item-10407,C04851,S10527,BUDAK1,R02548,1,bead,stone,limestone
+Item-10407,C04851,S10527,BUDAK1,R02548,1,bead,shell,animal: mollusca
+Item-10408,C04853,S10527,BUDAK1,R02550,1,vessel,clay,clay: pottery
+Item-10408,C04853,S10527,BUDAK1,R02550,1,vessel,clay,clay: pottery
+Item-10408,C04853,S10527,BUDAK1,R02550,1,vessel,clay,clay: pottery
+Item-10408,C04853,S10527,BUDAK1,R02550,1,vessel,clay,clay: pottery
+Item-10408,C04853,S10527,BUDAK1,R02550,1,flake,stone,radiolarite
+Item-10408,C04853,S10527,BUDAK1,R02550,1,flake,stone,radiolarite
+Item-10408,C04853,S10527,BUDAK1,R02550,1,trapeze,stone,radiolarite
+Item-10408,C04853,S10527,BUDAK1,R02550,1,blade,stone,limnic quartzite
+Item-10408,C04853,S10527,BUDAK1,R02550,1,trapeze,stone,limnic quartzite
+Item-10408,C04853,S10527,BUDAK1,R02550,1,point,stone,flint/chert
+Item-10408,C04853,S10527,BUDAK1,R02550,1,flake,stone,flint/chert
+Item-10408,C04853,S10527,BUDAK1,R02550,1,trapeze,stone,flint/chert
+Item-10408,C04853,S10527,BUDAK1,R02550,1,trapeze,stone,flint/chert
+Item-10408,C04853,S10527,BUDAK1,R02550,1,trapeze,stone,obsidian
+Item-10408,C04853,S10527,BUDAK1,R02550,1,flake,stone,radiolarite
+Item-10409,C04854,S10527,BUDAK1,R02551,1,vessel,clay,clay: pottery
+Item-10409,C04854,S10527,BUDAK1,R02551,1,vessel,clay,clay: pottery
+Item-10409,C04854,S10527,BUDAK1,R02551,1,plaque,shell,
+Item-10409,C04854,S10527,BUDAK1,R02551,1,flake,stone,radiolarite
+Item-10410,C04855,S10527,BUDAK1,R02552,1,vessel,clay,clay: pottery
+Item-10410,C04855,S10527,BUDAK1,R02552,1,vessel,clay,clay: pottery
+Item-10412,C04857,S10527,BUDAK1,R02554,1,vessel,clay,clay: pottery
+Item-10412,C04857,S10527,BUDAK1,R02554,1,bead,shell,
+Item-10412,C04857,S10527,BUDAK1,R02554,1,end-scraper,stone,hornstone
+Item-10412,C04857,S10527,BUDAK1,R02554,1,flake,stone,radiolarite
+Item-10412,C04857,S10527,BUDAK1,R02554,1,rectangle,stone,jasper
+Item-10412,C04857,S10527,BUDAK1,R02554,1,flake,stone,radiolarite
+Item-10412,C04857,S10527,BUDAK1,R02554,1,debitage,stone,hornstone
+Item-10413,C04858,S10527,BUDAK1,R02555,1,,bone,animal
+Item-10413,C04858,S10527,BUDAK1,R02555,1,bracelet,tooth: canine: upper,animal: wild boar
+Item-10413,C04858,S10527,BUDAK1,R02555,1,vessel,clay,clay: pottery
+Item-10413,C04858,S10527,BUDAK1,R02555,1,bead,shell,
+Item-10413,C04858,S10527,BUDAK1,R02555,1,plaque,shell,
+Item-10413,C04858,S10527,BUDAK1,R02555,1,bead,shell,
+Item-10413,C04858,S10527,BUDAK1,R02555,1,bead,shell,animal: mollusca
+Item-10413,C04858,S10527,BUDAK1,R02555,1,bead,shell,animal: mollusca
+Item-10415,C04860,S10527,BUDAK1,R02557,1,vessel,clay,clay: pottery
+Item-10415,C04860,S10527,BUDAK1,R02557,1,vessel,clay,clay: pottery
+Item-10416,C04861,S10527,BUDAK1,R02558,1,vessel,clay,clay: pottery
+Item-10416,C04861,S10527,BUDAK1,R02558,1,vessel,clay,clay: pottery
+Item-10416,C04861,S10527,BUDAK1,R02558,1,bead,metal,copper
+Item-10416,C04861,S10527,BUDAK1,R02558,1,bead,metal,copper
+Item-10416,C04861,S10527,BUDAK1,R02558,1,artefact,metal,copper
+Item-10416,C04861,S10527,BUDAK1,R02558,1,bead,metal: sheet,copper
+Item-10416,C04861,S10527,BUDAK1,R02558,1,bead,stone,limestone
+Item-10416,C04861,S10527,BUDAK1,R02558,1,bead,shell,animal: mollusca
+Item-10416,C04861,S10527,BUDAK1,R02558,1,bead,shell,animal: mollusca
+Item-10419,C04864,S10527,BUDAK1,R02561,1,bead,metal,copper
+Item-10419,C04864,S10527,BUDAK1,R02561,1,blade,stone,limnic quartzite
+Item-10419,C04864,S10527,BUDAK1,R02561,1,debitage,stone,flint/chert
+Item-10419,C04864,S10527,BUDAK1,R02561,1,bead,shell,animal: mollusca
+Item-10419,C04864,S10527,BUDAK1,R02561,1,awl,bone: metatarsal,animal: sheep/goat
+Item-10421,C04867,S10527,BUDAK1,R02564,1,,bone,animal
+Item-10421,C04867,S10527,BUDAK1,R02564,1,vessel,clay,clay: pottery
+Item-10421,C04867,S10527,BUDAK1,R02564,1,vessel,clay,clay: pottery
+Item-10421,C04867,S10527,BUDAK1,R02564,1,vessel,clay,clay: pottery
+Item-10421,C04867,S10527,BUDAK1,R02564,1,vessel,clay,clay: pottery
+Item-10421,C04867,S10527,BUDAK1,R02564,1,vessel,clay,clay: pottery
+Item-10421,C04867,S10527,BUDAK1,R02564,1,bead,clay,clay: pottery
+Item-10421,C04867,S10527,BUDAK1,R02564,1,chisel,metal,copper
+Item-10421,C04867,S10527,BUDAK1,R02564,1,bead,metal,copper
+Item-10421,C04867,S10527,BUDAK1,R02564,1,blade,stone,flint/chert
+Item-10421,C04867,S10527,BUDAK1,R02564,1,trapeze,stone,limnic quartzite
+Item-10421,C04867,S10527,BUDAK1,R02564,1,flake,stone,flint/chert
+Item-10421,C04867,S10527,BUDAK1,R02564,1,blade,stone,flint/chert
+Item-10421,C04867,S10527,BUDAK1,R02564,1,bead,stone,limestone
+Item-10421,C04867,S10527,BUDAK1,R02564,1,bead,stone,limestone
+Item-10421,C04867,S10527,BUDAK1,R02564,1,axe: hammer,stone,basalt
+Item-10421,C04867,S10527,BUDAK1,R02564,1,bead,shell,animal: mollusca
+Item-10421,C04867,S10527,BUDAK1,R02564,1,bead,shell,animal: mollusca
+Item-10421,C04867,S10527,BUDAK1,R02564,1,bead,shell,animal: mollusca
+Item-10421,C04867,S10527,BUDAK1,R02564,1,bead,shell,animal: mollusca
+Item-10421,C04867,S10527,BUDAK1,R02564,1,plaque,shell,animal: mollusca
+Item-10421,C04867,S10527,BUDAK1,R02564,1,plaque,shell,animal: mollusca
+Item-10423,C04869,S10527,BUDAK1,R02566,1,blade,stone,radiolarite
+Item-10424,C04870,S10527,BUDAK1,R02567,1,vessel,clay,clay: pottery
+Item-10427,C04875,S10527,BUDAK1,R02572,1,vessel,clay,clay: pottery
+Item-10428,C04876,S10527,BUDAK1,R02573,1,vessel,clay,clay: pottery
+Item-10429,C04877,S10527,BUDAK1,R02574,1,vessel,clay,clay: pottery
+Item-10429,C04877,S10527,BUDAK1,R02574,1,,stone,
+Item-10430,C04879,S10527,BUDAK1,R02576,1,bead,stone,limestone
+Item-10430,C04879,S10527,BUDAK1,R02576,1,bead,shell,animal: mollusca
+Item-10430,C04879,S10527,BUDAK1,R02576,1,bead,shell,animal: mollusca
+Item-10431,C04880,S10527,BUDAK1,R02577,1,vessel,clay,clay: pottery
+Item-10432,C04881,S10527,BUDAK1,R02578,1,vessel,clay,clay: pottery
+Item-10432,C04881,S10527,BUDAK1,R02578,1,axe: flat,stone,serpentinite
+Item-10432,C04881,S10527,BUDAK1,R02578,1,core,stone,hornstone
+Item-10432,C04881,S10527,BUDAK1,R02578,1,blade,stone,limnic quartzite
+Item-10434,C04883,S10527,BUDAK1,R02580,1,vessel,clay,clay: pottery
+Item-10434,C04883,S10527,BUDAK1,R02580,1,vessel,clay,clay: pottery
+Item-10435,C04884,S10527,BUDAK1,R02581,1,rectangle,stone,limnic quartzite
+Item-10436,C04885,S10527,BUDAK1,R02582,1,,bone,animal
+Item-10436,C04885,S10527,BUDAK1,R02582,1,vessel,clay,clay: pottery
+Item-10436,C04885,S10527,BUDAK1,R02582,1,vessel,clay,clay: pottery
+Item-10437,C04886,S10527,BUDAK1,R02583,1,bead,metal,copper
+Item-10437,C04886,S10527,BUDAK1,R02583,1,bead,shell,animal: mollusca: snail
+Item-10437,C04886,S10527,BUDAK1,R02583,1,blade,stone,radiolarite
+Item-10437,C04886,S10527,BUDAK1,R02583,1,bead,shell,animal: mollusca
+Item-10438,C04887,S10527,BUDAK1,R02584,1,vessel,clay,clay: pottery
+Item-10439,C04888,S10527,BUDAK1,R02585,1,vessel,clay,clay: pottery
+Item-10441,C04891,S10527,BUDAK1,R02588,1,vessel,clay,clay: pottery
+Item-10441,C04891,S10527,BUDAK1,R02588,1,vessel,clay,clay: pottery
+Item-10442,C04892,S10527,BUDAK1,R02589,1,,bone,animal
+Item-10442,C04892,S10527,BUDAK1,R02589,1,,stone,
+Item-10442,C04892,S10527,BUDAK1,R02589,1,,shell,animal: mollusca: snail
+Item-10443,C04893,S10527,BUDAK1,R02590,1,vessel,clay,clay: pottery
+Item-10443,C04893,S10527,BUDAK1,R02590,1,vessel,clay,clay: pottery
+Item-10444,C04894,S10527,BUDAK1,R02591,1,grinding stone,,
+Item-10444,C04894,S10527,BUDAK1,R02591,1,awl,bone,animal
+Item-10444,C04894,S10527,BUDAK1,R02591,1,vessel,clay,clay: pottery
+Item-10444,C04894,S10527,BUDAK1,R02591,1,vessel,clay,clay: pottery
+Item-10444,C04894,S10527,BUDAK1,R02591,1,vessel,clay,clay: pottery
+Item-10445,C04895,S10527,BUDAK1,R02592,1,,shell,animal: mollusca: snail
+Item-10445,C04895,S10527,BUDAK1,R02592,1,blade,stone,jasper
+Item-10445,C04895,S10527,BUDAK1,R02592,1,bead,stone,limestone
+Item-10445,C04895,S10527,BUDAK1,R02592,1,bead,stone,limestone
+Item-10445,C04895,S10527,BUDAK1,R02592,1,bead,stone,limestone
+Item-10445,C04895,S10527,BUDAK1,R02592,1,bead,stone,limestone
+Item-10445,C04895,S10527,BUDAK1,R02592,1,,shell,animal: mollusca
+Item-10445,C04895,S10527,BUDAK1,R02592,1,,shell,animal: mollusca
+Item-10445,C04895,S10527,BUDAK1,R02592,1,bead,shell,animal: mollusca
+Item-10445,C04895,S10527,BUDAK1,R02592,1,,shell,animal: mollusca: snail
+Item-10446,C04896,S10527,BUDAK1,R02593,1,vessel,clay,clay: pottery
+Item-10446,C04896,S10527,BUDAK1,R02593,1,chisel,metal,copper
+Item-10448,C04898,S10527,BUDAK1,R02595,1,vessel,clay,clay: pottery
+Item-10448,C04898,S10527,BUDAK1,R02595,1,bead,stone,limestone
+Item-10448,C04898,S10527,BUDAK1,R02595,1,,shell,animal: mollusca
+Item-10449,C04899,S10527,BUDAK1,R02596,1,pebble,stone,flint/chert
+Item-10451,C04901,S10527,BUDAK1,R02598,1,vessel,clay,clay: pottery
+Item-10451,C04901,S10527,BUDAK1,R02598,1,vessel,clay,clay: pottery
+Item-10451,C04901,S10527,BUDAK1,R02598,1,vessel,clay,clay: pottery
+Item-10451,C04901,S10527,BUDAK1,R02598,1,,stone,mauve
+Item-10451,C04901,S10527,BUDAK1,R02598,1,scraper: side,stone,radiolarite
+Item-10452,C04902,S10527,BUDAK1,R02599,1,vessel,clay,clay: pottery
+Item-10452,C04902,S10527,BUDAK1,R02599,1,vessel,clay,clay: pottery
+Item-10452,C04902,S10527,BUDAK1,R02599,1,debitage,stone,limnic quartzite
+Item-10452,C04902,S10527,BUDAK1,R02599,1,,stone,
+Item-10454,C04904,S10527,BUDAK1,R02601,1,vessel,clay,clay: pottery
+Item-10454,C04904,S10527,BUDAK1,R02601,1,vessel,clay,clay: pottery
+Item-10454,C04904,S10527,BUDAK1,R02601,1,vessel,clay,clay: pottery
+Item-10454,C04904,S10527,BUDAK1,R02601,1,,stone,
+Item-10455,C04905,S10527,BUDAK1,R02602,1,vessel,clay,clay: pottery
+Item-10455,C04905,S10527,BUDAK1,R02602,1,vessel,clay,clay: pottery
+Item-10455,C04905,S10527,BUDAK1,R02602,1,,shell,animal: mollusca
+Item-10456,C04906,S10527,BUDAK1,R02603,1,vessel,clay,clay: pottery
+Item-10456,C04906,S10527,BUDAK1,R02603,1,vessel,clay,clay: pottery
+Item-10456,C04906,S10527,BUDAK1,R02603,1,core,stone,radiolarite
+Item-10456,C04906,S10527,BUDAK1,R02603,1,debitage,stone,radiolarite
+Item-10457,C04907,S10527,BUDAK1,R02604,1,vessel,clay,clay: pottery
+Item-10457,C04907,S10527,BUDAK1,R02604,1,vessel,clay,clay: pottery
+Item-10458,C04908,S10527,BUDAK1,R02605,1,vessel,clay,clay: pottery
+Item-10458,C04908,S10527,BUDAK1,R02605,1,flake,stone,radiolarite
+Item-10459,C04910,S10527,BUDAK1,R02607,1,plaque,shell,
+Item-10459,C04910,S10527,BUDAK1,R02607,1,blade,stone,limnic quartzite
+Item-10459,C04910,S10527,BUDAK1,R02607,1,bead,stone,limestone
+Item-10459,C04910,S10527,BUDAK1,R02607,1,bead,shell,animal: mollusca
+Item-10459,C04910,S10527,BUDAK1,R02607,1,bead,shell,animal: mollusca
+Item-10460,C04911,S10527,BUDAK1,R02608,1,bead,metal,copper
+Item-10460,C04911,S10527,BUDAK1,R02608,1,bead,stone,limestone
+Item-10460,C04911,S10527,BUDAK1,R02608,1,bead,shell,animal: mollusca
+Item-10462,C04913,S10527,BUDAK1,R02610,1,vessel,clay,clay: pottery
+Item-10462,C04913,S10527,BUDAK1,R02610,1,bead,stone,limestone
+Item-10462,C04913,S10527,BUDAK1,R02610,1,bead,stone,limestone
+Item-10462,C04913,S10527,BUDAK1,R02610,1,bead,shell,animal: mollusca
+Item-10462,C04913,S10527,BUDAK1,R02610,1,bead,shell,animal: mollusca
+Item-10462,C04913,S10527,BUDAK1,R02610,1,bead,shell,animal: mollusca
+Item-10462,C04913,S10527,BUDAK1,R02610,1,vessel,clay,clay: pottery
+Item-10463,C04914,S10527,BUDAK1,R02611,1,vessel,clay,clay: pottery
+Item-10463,C04914,S10527,BUDAK1,R02611,1,bead,metal,copper
+Item-10463,C04914,S10527,BUDAK1,R02611,1,trapeze,stone,limnic quartzite
+Item-10463,C04914,S10527,BUDAK1,R02611,1,bead,stone,limestone
+Item-10463,C04914,S10527,BUDAK1,R02611,1,bead,shell,animal: mollusca
+Item-10463,C04914,S10527,BUDAK1,R02611,1,bead,shell,animal: mollusca
+Item-10463,C04914,S10527,BUDAK1,R02611,1,plaque,shell,animal: mollusca
+Item-10465,C04916,S10527,BUDAK1,R02613,1,vessel,clay,clay: pottery
+Item-10466,C04917,S10527,BUDAK1,R02614,1,vessel,clay,clay: pottery
+Item-10466,C04917,S10527,BUDAK1,R02614,1,,stone,
+Item-10466,C04917,S10527,BUDAK1,R02614,1,,shell,animal: mollusca
+Item-10466,C04917,S10527,BUDAK1,R02614,1,vessel,clay,clay: pottery
+Item-10466,C04917,S10527,BUDAK1,R02614,1,vessel,clay,clay: pottery
+Item-10466,C04917,S10527,BUDAK1,R02614,1,vessel,clay,clay: pottery
+Item-10467,C04918,S10527,BUDAK1,R02615,1,chisel,bone,animal
+Item-10467,C04918,S10527,BUDAK1,R02615,1,vessel,clay,clay: pottery
+Item-10467,C04918,S10527,BUDAK1,R02615,1,vessel,clay,clay: pottery
+Item-10467,C04918,S10527,BUDAK1,R02615,1,,stone,
+Item-10468,C04919,S10527,BUDAK1,R02616,1,burin,stone,radiolarite
+Item-10470,C04921,S10527,BUDAK1,R02618,1,vessel,clay,clay: pottery
+Item-10470,C04921,S10527,BUDAK1,R02618,1,blade,stone,radiolarite
+Item-10471,C04922,S10527,BUDAK1,R02619,1,bead,stone,limestone
+Item-10471,C04922,S10527,BUDAK1,R02619,1,pebble,stone,radiolarite
+Item-10472,C04923,S10527,BUDAK1,R02620,1,vessel,clay,clay: pottery
+Item-10472,C04923,S10527,BUDAK1,R02620,1,burin,stone,hornstone
+Item-10473,C04924,S10527,BUDAK1,R02621,1,vessel,clay,clay: pottery
+Item-10473,C04924,S10527,BUDAK1,R02621,1,pebble,stone,lydite
+Item-10473,C04924,S10527,BUDAK1,R02621,1,bead,stone,limestone
+Item-10473,C04924,S10527,BUDAK1,R02621,1,bead,shell,animal: mollusca
+Item-10473,C04924,S10527,BUDAK1,R02621,1,bead,shell,animal: mollusca
+Item-10473,C04924,S10527,BUDAK1,R02621,1,bead,shell,animal: mollusca
+Item-10473,C04924,S10527,BUDAK1,R02621,1,vessel,clay,clay: pottery
+Item-10473,C04924,S10527,BUDAK1,R02621,1,vessel,clay,clay: pottery
+Item-10473,C04924,S10527,BUDAK1,R02621,1,vessel,clay,clay: pottery
+Item-10474,C04925,S10527,BUDAK1,R02622,1,core,stone,flint/chert
+Item-10477,C04928,S10527,BUDAK1,R02625,1,vessel,clay,clay: pottery
+Item-10477,C04928,S10527,BUDAK1,R02625,1,vessel,clay,clay: pottery
+Item-10477,C04928,S10527,BUDAK1,R02625,1,vessel,clay,clay: pottery
+Item-10478,C04929,S10527,BUDAK1,R02626,1,plaque,shell,animal: mollusca
+Item-10480,C04931,S10527,BUDAK1,R02628,1,artefact,,
+Item-10480,C04931,S10527,BUDAK1,R02628,1,bead,stone,limestone
+Item-10481,C04932,S10527,BUDAK1,R02629,1,vessel,clay,clay: pottery
+Item-10482,C04933,S10527,BUDAK1,R02630,1,blade,stone,
+Item-10483,C04934,S10527,BUDAK1,R02631,1,vessel,clay,clay: pottery
+Item-10483,C04934,S10527,BUDAK1,R02631,1,bead,metal,copper
+Item-10483,C04934,S10527,BUDAK1,R02631,1,,stone,
+Item-10483,C04934,S10527,BUDAK1,R02631,1,bead,stone,limestone
+Item-10483,C04934,S10527,BUDAK1,R02631,1,bead,shell,animal: mollusca
+Item-10488,C04940,S10527,BUDAK1,R02637,1,pebble,stone,radiolarite
+Item-10495,C05070,S10527,BUDAK1,R02767,1,bead,,
+Item-10495,C05070,S10527,BUDAK1,R02767,1,plaque,shell,
+Item-10496,C05072,S10527,BUDAK1,R02769,1,bead,,
+Item-10496,C05072,S10527,BUDAK1,R02769,1,bead,metal,copper
+Item-10496,C05072,S10527,BUDAK1,R02769,1,bead,metal,copper
+Item-10496,C05072,S10527,BUDAK1,R02769,1,,shell,
+Item-10496,C05072,S10527,BUDAK1,R02769,1,,shell,
+Item-10496,C05072,S10527,BUDAK1,R02769,1,trapeze,stone,flint/chert
+Item-10496,C05072,S10527,BUDAK1,R02769,1,trapeze,stone,radiolarite
+Item-10496,C05072,S10527,BUDAK1,R02769,1,trapeze,stone,limnic quartzite
+Item-10496,C05072,S10527,BUDAK1,R02769,1,bead,shell,animal: mollusca
+Item-10497,C05074,S10527,BUDAK1,R02771,1,vessel,clay,clay: pottery
+Item-10497,C05074,S10527,BUDAK1,R02771,1,,stone,
+Item-10497,C05074,S10527,BUDAK1,R02771,1,bead,stone,limestone
+Item-10501,C05083,S10527,BUDAK1,R02780,1,,metal,copper
+Item-10502,C05087,S10527,BUDAK1,R02784,1,bead,stone,limestone
+Item-10502,C05087,S10527,BUDAK1,R02784,1,bead,shell,animal: mollusca
+Item-10502,C05087,S10527,BUDAK1,R02784,1,,shell,animal: mollusca
+Item-10502,C05087,S10527,BUDAK1,R02784,1,,shell,animal: mollusca
+Item-10504,C05090,S10527,BUDAK1,R02787,1,vessel,clay,clay: pottery
+Item-10510,C05102,S10527,BUDAK1,R02799,1,burin,stone,radiolarite
+Item-10511,C05105,S10527,BUDAK1,R02802,1,vessel,clay,clay: pottery
+Item-10511,C05105,S10527,BUDAK1,R02802,1,vessel,clay,clay: pottery
+Item-10511,C05105,S10527,BUDAK1,R02802,1,vessel,clay,clay: pottery
+Item-10512,C05107,S10527,BUDAK1,R02804,1,blade,stone,limnic quartzite
+Item-10513,C05115,S10527,BUDAK1,R02812,1,pebble,stone,radiolarite
+Item-10514,C05117,S10527,BUDAK1,R02814,1,vessel,clay,clay: pottery
+Item-10514,C05117,S10527,BUDAK1,R02814,1,,stone,radiolarite
+Item-10514,C05117,S10527,BUDAK1,R02814,1,flake,stone,radiolarite
+Item-10514,C05117,S10527,BUDAK1,R02814,1,bead,stone,limestone
+Item-10514,C05117,S10527,BUDAK1,R02814,1,bead,stone,limestone
+Item-10516,C05122,S10527,BUDAK1,R02819,1,arrowhead,antler,
+Item-10516,C05122,S10527,BUDAK1,R02819,1,,wood,charcoal
+Item-10517,C05123,S10527,BUDAK1,R02820,1,vessel,clay,clay: pottery
+Item-10517,C05123,S10527,BUDAK1,R02820,1,,stone,
+Item-10520,C05138,S10527,BUDAK1,R02835,1,blade,stone,flint/chert
+Item-10521,C05148,S10527,BUDAK1,R02845,1,vessel,clay,clay: pottery
+Item-10522,C05151,S10527,BUDAK1,R02848,1,pebble,stone,radiolarite
+Item-10523,C05154,S10527,BUDAK1,R02851,1,bead,shell,animal: mollusca
+Item-10523,C05154,S10527,BUDAK1,R02851,1,,tooth: canine: upper,animal: wild boar
+Item-10523,C05154,S10527,BUDAK1,R02851,1,,tooth,animal: wild boar
+Item-10524,C05157,S10527,BUDAK1,R02854,1,vessel,clay,clay: pottery
+Item-10524,C05157,S10527,BUDAK1,R02854,1,plaque,shell,
+Item-10524,C05157,S10527,BUDAK1,R02854,1,bead,stone,limestone
+Item-10525,C05158,S10527,BUDAK1,R02855,1,vessel,clay,clay: pottery
+Item-10525,C05158,S10527,BUDAK1,R02855,1,point,stone,radiolarite
+Item-10525,C05158,S10527,BUDAK1,R02855,1,pebble,stone,radiolarite
+Item-10525,C05158,S10527,BUDAK1,R02855,1,vessel,clay,clay: pottery
+Item-10525,C05158,S10527,BUDAK1,R02855,1,vessel,clay,clay: pottery
+Item-10526,C05162,S10527,BUDAK1,R02859,1,vessel,clay,clay: pottery
+Item-10528,C05164,S10527,BUDAK1,R02861,1,vessel,clay,clay: pottery
+Item-10529,C05165,S10527,BUDAK1,R02862,1,vessel,clay,clay: pottery
+Item-10529,C05165,S10527,BUDAK1,R02862,1,bead,metal,copper
+Item-10529,C05165,S10527,BUDAK1,R02862,1,bead,stone,limestone
+Item-10530,C05166,S10527,BUDAK1,R02863,1,vessel,clay,clay: pottery
+Item-10530,C05166,S10527,BUDAK1,R02863,1,bead,stone,limestone
+Item-10530,C05166,S10527,BUDAK1,R02863,1,,shell,animal: mollusca
+Item-10530,C05166,S10527,BUDAK1,R02863,1,,shell,animal: mollusca
+Item-10531,C05167,S10527,BUDAK1,R02864,1,bead,stone,limestone
+Item-10531,C05167,S10527,BUDAK1,R02864,1,bead,shell,animal: mollusca
+Item-10533,C05170,S10527,BUDAK1,R02867,1,vessel,clay,clay: pottery
+Item-10533,C05170,S10527,BUDAK1,R02867,1,vessel,clay,clay: pottery
+Item-10533,C05170,S10527,BUDAK1,R02867,1,vessel,clay,clay: pottery
+Item-10533,C05170,S10527,BUDAK1,R02867,1,vessel,clay,clay: pottery
+Item-10534,C05172,S10527,BUDAK1,R02869,1,,shell,animal: mollusca: snail
+Item-10534,C05172,S10527,BUDAK1,R02869,1,,stone,
+Item-10537,C05175,S10527,BUDAK1,R02872,1,vessel,clay,clay: pottery
+Item-10538,C05177,S10527,BUDAK1,R02874,1,vessel,clay,clay: pottery
+Item-10539,C05179,S10527,BUDAK1,R02876,1,vessel,clay,clay: pottery
+Item-10539,C05179,S10527,BUDAK1,R02876,1,,stone,
+Item-10539,C05179,S10527,BUDAK1,R02876,1,,shell,animal: mollusca
+Item-10539,C05179,S10527,BUDAK1,R02876,1,bead,shell,animal: mollusca
+Item-10539,C05179,S10527,BUDAK1,R02876,1,vessel,clay,clay: pottery
+Item-10540,C05184,S10527,BUDAK1,R02881,1,vessel,clay,clay: pottery
+Item-10541,C05186,S10527,BUDAK1,R02883,1,vessel,clay,clay: pottery
+Item-10541,C05186,S10527,BUDAK1,R02883,1,,stone,
+Item-10541,C05186,S10527,BUDAK1,R02883,1,vessel,clay,clay: pottery
+Item-10543,C05190,S10527,BUDAK1,R02887,1,vessel,clay,clay: pottery
+Item-10544,C05191,S10527,BUDAK1,R02888,1,debitage,stone,flint/chert
+Item-10544,C05191,S10527,BUDAK1,R02888,1,,shell,animal: mollusca
+Item-10545,C05229,S10527,BUDAK1,R02926,1,,stone,
+Item-10545,C05229,S10527,BUDAK1,R02926,1,,shell,animal: mollusca
+Item-10546,C05230,S10527,BUDAK1,R02927,1,vessel,clay,clay: pottery
+Item-10546,C05230,S10527,BUDAK1,R02927,1,vessel,clay,clay: pottery
+Item-10547,C05232,S10527,BUDAK1,R02929,1,vessel,clay,clay: pottery
+Item-10548,C04757,S10527,BUDAK1,R02454,1,vessel,clay,clay: pottery
+Item-10548,C04757,S10527,BUDAK1,R02454,1,bead,metal,copper
+Item-10548,C04757,S10527,BUDAK1,R02454,1,bead,metal,copper
+Item-10548,C04757,S10527,BUDAK1,R02454,1,point,stone,radiolarite
+Item-10548,C04757,S10527,BUDAK1,R02454,1,burin,stone,limnic quartzite
+Item-10548,C04757,S10527,BUDAK1,R02454,1,burin,stone,limnic quartzite
+Item-10548,C04757,S10527,BUDAK1,R02454,1,bead,stone,
+Item-10548,C04757,S10527,BUDAK1,R02454,1,bead,shell,animal: mollusca
+Item-10549,C04766,S10527,BUDAK1,R02463,1,vessel,clay,clay: pottery
+Item-10549,C04766,S10527,BUDAK1,R02463,1,vessel,clay,clay: pottery
+Item-10551,C04878,S10527,BUDAK1,R02575,1,vessel,clay,clay: pottery
+Item-10552,C05068,S10527,BUDAK1,R02765,1,vessel,clay,clay: pottery
+Item-10552,C05068,S10527,BUDAK1,R02765,1,blade,stone,
+Item-10552,C05068,S10527,BUDAK1,R02765,1,flake,stone,flint
+Item-10565,C07432,S11013,BRANNLA1,R01382,1,,,
+Item-10566,C07435,S11013,BRANNLA1,R01385,1,ring: temple,metal,bronze
+Item-10566,C07435,S11013,BRANNLA1,R01385,1,,bone: paw,animal: dog
+Item-10567,C07436,S11013,BRANNLA1,R01386,1,vessel,clay,clay: pottery
+Item-10569,C07450,S04332,BREZULO2,R01388,1,vessel,clay,clay: pottery
+Item-10571,C07454,S11014,CACHOV3,R01392,1,vessel,clay,clay: pottery
+Item-10571,C07454,S11014,CACHOV3,R01392,1,ring: temple: spiral,metal,copper
+Item-10571,C07454,S11014,CACHOV3,R01392,1,bead,metal,copper
+Item-10571,C07454,S11014,CACHOV3,R01392,1,blade,stone,flint
+Item-10571,C07454,S11014,CACHOV3,R01392,1,whetstone,stone,
+Item-10572,C07460,S11014,CACHOV3,R01398,1,vessel,clay,clay: pottery
+Item-10572,C07460,S11014,CACHOV3,R01398,1,blade,stone,flint
+Item-10572,C07460,S11014,CACHOV3,R01398,1,whetstone,stone,
+Item-10572,C07460,S11014,CACHOV3,R01398,1,,bone,animal
+Item-10574,C07466,S11016,HOLUB1,R01404,1,vessel,clay,clay: pottery
+Item-10574,C07466,S11016,HOLUB1,R01404,1,spiral,metal,copper
+Item-10574,C07466,S11016,HOLUB1,R01404,1,ring: temple,metal,copper
+Item-10576,C07469,S11017,HOS-PAL6,R01407,1,vessel,clay,clay: pottery
+Item-10577,C07470,S11017,HOS-PAL6,R01408,1,vessel,clay,clay: pottery
+Item-10581,C07489,S11019,KNEZE1,R01419,1,,,
+Item-10582,C07491,S11019,KNEZE2,R01421,1,earring,metal,copper/bronze
+Item-10583,C07493,S11019,KNEZE2,R01423,1,vessel,clay,clay: pottery
+Item-10583,C07493,S11019,KNEZE2,R01423,1,pin,bone,animal
+Item-10584,C07494,S11019,KNEZE2,R01424,1,vessel,clay,clay: pottery
+Item-10584,C07494,S11019,KNEZE2,R01424,1,earring,metal,bronze
+Item-10585,C07495,S11019,KNEZE2,R01425,1,vessel,clay,clay: pottery
+Item-10586,C07497,S11019,KNEZE2,R01427,1,vessel,clay,clay: pottery
+Item-10587,C07498,S11019,KNEZE2,R01428,1,vessel,clay,clay: pottery
+Item-10588,C07499,S11020,KOLI12,R01429,1,vessel,clay,clay: pottery
+Item-10589,C07500,S11020,KOLI12,R01430,1,point,bone,animal
+Item-10593,C07506,S11020,KOLI18,R01436,1,armring,metal,bronze
+Item-10593,C07506,S11020,KOLI18,R01436,1,tool,bone,animal
+Item-10593,C07506,S11020,KOLI18,R01436,1,bead,resin,amber
+Item-10594,C07507,S11020,KOLI18,R01437,1,vessel,clay,clay: pottery
+Item-10595,C07508,S11020,KOLI18,R01438,1,vessel,clay,clay: pottery
+Item-10595,C07508,S11020,KOLI18,R01438,1,pin,metal,bronze
+Item-10595,C07508,S11020,KOLI18,R01438,1,earring,metal,bronze
+Item-10595,C07508,S11020,KOLI18,R01438,1,spiral,metal,bronze
+Item-10595,C07508,S11020,KOLI18,R01438,1,,bone: shoulder blade,animal
+Item-10595,C07508,S11020,KOLI18,R01438,1,hook,bone,animal
+Item-10595,C07508,S11020,KOLI18,R01438,1,disc,bone,animal
+Item-10596,C07509,S11020,KOLI18,R01439,1,vessel,clay,clay: pottery
+Item-10596,C07509,S11020,KOLI18,R01439,1,pin,metal,bronze
+Item-10596,C07509,S11020,KOLI18,R01439,1,earring,metal,bronze
+Item-10597,C07510,S11021,KOLI24,R01440,1,vessel,clay,clay: pottery
+Item-10597,C07510,S11021,KOLI24,R01440,1,arrowhead,stone,flint
+Item-10597,C07510,S11021,KOLI24,R01440,1,dagger,stone,flint
+Item-10597,C07510,S11021,KOLI24,R01440,1,vessel,clay,clay: pottery
+Item-10598,C07511,S11021,KOLI24,R01441,1,vessel,clay,clay: pottery
+Item-10598,C07511,S11021,KOLI24,R01441,1,vessel,clay,clay: pottery
+Item-10598,C07511,S11021,KOLI24,R01441,1,ring,bone,animal
+Item-10599,C07512,S11021,KOLI24,R01442,1,vessel,clay,clay: pottery
+Item-10599,C07512,S11021,KOLI24,R01442,1,vessel,clay,clay: pottery
+Item-10600,C07516,S11022,KOLI62,R01446,1,vessel,clay,clay: pottery
+Item-10601,C07517,S11023,KOLI71,R01447,1,vessel,clay,clay: pottery
+Item-10601,C07517,S11023,KOLI71,R01447,1,awl,bone,animal
+Item-10601,C07517,S11023,KOLI71,R01447,1,tool,stone,flint
+Item-10602,C07519,S11023,KOLI71,R01449,1,vessel,clay,clay: pottery
+Item-10603,C07521,S11024,KOLST2,R01451,1,vessel,clay,clay: pottery
+Item-10603,C07521,S11024,KOLST2,R01451,1,vessel,clay,clay: pottery
+Item-10603,C07521,S11024,KOLST2,R01451,1,,stone,flint
+Item-10603,C07521,S11024,KOLST2,R01451,1,,bone,animal
+Item-10603,C07521,S11024,KOLST2,R01451,1,,clay,clay: daub
+Item-10604,C07530,S11024,KOLST2,R01460,1,vessel,clay,clay: pottery
+Item-10604,C07530,S11024,KOLST2,R01460,1,,bone,animal
+Item-10604,C07530,S11024,KOLST2,R01460,1,,bone,human
+Item-10604,C07530,S11024,KOLST2,R01460,1,grinding stone,stone,
+Item-10604,C07530,S11024,KOLST2,R01460,1,,tooth,human
+Item-10605,C07536,S11024,KOLST2,R01466,1,vessel,clay,clay: pottery
+Item-10605,C07536,S11024,KOLST2,R01466,1,vessel,clay,clay: pottery
+Item-10605,C07536,S11024,KOLST2,R01466,1,flake,stone,flint
+Item-10605,C07536,S11024,KOLST2,R01466,1,,bone,animal
+Item-10606,C07538,S11025,KONO2,R01468,1,vessel,clay,clay: pottery
+Item-10606,C07538,S11025,KONO2,R01468,1,blade,stone,flint
+Item-10607,C07541,S11025,KONO2,R01471,1,vessel,clay,clay: pottery
+Item-10607,C07541,S11025,KONO2,R01471,1,,tooth,animal
+Item-10607,C07541,S11025,KONO2,R01471,1,bead,bone,animal
+Item-10607,C07541,S11025,KONO2,R01471,1,bead,shell,animal: mollusca
+Item-10607,C07541,S11025,KONO2,R01471,1,awl,bone,animal
+Item-10607,C07541,S11025,KONO2,R01471,1,,bone,animal: pig
+Item-10607,C07541,S11025,KONO2,R01471,1,blade,stone,flint
+Item-10608,C07542,S11025,KONO2,R01472,1,clasp,bone,animal
+Item-10608,C07542,S11025,KONO2,R01472,1,blade,stone,flint
+Item-10617,C07570,S11026,MIKUL2,R01493,1,vessel,clay,clay: pottery
+Item-10617,C07570,S11026,MIKUL2,R01493,1,pin,metal,bronze
+Item-10617,C07570,S11026,MIKUL2,R01493,1,vessel,clay,clay: pottery
+Item-10617,C07570,S11026,MIKUL2,R01493,1,bead,resin,amber
+Item-10618,C07571,S11026,MIKUL2,R01494,1,vessel,clay,clay: pottery
+Item-10618,C07571,S11026,MIKUL2,R01494,1,awl,metal,
+Item-10618,C07571,S11026,MIKUL2,R01494,1,artefact,metal,
+Item-10618,C07571,S11026,MIKUL2,R01494,1,,shell,animal: mollusca: freshwater
+Item-10618,C07571,S11026,MIKUL2,R01494,1,vessel,clay,clay: pottery
+Item-10618,C07571,S11026,MIKUL2,R01494,1,,clay,clay: daub
+Item-10619,C07572,S11026,MIKUL2,R01495,1,vessel,clay,clay: pottery
+Item-10619,C07572,S11026,MIKUL2,R01495,1,bracelet,metal: sheet,
+Item-10619,C07572,S11026,MIKUL2,R01495,1,needle,metal,
+Item-10619,C07572,S11026,MIKUL2,R01495,1,,metal,
+Item-10619,C07572,S11026,MIKUL2,R01495,1,earring,metal,
+Item-10619,C07572,S11026,MIKUL2,R01495,1,bead,resin,amber
+Item-10620,C07573,S11026,MIKUL2,R01496,1,vessel,clay,clay: pottery
+Item-10620,C07573,S11026,MIKUL2,R01496,1,vessel,clay,clay: pottery
+Item-10620,C07573,S11026,MIKUL2,R01496,1,bracelet,metal: bar,
+Item-10620,C07573,S11026,MIKUL2,R01496,1,bead,resin,amber
+Item-10620,C07573,S11026,MIKUL2,R01496,1,disc,resin,amber
+Item-10621,C07574,S11026,MIKUL2,R01497,1,vessel,clay,clay: pottery
+Item-10621,C07574,S11026,MIKUL2,R01497,1,vessel,clay,clay: pottery
+Item-10621,C07574,S11026,MIKUL2,R01497,1,needle,metal,
+Item-10621,C07574,S11026,MIKUL2,R01497,1,spiral,metal,
+Item-10621,C07574,S11026,MIKUL2,R01497,1,bead,resin,amber
+Item-10621,C07574,S11026,MIKUL2,R01497,1,flake,stone,flint
+Item-10621,C07574,S11026,MIKUL2,R01497,1,awl,bone,animal
+Item-10621,C07574,S11026,MIKUL2,R01497,1,,clay,clay: daub
+Item-10622,C07575,S11026,MIKUL2,R01498,1,vessel,clay,clay: pottery
+Item-10622,C07575,S11026,MIKUL2,R01498,1,awl,bone,animal
+Item-10622,C07575,S11026,MIKUL2,R01498,1,,clay,clay: daub
+Item-10623,C07576,S11026,MIKUL2,R01499,1,artefact,metal,
+Item-10623,C07576,S11026,MIKUL2,R01499,1,vessel,clay,clay: pottery
+Item-10623,C07576,S11026,MIKUL2,R01499,1,,bone,animal
+Item-10623,C07576,S11026,MIKUL2,R01499,1,,bone,animal
+Item-10624,C07577,S11026,MIKUL2,R01500,1,,,
+Item-10625,C07578,S11026,MIKUL2,R01501,1,vessel,clay,clay: pottery
+Item-10625,C07578,S11026,MIKUL2,R01501,1,vessel,clay,clay: pottery
+Item-10625,C07578,S11026,MIKUL2,R01501,1,needle,metal,
+Item-10625,C07578,S11026,MIKUL2,R01501,1,earring,metal,
+Item-10625,C07578,S11026,MIKUL2,R01501,1,spiral,metal,
+Item-10625,C07578,S11026,MIKUL2,R01501,1,,clay,clay: daub
+Item-10626,C07579,S11026,MIKUL2,R01502,1,vessel,clay,clay: pottery
+Item-10627,C07580,S11026,MIKUL2,R01503,1,vessel,clay,clay: pottery
+Item-10628,C07581,S11026,MIKUL2,R01504,1,,clay,clay: daub
+Item-10628,C07581,S11026,MIKUL2,R01504,1,,bone: shoulder blade,animal
+Item-10628,C07581,S11026,MIKUL2,R01504,1,vessel,clay,clay: pottery
+Item-10630,C07583,S11026,MIKUL2,R01506,1,,,
+Item-10631,C07584,S11026,MIKUL2,R01507,1,,,
+Item-10632,C07585,S11026,MIKUL2,R01508,1,,,
+Item-10633,C07586,S11026,MIKUL3,R01509,1,vessel,clay,clay: pottery
+Item-10633,C07586,S11026,MIKUL3,R01509,1,wedge,bone,animal
+Item-10633,C07586,S11026,MIKUL3,R01509,1,,clay,clay: daub
+Item-10633,C07586,S11026,MIKUL3,R01509,1,,bone,animal
+Item-10633,C07586,S11026,MIKUL3,R01509,1,,stone,
+Item-10634,C07587,S11026,MIKUL2,R01510,1,awl,bone,animal
+Item-10634,C07587,S11026,MIKUL2,R01510,1,vessel,clay,clay: pottery
+Item-10634,C07587,S11026,MIKUL2,R01510,1,tool,bone,animal
+Item-10634,C07587,S11026,MIKUL2,R01510,1,,bone,animal
+Item-10634,C07587,S11026,MIKUL2,R01510,1,,clay,clay: daub
+Item-10634,C07587,S11026,MIKUL2,R01510,1,,stone,
+Item-10635,C07588,S11027,NERAT1,R01511,1,blade,stone,flint
+Item-10636,C07589,S11028,OBRIS2,R01512,1,,,
+Item-10638,C07591,S11028,OBRIS2,R01514,1,vessel,clay,clay: pottery
+Item-10638,C07591,S11028,OBRIS2,R01514,1,clasp,bone,animal
+Item-10638,C07591,S11028,OBRIS2,R01514,1,axe: battle,stone,
+Item-10638,C07591,S11028,OBRIS2,R01514,1,blade,stone,flint
+Item-10639,C07592,S11028,OBRIS2,R01515,1,vessel,clay,clay: pottery
+Item-10640,C07593,S11029,PLONL5,R01516,1,clasp,bone,animal
+Item-10640,C07593,S11029,PLONL5,R01516,1,awl,bone,animal
+Item-10640,C07593,S11029,PLONL5,R01516,1,blade,stone,flint
+Item-10641,C07594,S11030,PRDAB1,R01517,1,vessel,clay,clay: pottery
+Item-10642,C07596,S11032,PRNBU5,R01519,1,vessel,clay,clay: pottery
+Item-10642,C07596,S11032,PRNBU5,R01519,1,axe: flat,stone,
+Item-10642,C07596,S11032,PRNBU5,R01519,1,dagger,metal,copper
+Item-10642,C07596,S11032,PRNBU5,R01519,1,whetstone,stone,
+Item-10642,C07596,S11032,PRNBU5,R01519,1,blade,stone,flint
+Item-10642,C07596,S11032,PRNBU5,R01519,1,flake,stone,flint
+Item-10643,C07597,S11032,PRNBU5,R01520,1,vessel,clay,clay: pottery
+Item-10643,C07597,S11032,PRNBU5,R01520,1,ring: temple,metal,copper
+Item-10643,C07597,S11032,PRNBU5,R01520,1,disc,shell,animal: mollusca
+Item-10643,C07597,S11032,PRNBU5,R01520,1,bead,tooth,animal
+Item-10643,C07597,S11032,PRNBU5,R01520,1,bead,shell,animal: mollusca
+Item-10643,C07597,S11032,PRNBU5,R01520,1,bead,bone,animal
+Item-10643,C07597,S11032,PRNBU5,R01520,1,blade,stone,flint
+Item-10643,C07597,S11032,PRNBU5,R01520,1,flake,stone,flint
+Item-10644,C07598,S11031,PRMIS1,R01521,1,vessel,clay,clay: pottery
+Item-10644,C07598,S11031,PRMIS1,R01521,1,grinder,stone,
+Item-10645,C07599,S11031,PRMIS1,R01522,1,vessel,clay,clay: pottery
+Item-10645,C07599,S11031,PRMIS1,R01522,1,artefact,stone,flint
+Item-10646,C07600,S11031,PRMIS1,R01523,1,vessel,clay,clay: pottery
+Item-10646,C07600,S11031,PRMIS1,R01523,1,earring,metal,bronze
+Item-10646,C07600,S11031,PRMIS1,R01523,1,,bone,animal
+Item-10648,C07602,S11031,PRMIS1,R01525,1,vessel,clay,clay: pottery
+Item-10649,C07603,S11031,PRMIS2,R01526,1,vessel,clay,clay: pottery
+Item-10649,C07603,S11031,PRMIS2,R01526,1,spiral,metal,bronze
+Item-10649,C07603,S11031,PRMIS2,R01526,1,bead,resin,amber
+Item-10649,C07603,S11031,PRMIS2,R01526,1,spiral,metal,bronze
+Item-10649,C07603,S11031,PRMIS2,R01526,1,bead,resin,amber
+Item-10649,C07603,S11031,PRMIS2,R01526,1,ring: spiral,metal,bronze
+Item-10649,C07603,S11031,PRMIS2,R01526,1,pin,metal,bronze
+Item-10649,C07603,S11031,PRMIS2,R01526,1,vessel,clay,clay: pottery
+Item-10649,C07603,S11031,PRMIS2,R01526,1,,clay,clay: daub
+Item-10650,C07604,S11031,PRMIS2,R01527,1,vessel,clay,clay: pottery
+Item-10650,C07604,S11031,PRMIS2,R01527,1,ring: spiral,metal,bronze
+Item-10650,C07604,S11031,PRMIS2,R01527,1,ring: spiral,metal,bronze
+Item-10650,C07604,S11031,PRMIS2,R01527,1,spiral,metal,bronze
+Item-10650,C07604,S11031,PRMIS2,R01527,1,pin,metal,bronze
+Item-10650,C07604,S11031,PRMIS2,R01527,1,spiral,metal,bronze
+Item-10650,C07604,S11031,PRMIS2,R01527,1,bead,resin,amber
+Item-10650,C07604,S11031,PRMIS2,R01527,1,bead,resin,amber
+Item-10650,C07604,S11031,PRMIS2,R01527,1,,shell,animal: mollusca
+Item-10650,C07604,S11031,PRMIS2,R01527,1,vessel,clay,clay: pottery
+Item-10651,C07605,S11031,PRMIS2,R01528,1,pin,metal,bronze
+Item-10653,C07606,S11031,PRMIS2,R01529,1,vessel,clay,clay: pottery
+Item-10653,C07606,S11031,PRMIS2,R01529,1,dagger,metal,bronze
+Item-10653,C07606,S11031,PRMIS2,R01529,1,chisel,metal,bronze
+Item-10653,C07606,S11031,PRMIS2,R01529,1,pin,metal,bronze
+Item-10653,C07606,S11031,PRMIS2,R01529,1,bead,resin,amber
+Item-10654,C07607,S11031,PRMIS2,R01530,1,pin,metal,bronze
+Item-10654,C07607,S11031,PRMIS2,R01530,1,ring: spiral,metal,bronze
+Item-10654,C07607,S11031,PRMIS2,R01530,1,spiral,metal,bronze
+Item-10654,C07607,S11031,PRMIS2,R01530,1,spiral,metal,bronze
+Item-10654,C07607,S11031,PRMIS2,R01530,1,bead,resin,amber
+Item-10654,C07607,S11031,PRMIS2,R01530,1,bead,resin,amber
+Item-10654,C07607,S11031,PRMIS2,R01530,1,vessel,clay,clay: pottery
+Item-10654,C07607,S11031,PRMIS2,R01530,1,bead,bone,animal
+Item-10654,C07607,S11031,PRMIS2,R01530,1,ring: spiral,metal,bronze
+Item-10654,C07607,S11031,PRMIS2,R01530,1,,shell,animal: mollusca
+Item-10654,C07607,S11031,PRMIS2,R01530,1,,bone: shoulder blade,animal: cattle
+Item-10655,C07608,S11031,PRMIS3,R01531,1,vessel,clay,clay: pottery
+Item-10655,C07608,S11031,PRMIS3,R01531,1,pin,metal,bronze
+Item-10656,C07611,S11032,PRNBU5,R01534,1,axe: flat,stone,
+Item-10656,C07611,S11032,PRNBU5,R01534,1,vessel,clay,clay: pottery
+Item-10656,C07611,S11032,PRNBU5,R01534,1,blade,stone,flint
+Item-10656,C07611,S11032,PRNBU5,R01534,1,whetstone,stone,
+Item-10657,C07615,S11033,PRRUZ3,R01538,1,vessel,clay,clay: pottery
+Item-10659,C07622,S08787,RDVE3,R01545,1,axe: battle,stone,
+Item-10659,C07622,S08787,RDVE3,R01545,1,pin,bone,animal
+Item-10659,C07622,S08787,RDVE3,R01545,1,blade,stone,flint
+Item-10660,C07623,S08787,RDVE3,R01546,1,,,
+Item-10661,C07624,S08787,RDVE3,R01547,1,vessel,clay,clay: pottery
+Item-10661,C07624,S08787,RDVE3,R01547,1,mace,stone,
+Item-10661,C07624,S08787,RDVE3,R01547,1,axe: flat,stone,
+Item-10662,C07625,S08787,RDVE3,R01548,1,vessel,clay,clay: pottery
+Item-10662,C07625,S08787,RDVE3,R01548,1,axe: battle,stone,
+Item-10662,C07625,S08787,RDVE3,R01548,1,axe: flat,stone,
+Item-10664,C07645,S11035,STADN1,R01557,1,bead,shell,animal: mollusca
+Item-10664,C07645,S11035,STADN1,R01557,1,blade,stone,flint
+Item-10665,C07646,S11035,STADN1,R01558,1,vessel,clay,clay: pottery
+Item-10665,C07646,S11035,STADN1,R01558,1,blade,stone,flint
+Item-10667,C07649,S11036,TISIC2,R01560,1,vessel,clay,clay: pottery
+Item-10667,C07649,S11036,TISIC2,R01560,1,flake,stone,flint
+Item-10668,C07650,S08795,TOUSE1,R01561,1,vessel,clay,clay: pottery
+Item-10669,C07653,S11037,TRMI1,R01564,1,axe: battle,stone,
+Item-10669,C07653,S11037,TRMI1,R01564,1,blade,stone,flint
+Item-10670,C07655,S11037,TRMI1,R01566,1,vessel,clay,clay: pottery
+Item-10670,C07655,S11037,TRMI1,R01566,1,axe: battle,stone,
+Item-10670,C07655,S11037,TRMI1,R01566,1,blade,stone,flint
+Item-10671,C07656,S11038,TUCHO2,R01567,1,vessel,clay,clay: pottery
+Item-10671,C07656,S11038,TUCHO2,R01567,1,axe,stone,
+Item-10676,C07665,S11040,VLIN2,R01576,1,vessel,clay,clay: pottery
+Item-10682,C07671,S11040,VLIN6,R01582,1,vessel,clay,clay: pottery
+Item-10683,C07672,S11040,VLIN6,R01583,1,bead,tooth,animal
+Item-10683,C07672,S11040,VLIN6,R01583,1,artefact,shell,animal: mollusca
+Item-10684,C07673,S11040,VLIN6,R01584,1,vessel,clay,clay: pottery
+Item-10684,C07673,S11040,VLIN6,R01584,1,flake,stone,flint
+Item-10685,C07674,S11040,VLIN6,R01585,1,flake,stone,flint
+Item-10686,C07675,S11040,VLIN6,R01586,1,blade,stone,flint
+Item-10688,C07680,S11040,VLIN6,R01591,1,bead,tooth,animal
+Item-10688,C07680,S11040,VLIN6,R01591,1,bead,shell,animal: mollusca
+Item-10693,C07689,S11040,VLIN6,R01600,1,bead,bone,animal
+Item-10693,C07689,S11040,VLIN6,R01600,1,blade,stone,flint
+Item-10697,C07700,S11040,VLIN6,R01611,1,,,
+Item-10698,C07701,S11040,VLIN6,R01612,1,vessel,clay,clay: pottery
+Item-10698,C07701,S11040,VLIN6,R01612,1,,stone,
+Item-10700,C07703,S11040,VLIN6,R01614,1,blade,stone,flint
+Item-10700,C07703,S11040,VLIN6,R01614,1,vessel,clay,clay: pottery
+Item-10701,C07704,S11040,VLIN6,R01615,1,blade,stone,flint
+Item-10703,C07706,S11040,VLIN6,R01617,1,vessel,clay,clay: pottery
+Item-10704,C07707,S11040,VLIN6,R01618,1,awl,bone,animal
+Item-10704,C07707,S11040,VLIN6,R01618,1,flake,stone,flint
+Item-10706,C07709,S11040,VLIN6,R01620,1,vessel,clay,clay: pottery
+Item-10706,C07709,S11040,VLIN6,R01620,1,whetstone,stone,
+Item-10707,C07710,S11040,VLIN6,R01621,1,blade,stone,flint
+Item-10708,C07711,S11040,VLIN6,R01622,1,vessel,clay,clay: pottery
+Item-10708,C07711,S11040,VLIN6,R01622,1,disc,shell,animal: mollusca
+Item-10708,C07711,S11040,VLIN6,R01622,1,awl,bone,animal
+Item-10709,C07712,S11040,VLIN7,R01623,1,vessel,clay,clay: pottery
+Item-10709,C07712,S11040,VLIN7,R01623,1,vessel,clay,clay: pottery
+Item-10710,C07713,S11040,VLIN7,R01624,1,vessel,clay,clay: pottery
+Item-10711,C07718,S11040,VLIN7,R01629,1,vessel,clay,clay: pottery
+Item-10712,C07719,S11040,VLIN7,R01630,1,vessel,clay,clay: pottery
+Item-10713,C07723,S11040,VLIN8,R01634,1,vessel,clay,clay: pottery
+Item-10713,C07723,S11040,VLIN8,R01634,1,pin,metal,bronze
+Item-10713,C07723,S11040,VLIN8,R01634,1,earring,metal,bronze
+Item-10713,C07723,S11040,VLIN8,R01634,1,spiral,metal,bronze
+Item-10713,C07723,S11040,VLIN8,R01634,1,bead,resin,amber
+Item-10714,C07724,S11040,VLIN8,R01635,1,vessel,clay,clay: pottery
+Item-10715,C07726,S11040,VLIN8,R01637,1,vessel,clay,clay: pottery
+Item-10715,C07726,S11040,VLIN8,R01637,1,pin,metal,bronze
+Item-10715,C07726,S11040,VLIN8,R01637,1,earring,metal,bronze
+Item-10715,C07726,S11040,VLIN8,R01637,1,ring,metal,bronze
+Item-10715,C07726,S11040,VLIN8,R01637,1,bead,metal,bronze
+Item-10715,C07726,S11040,VLIN8,R01637,1,bead,resin,amber
+Item-10717,C07729,S11040,VLIN8,R01640,1,pin,metal,bronze
+Item-10717,C07729,S11040,VLIN8,R01640,1,bracelet,metal,bronze
+Item-10717,C07729,S11040,VLIN8,R01640,1,bead/pendant,resin,amber
+Item-10718,C07734,S11040,VLIN8,R03722,1,pin,metal,bronze
+Item-10719,C07736,S11040,VLIN8,R01645,1,vessel,clay,clay: pottery
+Item-10720,C07738,S11040,VLIN8,R01647,1,vessel,clay,clay: pottery
+Item-10721,C07739,S11040,VLIN8,R01648,1,vessel,clay,clay: pottery
+Item-10722,C07740,S11040,VLIN8,R01649,1,dagger,metal,bronze
+Item-10722,C07740,S11040,VLIN8,R01649,1,axe,metal,bronze
+Item-10722,C07740,S11040,VLIN8,R01649,1,awl,bone,animal
+Item-10723,C07741,S11040,VLIN8,R01650,1,dagger,stone,flint
+Item-10724,C07742,S11040,VLIN8,R01651,1,,,
+Item-10727,C07755,S11020,KOLI17,R01664,1,axe: flat,stone,
+Item-10728,C07756,S11020,KOLI18,R01665,1,vessel,clay,clay: pottery
+Item-10728,C07756,S11020,KOLI18,R01665,1,earring,metal,bronze
+Item-10728,C07756,S11020,KOLI18,R01665,1,,bone: shoulder blade,animal
+Item-10729,C07757,S11020,KOLI18,R01666,1,vessel,clay,clay: pottery
+Item-10729,C07757,S11020,KOLI18,R01666,1,pin,metal,bronze
+Item-10729,C07757,S11020,KOLI18,R01666,1,bead,metal,bronze
+Item-10729,C07757,S11020,KOLI18,R01666,1,bead,resin,amber
+Item-10730,C07759,S11030,PRDAB1,R01668,1,vessel,clay,clay: pottery
+Item-10730,C07759,S11030,PRDAB1,R01668,1,disc,bone,animal
+Item-10730,C07759,S11030,PRDAB1,R01668,1,awl,bone,animal
+Item-10730,C07759,S11030,PRDAB1,R01668,1,earring,metal,copper/bronze
+Item-10731,C07760,S11029,PLONL5,R01669,1,axe: flat,stone,
+Item-10735,C07765,S10035,PRKOB2,R01673,1,vessel,clay,clay: pottery
+Item-10736,C07766,S10035,PRKOB2,R01674,1,vessel,clay,clay: pottery
+Item-10736,C07766,S10035,PRKOB2,R01674,1,,bone,animal
+Item-10737,C07767,S10035,PRKOB2,R01675,1,vessel,clay,clay: pottery
+Item-10834,C02988,S09002,MON1,R02076,1,,,
+Item-10835,C02999,S08983,LFA1,R02087,1,,,
+Item-10854,C03034,S10025,HUT1,R02122,1,,,
+Item-10855,C03035,S10025,HUT1,R02123,1,,,
+Item-10860,C03041,S10026,AHE1,R02129,1,,,
+Item-10862,C03049,S10026,AHE1,R02137,1,,,
+Item-10863,C03052,S10027,OSA2,R02140,1,,,
+Item-10864,C03073,S10029,ALB1,R02161,1,,,
+Item-10868,C03156,S10034,PRJIN5,R02244,1,,,
+Item-10869,C03158,S10034,PRJIN5,R02246,1,,,
+Item-10870,C03160,S10034,PRJIN5,R02248,1,,,
+Item-10876,C03214,S10035,PRKOB2,R02297,1,,,
+Item-10877,C03215,S10035,PRKOB2,R02298,1,,,
+Item-10878,C03217,S10035,PRKOB2,R02300,1,,,
+Item-10879,C03218,S10035,PRKOB2,R02301,1,,,
+Item-10882,C03277,S07780,SAM2,R02351,1,,,
+Item-10883,C03278,S07780,SAM2,R02352,1,,,
+Item-10884,C03279,S07780,SAM2,R02353,1,,,
+Item-10885,C03280,S07780,SAM2,R02354,1,,,
+Item-10886,C03282,S07780,SAM2,R02356,1,,,
+Item-10887,C03285,S07780,SAM2,R02359,1,,,
+Item-10889,C03309,S10048,BBE1,R02383,1,,,
+Item-10890,C03310,S10048,BBE1,R02384,1,,,
+Item-10893,C03314,S10049,SZIF1,R02388,1,,,
+Item-10894,C03320,S10049,SZIF1,R02394,1,,,
+Item-10897,C03335,S10049,SZIF1,R02409,1,,,
+Item-10898,C03494,S10024,LAI1,R02434,1,,,
+Item-10901,C03286,S07780,SAM2,R02360,1,,,
+Item-10902,C03287,S10041,DZI6,R02361,1,,,
+Item-10903,C03290,S10042,IW1,R02364,1,,,
+Item-10904,C03292,S10044,KOR3,R02366,1,,,
+Item-10905,C03293,S10044,KOR3,R02367,1,,,
+Item-10906,C03294,S10044,KOR3,R02368,1,,,
+Item-10907,C03295,S10044,KOR3,R02369,1,,,
+Item-10908,C03300,S10045,RAC1,R02374,1,,,
+Item-10909,C03301,S03884,STW3,R02375,1,,,
+Item-10910,C03302,S10046,ZRW1,R02376,1,,,
+Item-10911,C03303,S10047,BUD1,R02377,1,,,
+Item-10914,C03368,S10129,KLH1,R00429,1,,shell,animal: mollusca
+Item-10914,C03368,S10129,KLH1,R00429,1,,shell,animal: mollusca
+Item-10914,C03368,S10129,KLH1,R00429,1,blade-scraper,stone,flint: Jurassic-Cracow
+Item-10914,C03368,S10129,KLH1,R00429,1,adze,stone,amphibolite
+Item-10914,C03368,S10129,KLH1,R00429,1,point,bone: metapodial: distal,animal: small ruminant
+Item-10914,C03368,S10129,KLH1,R00429,1,blade,stone,flint: Szentgál-radiolarite
+Item-10914,C03368,S10129,KLH1,R00429,1,blade,stone,flint: Jurassic-Cracow
+Item-10914,C03368,S10129,KLH1,R00429,1,blade,stone,flint
+Item-10915,C03371,S10129,KLH1,R00432,1,bead,shell,animal: mollusca: snail
+Item-10916,C03372,S10129,KLH1,R00433,1,bead,shell,animal: mollusca
+Item-10916,C03372,S10129,KLH1,R00433,1,vessel,clay,clay: pottery
+Item-10916,C03372,S10129,KLH1,R00433,1,vessel,clay,clay: pottery
+Item-10917,C03373,S10129,KLH1,R00434,1,vessel,clay,clay: pottery
+Item-10917,C03373,S10129,KLH1,R00434,1,,shell,animal: mollusca
+Item-10918,C03374,S10129,KLH1,R00435,1,vessel,clay,clay: pottery
+Item-10918,C03374,S10129,KLH1,R00435,1,adze,stone,amphibolite
+Item-10918,C03374,S10129,KLH1,R00435,1,blade,stone,flint
+Item-10918,C03374,S10129,KLH1,R00435,1,grinding stone,stone,quartzite: amphibole
+Item-10919,C03379,S10129,KLH1,R00440,1,bead,shell,animal: mollusca
+Item-10919,C03379,S10129,KLH1,R00440,1,point,bone: metatarsal: distal,animal: roe deer
+Item-10920,C03380,S10129,KLH1,R00441,1,vessel,clay,clay: pottery
+Item-10920,C03380,S10129,KLH1,R00441,1,vessel,clay,clay: pottery
+Item-10920,C03380,S10129,KLH1,R00441,1,vessel,clay,clay: pottery
+Item-10920,C03380,S10129,KLH1,R00441,1,vessel,clay,clay: pottery
+Item-10921,C03381,S10129,KLH1,R00442,1,,bone,animal
+Item-10921,C03381,S10129,KLH1,R00442,1,vessel,clay,clay: pottery
+Item-10921,C03381,S10129,KLH1,R00442,1,adze,stone,amphibolite
+Item-10921,C03381,S10129,KLH1,R00442,1,vessel,clay,clay: pottery
+Item-10921,C03381,S10129,KLH1,R00442,1,vessel,clay,clay: pottery
+Item-10921,C03381,S10129,KLH1,R00442,1,vessel,clay,clay: pottery
+Item-10921,C03381,S10129,KLH1,R00442,1,vessel,clay,clay: pottery
+Item-10921,C03381,S10129,KLH1,R00442,1,vessel,clay,clay: pottery
+Item-10921,C03381,S10129,KLH1,R00442,1,blade,stone,flint
+Item-10922,C03382,S10129,KLH1,R00443,1,,,
+Item-10923,C03386,S10129,KLH1,R00447,1,bead,shell,animal: mollusca
+Item-10923,C03386,S10129,KLH1,R00447,1,vessel,clay,clay: pottery
+Item-10923,C03386,S10129,KLH1,R00447,1,grinding stone,stone,quartzite: amphibole: glauconite
+Item-10923,C03386,S10129,KLH1,R00447,1,,bone,animal
+Item-10923,C03386,S10129,KLH1,R00447,1,vessel,clay,clay: pottery
+Item-10923,C03386,S10129,KLH1,R00447,1,vessel,clay,clay: pottery
+Item-10923,C03386,S10129,KLH1,R00447,1,vessel,clay,clay: pottery
+Item-10923,C03386,S10129,KLH1,R00447,1,grinding stone,stone,quartzite: amphibole
+Item-10924,C03388,S10129,KLH1,R00449,1,vessel,clay,clay: pottery
+Item-10924,C03388,S10129,KLH1,R00449,1,grinder,stone,sandstone
+Item-10924,C03388,S10129,KLH1,R00449,1,,stone,sandstone
+Item-10925,C03390,S10129,KLH1,R00451,1,,stone,sandstone
+Item-10925,C03390,S10129,KLH1,R00451,1,vessel,clay,clay: pottery
+Item-10925,C03390,S10129,KLH1,R00451,1,point,bone: metatarsal: distal,animal: roe deer
+Item-10925,C03390,S10129,KLH1,R00451,1,grinding stone,stone,sandstone
+Item-10925,C03390,S10129,KLH1,R00451,1,blade,stone,flint: Jurassic-Cracow
+Item-10925,C03390,S10129,KLH1,R00451,1,adze,stone,amphibolite
+Item-10925,C03390,S10129,KLH1,R00451,1,,graphite,
+Item-10925,C03390,S10129,KLH1,R00451,1,vessel,clay,clay: pottery
+Item-10925,C03390,S10129,KLH1,R00451,1,blade,stone,flint: Jurassic-Cracow
+Item-10925,C03390,S10129,KLH1,R00451,1,blade,stone,flint: Szentgál-radiolarite
+Item-10925,C03390,S10129,KLH1,R00451,1,blade,stone,flint: Szentgál-radiolarite
+Item-10925,C03390,S10129,KLH1,R00451,1,flake,stone,flint: Szentgál-radiolarite
+Item-10925,C03390,S10129,KLH1,R00451,1,blade,stone,flint: Jurassic-Cracow
+Item-10925,C03390,S10129,KLH1,R00451,1,blade,stone,flint: Jurassic-Cracow
+Item-10925,C03390,S10129,KLH1,R00451,1,blade,stone,flint: Jurassic-Cracow
+Item-10925,C03390,S10129,KLH1,R00451,1,blade,stone,flint: Jurassic-Cracow
+Item-10926,C03391,S10129,KLH1,R00452,1,vessel,clay,clay: pottery
+Item-10926,C03391,S10129,KLH1,R00452,1,grinding stone,stone,sandstone
+Item-10927,C03392,S10129,KLH1,R00453,1,vessel,clay,clay: pottery
+Item-10927,C03392,S10129,KLH1,R00453,1,point,bone: metatarsal,animal: roe deer
+Item-10927,C03392,S10129,KLH1,R00453,1,,stone,sandstone
+Item-10927,C03392,S10129,KLH1,R00453,1,grinding stone,stone,sandstone: feldspar: amphibole: glauconite
+Item-10927,C03392,S10129,KLH1,R00453,1,pendant,shell,animal: mollusca
+Item-10927,C03392,S10129,KLH1,R00453,1,flake,stone,flint: Krumlovský les-Hornstein II
+Item-10927,C03392,S10129,KLH1,R00453,1,adze,stone,amphibolite
+Item-10927,C03392,S10129,KLH1,R00453,1,vessel,clay,clay: pottery
+Item-10927,C03392,S10129,KLH1,R00453,1,vessel,clay,clay: pottery
+Item-10927,C03392,S10129,KLH1,R00453,1,flake,stone,flint: Krumlovský les-Hornstein II
+Item-10927,C03392,S10129,KLH1,R00453,1,flake,stone,flint: Krumlovský les-Hornstein II
+Item-10927,C03392,S10129,KLH1,R00453,1,application,tooth: canine: upper,animal: wild boar
+Item-10928,C03396,S10129,KLH1,R00457,1,adze,stone,amphibolite
+Item-10928,C03396,S10129,KLH1,R00457,1,bead,shell,animal: mollusca
+Item-10928,C03396,S10129,KLH1,R00457,1,point,bone: metatarsal: distal,animal: sheep
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,,stone,flint
+Item-10930,C03398,S10129,KLH1,R00459,1,bracelet,shell,animal: mollusca
+Item-10930,C03398,S10129,KLH1,R00459,1,grinding stone,stone,quartzite
+Item-10930,C03398,S10129,KLH1,R00459,1,whetstone,stone,
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,vessel,clay,clay: pottery
+Item-10930,C03398,S10129,KLH1,R00459,1,blade,stone,flint: Jurassic-Cracow
+Item-10930,C03398,S10129,KLH1,R00459,1,grinder,stone,sandstone
+Item-10930,C03398,S10129,KLH1,R00459,1,,stone,radiolarite
+Item-10931,C03404,S10129,KLH1,R00465,1,grinding stone,stone,quartzite
+Item-10931,C03404,S10129,KLH1,R00465,1,point,antler/bone,animal
+Item-10939,C03491,S10137,MER2,R00552,1,vessel,clay,clay: pottery
+Item-10940,C03492,S10137,MER1,R00553,1,pigment: lump,stone,ochre
+Item-10940,C03492,S10137,MER1,R00553,1,vessel,clay,clay: pottery
+Item-10940,C03492,S10137,MER1,R00553,1,ball,stone,
+Item-10943,C03518,S10141,SMA1,R00567,1,ring: hair,metal,silver
+Item-10944,C03519,S10141,SMA1,R00568,1,ring: hair,metal,silver
+Item-10945,C03520,S10141,SMA1,R00569,1,ring: hair,metal,silver
+Item-10946,C03521,S10141,SMA1,R00570,1,artefact,stone,flint
+Item-10946,C03521,S10141,SMA1,R00570,1,vessel,clay,clay: pottery
+Item-10946,C03521,S10141,SMA1,R00570,1,bead,stone,serpentine
+Item-10946,C03521,S10141,SMA1,R00570,1,bead,bone,animal
+Item-10946,C03521,S10141,SMA1,R00570,1,bead,shell,animal: mollusca
+Item-10947,C03548,S10142,SUS1,R00597,1,vessel,clay,clay: pottery
+Item-10950,C03559,S10143,VAR1,R00608,1,implement,metal,copper
+Item-10950,C03559,S10143,VAR1,R00608,1,ornament,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,bead,shell,animal: mollusca
+Item-10950,C03559,S10143,VAR1,R00608,1,bead,stone,
+Item-10950,C03559,S10143,VAR1,R00608,1,tool,stone,flint
+Item-10950,C03559,S10143,VAR1,R00608,1,earring,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,application,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,bracelet,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,bracelet,shell,animal: mollusca
+Item-10950,C03559,S10143,VAR1,R00608,1,application,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,bracelet,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,bead,stone,carnelian
+Item-10950,C03559,S10143,VAR1,R00608,1,application,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,application: collar,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,plaque,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,sheath: penis,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,application,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,vessel,clay,clay: pottery
+Item-10950,C03559,S10143,VAR1,R00608,1,quiver: fittings,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,pedestal,clay,clay: pottery
+Item-10950,C03559,S10143,VAR1,R00608,1,bow,,
+Item-10950,C03559,S10143,VAR1,R00608,1,fittings,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,spearhead,stone,flint
+Item-10950,C03559,S10143,VAR1,R00608,1,spearhead,metal,copper
+Item-10950,C03559,S10143,VAR1,R00608,1,needle,bone,animal
+Item-10950,C03559,S10143,VAR1,R00608,1,axe-sceptre,stone,
+Item-10950,C03559,S10143,VAR1,R00608,1,tube,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,ring,metal,gold
+Item-10950,C03559,S10143,VAR1,R00608,1,axe,metal,copper
+Item-10950,C03559,S10143,VAR1,R00608,1,vessel,clay,clay: pottery
+Item-10950,C03559,S10143,VAR1,R00608,1,lid,clay,clay: pottery
+Item-10950,C03559,S10143,VAR1,R00608,1,blade,stone,flint
+Item-10950,C03559,S10143,VAR1,R00608,1,axe,metal,copper
+Item-10950,C03559,S10143,VAR1,R00608,1,axe,stone,
+Item-10950,C03559,S10143,VAR1,R00608,1,adze,stone,
+Item-10950,C03559,S10143,VAR1,R00608,1,adze,metal,copper
+Item-10950,C03559,S10143,VAR1,R00608,1,needle,,
+Item-10950,C03559,S10143,VAR1,R00608,1,awl,,
+Item-10950,C03559,S10143,VAR1,R00608,1,adze,stone,
+Item-10950,C03559,S10143,VAR1,R00608,1,vessel,clay,clay: pottery
+Item-10952,C03561,S10143,VAR1,R00610,1,vessel,clay,clay: pottery
+Item-10952,C03561,S10143,VAR1,R00610,1,bead,shell,animal: mollusca
+Item-10952,C03561,S10143,VAR1,R00610,1,bead,stone,
+Item-10952,C03561,S10143,VAR1,R00610,1,tool,antler,
+Item-10952,C03561,S10143,VAR1,R00610,1,lamella,metal,copper
+Item-10952,C03561,S10143,VAR1,R00610,1,tool,stone,flint
+Item-10953,C03562,S10143,VAR1,R00612,1,blade,stone,flint
+Item-10953,C03562,S10143,VAR1,R00612,1,adze,stone,
+Item-10954,C03564,S10143,VAR1,R00614,1,vessel,clay,clay: pottery
+Item-10954,C03564,S10143,VAR1,R00614,1,blade,stone,flint
+Item-10955,C03565,S10143,VAR1,R00615,1,pigment: lump,stone,ochre
+Item-10955,C03565,S10143,VAR1,R00615,1,lid,clay,clay: pottery
+Item-10955,C03565,S10143,VAR1,R00615,1,vessel,clay,clay: pottery
+Item-10955,C03565,S10143,VAR1,R00615,1,ring,metal,copper
+Item-10955,C03565,S10143,VAR1,R00615,1,ring,bone,animal
+Item-10955,C03565,S10143,VAR1,R00615,1,needle,metal,copper
+Item-10955,C03565,S10143,VAR1,R00615,1,blade,stone,flint
+Item-10955,C03565,S10143,VAR1,R00615,1,bead,stone,lignite
+Item-10956,C03566,S10143,VAR1,R00616,1,vessel,clay,clay: pottery
+Item-10958,C03568,S10143,VAR1,R00618,1,needle,metal,copper
+Item-10958,C03568,S10143,VAR1,R00618,1,blade,stone,flint
+Item-10958,C03568,S10143,VAR1,R00618,1,adze,stone,limestone
+Item-10958,C03568,S10143,VAR1,R00618,1,tool,antler,animal: deer
+Item-10958,C03568,S10143,VAR1,R00618,1,bead,stone,ultrabasite: metamorphosed
+Item-10958,C03568,S10143,VAR1,R00618,1,bead,shell,animal: mollusca
+Item-10958,C03568,S10143,VAR1,R00618,1,vessel,clay,clay: pottery
+Item-10958,C03568,S10143,VAR1,R00618,1,vessel,clay,clay: pottery
+Item-10958,C03568,S10143,VAR1,R00618,1,vessel,clay,clay: pottery
+Item-10958,C03568,S10143,VAR1,R00618,1,vessel,clay,clay: pottery
+Item-10959,C03569,S10143,VAR1,R00619,1,vessel,clay,clay: pottery
+Item-10960,C03570,S10143,VAR1,R00620,1,vessel,clay,clay: pottery
+Item-10961,C03571,S10143,VAR1,R00621,1,vessel,clay,clay: pottery
+Item-10962,C03572,S10143,VAR1,R00622,1,plate,metal,gold
+Item-10962,C03572,S10143,VAR1,R00622,1,axe,metal,copper
+Item-10962,C03572,S10143,VAR1,R00622,1,awl,metal,copper
+Item-10962,C03572,S10143,VAR1,R00622,1,blade,stone,flint
+Item-10962,C03572,S10143,VAR1,R00622,1,scraper,stone,flint
+Item-10962,C03572,S10143,VAR1,R00622,1,adze,stone,
+Item-10962,C03572,S10143,VAR1,R00622,1,axe: hammer,antler,
+Item-10962,C03572,S10143,VAR1,R00622,1,bead,stone,carnelian
+Item-10962,C03572,S10143,VAR1,R00622,1,bead,stone,lignite
+Item-10962,C03572,S10143,VAR1,R00622,1,bead,shell,animal: mollusca
+Item-10962,C03572,S10143,VAR1,R00622,1,bracelet,shell,animal: mollusca
+Item-10962,C03572,S10143,VAR1,R00622,1,vessel,clay,clay: pottery
+Item-10962,C03572,S10143,VAR1,R00622,1,pigment: lump,stone,ochre: red
+Item-10963,C03563,S10143,VAR1,R00613,1,bead,stone,serpentine
+Item-10963,C03563,S10143,VAR1,R00613,1,bead,stone,marble
+Item-10963,C03563,S10143,VAR1,R00613,1,bead,shell,animal: mollusca
+Item-10963,C03563,S10143,VAR1,R00613,1,bead,stone,serpentine
+Item-10963,C03563,S10143,VAR1,R00613,1,bracelet,shell,animal: mollusca
+Item-10963,C03563,S10143,VAR1,R00613,1,vessel,clay,clay: pottery
+Item-10964,C03574,S10143,VAR1,R00624,1,blade,stone,flint
+Item-10964,C03574,S10143,VAR1,R00624,1,awl,antler,animal
+Item-10964,C03574,S10143,VAR1,R00624,1,vessel,clay,clay: pottery
+Item-10965,C03575,S10143,VAR1,R00625,1,vessel,clay,clay: pottery
+Item-10966,C03576,S10143,VAR1,R00626,1,pendant,metal,gold
+Item-10966,C03576,S10143,VAR1,R00626,1,axe: hammer,metal,copper
+Item-10966,C03576,S10143,VAR1,R00626,1,needle,metal,copper
+Item-10966,C03576,S10143,VAR1,R00626,1,scraper,stone,flint
+Item-10966,C03576,S10143,VAR1,R00626,1,adze,stone,
+Item-10966,C03576,S10143,VAR1,R00626,1,vessel,clay,clay: pottery
+Item-10971,C03581,S10143,VAR1,R00631,1,vessel,clay,clay: pottery
+Item-10971,C03581,S10143,VAR1,R00631,1,earring,metal,gold
+Item-10971,C03581,S10143,VAR1,R00631,1,axe,metal,copper
+Item-11008,C03619,S10143,VAR1,R00669,1,vessel,clay,clay: pottery
+Item-11008,C03619,S10143,VAR1,R00669,1,implement,antler,animal
+Item-11008,C03619,S10143,VAR1,R00669,1,bead,shell,animal: mollusca
+Item-11008,C03619,S10143,VAR1,R00669,1,blade,stone,flint
+Item-11041,C03824,S10182,MBU1,R00873,1,vessel,clay,clay: pottery
+Item-11041,C03824,S10182,MBU1,R00873,1,tool,stone,flint
+Item-11041,C03824,S10182,MBU1,R00873,1,,shell,animal: mollusca
+Item-11041,C03824,S10182,MBU1,R00873,1,,bone,animal
+Item-11043,C03866,S10184,OCO2,R00915,1,vessel,clay,clay: pottery
+Item-11043,C03866,S10184,OCO2,R00915,1,,stone,
+Item-11043,C03866,S10184,OCO2,R00915,1,,stone,quartzite
+Item-11043,C03866,S10184,OCO2,R00915,1,,bone,animal
+Item-11044,C03868,S10184,OCO1,R00916,1,vessel,clay,clay: pottery
+Item-11044,C03868,S10184,OCO1,R00916,1,,stone,quartzite
+Item-11044,C03868,S10184,OCO1,R00916,1,,bone,animal
+Item-11044,C03868,S10184,OCO1,R00916,1,pigment: lump,stone,ochre
+Item-11046,C03874,S10185,URZ1,R00922,1,vessel,clay,clay: pottery
+Item-11047,C03875,S10185,URZ1,R00923,1,vessel,clay,clay: pottery
+Item-11049,C03881,S10126,GOMOL1B,R00929,1,vessel,clay,clay: pottery
+Item-11050,C03882,S10126,GOMOL1B,R00930,1,vessel,clay,clay: pottery
+Item-11050,C03882,S10126,GOMOL1B,R00930,1,bead,metal,copper
+Item-11051,C03884,S10126,GOMOL1B,R00932,1,vessel,clay,clay: pottery
+Item-11051,C03884,S10126,GOMOL1B,R00932,1,amulet,clay,clay: pottery
+Item-11053,C03892,S10126,GOMOL1B,R00940,1,vessel,clay,clay: pottery
+Item-11053,C03892,S10126,GOMOL1B,R00940,1,axe,stone,
+Item-11053,C03892,S10126,GOMOL1B,R00940,1,blade,stone,flint
+Item-11054,C03896,S10126,GOMOL1B,R00944,1,vessel,clay,clay: pottery
+Item-11054,C03896,S10126,GOMOL1B,R00944,1,axe,stone,
+Item-11071,C03954,S10178,VLASA2,R01008,1,application,tooth,animal: fish
+Item-11079,C03983,S10195,VILN1,R01038,1,,tooth,animal: fish
+Item-11079,C03983,S10195,VILN1,R01038,1,pendant,tooth,animal: deer
+Item-11080,C03991,S10195,VILN2,R01046,1,blade,stone,flint
+Item-11080,C03991,S10195,VILN2,R01046,1,,bone,animal
+Item-11080,C03991,S10195,VILN2,R01046,1,pendant,tooth,animal: deer
+Item-11080,C03991,S10195,VILN2,R01046,1,pendant,,
+Item-11080,C03991,S10195,VILN2,R01046,1,,tooth,animal: fish
+Item-11081,C04004,S10195,VILN1,R01059,1,pendant,tooth,animal: deer
+Item-11081,C04004,S10195,VILN1,R01059,1,artefact,bone: horn,animal: wild boar
+Item-11081,C04004,S10195,VILN1,R01059,1,blade,stone,flint
+Item-11084,C04014,S10195,VILN2,R01068,1,,,
+Item-11085,C04020,S10195,VILN1,R01074,1,,tooth,animal: fish
+Item-11086,C04038,S10189,DER1,R01092,1,,,
+Item-11225,C00722,S10255,ALSO3,R00372,1,vessel,clay,clay: pottery
+Item-11226,C00723,S10255,ALSO3,R00373,1,vessel,clay,clay: pottery
+Item-11226,C00723,S10255,ALSO3,R00373,1,,bone,animal
+Item-11228,C00731,S10255,ALSO3,R00381,1,vessel,clay,clay: pottery
+Item-11229,C00732,S10255,ALSO3,R00382,1,vessel,clay,clay: pottery
+Item-11229,C00732,S10255,ALSO3,R00382,1,blade,stone,flint
+Item-11230,C00733,S10255,ALSO3,R00383,1,vessel,clay,clay: pottery
+Item-11230,C00733,S10255,ALSO3,R00383,1,buckle,shell,animal: mollusca
+Item-11230,C00733,S10255,ALSO3,R00383,1,ring,shell,animal: mollusca
+Item-11230,C00733,S10255,ALSO3,R00383,1,bead,tooth,animal
+Item-11231,C00734,S10255,ALSO3,R00384,1,vessel,clay,clay: pottery
+Item-11231,C00734,S10255,ALSO3,R00384,1,implement,stone,flint
+Item-11231,C00734,S10255,ALSO3,R00384,1,adze,stone,
+Item-11231,C00734,S10255,ALSO3,R00384,1,tool,bone,
+Item-11232,C00735,S10255,ALSO3,R00385,1,vessel,clay,clay: pottery
+Item-11232,C00735,S10255,ALSO3,R00385,1,,bone: rib,animal: cattle
+Item-11233,C00736,S10255,ALSO3,R00386,1,vessel,clay,clay: pottery
+Item-11233,C00736,S10255,ALSO3,R00386,1,axe: flat,stone,
+Item-11233,C00736,S10255,ALSO3,R00386,1,ornament,shell,animal: mollusca
+Item-11233,C00736,S10255,ALSO3,R00386,1,tool,stone,flint
+Item-11233,C00736,S10255,ALSO3,R00386,1,blade,stone,flint
+Item-11235,C00740,S10255,ALSO3,R00390,1,vessel,clay,clay: pottery
+Item-11236,C00746,S10255,ALSO4,R00396,1,vessel,clay,clay: pottery
+Item-11236,C00746,S10255,ALSO4,R00396,1,axe,stone,
+Item-11236,C00746,S10255,ALSO4,R00396,1,bead,metal,copper
+Item-11237,C00747,S10255,ALSO4,R00397,1,vessel,clay,clay: pottery
+Item-11237,C00747,S10255,ALSO4,R00397,1,axe,stone,
+Item-11237,C00747,S10255,ALSO4,R00397,1,bead,shell,animal: mollusca
+Item-11237,C00747,S10255,ALSO4,R00397,1,bead,metal,copper
+Item-11237,C00747,S10255,ALSO4,R00397,1,bead,shell,animal: mollusca
+Item-11237,C00747,S10255,ALSO4,R00397,1,,tooth: canine,animal: wild boar
+Item-11238,C00748,S10255,ALSO4,R00398,1,tool,bone,animal
+Item-11238,C00748,S10255,ALSO4,R00398,1,axe,stone,
+Item-11239,C00749,S10255,ALSO4,R00399,1,axe,stone,
+Item-11239,C00749,S10255,ALSO4,R00399,1,blade,stone,flint
+Item-11239,C00749,S10255,ALSO4,R00399,1,armring,shell,animal: mollusca
+Item-11239,C00749,S10255,ALSO4,R00399,1,bead,metal,copper
+Item-11240,C00750,S10255,ALSO4,R00400,1,vessel,clay,clay: pottery
+Item-11240,C00750,S10255,ALSO4,R00400,1,adze,stone,
+Item-11240,C00750,S10255,ALSO4,R00400,1,axe,stone,
+Item-11240,C00750,S10255,ALSO4,R00400,1,blade,stone,flint
+Item-11240,C00750,S10255,ALSO4,R00400,1,pendant,shell,animal: mollusca
+Item-11240,C00750,S10255,ALSO4,R00400,1,burial,bone: skeleton,animal: dog
+Item-11241,C00751,S10255,ALSO4,R00401,1,axe,stone,
+Item-11241,C00751,S10255,ALSO4,R00401,1,adze,stone,
+Item-11241,C00751,S10255,ALSO4,R00401,1,blade,stone,flint
+Item-11241,C00751,S10255,ALSO4,R00401,1,tool,bone,animal
+Item-11242,C00752,S10255,ALSO4,R00402,1,vessel,clay,clay: pottery
+Item-11242,C00752,S10255,ALSO4,R00402,1,blade,stone,flint
+Item-11243,C00753,S10255,ALSO4,R00403,1,vessel,clay,clay: pottery
+Item-11243,C00753,S10255,ALSO4,R00403,1,bead,shell,animal: mollusca
+Item-11243,C00753,S10255,ALSO4,R00403,1,blade,stone,flint
+Item-11243,C00753,S10255,ALSO4,R00403,1,core,stone,obsidian
+Item-11243,C00753,S10255,ALSO4,R00403,1,tool,bone,animal
+Item-11244,C00754,S10255,ALSO4,R00404,1,vessel,clay,clay: pottery
+Item-11245,C00755,S10255,ALSO4,R00405,1,vessel,clay,clay: pottery
+Item-11246,C00756,S10255,ALSO4,R00406,1,vessel,clay,clay: pottery
+Item-11247,C00757,S10255,ALSO4,R00407,1,vessel,clay,clay: pottery
+Item-11247,C00757,S10255,ALSO4,R00407,1,adze,stone,
+Item-11247,C00757,S10255,ALSO4,R00407,1,tool,bone,animal
+Item-11247,C00757,S10255,ALSO4,R00407,1,tool,stone,flint
+Item-11247,C00757,S10255,ALSO4,R00407,1,,shell,animal: mollusca
+Item-11247,C00757,S10255,ALSO4,R00407,1,,shell,animal: mollusca
+Item-11248,C00758,S10255,ALSO4,R00408,1,vessel,clay,clay: pottery
+Item-11248,C00758,S10255,ALSO4,R00408,1,ornament,shell,animal: mollusca
+Item-11249,C00759,S10255,ALSO4,R00409,1,vessel,clay,clay: pottery
+Item-11249,C00759,S10255,ALSO4,R00409,1,tool,stone,flint
+Item-11249,C00759,S10255,ALSO4,R00409,1,ornament,shell,animal: mollusca
+Item-11249,C00759,S10255,ALSO4,R00409,1,tool,bone,animal
+Item-11249,C00759,S10255,ALSO4,R00409,1,,bone: shoulder blade,animal: cattle/auroch
+Item-11249,C00759,S10255,ALSO4,R00409,1,,tooth: canine,animal: wild boar
+Item-11250,C00760,S10255,ALSO4,R00410,1,axe,stone,
+Item-11250,C00760,S10255,ALSO4,R00410,1,adze,stone,
+Item-11250,C00760,S10255,ALSO4,R00410,1,blade,stone,flint
+Item-11251,C00761,S10255,ALSO4,R00411,1,vessel,clay,clay: pottery
+Item-11251,C00761,S10255,ALSO4,R00411,1,tool,bone,animal
+Item-11251,C00761,S10255,ALSO4,R00411,1,blade,stone,flint
+Item-11252,C00762,S10255,ALSO4,R00412,1,blade,stone,flint
+Item-11252,C00762,S10255,ALSO4,R00412,1,tool,bone,animal
+Item-11252,C00762,S10255,ALSO4,R00412,1,,tooth: canine,animal: wild boar
+Item-11252,C00762,S10255,ALSO4,R00412,1,pendant,shell,animal: mollusca
+Item-11253,C00763,S10255,ALSO4,R00413,1,vessel,clay,clay: pottery
+Item-11253,C00763,S10255,ALSO4,R00413,1,tool,bone,animal
+Item-11254,C00764,S10255,ALSO4,R00414,1,vessel,clay,clay: pottery
+Item-11254,C00764,S10255,ALSO4,R00414,1,blade,stone,flint
+Item-11255,C00765,S10255,ALSO4,R00415,1,vessel,clay,clay: pottery
+Item-11255,C00765,S10255,ALSO4,R00415,1,blade,stone,flint
+Item-11255,C00765,S10255,ALSO4,R00415,1,bead,metal,copper
+Item-11255,C00765,S10255,ALSO4,R00415,1,bead,shell,animal: mollusca
+Item-11255,C00765,S10255,ALSO4,R00415,1,armring,shell,animal: mollusca
+Item-11255,C00765,S10255,ALSO4,R00415,1,,stone,
+Item-11256,C00766,S10255,ALSO4,R00416,1,vessel,clay,clay: pottery
+Item-11256,C00766,S10255,ALSO4,R00416,1,ring,metal,copper
+Item-11256,C00766,S10255,ALSO4,R00416,1,bead,metal,copper
+Item-11257,C00767,S10255,ALSO4,R00417,1,vessel,clay,clay: pottery
+Item-11257,C00767,S10255,ALSO4,R00417,1,axe,stone,
+Item-11257,C00767,S10255,ALSO4,R00417,1,adze,stone,
+Item-11257,C00767,S10255,ALSO4,R00417,1,blade,stone,flint
+Item-11257,C00767,S10255,ALSO4,R00417,1,pendant,shell,animal: mollusca
+Item-11258,C00768,S10255,ALSO4,R00418,1,vessel,clay,clay: pottery
+Item-11258,C00768,S10255,ALSO4,R00418,1,axe,stone,
+Item-11258,C00768,S10255,ALSO4,R00418,1,blade,stone,flint
+Item-11258,C00768,S10255,ALSO4,R00418,1,,tooth: canine,animal: wild boar
+Item-11258,C00768,S10255,ALSO4,R00418,1,tool,bone,animal
+Item-11258,C00768,S10255,ALSO4,R00418,1,,bone,animal
+Item-11259,C04311,S10255,ALSO4,R01143,1,vessel,clay,clay: pottery
+Item-11260,C04312,S10255,ALSO4,R01144,1,vessel,clay,clay: pottery
+Item-11260,C04312,S10255,ALSO4,R01144,1,blade,stone,flint
+Item-11260,C04312,S10255,ALSO4,R01144,1,tool,bone,animal
+Item-11261,C04313,S10255,ALSO4,R01145,1,vessel,clay,clay: pottery
+Item-11263,C04315,S10255,ALSO4,R01147,1,vessel,clay,clay: pottery
+Item-11263,C04315,S10255,ALSO4,R01147,1,bead,shell,animal: mollusca
+Item-11263,C04315,S10255,ALSO4,R01147,1,bead,metal,copper
+Item-11264,C04316,S10255,ALSO4,R01148,1,,stone,
+Item-11264,C04316,S10255,ALSO4,R01148,1,vessel,clay,clay: pottery
+Item-11264,C04316,S10255,ALSO4,R01148,1,vessel,clay,clay: pottery
+Item-11265,C04317,S10255,ALSO4,R01149,1,axe,stone,
+Item-11265,C04317,S10255,ALSO4,R01149,1,blade,stone,flint
+Item-11265,C04317,S10255,ALSO4,R01149,1,armring,metal,copper
+Item-11265,C04317,S10255,ALSO4,R01149,1,bead,shell,animal: mollusca
+Item-11266,C04318,S10255,ALSO4,R01150,1,vessel,clay,clay: pottery
+Item-11266,C04318,S10255,ALSO4,R01150,1,axe,stone,
+Item-11266,C04318,S10255,ALSO4,R01150,1,adze,stone,
+Item-11266,C04318,S10255,ALSO4,R01150,1,armring,metal,copper
+Item-11266,C04318,S10255,ALSO4,R01150,1,bead,metal,copper
+Item-11266,C04318,S10255,ALSO4,R01150,1,bead,shell,animal: mollusca
+Item-11266,C04318,S10255,ALSO4,R01150,1,bead,shell,animal: mollusca
+Item-11267,C04319,S10255,ALSO4,R01151,1,armring,metal,copper
+Item-11267,C04319,S10255,ALSO4,R01151,1,bead,shell,animal: mollusca
+Item-11267,C04319,S10255,ALSO4,R01151,1,bead,metal,copper
+Item-11268,C04320,S10255,ALSO4,R01152,1,vessel,clay,clay: pottery
+Item-11268,C04320,S10255,ALSO4,R01152,1,axe,stone,
+Item-11268,C04320,S10255,ALSO4,R01152,1,blade,stone,flint
+Item-11269,C04321,S10255,ALSO4,R01153,1,vessel,clay,clay: pottery
+Item-11272,C04325,S10255,ALSO4,R01156,1,bead,metal,copper
+Item-11272,C04325,S10255,ALSO4,R01156,1,bead,shell,animal: mollusca
+Item-11272,C04325,S10255,ALSO4,R01156,1,ring,metal,copper
+Item-11273,C04327,S10255,ALSO4,R01157,1,vessel,clay,clay: pottery
+Item-11275,C04333,S10255,ALSO4,R01160,1,vessel,clay,clay: pottery
+Item-11276,C04334,S10255,ALSO4,R01161,1,vessel,clay,clay: pottery
+Item-11278,C04336,S10255,ALSO4,R01163,1,vessel,clay,clay: pottery
+Item-11279,C04337,S10255,ALSO4,R01164,1,vessel,clay,clay: pottery
+Item-11279,C04337,S10255,ALSO4,R01164,1,axe,stone,
+Item-11279,C04337,S10255,ALSO4,R01164,1,ring,metal,copper
+Item-11279,C04337,S10255,ALSO4,R01164,1,bead,metal,copper
+Item-11279,C04337,S10255,ALSO4,R01164,1,bead,shell,animal: mollusca
+Item-11279,C04337,S10255,ALSO4,R01164,1,bead,shell,animal: mollusca
+Item-11280,C04338,S10255,ALSO4,R01165,1,vessel,clay,clay: pottery
+Item-11280,C04338,S10255,ALSO4,R01165,1,blade,stone,flint
+Item-11281,C04339,S10255,ALSO4,R01166,1,vessel,clay,clay: pottery
+Item-11282,C04340,S10255,ALSO4,R01167,1,vessel,clay,clay: pottery
+Item-11282,C04340,S10255,ALSO4,R01167,1,,tooth,animal
+Item-11283,C04341,S10255,ALSO4,R01168,1,vessel,clay,clay: pottery
+Item-11284,C04342,S10255,ALSO4,R01169,1,vessel,clay,clay: pottery
+Item-11284,C04342,S10255,ALSO4,R01169,1,,tooth: canine,animal: wild boar
+Item-11284,C04342,S10255,ALSO4,R01169,1,,bone: mandible,animal: wild boar
+Item-11284,C04342,S10255,ALSO4,R01169,1,,shell,animal: mollusca
+Item-11285,C04343,S10255,ALSO4,R01170,1,vessel,clay,clay: pottery
+Item-11286,C04344,S10255,ALSO4,R01171,1,vessel,clay,clay: pottery
+Item-11287,C04345,S10255,ALSO4,R01172,1,vessel,clay,clay: pottery
+Item-11288,C04346,S10255,ALSO4,R01173,1,vessel,clay,clay: pottery
+Item-11288,C04346,S10255,ALSO4,R01173,1,armring,metal,copper
+Item-11289,C04347,S10255,ALSO4,R01174,1,vessel,clay,clay: pottery
+Item-11289,C04347,S10255,ALSO4,R01174,1,bead,metal,copper
+Item-11292,C04350,S10255,ALSO4,R01177,1,vessel,clay,clay: pottery
+Item-11294,C04352,S10255,ALSO4,R01179,1,vessel,clay,clay: pottery
+Item-11295,C04353,S10255,ALSO4,R01180,1,vessel,clay,clay: pottery
+Item-11295,C04353,S10255,ALSO4,R01180,1,mace: head,stone,
+Item-11296,C04354,S10255,ALSO4,R01181,1,vessel,clay,clay: pottery
+Item-11296,C04354,S10255,ALSO4,R01181,1,bead,shell,animal: mollusca
+Item-11297,C04357,S10255,ALSO4,R01182,1,vessel,clay,clay: pottery
+Item-11297,C04357,S10255,ALSO4,R01182,1,axe,stone,
+Item-11297,C04357,S10255,ALSO4,R01182,1,adze,stone,
+Item-11297,C04357,S10255,ALSO4,R01182,1,blade,stone,flint
+Item-11298,C04358,S10255,ALSO4,R01183,1,vessel,clay,clay: pottery
+Item-11298,C04358,S10255,ALSO4,R01183,1,tool,bone,animal
+Item-11299,C04359,S10255,ALSO4,R01184,1,vessel,clay,clay: pottery
+Item-11299,C04359,S10255,ALSO4,R01184,1,axe,stone,
+Item-11299,C04359,S10255,ALSO4,R01184,1,pendant,shell,animal: mollusca
+Item-11300,C04360,S10255,ALSO4,R01185,1,vessel,clay,clay: pottery
+Item-11301,C04361,S10255,ALSO4,R01186,1,vessel,clay,clay: pottery
+Item-11301,C04361,S10255,ALSO4,R01186,1,bead,shell,animal: mollusca
+Item-11302,C04362,S10255,ALSO4,R01187,1,vessel,clay,clay: pottery
+Item-11303,C04363,S10255,ALSO4,R01188,1,axe,stone,
+Item-11304,C04364,S10255,ALSO4,R01189,1,vessel,clay,clay: pottery
+Item-11305,C04365,S10255,ALSO4,R01190,1,vessel,clay,clay: pottery
+Item-11307,C04367,S10255,ALSO4,R01192,1,vessel,clay,clay: pottery
+Item-11308,C04368,S10255,ALSO4,R01193,1,vessel,clay,clay: pottery
+Item-11309,C04369,S10255,ALSO4,R01194,1,vessel,clay,clay: pottery
+Item-11310,C04370,S10255,ALSO4,R01195,1,vessel,clay,clay: pottery
+Item-11310,C04370,S10255,ALSO4,R01195,1,axe,stone,
+Item-11310,C04370,S10255,ALSO4,R01195,1,blade,stone,flint
+Item-11311,C04371,S10255,ALSO4,R01196,1,vessel,clay,clay: pottery
+Item-11311,C04371,S10255,ALSO4,R01196,1,ring,metal,copper
+Item-11311,C04371,S10255,ALSO4,R01196,1,bead,metal,copper
+Item-11311,C04371,S10255,ALSO4,R01196,1,bead,shell,animal: mollusca
+Item-11312,C04372,S10255,ALSO4,R01197,1,vessel,clay,clay: pottery
+Item-11313,C04373,S10255,ALSO4,R01198,1,vessel,clay,clay: pottery
+Item-11313,C04373,S10255,ALSO4,R01198,1,adze,stone,
+Item-11313,C04373,S10255,ALSO4,R01198,1,grinding stone,stone,
+Item-11314,C04374,S10255,ALSO4,R01199,1,vessel,clay,clay: pottery
+Item-11314,C04374,S10255,ALSO4,R01199,1,axe,stone,
+Item-11314,C04374,S10255,ALSO4,R01199,1,blade,stone,flint
+Item-11314,C04374,S10255,ALSO4,R01199,1,bead,metal,copper
+Item-11315,C04375,S10255,ALSO4,R01200,1,vessel,clay,clay: pottery
+Item-11316,C04376,S10255,ALSO4,R01201,1,vessel,clay,clay: pottery
+Item-11316,C04376,S10255,ALSO4,R01201,1,blade,stone,flint
+Item-11316,C04376,S10255,ALSO4,R01201,1,tool,bone,animal
+Item-11316,C04376,S10255,ALSO4,R01201,1,adze,stone,
+Item-11316,C04376,S10255,ALSO4,R01201,1,,bone,animal
+Item-11317,C04377,S10255,ALSO4,R01202,1,vessel,clay,clay: pottery
+Item-11317,C04377,S10255,ALSO4,R01202,1,core,stone,flint
+Item-11317,C04377,S10255,ALSO4,R01202,1,blade,stone,flint
+Item-11318,C04378,S10255,ALSO4,R01203,1,vessel,clay,clay: pottery
+Item-11318,C04378,S10255,ALSO4,R01203,1,axe,stone,
+Item-11320,C04380,S10255,ALSO4,R01205,1,tool,bone,animal
+Item-11321,C04381,S10255,ALSO4,R01206,1,vessel,clay,clay: pottery
+Item-11321,C04381,S10255,ALSO4,R01206,1,grinding stone,stone,
+Item-11322,C04382,S10255,ALSO4,R01207,1,vessel,clay,clay: pottery
+Item-11322,C04382,S10255,ALSO4,R01207,1,axe,stone,
+Item-11322,C04382,S10255,ALSO4,R01207,1,blade,stone,flint
+Item-11322,C04382,S10255,ALSO4,R01207,1,tool,bone,animal
+Item-11323,C04386,S10255,ALSO4,R01211,1,vessel,clay,clay: pottery
+Item-11323,C04386,S10255,ALSO4,R01211,1,axe,stone,
+Item-11323,C04386,S10255,ALSO4,R01211,1,blade,stone,flint
+Item-11323,C04386,S10255,ALSO4,R01211,1,bead,metal,copper
+Item-11323,C04386,S10255,ALSO4,R01211,1,bead,shell,animal: mollusca
+Item-11324,C04387,S10255,ALSO4,R01212,1,vessel,clay,clay: pottery
+Item-11324,C04387,S10255,ALSO4,R01212,1,axe,stone,
+Item-11326,C04389,S10255,ALSO4,R01214,1,vessel,clay,clay: pottery
+Item-11326,C04389,S10255,ALSO4,R01214,1,vessel,clay,clay: pottery
+Item-11326,C04389,S10255,ALSO4,R01214,1,armring,metal,copper
+Item-11326,C04389,S10255,ALSO4,R01214,1,bead,shell,animal: mollusca
+Item-11326,C04389,S10255,ALSO4,R01214,1,bead,metal,copper
+Item-11326,C04389,S10255,ALSO4,R01214,1,bead,metal,copper
+Item-11326,C04389,S10255,ALSO4,R01214,1,bead,shell,animal: mollusca
+Item-11327,C04390,S10255,ALSO4,R01215,1,vessel,clay,clay: pottery
+Item-11327,C04390,S10255,ALSO4,R01215,1,axe,stone,
+Item-11327,C04390,S10255,ALSO4,R01215,1,blade,stone,flint
+Item-11328,C04391,S10255,ALSO4,R01216,1,adze,stone,
+Item-11329,C04393,S10255,ALSO4,R01218,1,bead,metal,copper
+Item-11329,C04393,S10255,ALSO4,R01218,1,bead,shell,animal: mollusca
+Item-11329,C04393,S10255,ALSO4,R01218,1,,bone,animal
+Item-11330,C04394,S10255,ALSO4,R01219,1,vessel,clay,clay: pottery
+Item-11330,C04394,S10255,ALSO4,R01219,1,blade,stone,flint
+Item-11331,C04395,S10255,ALSO4,R01220,1,vessel,clay,clay: pottery
+Item-11331,C04395,S10255,ALSO4,R01220,1,axe,stone,
+Item-11331,C04395,S10255,ALSO4,R01220,1,blade,stone,flint
+Item-11333,C04397,S10255,ALSO4,R01222,1,blade,stone,flint
+Item-11334,C04398,S10255,ALSO4,R01223,1,vessel,clay,clay: pottery
+Item-11334,C04398,S10255,ALSO4,R01223,1,blade,stone,flint
+Item-11334,C04398,S10255,ALSO4,R01223,1,bead,metal,copper
+Item-11335,C04399,S10255,ALSO4,R01224,1,vessel,clay,clay: pottery
+Item-11336,C04400,S10255,ALSO4,R01225,1,vessel,clay,clay: pottery
+Item-11336,C04400,S10255,ALSO4,R01225,1,mace: head,stone,
+Item-11336,C04400,S10255,ALSO4,R01225,1,tool,stone,
+Item-11336,C04400,S10255,ALSO4,R01225,1,blade,stone,flint
+Item-11336,C04400,S10255,ALSO4,R01225,1,,shell,animal: mollusca
+Item-11336,C04400,S10255,ALSO4,R01225,1,,shell,animal: mollusca
+Item-11336,C04400,S10255,ALSO4,R01225,1,,bone,animal
+Item-11337,C04401,S10255,ALSO4,R01226,1,vessel,clay,clay: pottery
+Item-11337,C04401,S10255,ALSO4,R01226,1,tool,bone,animal
+Item-11338,C04402,S10255,ALSO4,R01227,1,vessel,clay,clay: pottery
+Item-11338,C04402,S10255,ALSO4,R01227,1,adze,stone,
+Item-11338,C04402,S10255,ALSO4,R01227,1,blade,stone,flint
+Item-11340,C04404,S10255,ALSO4,R01229,1,vessel,clay,clay: pottery
+Item-11340,C04404,S10255,ALSO4,R01229,1,blade,stone,flint
+Item-11341,C04405,S10255,ALSO4,R01230,1,vessel,clay,clay: pottery
+Item-11341,C04405,S10255,ALSO4,R01230,1,mace: head,stone,
+Item-11341,C04405,S10255,ALSO4,R01230,1,blade,stone,flint
+Item-11341,C04405,S10255,ALSO4,R01230,1,altar,clay,clay: pottery
+Item-11342,C04406,S10255,ALSO4,R01231,1,vessel,clay,clay: pottery
+Item-11342,C04406,S10255,ALSO4,R01231,1,axe,stone,
+Item-11342,C04406,S10255,ALSO4,R01231,1,adze,stone,
+Item-11342,C04406,S10255,ALSO4,R01231,1,blade,stone,flint
+Item-11342,C04406,S10255,ALSO4,R01231,1,bead,shell,animal: mollusca
+Item-11342,C04406,S10255,ALSO4,R01231,1,tool,bone,animal
+Item-11343,C04407,S10255,ALSO4,R01232,1,vessel,clay,clay: pottery
+Item-11343,C04407,S10255,ALSO4,R01232,1,,bone,animal
+Item-11344,C04408,S10255,ALSO4,R01233,1,vessel,clay,clay: pottery
+Item-11344,C04408,S10255,ALSO4,R01233,1,blade,stone,flint
+Item-11344,C04408,S10255,ALSO4,R01233,1,armring,shell,animal: mollusca
+Item-11345,C04410,S10255,ALSO4,R01234,1,vessel,clay,clay: pottery
+Item-11345,C04410,S10255,ALSO4,R01234,1,axe,stone,
+Item-11345,C04410,S10255,ALSO4,R01234,1,blade,stone,flint
+Item-11345,C04410,S10255,ALSO4,R01234,1,tool,bone,
+Item-11345,C04410,S10255,ALSO4,R01234,1,bead,metal,copper
+Item-11345,C04410,S10255,ALSO4,R01234,1,bead,shell,animal: mollusca
+Item-11345,C04410,S10255,ALSO4,R01234,1,,bone,animal
+Item-11346,C04411,S10255,ALSO4,R01235,1,axe,stone,
+Item-11346,C04411,S10255,ALSO4,R01235,1,blade,stone,flint
+Item-11346,C04411,S10255,ALSO4,R01235,1,bead,metal,copper
+Item-11346,C04411,S10255,ALSO4,R01235,1,,tooth: canine,animal: wild boar
+Item-11347,C04412,S10255,ALSO4,R01236,1,vessel,clay,clay: pottery
+Item-11347,C04412,S10255,ALSO4,R01236,1,ring,metal,copper
+Item-11347,C04412,S10255,ALSO4,R01236,1,bead,shell,animal: mollusca
+Item-11347,C04412,S10255,ALSO4,R01236,1,tool,bone,animal
+Item-11348,C04413,S10255,ALSO4,R01237,1,vessel,clay,clay: pottery
+Item-11348,C04413,S10255,ALSO4,R01237,1,axe,stone,
+Item-11348,C04413,S10255,ALSO4,R01237,1,adze,stone,
+Item-11348,C04413,S10255,ALSO4,R01237,1,blade,stone,flint
+Item-11348,C04413,S10255,ALSO4,R01237,1,ring,metal,copper
+Item-11348,C04413,S10255,ALSO4,R01237,1,bead,metal,copper
+Item-11349,C04414,S10255,ALSO4,R01238,1,vessel,clay,clay: pottery
+Item-11349,C04414,S10255,ALSO4,R01238,1,axe,stone,
+Item-11349,C04414,S10255,ALSO4,R01238,1,adze,stone,
+Item-11349,C04414,S10255,ALSO4,R01238,1,tool,bone,animal
+Item-11349,C04414,S10255,ALSO4,R01238,1,pendant,shell,animal: mollusca
+Item-11349,C04414,S10255,ALSO4,R01238,1,blade,stone,flint
+Item-11350,C04415,S10255,ALSO4,R01239,1,vessel,clay,clay: pottery
+Item-11350,C04415,S10255,ALSO4,R01239,1,axe,stone,
+Item-11350,C04415,S10255,ALSO4,R01239,1,adze,stone,
+Item-11350,C04415,S10255,ALSO4,R01239,1,blade,stone,flint
+Item-11350,C04415,S10255,ALSO4,R01239,1,tool,bone,animal
+Item-11350,C04415,S10255,ALSO4,R01239,1,,tooth: canine,animal: wild boar
+Item-11351,C04416,S10255,ALSO4,R01240,1,vessel,clay,clay: pottery
+Item-11351,C04416,S10255,ALSO4,R01240,1,axe,stone,
+Item-11351,C04416,S10255,ALSO4,R01240,1,adze,stone,
+Item-11351,C04416,S10255,ALSO4,R01240,1,blade,stone,flint
+Item-11352,C04417,S10255,ALSO4,R01241,1,vessel,clay,clay: pottery
+Item-11352,C04417,S10255,ALSO4,R01241,1,axe,stone,
+Item-11353,C04418,S10255,ALSO4,R01242,1,vessel,clay,clay: pottery
+Item-11354,C04419,S10255,ALSO4,R01243,1,vessel,clay,clay: pottery
+Item-11355,C04420,S10255,ALSO4,R01244,1,bead,shell,animal: mollusca
+Item-11356,C04421,S10255,ALSO4,R01245,1,vessel,clay,clay: pottery
+Item-11357,C04422,S10255,ALSO4,R01246,1,vessel,clay,clay: pottery
+Item-11357,C04422,S10255,ALSO4,R01246,1,vessel,clay,clay: pottery
+Item-11357,C04422,S10255,ALSO4,R01246,1,blade,stone,flint
+Item-11357,C04422,S10255,ALSO4,R01246,1,,shell,animal: mollusca: freshwater
+Item-11357,C04422,S10255,ALSO4,R01246,1,,bone,animal
+Item-11358,C04423,S10255,ALSO4,R01247,1,vessel,clay,clay: pottery
+Item-11359,C04424,S10255,ALSO4,R01248,1,vessel,clay,clay: pottery
+Item-11359,C04424,S10255,ALSO4,R01248,1,bead,metal,copper
+Item-11360,C04425,S10255,ALSO4,R01249,1,vessel,clay,clay: pottery
+Item-11360,C04425,S10255,ALSO4,R01249,1,adze,stone,
+Item-11360,C04425,S10255,ALSO4,R01249,1,,bone: mandible,animal: wild boar
+Item-11361,C04426,S10255,ALSO4,R01250,1,vessel,clay,clay: pottery
+Item-11361,C04426,S10255,ALSO4,R01250,1,bead,shell,animal: mollusca
+Item-11361,C04426,S10255,ALSO4,R01250,1,,stone,
+Item-11361,C04426,S10255,ALSO4,R01250,1,armring,shell,animal: mollusca
+Item-11361,C04426,S10255,ALSO4,R01250,1,pendant,shell,animal: mollusca
+Item-11361,C04426,S10255,ALSO4,R01250,1,,bone,animal
+Item-11362,C04427,S10255,ALSO4,R01251,1,vessel,clay,clay: pottery
+Item-11362,C04427,S10255,ALSO4,R01251,1,tool,bone,animal
+Item-11362,C04427,S10255,ALSO4,R01251,1,,bone,animal
+Item-11364,C04429,S10255,ALSO4,R01253,1,vessel,clay,clay: pottery
+Item-11364,C04429,S10255,ALSO4,R01253,1,tool,stone,flint
+Item-11364,C04429,S10255,ALSO4,R01253,1,artefact,metal,copper
+Item-11364,C04429,S10255,ALSO4,R01253,1,ornament,shell,animal
+Item-11364,C04429,S10255,ALSO4,R01253,1,,bone,animal
+Item-11364,C04429,S10255,ALSO4,R01253,1,altar,clay,clay: pottery
+Item-11365,C04430,S10255,ALSO4,R01254,1,vessel,clay,clay: pottery
+Item-11367,C04434,S10255,ALSO4,R01258,1,vessel,clay,clay: pottery
+Item-11367,C04434,S10255,ALSO4,R01258,1,axe,stone,
+Item-11367,C04434,S10255,ALSO4,R01258,1,adze,stone,
+Item-11367,C04434,S10255,ALSO4,R01258,1,blade,stone,flint
+Item-11367,C04434,S10255,ALSO4,R01258,1,ring,metal,copper
+Item-11367,C04434,S10255,ALSO4,R01258,1,bead,metal,copper
+Item-11370,C04437,S10255,ALSO4,R01261,1,vessel,clay,clay: pottery
+Item-11370,C04437,S10255,ALSO4,R01261,1,vessel,clay,clay: pottery
+Item-11370,C04437,S10255,ALSO4,R01261,1,,bone,animal
+Item-11371,C04438,S10255,ALSO4,R01262,1,vessel,clay,clay: pottery
+Item-11371,C04438,S10255,ALSO4,R01262,1,,bone: skull,animal: dog
+Item-11371,C04438,S10255,ALSO4,R01262,1,,bone,animal
+Item-11371,C04438,S10255,ALSO4,R01262,1,,stone,
+Item-11372,C04439,S10255,ALSO4,R01263,1,vessel,clay,clay: pottery
+Item-11372,C04439,S10255,ALSO4,R01263,1,adze,stone,
+Item-11373,C04440,S10255,ALSO4,R01264,1,vessel,clay,clay: pottery
+Item-11377,C04444,S10255,ALSO4,R01268,1,vessel,clay,clay: pottery
+Item-11377,C04444,S10255,ALSO4,R01268,1,blade,stone,flint
+Item-11377,C04444,S10255,ALSO4,R01268,1,tool,bone,animal
+Item-11378,C04445,S10255,ALSO4,R01269,1,vessel,clay,clay: pottery
+Item-11628,C00148,S10570,MZAL-LA1,R00333,1,vessel,clay,clay: pottery
+Item-11629,C00149,S10570,MZAL-LA1,R00334,1,vessel,clay,clay: pottery
+Item-11629,C00149,S10570,MZAL-LA1,R00334,1,vessel,clay,clay: pottery
+Item-11630,C00150,S10570,MZAL-LA1,R00335,1,vessel,clay,clay: pottery
+Item-11631,C00151,S10570,MZAL-LA1,R00336,1,vessel,clay,clay: pottery
+Item-11631,C00151,S10570,MZAL-LA1,R00336,1,vessel,clay,clay: pottery
+Item-11631,C00151,S10570,MZAL-LA1,R00336,1,vessel,clay,clay: pottery
+Item-11632,C00155,S10570,MZAL-LA1,R00340,1,vessel,clay,clay: pottery
+Item-11633,C00157,S10570,MZAL-LA1,R00342,1,vessel,clay,clay: pottery
+Item-11634,C00158,S10570,MZAL-LA1,R00343,1,vessel,clay,clay: pottery
+Item-11635,C00159,S10570,MZAL-LA1,R00344,1,vessel,clay,clay: pottery
+Item-11635,C00159,S10570,MZAL-LA1,R00344,1,vessel,clay,clay: pottery
+Item-12384,C03362,S10129,KLH1,R00423,1,plaque,shell,animal: mollusca
+Item-12384,C03362,S10129,KLH1,R00423,1,grinding stone,stone,quartzite
+Item-12384,C03362,S10129,KLH1,R00423,1,,stone,quartzite
+Item-12385,C03365,S10129,KLH1,R00426,1,vessel,clay,clay: pottery
+Item-12385,C03365,S10129,KLH1,R00426,1,vessel,clay,clay: pottery
+Item-12386,C03369,S10129,KLH1,R00430,1,,shell,animal: mollusca
+Item-12387,C03370,S10129,KLH1,R00431,1,bead,shell,animal: mollusca
+Item-12387,C03370,S10129,KLH1,R00431,1,,stone,limestone
+Item-12387,C03370,S10129,KLH1,R00431,1,pendant,shell,animal: mollusca
+Item-12387,C03370,S10129,KLH1,R00431,1,blade,stone,flint
+Item-12387,C03370,S10129,KLH1,R00431,1,adze,stone,amphibolite
+Item-12387,C03370,S10129,KLH1,R00431,1,vessel,clay,clay: pottery
+Item-12388,C03375,S10129,KLH1,R00436,1,vessel,clay,clay: pottery
+Item-12388,C03375,S10129,KLH1,R00436,1,grinder,stone,sandstone
+Item-12388,C03375,S10129,KLH1,R00436,1,,stone,quartzite
+Item-12389,C03378,S10129,KLH1,R00439,1,vessel,clay,clay: pottery
+Item-12389,C03378,S10129,KLH1,R00439,1,blade,stone,flint: Krumlovský les-Hornstein II
+Item-12389,C03378,S10129,KLH1,R00439,1,blade,stone,flint: Jurassic-Cracow
+Item-12389,C03378,S10129,KLH1,R00439,1,blade,stone,flint
+Item-12390,C03383,S10129,KLH1,R00444,1,adze,stone,amphibolite
+Item-12391,C03385,S10129,KLH1,R00446,1,vessel,clay,clay: pottery
+Item-12391,C03385,S10129,KLH1,R00446,1,,bone,animal
+Item-12392,C03387,S10129,KLH1,R00448,1,vessel,clay,clay: pottery
+Item-12392,C03387,S10129,KLH1,R00448,1,point,bone: metatarsal,animal: small ruminant
+Item-12392,C03387,S10129,KLH1,R00448,1,adze,stone,amphibolite
+Item-12392,C03387,S10129,KLH1,R00448,1,vessel,clay,clay: pottery
+Item-12392,C03387,S10129,KLH1,R00448,1,vessel,clay,clay: pottery
+Item-12392,C03387,S10129,KLH1,R00448,1,vessel,clay,clay: pottery
+Item-12393,C03389,S10129,KLH1,R00450,1,blade,stone,flint
+Item-12395,C03395,S10129,KLH1,R00456,1,bead,shell,animal: mollusca
+Item-12396,C03400,S10129,KLH1,R00461,1,axe: flat,stone,slate: siliceous
+Item-12396,C03400,S10129,KLH1,R00461,1,bead,shell,animal: mollusca
+Item-12396,C03400,S10129,KLH1,R00461,1,pendant,shell,animal: mollusca
+Item-12396,C03400,S10129,KLH1,R00461,1,vessel,clay,clay: pottery
+Item-12396,C03400,S10129,KLH1,R00461,1,vessel,clay,clay: pottery
+Item-12397,C03401,S10129,KLH1,R00462,1,axe,stone,
+Item-12398,C03403,S10129,KLH1,R00464,1,grinding stone,stone,quartzite
+Item-12399,C03405,S10129,KLH1,R00466,1,,graphite,
+Item-12399,C03405,S10129,KLH1,R00466,1,vessel,clay,clay: pottery
+Item-12399,C03405,S10129,KLH1,R00466,1,grinder,stone,sandstone
+Item-12399,C03405,S10129,KLH1,R00466,1,vessel,clay,clay: pottery
+Item-12399,C03405,S10129,KLH1,R00466,1,axe: flat,stone,slate: gneiss
+Item-12400,C03406,S10129,KLH1,R00467,1,adze,stone,amphibolite
+Item-12400,C03406,S10129,KLH1,R00467,1,,stone,flint
+Item-12400,C03406,S10129,KLH1,R00467,1,gag,bone,animal
+Item-12400,C03406,S10129,KLH1,R00467,1,gag,bone,animal
+Item-12401,C03407,S10129,KLH1,R00468,1,grinder,stone,sandstone
+Item-12402,C03408,S10129,KLH1,R00469,1,vessel,clay,clay: pottery
+Item-12402,C03408,S10129,KLH1,R00469,1,vessel,clay,clay: pottery
+Item-12403,C03411,S10129,KLH1,R00472,1,vessel,clay,clay: pottery
+Item-12403,C03411,S10129,KLH1,R00472,1,,stone,flint
+Item-12404,C03412,S10129,KLH1,R00473,1,bead,shell,animal: mollusca
+Item-12405,C03413,S10129,KLH1,R00474,1,adze,stone,amphibolite
+Item-12407,C03418,S10129,KLH1,R00479,1,,wood,charcoal
+Item-12407,C03418,S10129,KLH1,R00479,1,vessel,clay,clay: pottery
+Item-12407,C03418,S10129,KLH1,R00479,1,vessel,clay,clay: pottery
+Item-12410,C03424,S10129,KLH1,R00485,1,,graphite,
+Item-12410,C03424,S10129,KLH1,R00485,1,vessel,clay,clay: pottery
+Item-12411,C03425,S10129,KLH1,R00486,1,vessel,clay,clay: pottery
+Item-12412,C03426,S10129,KLH1,R00487,1,vessel,clay,clay: pottery
+Item-12413,C03427,S10129,KLH1,R00488,1,vessel,clay,clay: pottery
+Item-12413,C03427,S10129,KLH1,R00488,1,,tooth,animal: auroch
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12414,C03428,S10129,KLH1,R00489,1,vessel,clay,clay: pottery
+Item-12415,C03429,S10129,KLH1,R00490,1,vessel,clay,clay: pottery
+Item-12416,C03434,S10129,KLH1,R00495,1,vessel,clay,clay: pottery
+Item-12417,C03435,S10129,KLH1,R00496,1,vessel,clay,clay: pottery
+Item-12417,C03435,S10129,KLH1,R00496,1,axe: flat,stone,amphibolite
+Item-12417,C03435,S10129,KLH1,R00496,1,vessel,clay,clay: pottery
+Item-12417,C03435,S10129,KLH1,R00496,1,vessel,clay,clay: pottery
+Item-12417,C03435,S10129,KLH1,R00496,1,vessel,clay,clay: pottery
+Item-12418,C03437,S10129,KLH1,R00498,1,vessel,clay,clay: pottery
+Item-12418,C03437,S10129,KLH1,R00498,1,vessel,clay,clay: pottery
+Item-12419,C03438,S10129,KLH1,R00499,1,vessel,clay,clay: pottery
+Item-12420,C03442,S10129,KLH1,R00503,1,vessel,clay,clay: pottery
+Item-12421,C03443,S10129,KLH1,R00504,1,vessel,clay,clay: pottery
+Item-12422,C03445,S10129,KLH1,R00506,1,axe: flat,stone,amphibolite
+Item-12422,C03445,S10129,KLH1,R00506,1,,stone,granite
+Item-12422,C03445,S10129,KLH1,R00506,1,,bone: femur,animal: auroch
+Item-12423,C03446,S10129,KLH1,R00507,1,vessel,clay,clay: pottery
+Item-12423,C03446,S10129,KLH1,R00507,1,,bone: skull,animal
+Item-12423,C03446,S10129,KLH1,R00507,1,vessel,clay,clay: pottery
+Item-12559,C09361,S11354,BESTA3,R03757,1,,,
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,piercer,bone,animal
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,dagger,bone,animal
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,comb,bone,animal
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,,bone: maxilla,animal: deer
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,,bone: maxilla,animal: reindeer
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,plaque,metal,bronze
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,,shell,animal: mollusca
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,,shell,animal: mollusca
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,chisel,stone,flint
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,dagger,stone,flint
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,pigment: lump,stone,ochre
+Item-12562,C09369,S11301,BOOLOST1,R03765,1,,stone,pumice
+Item-12566,C09367,S11301,BOOLOST1,R03763,1,dagger,bone,animal
+Item-12566,C09367,S11301,BOOLOST1,R03763,1,plaque,bone,animal
+Item-12566,C09367,S11301,BOOLOST1,R03763,1,squeezer,bone,animal
+Item-12566,C09367,S11301,BOOLOST1,R03763,1,piercer,bone,animal
+Item-12566,C09367,S11301,BOOLOST1,R03763,1,point,bone,animal
+Item-12566,C09367,S11301,BOOLOST1,R03763,1,,metal,ironstone
+Item-12566,C09367,S11301,BOOLOST1,R03763,1,flake,stone,quartz
+Item-12566,C09367,S11301,BOOLOST1,R03763,1,,tooth: incisor,animal: beaver
+Item-12567,C09368,S11301,BOOLOST1,R03764,1,,,
+Item-12578,C09377,S07897,DOSN2,R03773,1,awl,bone,animal
+Item-12579,C09378,S07894,DRG1,R03774,1,dagger,bone: metacarpus/metatarsus,animal: red deer
+Item-12579,C09378,S07894,DRG1,R03774,1,pendant,tooth,animal: elk
+Item-12579,C09378,S07894,DRG1,R03774,1,pendant,tooth,animal: red deer
+Item-12580,C09379,S07894,DRG1,R03775,1,pendant,resin,amber
+Item-12580,C09379,S07894,DRG1,R03775,1,pin,bone,
+Item-12580,C09379,S07894,DRG1,R03775,1,spatula,bone,animal
+Item-12580,C09379,S07894,DRG1,R03775,1,bracer,bone,animal
+Item-12580,C09379,S07894,DRG1,R03775,1,strike-a-light,stone,flint
+Item-12580,C09379,S07894,DRG1,R03775,1,axe: hammer,stone,greenstone
+Item-12580,C09379,S07894,DRG1,R03775,1,arrowhead,stone,
+Item-12580,C09379,S07894,DRG1,R03775,1,arrowhead,stone,
+Item-12580,C09379,S07894,DRG1,R03775,1,arrowhead,stone,
+Item-12580,C09379,S07894,DRG1,R03775,1,pectoral,tooth,animal: red deer
+Item-12580,C09379,S07894,DRG1,R03775,1,pendant,tooth,animal: red deer
+Item-12580,C09379,S07894,DRG1,R03775,1,pendant,tooth: incisor,animal: auroch
+Item-12580,C09379,S07894,DRG1,R03775,1,,tooth: incisor,animal: wild boar
+Item-12582,C09380,S07894,DRG2,R03776,1,headstone,antler,
+Item-12582,C09380,S07894,DRG2,R03776,1,vessel,clay,clay: pottery
+Item-12582,C09380,S07894,DRG2,R03776,1,blade,stone,flint
+Item-12621,C09405,S11313,HENBOG1,R03801,1,blade,stone,flint
+Item-12636,C09430,S11317,KASTA1,R03826,1,,,
+Item-12667,C09475,S10221,KYNDUBA,R03871,1,fibula,metal,
+Item-12667,C09475,S10221,KYNDUBA,R03871,1,knife,metal,
+Item-12713,C09528,S11339,STOREEP1,R03924,1,boat,wood,wood: alder
+Item-12714,C09529,S11414,STOREFL1,R03925,1,,bone,animal: swan
+Item-12715,C09530,S11414,STOREFL1,R03926,1,awl,bone,animal: bird
+Item-12715,C09530,S11414,STOREFL1,R03926,1,purse,organic,
+Item-12715,C09530,S11414,STOREFL1,R03926,1,tinder,fungus,fungus: hoof fungus
+Item-12715,C09530,S11414,STOREFL1,R03926,1,strike-a-light,stone,pyrite
+Item-12715,C09530,S11414,STOREFL1,R03926,1,strike-a-light,stone,flint
+Item-12715,C09530,S11414,STOREFL1,R03926,1,flake,stone,flint
+Item-12716,C09531,S11340,STROB1,R03927,1,,,
+Item-12734,C09560,S11308,VIGFE1,R03956,1,,,
+Item-12735,C09561,S11308,VIGFE1,R03957,1,,,
+Item-12736,C09562,S11308,VIGFE1,R03958,1,,,
+Item-12737,C09563,S11308,VIGFE2,R03959,1,,,
+Item-12752,C09392,S11307,FANEF1,R03788,1,staff,antler,animal
+Item-12752,C09392,S11307,FANEF1,R03788,1,flake,stone,flint
+Item-12752,C09392,S11307,FANEF1,R03788,1,flake-knife,stone,flint
+Item-12774,C03242,S08787,RDVE4,R02316,1,vessel,clay,clay: pottery
+Item-12777,C09648,S11473,AVLEB1,R03963,1,,tooth,animal
+Item-12777,C09648,S11473,AVLEB1,R03963,1,ornament,bone,animal
+Item-12777,C09648,S11473,AVLEB1,R03963,1,,tooth: canine: upper,animal: wild boar
+Item-12777,C09648,S11473,AVLEB1,R03963,1,ornament,tooth: canine: upper,animal: wild boar
+Item-12778,C09649,S11473,AVLEB1,R03964,1,bead,resin,amber
+Item-12780,C09651,S11474,BARHOJ1,R03966,1,vessel,clay,clay: pottery
+Item-12780,C09651,S11474,BARHOJ1,R03966,1,vessel,clay,clay: pottery
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,,resin,amber
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,arrowhead,stone,flint
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,chip,stone,flint
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,figurine,antler,
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,figurine,clay,clay: pottery
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,hook,bone,animal
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,ornament,resin,amber
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,ring,resin,amber
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,ring,stone,
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,arrowhead,stone,flint
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,arrowhead,stone,flint
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,flake,stone,flint
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,mallet,antler,animal
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,,antler,animal
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,flake,stone,flint
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,figurine,antler,animal
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,hook,bone,animal
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,whetstone,stone,sandstone
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,,antler,animal
+Item-12832,C09758,S10157,ZVEJN3,R04020,1,figurine,clay,clay: pottery
+Item-12833,C09759,S10157,ZVEJN3,R04021,1,awl,stone,
+Item-12833,C09759,S10157,ZVEJN3,R04021,1,chisel,bone,animal: goat
+Item-12833,C09759,S10157,ZVEJN3,R04021,1,vessel,clay,clay: pottery
+Item-12834,C09760,S10157,ZVEJN1,R04022,1,pendant,tooth,animal
+Item-12834,C09760,S10157,ZVEJN1,R04022,1,pendant,tooth,animal: elk
+Item-12834,C09760,S10157,ZVEJN1,R04022,1,pendant,tooth,animal: wild boar
+Item-12834,C09760,S10157,ZVEJN1,R04022,1,pendant,tooth,animal: wild boar
+Item-12834,C09760,S10157,ZVEJN1,R04022,1,pendant,tooth,animal: wild boar
+Item-12834,C09760,S10157,ZVEJN1,R04022,1,pendant,tooth,animal: wild boar
+Item-12835,C09761,S10157,ZVEJN1,R04023,1,,bone,animal: bird
+Item-12836,C09762,S10157,ZVEJN2,R04024,1,pendant,tooth,animal
+Item-12841,C09765,S10157,ZVEJN2,R04027,1,,,
+Item-12843,C09767,S10157,ZVEJN2,R04029,1,spearhead,bone,animal
+Item-12843,C09767,S10157,ZVEJN2,R04029,1,pendant,tooth,animal
+Item-12846,C09770,S10157,ZVEJN2,R04032,1,pendant,tooth,animal
+Item-12846,C09770,S10157,ZVEJN2,R04032,1,implement,tooth: canine: upper,animal: wild boar
+Item-12846,C09770,S10157,ZVEJN2,R04032,1,point,bone,animal
+Item-12846,C09770,S10157,ZVEJN2,R04032,1,flake,stone,flint: calcareous
+Item-12846,C09770,S10157,ZVEJN2,R04032,1,,bone,animal: bird
+Item-12847,C09771,S10157,ZVEJN2,R04033,1,pendant,tooth,animal
+Item-12847,C09771,S10157,ZVEJN2,R04033,1,arrowhead,bone,animal
+Item-12847,C09771,S10157,ZVEJN2,R04033,1,harpoon,bone,animal
+Item-12847,C09771,S10157,ZVEJN2,R04033,1,knife,bone,animal
+Item-12849,C09773,S10157,ZVEJN2,R04035,1,pendant,tooth,animal
+Item-12849,C09773,S10157,ZVEJN2,R04035,1,figurine,bone,animal
+Item-12850,C09774,S10157,ZVEJN3,R04036,1,pendant,tooth,animal
+Item-12850,C09774,S10157,ZVEJN3,R04036,1,pendant,tooth,animal
+Item-12850,C09774,S10157,ZVEJN3,R04036,1,,bone,animal: bird
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,awl,bone,
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,,tooth,animal: beaver
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,flake,stone,flint
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,core,stone,flint
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,vessel,clay,clay: pottery
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,vessel,clay,clay: pottery
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,arrowhead,stone,flint
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,point,bone,
+Item-12851,C09775,S10157,ZVEJN3,R04037,1,,tooth: incisor,animal: beaver
+Item-12854,C09777,S10157,ZVEJN3,R04039,1,spearhead,bone,animal
+Item-12854,C09777,S10157,ZVEJN3,R04039,1,spearhead: point,bone,animal
+Item-12854,C09777,S10157,ZVEJN3,R04039,1,pendant,tooth,animal
+Item-12854,C09777,S10157,ZVEJN3,R04039,1,,bone,animal: bird
+Item-12855,C09778,S10157,ZVEJN3,R04040,1,,bone,animal: bird
+Item-12855,C09778,S10157,ZVEJN3,R04040,1,flake,stone,quartz
+Item-12856,C09779,S10157,ZVEJN3,R04041,1,button,resin,amber
+Item-12856,C09779,S10157,ZVEJN3,R04041,1,pendant,bone,animal: sturgeon
+Item-12856,C09779,S10157,ZVEJN3,R04041,1,figurine,,
+Item-12856,C09779,S10157,ZVEJN3,R04041,1,figurine,,
+Item-12856,C09779,S10157,ZVEJN3,R04041,1,figurine,antler,animal
+Item-12856,C09779,S10157,ZVEJN3,R04041,1,arrowhead,bone,animal
+Item-12856,C09779,S10157,ZVEJN3,R04041,1,flake,stone,flint
+Item-12857,C09780,S10157,ZVEJN3,R04042,1,arrowhead/spearhead,stone,flint
+Item-12857,C09780,S10157,ZVEJN3,R04042,1,scraper,stone,flint
+Item-12857,C09780,S10157,ZVEJN3,R04042,1,flake,stone,flint
+Item-12857,C09780,S10157,ZVEJN3,R04042,1,awl,bone,animal
+Item-12857,C09780,S10157,ZVEJN3,R04042,1,,antler,animal: roe deer
+Item-12857,C09780,S10157,ZVEJN3,R04042,1,tablet,resin,amber
+Item-12857,C09780,S10157,ZVEJN3,R04042,1,,tooth: incisor,animal: beaver
+Item-12858,C09781,S10157,ZVEJN3,R04043,1,vessel,clay,clay: pottery
+Item-12859,C09782,S10157,ZVEJN4,R04044,1,plaque,antler,animal
+Item-12861,C09784,S10157,ZVEJN5,R04046,1,,tooth: molar,animal: elk
+Item-12861,C09784,S10157,ZVEJN5,R04046,1,,bone: mandible,animal: beaver
+Item-12861,C09784,S10157,ZVEJN5,R04046,1,,tooth: incisor,animal: elk
+Item-12876,C09728,S10157,ZVEJN1,R03990,1,,stone,flint
+Item-12876,C09728,S10157,ZVEJN1,R03990,1,flake,stone,flint
+Item-12876,C09728,S10157,ZVEJN1,R03990,1,,bone,animal: cloven
+Item-12877,C09730,S10157,ZVEJN1,R03992,1,,bone,animal: beaver
+Item-12877,C09730,S10157,ZVEJN1,R03992,1,knife,stone,flint
+Item-12877,C09730,S10157,ZVEJN1,R03992,1,,stone,flint
+Item-12877,C09730,S10157,ZVEJN1,R03992,1,pendant,tooth,animal
+Item-12879,C09734,S10157,ZVEJN1,R03996,1,pendant,tooth,animal
+Item-12879,C09734,S10157,ZVEJN1,R03996,1,pendant,tooth,animal
+Item-12879,C09734,S10157,ZVEJN1,R03996,1,pendant,tooth,animal
+Item-12881,C09737,S10157,ZVEJN1,R03999,1,pendant,tooth,animal
+Item-12881,C09737,S10157,ZVEJN1,R03999,1,pendant,tooth,animal
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,figurine,,
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,ring,metal,bronze
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,ring,resin,amber
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,bead,resin,amber
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,bead,,
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,pendant,resin,amber
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,pendant,,
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,pendant,tooth,animal: carnivore
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,ring,resin,amber
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,pendant,resin,amber
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,plaque,bone,
+Item-12883,C09739,S10157,ZVEJN3,R04001,1,flake,stone,flint
+Item-12886,C09742,S10157,ZVEJN3,R04004,1,pendant,tooth,animal
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,disc,resin,amber
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,ring,resin,amber
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,disc,resin,amber
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,pendant,resin,amber
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,pendant,resin,amber
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,,bone,animal: bird
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,gouge,bone,
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,disc,resin,amber
+Item-12889,C09744,S10157,ZVEJN3,R04006,1,face plastering,clay,plaster
+Item-12891,C09746,S10157,ZVEJN3,R04008,1,pendant,resin,amber
+Item-12891,C09746,S10157,ZVEJN3,R04008,1,disc,resin,amber
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,harpoon,,
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,arrowhead,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,scraper,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,knife,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,picker,bone,animal
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,tablet,resin,amber
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,harpoon,,
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,arrowhead,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,scraper,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,blade,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,flake,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,flake,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,flake,stone,flint
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,point,bone,animal
+Item-12892,C09747,S10157,ZVEJN3,R04009,1,tablet,resin,amber
+Item-12893,C09748,S10157,ZVEJN3,R04010,1,harpoon,bone,animal
+Item-12893,C09748,S10157,ZVEJN3,R04010,1,harpoon,bone,animal
+Item-12893,C09748,S10157,ZVEJN3,R04010,1,point,bone,animal
+Item-12893,C09748,S10157,ZVEJN3,R04010,1,,bone: long,animal: elk
+Item-12893,C09748,S10157,ZVEJN3,R04010,1,dagger,bone: cannon,animal
+Item-12893,C09748,S10157,ZVEJN3,R04010,1,dagger,bone,animal
+Item-12893,C09748,S10157,ZVEJN3,R04010,1,chip,stone,flint
+Item-12894,C09749,S10157,ZVEJN2,R04011,1,sliver,stone,quartz
+Item-12896,C09751,S10157,ZVEJN1,R04013,1,spearhead,bone,animal
+Item-12896,C09751,S10157,ZVEJN1,R04013,1,spearhead,bone,animal
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,axe: flat,stone,
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,pendant,tooth,animal
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,dagger,bone,animal
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,knife,stone,flint
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,flake,stone,flint
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,spearhead,bone,animal
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,burin: micro,stone,flint
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,scraper,stone,flint
+Item-12898,C09753,S10157,ZVEJN5,R04015,1,pendant,tooth,animal
+Item-12900,C09755,S10157,ZVEJN1,R04017,1,pendant,tooth,animal
+Item-12900,C09755,S10157,ZVEJN1,R04017,1,,bone,animal: beaver
+Item-12900,C09755,S10157,ZVEJN1,R04017,1,,bone,animal: bird
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,pendant,tooth,animal
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,,bone: phalange,animal
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,,bone,animal: bird
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,figurine,stone,
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,chip,stone,flint
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,pendant,tooth,animal
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,pendant,tooth,animal
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,pendant,tooth,animal
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,,bone,animal: beaver
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,,bone: phalange,animal
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,,bone,animal: bird
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,figurine,stone,
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,pebble,stone,
+Item-12901,C09756,S10157,ZVEJN1,R04018,1,flake,stone,flint
+Item-12902,C09757,S10157,ZVEJN2,R04019,1,pendant,tooth,animal
+Item-12935,C09837,S11865,SLONO51,R04050,1,flake,stone,flint: Volhynian
+Item-12958,C09842,S11867,GOLKRI1,R04055,1,knife,stone,flint
+Item-12958,C09842,S11867,GOLKRI1,R04055,1,,stone,
+Item-12959,C09843,S11867,GOLKRI1,R04056,1,,shell,animal: mollusca
+Item-12959,C09843,S11867,GOLKRI1,R04056,1,vessel,clay,clay: pottery
+Item-12960,C09844,S11867,GOLKRI1,R04057,1,tip,stone,flint
+Item-12960,C09844,S11867,GOLKRI1,R04057,1,,tooth: canine: upper,animal: wild boar
+Item-12960,C09844,S11867,GOLKRI1,R04057,1,,tooth: canine: upper,animal: wild boar
+Item-12960,C09844,S11867,GOLKRI1,R04057,1,,shell,animal: mollusca: marine
+Item-12960,C09844,S11867,GOLKRI1,R04057,1,,shell,animal: mollusca
+Item-12960,C09844,S11867,GOLKRI1,R04057,1,artefact,stone,limestone
+Item-12960,C09844,S11867,GOLKRI1,R04057,1,slab,stone,sandstone
+Item-12960,C09844,S11867,GOLKRI1,R04057,1,vessel,clay,clay: pottery
+Item-12961,C09845,S11867,GOLKRI1,R04058,1,,shell,animal: mollusca
+Item-12961,C09845,S11867,GOLKRI1,R04058,1,disc,bone,animal
+Item-12961,C09845,S11867,GOLKRI1,R04058,1,tip,stone,flint
+Item-12961,C09845,S11867,GOLKRI1,R04058,1,,tooth: incisor,animal: marmot
+Item-12961,C09845,S11867,GOLKRI1,R04058,1,vessel,clay,clay: pottery
+Item-12962,C09847,S11867,GOLKRI1,R04060,1,,bone,animal
+Item-12962,C09847,S11867,GOLKRI1,R04060,1,,tooth: incisor,animal: marmot
+Item-12962,C09847,S11867,GOLKRI1,R04060,1,,tooth,animal: small
+Item-12962,C09847,S11867,GOLKRI1,R04060,1,ring,metal,
+Item-12964,C09849,S11867,GOLKRI1,R04062,1,slab,stone,quartzite: sandstone
+Item-12964,C09849,S11867,GOLKRI1,R04062,1,bead,shell,animal: mollusca
+Item-12966,C09853,S11867,GOLKRI1,R04066,1,,shell,animal: mollusca: marine
+Item-12966,C09853,S11867,GOLKRI1,R04066,1,ring,stone,limestone
+Item-12966,C09853,S11867,GOLKRI1,R04066,1,flake,stone,flint
+Item-12967,C09854,S11867,GOLKRI1,R04067,1,vessel,clay,clay: pottery
+Item-12967,C09854,S11867,GOLKRI1,R04067,1,,tooth: incisor,animal: marmot
+Item-12967,C09854,S11867,GOLKRI1,R04067,1,disc,bone,animal
+Item-12968,C09855,S11867,GOLKRI1,R04068,1,,shell,animal: mollusca
+Item-13161,C03981,S10195,VILN1,R01036,1,blade,stone,flint
+Item-13161,C03981,S10195,VILN1,R01036,1,pendant,tooth,animal: deer
+Item-13162,C03984,S10195,VILN2,R01039,1,trapeze,stone,flint
+Item-13162,C03984,S10195,VILN2,R01039,1,blade,stone,flint
+Item-13162,C03984,S10195,VILN2,R01039,1,,tooth,animal: fish
+Item-13173,C10319,S11877,KSIZOV65,R04084,1,,,
+Item-13177,C10321,S11336,SAKHT2,R04086,1,,,
+Item-13178,C10325,S11336,SAKHT2,R04090,1,,,
+Item-13179,C10342,S11336,SAKHT2,R04107,1,,,
+Item-13180,C10344,S11336,SAKHT2,R04109,1,,,
+Item-13181,C10346,S11336,SAKHT2,R04111,1,,,
+Item-13182,C10335,S11336,SAKHT2,R04100,1,,,
+Item-13184,C10327,S11336,SAKHT2,R04092,1,,,
+Item-13187,C10338,S11336,SAKHT2,R04103,1,,,
+Item-13189,C10340,S11336,SAKHT2,R04105,1,,,
+Item-13190,C10328,S11336,SAKHT2,R04093,1,,,
+Item-13191,C10336,S11336,SAKHT2,R04101,1,,,
+Item-13194,C10330,S11336,SAKHT2,R04095,1,,,
+Item-13195,C10329,S11336,SAKHT2,R04094,1,,,
+Item-13212,C10360,S02237,HNDY1,R04125,1,,,
+Item-13214,C10362,S02237,HNDY1,R04127,1,,,
+Item-13217,C10365,S12047,IGREVIII4,R04130,1,,,
+Item-13222,C10372,S11325,MAMGO1,R04137,1,,,
+Item-13223,C10373,S11325,MAMGO1,R04138,1,,,
+Item-13239,C10394,S11348,VOV11,R04159,1,,,
+Item-13245,C10392,S11348,VOV11,R04157,1,,,
+Item-13246,C10393,S11348,VOV11,R04158,1,,,
+Item-16011,C12032,S12605,SLPTCP2,R01708,1,blade,stone,flint
+Item-16011,C12032,S12605,SLPTCP2,R01708,1,bladelet,stone,flint
+Item-16012,C12033,S12605,SLPTCP2,R01709,1,,stone,flint
+Item-16029,C12069,S12610,ISMLP2,R01745,1,bead,stone,sandstone
+Item-16642,C12522,S09095,GURNOU1,R01861,1,vessel,clay,clay: pottery
+Item-16642,C12522,S09095,GURNOU1,R01861,1,flake,stone,flint
+Item-16642,C12522,S09095,GURNOU1,R01861,1,strike-a-light,stone,flint
+Item-16642,C12522,S09095,GURNOU1,R01861,1,button,bone,animal
+Item-16665,C12545,S02756,FSOLHO1,R01884,1,arrowhead,,
+Item-16665,C12545,S02756,FSOLHO1,R01884,1,burial,bone,animal: sheep
+Item-16666,C12546,S02756,FSOLHO1,R01885,1,splinter,stone,flint
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,arrowhead,,
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,tool,,
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,flake,stone,flint
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,splinter,stone,flint
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,burial,bone,animal: sheep
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,burial,bone,animal: sheep
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,burial,bone,animal: sheep
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,,bone: scapula,animal: bovid
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,,bone: metacarpal: distal,animal: bovid
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,,bone: horn: core,animal: bovid
+Item-16667,C12547,S02756,FSOLHO1,R01886,1,,tooth,animal: bovid
+Item-16668,C12548,S02756,FSOLHO1,R01887,1,arrowhead,,
+Item-16668,C12548,S02756,FSOLHO1,R01887,1,tool,,
+Item-16668,C12548,S02756,FSOLHO1,R01887,1,core,stone,flint
+Item-16668,C12548,S02756,FSOLHO1,R01887,1,flake,stone,flint
+Item-16668,C12548,S02756,FSOLHO1,R01887,1,splinter,stone,flint
+Item-16668,C12548,S02756,FSOLHO1,R01887,1,burial,bone,animal: sheep
+Item-16668,C12548,S02756,FSOLHO1,R01887,1,,bone: scapula,animal: bovid
+Item-16668,C12548,S02756,FSOLHO1,R01887,1,,bone: vertebra: cervical,animal: bovid
+Item-16669,C12549,S02756,FSOLHO1,R01888,1,arrowhead,,
+Item-16669,C12549,S02756,FSOLHO1,R01888,1,tool,,
+Item-16669,C12549,S02756,FSOLHO1,R01888,1,flake,stone,flint
+Item-16669,C12549,S02756,FSOLHO1,R01888,1,splinter,stone,flint
+Item-16672,C12552,S02756,FSOLHO1,R01891,1,arrowhead,,
+Item-16672,C12552,S02756,FSOLHO1,R01891,1,flake,stone,flint
+Item-16672,C12552,S02756,FSOLHO1,R01891,1,splinter,stone,flint
+Item-16800,C00724,S10574,DERMII1,R00374,1,vessel,clay,clay: pottery
+Item-16800,C00724,S10574,DERMII1,R00374,1,vessel,clay,clay: pottery
+Item-16800,C00724,S10574,DERMII1,R00374,1,vessel,clay,clay: pottery
+Item-16801,C00727,S10574,DERMII1,R00377,1,grinding stone,stone,
+Item-16802,C00728,S10574,DERMII1,R00378,1,adze,stone,volcanic
+Item-16802,C00728,S10574,DERMII1,R00378,1,gag,antler,animal
+Item-16803,C00739,S10255,ALSO3,R00389,1,vessel,clay,clay: pottery
+Item-16804,C00741,S10255,ALSO3,R00391,1,vessel,clay,clay: pottery
+Item-16909,C04431,S10255,ALSO4,R01255,1,vessel,clay,clay: pottery
+Item-16909,C04431,S10255,ALSO4,R01255,1,armring,metal,copper
+Item-16915,C04442,S10255,ALSO4,R01266,1,vessel,clay,clay: pottery
+Item-16915,C04442,S10255,ALSO4,R01266,1,adze,stone,
+Item-16915,C04442,S10255,ALSO4,R01266,1,blade,stone,flint
+Item-16915,C04442,S10255,ALSO4,R01266,1,point,antler,animal
+Item-16915,C04442,S10255,ALSO4,R01266,1,,bone: shoulder blade,animal
+Item-16918,C00769,S10574,DERMII1,R00419,1,vessel,clay,clay: pottery
+Item-16918,C00769,S10574,DERMII1,R00419,1,adze,stone,amphibolite
+Item-16919,C04495,S10574,DERMII1,R01297,1,vessel,clay,clay: pottery
+Item-16920,C04497,S10574,DERMII1,R01299,1,adze,stone,amphibolite
+Item-16921,C04498,S10574,DERMII1,R01300,1,vessel,clay,clay: pottery
+Item-16921,C04498,S10574,DERMII1,R01300,1,adze,stone,quartzite
+Item-16921,C04498,S10574,DERMII1,R01300,1,pigment,stone,manganite
+Item-16922,C04499,S10574,DERMII1,R01301,1,vessel,clay,clay: pottery
+Item-16922,C04499,S10574,DERMII1,R01301,1,vessel,clay,clay: pottery
+Item-16922,C04499,S10574,DERMII1,R01301,1,vessel,clay,clay: pottery
+Item-16922,C04499,S10574,DERMII1,R01301,1,vessel,clay,clay: pottery
+Item-16923,C04500,S10574,DERMII1,R01302,1,vessel,clay,clay: pottery
+Item-16923,C04500,S10574,DERMII1,R01302,1,vessel,clay,clay: pottery
+Item-16923,C04500,S10574,DERMII1,R01302,1,adze,stone,quartzite
+Item-16923,C04500,S10574,DERMII1,R01302,1,grinding stone,stone,
+Item-16924,C04506,S10574,DERMII1,R01308,1,vessel,clay,clay: pottery
+Item-16924,C04506,S10574,DERMII1,R01308,1,vessel,clay,clay: pottery
+Item-16924,C04506,S10574,DERMII1,R01308,1,grinding stone,stone,
+Item-16925,C04513,S10574,DERMII1,R01315,1,vessel,clay,clay: pottery
+Item-16925,C04513,S10574,DERMII1,R01315,1,vessel,clay,clay: pottery
+Item-16925,C04513,S10574,DERMII1,R01315,1,gag,antler,animal
+Item-16926,C04515,S10574,DERMII1,R01317,1,pigment,stone,manganite
+Item-16927,C04517,S10574,DERMII1,R01319,1,vessel,clay,clay: pottery
+Item-16927,C04517,S10574,DERMII1,R01319,1,vessel,clay,clay: pottery
+Item-16927,C04517,S10574,DERMII1,R01319,1,vessel,clay,clay: pottery
+Item-16927,C04517,S10574,DERMII1,R01319,1,vessel,clay,clay: pottery
+Item-16927,C04517,S10574,DERMII1,R01319,1,grinding stone,stone,
+Item-16927,C04517,S10574,DERMII1,R01319,1,pendant,shell,animal: mollusca
+Item-16928,C04518,S10574,DERMII1,R01320,1,grinding stone,stone,
+Item-16929,C04519,S10574,DERMII1,R01321,1,pigment,stone,manganite
+Item-16930,C04520,S10574,DERMII1,R01322,1,vessel,clay,clay: pottery
+Item-16930,C04520,S10574,DERMII1,R01322,1,pigment,stone,manganite
+Item-16930,C04520,S10574,DERMII1,R01322,1,bead,shell,animal: mollusca
+Item-16930,C04520,S10574,DERMII1,R01322,1,armring,shell,animal: mollusca
+Item-16931,C04522,S10574,DERMII1,R01324,1,vessel,clay,clay: pottery
+Item-16931,C04522,S10574,DERMII1,R01324,1,vessel,clay,clay: pottery
+Item-16932,C04524,S10574,DERMII1,R01326,1,pigment,stone,manganite
+Item-16932,C04524,S10574,DERMII1,R01326,1,vessel,clay,clay: pottery
+Item-16932,C04524,S10574,DERMII1,R01326,1,vessel,clay,clay: pottery
+Item-16932,C04524,S10574,DERMII1,R01326,1,vessel,clay,clay: pottery
+Item-16932,C04524,S10574,DERMII1,R01326,1,vessel,clay,clay: pottery
+Item-16932,C04524,S10574,DERMII1,R01326,1,vessel,clay,clay: pottery
+Item-16932,C04524,S10574,DERMII1,R01326,1,vessel,clay,clay: pottery
+Item-16933,C04528,S10574,DERMII1,R01330,1,vessel,clay,clay: pottery
+Item-16933,C04528,S10574,DERMII1,R01330,1,adze,stone,volcanic
+Item-16933,C04528,S10574,DERMII1,R01330,1,pigment,stone,manganite
+Item-16933,C04528,S10574,DERMII1,R01330,1,pendant,shell,animal: mollusca
+Item-16934,C04534,S10574,DERMII1,R01336,1,vessel,clay,clay: pottery
+Item-16935,C04535,S10574,DERMII1,R01337,1,vessel,clay,clay: pottery
+Item-16935,C04535,S10574,DERMII1,R01337,1,vessel,clay,clay: pottery
+Item-16935,C04535,S10574,DERMII1,R01337,1,grinding stone,stone,
+Item-16935,C04535,S10574,DERMII1,R01337,1,bead,shell,animal: mollusca
+Item-16935,C04535,S10574,DERMII1,R01337,1,armring,shell,animal: mollusca
+Item-16935,C04535,S10574,DERMII1,R01337,1,armring,shell,animal: mollusca
+Item-16935,C04535,S10574,DERMII1,R01337,1,pendant,shell,animal: mollusca
+Item-16935,C04535,S10574,DERMII1,R01337,1,pendant,tooth,animal: horse
+Item-16936,C04536,S10575,HALSON1,R01338,1,vessel,clay,clay: pottery
+Item-16936,C04536,S10575,HALSON1,R01338,1,bead,shell,animal: mollusca
+Item-16937,C04537,S10575,HALSON1,R01339,1,vessel,clay,clay: pottery
+Item-16937,C04537,S10575,HALSON1,R01339,1,vessel,clay,clay: pottery
+Item-16938,C04540,S10575,HALSON1,R01342,1,grinding stone,stone,
+Item-16939,C04541,S10575,HALSON1,R01343,1,vessel,clay,clay: pottery
+Item-16939,C04541,S10575,HALSON1,R01343,1,vessel,clay,clay: pottery
+Item-16939,C04541,S10575,HALSON1,R01343,1,vessel,clay,clay: pottery
+Item-16940,C04542,S10575,HALSON1,R01344,1,,bone,"animal: cattle, sheep/goat"
+Item-16941,C04545,S10575,HALSON1,R01347,1,grinding stone,stone,
+Item-16941,C04545,S10575,HALSON1,R01347,1,vessel,clay,clay: pottery
+Item-16942,C04549,S10575,HALSON1,R01351,1,vessel,clay,clay: pottery
+Item-16942,C04549,S10575,HALSON1,R01351,1,adze,stone,volcanic
+Item-16942,C04549,S10575,HALSON1,R01351,1,,bone: skull,animal: cattle
+Item-16942,C04549,S10575,HALSON1,R01351,1,tool,bone,animal
+Item-16943,C04557,S10575,HALSON1,R01359,1,blade,stone,flint
+Item-16944,C04561,S10575,HALSON1,R01363,1,arrowhead,stone,flint
+Item-16945,C04564,S10575,HALSON1,R01366,1,vessel,clay,clay: pottery
+Item-16945,C04564,S10575,HALSON1,R01366,1,adze,stone,volcanic/amphibolite
+Item-16945,C04564,S10575,HALSON1,R01366,1,awl,bone: long,animal: ruminant
+Item-16946,C04570,S10575,HALSON1,R01372,1,vessel,clay,clay: pottery
+Item-16947,C04571,S10575,HALSON1,R01373,1,vessel,clay,clay: pottery
+Item-16947,C04571,S10575,HALSON1,R01373,1,vessel,clay,clay: pottery
+Item-16947,C04571,S10575,HALSON1,R01373,1,vessel,clay,clay: pottery
+Item-16947,C04571,S10575,HALSON1,R01373,1,vessel,clay,clay: pottery
+Item-16948,C04572,S10575,HALSON1,R01374,1,grinding stone,stone,
+Item-16949,C04576,S10575,HALSON1,R01378,1,grinding stone,stone,
+Item-16949,C04576,S10575,HALSON1,R01378,1,vessel,clay,clay: pottery
+Item-16958,C07452,S04332,BREZULO2,R01390,1,vessel,clay,clay: pottery
+Item-16959,C07453,S11014,CACHOV3,R01391,1,vessel,clay,clay: pottery
+Item-16959,C07453,S11014,CACHOV3,R01391,1,mace,stone,
+Item-16959,C07453,S11014,CACHOV3,R01391,1,axe,stone,
+Item-16959,C07453,S11014,CACHOV3,R01391,1,axe,stone,silicite
+Item-16959,C07453,S11014,CACHOV3,R01391,1,flake,stone,flint
+Item-16960,C07455,S11014,CACHOV3,R01393,1,vessel,clay,clay: pottery
+Item-16960,C07455,S11014,CACHOV3,R01393,1,axe: battle,stone,
+Item-16960,C07455,S11014,CACHOV3,R01393,1,axe: flat,stone,
+Item-16960,C07455,S11014,CACHOV3,R01393,1,blade,stone,flint
+Item-16962,C07458,S11014,CACHOV3,R01396,1,vessel,clay,clay: pottery
+Item-16962,C07458,S11014,CACHOV3,R01396,1,axe: battle,stone,
+Item-16962,C07458,S11014,CACHOV3,R01396,1,blade,stone,flint
+Item-16962,C07458,S11014,CACHOV3,R01396,1,awl,bone,animal
+Item-16962,C07458,S11014,CACHOV3,R01396,1,,tooth: canine,animal: pig
+Item-16963,C07459,S11014,CACHOV3,R01397,1,vessel,clay,clay: pottery
+Item-16963,C07459,S11014,CACHOV3,R01397,1,mace,stone,
+Item-16963,C07459,S11014,CACHOV3,R01397,1,axe: flat,stone,
+Item-16963,C07459,S11014,CACHOV3,R01397,1,blade,stone,flint
+Item-16964,C07461,S11014,CACHOV3,R01399,1,vessel,clay,clay: pottery
+Item-16964,C07461,S11014,CACHOV3,R01399,1,axe: battle,stone,
+Item-16964,C07461,S11014,CACHOV3,R01399,1,axe: flat,stone,
+Item-16964,C07461,S11014,CACHOV3,R01399,1,blade,stone,flint
+Item-16964,C07461,S11014,CACHOV3,R01399,1,flake,stone,flint
+Item-16966,C07492,S11019,KNEZE2,R01422,1,vessel,clay,clay: pottery
+Item-16967,C07513,S11021,KOLI24,R01443,1,vessel,clay,clay: pottery
+Item-16967,C07513,S11021,KOLI24,R01443,1,vessel,clay,clay: pottery
+Item-16967,C07513,S11021,KOLI24,R01443,1,,wood,charcoal
+Item-16967,C07513,S11021,KOLI24,R01443,1,,bone,animal
+Item-16969,C07515,S11022,KOLI62,R01445,1,vessel,clay,clay: pottery
+Item-16969,C07515,S11022,KOLI62,R01445,1,,bone,animal
+Item-16970,C07518,S11023,KOLI71,R01448,1,vessel,clay,clay: pottery
+Item-16971,C07520,S11024,KOLST2,R01450,1,vessel,clay,clay: pottery
+Item-16971,C07520,S11024,KOLST2,R01450,1,vessel,clay,clay: pottery
+Item-16972,C07522,S11024,KOLST3,R01452,1,vessel,clay,clay: pottery
+Item-16972,C07522,S11024,KOLST3,R01452,1,axe: flat,stone,flint
+Item-16973,C07525,S11024,KOLST2,R01455,1,,clay,clay: daub
+Item-16973,C07525,S11024,KOLST2,R01455,1,,bone,animal
+Item-16973,C07525,S11024,KOLST2,R01455,1,,stone,
+Item-16973,C07525,S11024,KOLST2,R01455,1,blade,stone,flint
+Item-16973,C07525,S11024,KOLST2,R01455,1,blade,stone,flint
+Item-16974,C07526,S11024,KOLST2,R01456,1,vessel,clay,clay: pottery
+Item-16974,C07526,S11024,KOLST2,R01456,1,,clay,clay: daub
+Item-16974,C07526,S11024,KOLST2,R01456,1,blade,stone,flint
+Item-16975,C07529,S11024,KOLST2,R01459,1,vessel,clay,clay: pottery
+Item-16975,C07529,S11024,KOLST2,R01459,1,,bone,animal
+Item-16975,C07529,S11024,KOLST2,R01459,1,,clay,clay: daub
+Item-16977,C07539,S11025,KONO2,R01469,1,vessel,clay,clay: pottery
+Item-16977,C07539,S11025,KONO2,R01469,1,ring: temple: spiral,metal,copper
+Item-16978,C07540,S11025,KONO2,R01470,1,bead,tooth,animal
+Item-16978,C07540,S11025,KONO2,R01470,1,flake,stone,flint
+Item-16979,C07595,S10034,PRJIN4,R01518,1,vessel,clay,clay: pottery
+Item-16981,C07731,S11040,VLIN8,R01642,1,pin,metal,bronze
+Item-16981,C07731,S11040,VLIN8,R01642,1,earring,metal,bronze
+Item-16981,C07731,S11040,VLIN8,R01642,1,spiral,metal,bronze
+Item-16981,C07731,S11040,VLIN8,R01642,1,bead,resin,amber
+Item-16982,C07744,S11041,ZELE1,R01653,1,vessel,clay,clay: pottery
+Item-16982,C07744,S11041,ZELE1,R01653,1,axe: battle,stone,
+Item-16982,C07744,S11041,ZELE1,R01653,1,ring: temple: spiral,metal,copper
+Item-16982,C07744,S11041,ZELE1,R01653,1,,metal: wire,copper
+Item-16982,C07744,S11041,ZELE1,R01653,1,whetstone,stone,
+Item-16982,C07744,S11041,ZELE1,R01653,1,blade,stone,flint
+Item-16983,C07727,S11040,VLIN8,R01638,1,vessel,clay,clay: pottery
+Item-16983,C07727,S11040,VLIN8,R01638,1,pin,metal,bronze
+Item-16983,C07727,S11040,VLIN8,R01638,1,earring,metal,bronze
+Item-16984,C07609,S11032,PRNBU5,R01532,1,vessel,clay,clay: pottery
+Item-16984,C07609,S11032,PRNBU5,R01532,1,axe: battle,stone,
+Item-16984,C07609,S11032,PRNBU5,R01532,1,axe: flat,stone,
+Item-16985,C07610,S11032,PRNBU5,R01533,1,vessel,clay,clay: pottery
+Item-16985,C07610,S11032,PRNBU5,R01533,1,ring: temple: spiral,metal,copper
+Item-16985,C07610,S11032,PRNBU5,R01533,1,blade,stone,flint
+Item-16986,C07733,S11040,VLIN9,R01644,1,pin,metal,bronze
+Item-16987,C07737,S11040,VLIN8,R01646,1,vessel,clay,clay: pottery
+Item-16987,C07737,S11040,VLIN8,R01646,1,,tooth,animal
+Item-16988,C07612,S11033,PRRUZ3,R01535,1,vessel,clay,clay: pottery
+Item-16989,C07616,S11033,PRRUZ3,R01539,1,vessel,clay,clay: pottery
+Item-16989,C07616,S11033,PRRUZ3,R01539,1,vessel,clay,clay: pottery
+Item-16990,C07614,S11033,PRRUZ3,R01537,1,vessel,clay,clay: pottery
+Item-16993,C07644,S11035,STADN1,R01556,1,vessel,clay,clay: pottery
+Item-16993,C07644,S11035,STADN1,R01556,1,mace,stone,
+Item-16994,C07647,S11036,TISIC2,R01559,1,vessel,clay,clay: pottery
+Item-16994,C07647,S11036,TISIC2,R01559,1,ornament: hair,metal,gold
+Item-16994,C07647,S11036,TISIC2,R01559,1,flake,stone,flint
+Item-16994,C07647,S11036,TISIC2,R01559,1,artefact,bone,animal
+Item-16999,C07716,S11040,VLIN7,R01627,1,vessel,clay,clay: pottery
+Item-17000,C07717,S11040,VLIN7,R01628,1,vessel,clay,clay: pottery
+Item-17001,C07720,S11040,VLIN7,R01631,1,vessel,clay,clay: pottery
+Item-17002,C07677,S11040,VLIN6,R01588,1,blade,stone,flint
+Item-17003,C07679,S11040,VLIN6,R01590,1,vessel,clay,clay: pottery
+Item-17003,C07679,S11040,VLIN6,R01590,1,axe: battle,stone,
+Item-17003,C07679,S11040,VLIN6,R01590,1,axe: flat,stone,
+Item-17004,C07684,S11040,VLIN6,R01595,1,vessel,clay,clay: pottery
+Item-17005,C07686,S11040,VLIN6,R01597,1,blade,stone,flint
+Item-17006,C07690,S11040,VLIN6,R01601,1,vessel,clay,clay: pottery
+Item-17006,C07690,S11040,VLIN6,R01601,1,blade,stone,flint
+Item-17006,C07690,S11040,VLIN6,R01601,1,mace,stone,
+Item-17006,C07690,S11040,VLIN6,R01601,1,flake,stone,flint
+Item-17007,C07692,S11040,VLIN6,R01603,1,vessel,clay,clay: pottery
+Item-17007,C07692,S11040,VLIN6,R01603,1,blade,stone,flint
+Item-17008,C07693,S11040,VLIN6,R01604,1,vessel,clay,clay: pottery
+Item-17008,C07693,S11040,VLIN6,R01604,1,blade,stone,flint
+Item-17009,C07695,S11040,VLIN6,R01606,1,vessel,clay,clay: pottery
+Item-17009,C07695,S11040,VLIN6,R01606,1,blade,stone,flint
+Item-17010,C07696,S11040,VLIN6,R01607,1,vessel,clay,clay: pottery
+Item-17010,C07696,S11040,VLIN6,R01607,1,blade,stone,flint
+Item-17010,C07696,S11040,VLIN6,R01607,1,blade,stone,flint
+Item-17011,C07697,S11040,VLIN6,R01608,1,vessel,clay,clay: pottery
+Item-17012,C07698,S11040,VLIN6,R01609,1,vessel,clay,clay: pottery
+Item-17012,C07698,S11040,VLIN6,R01609,1,whetstone,stone,
+Item-17035,C03471,S10135,MAL1,R00532,1,,shell,animal: mollusca
+Item-17036,C03472,S10135,MAL1,R00533,1,,shell,animal: mollusca
+Item-17037,C03473,S10135,MAL1,R00534,1,,shell,animal: mollusca
+Item-17038,C03475,S10135,MAL1,R00536,1,,shell,animal: mollusca
+Item-17039,C03708,S10161,BEBM1,R00758,1,blade: sickle,stone,flint
+Item-17040,C03726,S10146,BMP2,R00776,1,vessel,clay,clay: pottery
+Item-17041,C03476,S10135,MAL1,R00537,1,,shell,animal: mollusca
+Item-17042,C03727,S10146,BMP2,R00777,1,vessel,clay,clay: pottery
+Item-17043,C03728,S10146,BMP2,R00778,1,vessel,clay,clay: pottery
+Item-17044,C03732,S10146,BMP2,R00782,1,,bone,animal
+Item-17045,C04030,S10189,DER1,R01084,1,vessel,clay,clay: pottery
+Item-17047,C04027,S10189,DER1,R01081,1,,shell,animal: mollusca
+Item-17047,C04027,S10189,DER1,R01081,1,bead,metal: wire,copper
+Item-17049,C03717,S10164,GNZ1,R00767,1,vessel,clay,clay: pottery
+Item-17049,C03717,S10164,GNZ1,R00767,1,,bone,animal
+Item-17049,C03717,S10164,GNZ1,R00767,1,plaster,clay,
+Item-17049,C03717,S10164,GNZ1,R00767,1,,sediment,
+Item-17049,C03717,S10164,GNZ1,R00767,1,blade,stone,flint
+Item-17050,C03887,S10126,GOMOL1B,R00935,1,vessel,clay,clay: pottery
+Item-17050,C03887,S10126,GOMOL1B,R00935,1,bead,bone,animal
+Item-17051,C03720,S10166,HWE1,R00770,1,,bone,animal
+Item-17052,C04063,S10190,ILY1,R01118,1,vessel,clay,clay: pottery
+Item-17052,C04063,S10190,ILY1,R01118,1,,stone,limestone
+Item-17223,C03490,S10136,MED1,R00551,1,pigment: lump,stone,ochre
+Item-17224,C03721,S10167,NSGS2,R00771,1,,bone,animal: cattle
+Item-17224,C03721,S10167,NSGS2,R00771,1,,bone: vertebra: cervical,animal: sheep/goat
+Item-17224,C03721,S10167,NSGS2,R00771,1,vessel,clay,clay: pottery
+Item-17224,C03721,S10167,NSGS2,R00771,1,,bone,animal
+Item-17224,C03721,S10167,NSGS2,R00771,1,,clay,clay: daub
+Item-17224,C03721,S10167,NSGS2,R00771,1,tool,stone,flint
+Item-17225,C03723,S10167,NSGS2,R00773,1,,shell,animal: mollusca
+Item-17225,C03723,S10167,NSGS2,R00773,1,,bone,animal
+Item-17225,C03723,S10167,NSGS2,R00773,1,vessel,clay,clay: pottery
+Item-17226,C03865,S10184,OCO1,R00914,1,,stone,quartzite
+Item-17226,C03865,S10184,OCO1,R00914,1,pigment: lump,stone,ochre
+Item-17229,C04066,S10191,OZER3,R01135,1,,bone: mandible,animal: sheep/goat
+Item-17229,C04066,S10191,OZER3,R01135,1,,stone,
+Item-17230,C04067,S10191,OZER5,R01136,1,vessel,clay,clay: pottery
+Item-17231,C04068,S10191,OZER5,R01137,1,vessel,clay,clay: pottery
+Item-17232,C04070,S10191,OZER5,R01139,1,vessel,clay,clay: pottery
+Item-17233,C04071,S10191,OZER5,R01140,1,vessel,clay,clay: pottery
+Item-17234,C03765,S10175,RKO1,R00809,1,vessel,clay,clay: pottery
+Item-17235,C03767,S10175,RKO1,R00813,1,vessel,clay,clay: pottery
+Item-17236,C03768,S10175,RKO1,R00815,1,vessel,clay,clay: pottery
+Item-17238,C03718,S10165,SAJ1,R00768,1,,clay,clay: daub
+Item-17238,C03718,S10165,SAJ1,R00768,1,vessel,clay,clay: pottery
+Item-17238,C03718,S10165,SAJ1,R00768,1,,tooth,animal
+Item-17238,C03718,S10165,SAJ1,R00768,1,,bone,animal
+Item-17240,C03719,S10165,SAJ1,R00769,1,,bone: vertebra,animal: carp
+Item-17240,C03719,S10165,SAJ1,R00769,1,,bone: metapodial,animal: deer/cattle
+Item-17240,C03719,S10165,SAJ1,R00769,1,,bone: long,animal: large mammal
+Item-17240,C03719,S10165,SAJ1,R00769,1,,bone,animal
+Item-17241,C03839,S10183,SCL2,R00888,1,tool,antler,animal
+Item-17242,C03843,S10183,SCL2,R00892,1,flake,stone,quartzite
+Item-17243,C03844,S10183,SCL2,R00893,1,,tooth,animal
+Item-17243,C03844,S10183,SCL2,R00893,1,grattoir,stone,flint
+Item-17244,C03845,S10183,SCL2,R00894,1,spindle whorl,clay,clay: pottery
+Item-17245,C03846,S10183,SCL2,R00895,1,vessel,clay,clay: pottery
+Item-17245,C03846,S10183,SCL2,R00895,1,plate,stone,sandstone
+Item-17245,C03846,S10183,SCL2,R00895,1,,stone,
+Item-17245,C03846,S10183,SCL2,R00895,1,flake,stone,quartzite
+Item-17245,C03846,S10183,SCL2,R00895,1,pigment: lump,stone,haematite
+Item-17246,C03848,S10183,SCL2,R00897,1,,bone: mandible,animal
+Item-17246,C03848,S10183,SCL2,R00897,1,fishing weight,stone,
+Item-17246,C03848,S10183,SCL2,R00897,1,,stone,
+Item-17246,C03848,S10183,SCL2,R00897,1,vessel,clay,clay: pottery
+Item-17246,C03848,S10183,SCL2,R00897,1,point,bone,animal
+Item-17248,C03516,S10141,SMA1,R00565,1,ring: hair,metal,silver
+Item-17249,C03522,S10141,SMA1,R00571,1,tool,stone,flint
+Item-17249,C03522,S10141,SMA1,R00571,1,tool,bone,animal
+Item-17249,C03522,S10141,SMA1,R00571,1,vessel,clay,clay: pottery
+Item-17250,C03523,S10141,SMA1,R00572,1,tool,bone,
+Item-17250,C03523,S10141,SMA1,R00572,1,bead,shell,animal: mollusca
+Item-17250,C03523,S10141,SMA1,R00572,1,vessel,clay,clay: pottery
+Item-17250,C03523,S10141,SMA1,R00572,1,,plant,grain
+Item-17251,C03524,S10141,SMA1,R00573,1,axe,stone,
+Item-17251,C03524,S10141,SMA1,R00573,1,wedge,metal,copper
+Item-17251,C03524,S10141,SMA1,R00573,1,vessel,clay,clay: pottery
+Item-17251,C03524,S10141,SMA1,R00573,1,bead,shell,animal: mollusca
+Item-17252,C03517,S10141,SMA1,R00566,1,ring: hair,metal,silver
+Item-17253,C03549,S10142,SUS1,R00598,1,tool,stone,flint
+Item-17253,C03549,S10142,SUS1,R00598,1,hoe,antler,animal
+Item-17254,C03550,S10142,SUS1,R00599,1,tool,stone,flint
+Item-17254,C03550,S10142,SUS1,R00599,1,tool,bone,animal
+Item-17256,C03567,S10143,VAR1,R00617,1,axe: hammer,antler,animal
+Item-17256,C03567,S10143,VAR1,R00617,1,tool,antler,animal
+Item-17256,C03567,S10143,VAR1,R00617,1,adze,stone,
+Item-17256,C03567,S10143,VAR1,R00617,1,vessel,clay,clay: pottery
+Item-17256,C03567,S10143,VAR1,R00617,1,pigment: lump,stone,ochre: yellow
+Item-17257,C03585,S10143,VAR1,R00635,1,figurine,,
+Item-17258,C03980,S10195,VILN1,R01035,1,,tooth,animal: fish
+Item-17259,C03982,S10195,VILN1,R01037,1,,shell,animal: mollusca
+Item-17259,C03982,S10195,VILN1,R01037,1,pendant,tooth,animal: deer
+Item-17260,C03989,S10195,VILN1,R01044,1,,shell,animal: mollusca
+Item-17261,C03992,S10195,VILN1,R01047,1,,tooth,animal: fish
+Item-17262,C03993,S10195,VILN1,R01048,1,,tooth,animal: fish
+Item-17263,C03995,S10195,VILN1,R01050,1,,shell,animal: mollusca
+Item-17263,C03995,S10195,VILN1,R01050,1,pendant,tooth,animal: deer
+Item-17264,C04001,S10195,VILN1,R01056,1,,tooth,animal: fish
+Item-17264,C04001,S10195,VILN1,R01056,1,trapeze,stone,flint
+Item-17264,C04001,S10195,VILN1,R01056,1,flake,stone,flint
+Item-17265,C04002,S10195,VILN1,R01057,1,pendant,tooth,animal: deer
+Item-17265,C04002,S10195,VILN1,R01057,1,,tooth,animal: fish
+Item-17265,C04002,S10195,VILN1,R01057,1,,tooth,animal: fish
+Item-17266,C04003,S10195,VILN1,R01058,1,,tooth,animal: fish
+Item-17266,C04003,S10195,VILN1,R01058,1,,tooth,animal: fish
+Item-17267,C04005,S10195,VILN1,R01060,1,pendant,tooth,animal: deer
+Item-17267,C04005,S10195,VILN1,R01060,1,,tooth,animal: fish
+Item-17268,C04017,S10195,VILN1,R01071,1,pendant,tooth,animal: deer
+Item-17269,C04018,S10195,VILN1,R01072,1,,shell,animal: mollusca
+Item-17270,C04019,S10195,VILN1,R01073,1,,shell,animal: mollusca
+Item-17270,C04019,S10195,VILN1,R01073,1,,shell,animal: mollusca
+Item-17270,C04019,S10195,VILN1,R01073,1,,bone,animal: cattle
+Item-17270,C04019,S10195,VILN1,R01073,1,,bone,human
+Item-17270,C04019,S10195,VILN1,R01073,1,scraper,stone,flint
+Item-17270,C04019,S10195,VILN1,R01073,1,,bone: skull,human
+Item-17271,C04021,S10195,VILN1,R01075,1,pendant,,
+Item-17271,C04021,S10195,VILN1,R01075,1,,tooth,animal: fish
+Item-17272,C04023,S10195,VILN1,R01077,1,,tooth,animal: fish
+Item-17272,C04023,S10195,VILN1,R01077,1,pendant,tooth,animal: deer
+Item-17272,C04023,S10195,VILN1,R01077,1,awl,bone,animal
+Item-17272,C04023,S10195,VILN1,R01077,1,blade,stone,flint
+Item-17272,C04023,S10195,VILN1,R01077,1,blade,stone,flint
+Item-17273,C04024,S10195,VILN1,R01078,1,awl,bone,animal
+Item-17274,C04025,S10195,VILN1,R01079,1,pendant,tooth,animal: deer
+Item-17274,C04025,S10195,VILN1,R01079,1,,tooth,animal: fish
+Item-17274,C04025,S10195,VILN1,R01079,1,scraper,stone,flint
+Item-17274,C04025,S10195,VILN1,R01079,1,trapeze,stone,flint
+Item-17275,C03987,S10195,VILN2,R01042,1,,tooth,animal: fish
+Item-17276,C03996,S10195,VILN2,R01051,1,,tooth,animal: fish
+Item-17276,C03996,S10195,VILN2,R01051,1,pendant,tooth,animal: deer
+Item-17278,C03738,S10169,VINERV1,R00788,1,vessel,clay,clay: pottery
+Item-17278,C03738,S10169,VINERV1,R00788,1,vessel,clay,clay: pottery
+Item-17278,C03738,S10169,VINERV1,R00788,1,,bone,animal
+Item-17279,C03739,S10169,VINERV1,R00789,1,vessel,clay,clay: pottery
+Item-17279,C03739,S10169,VINERV1,R00789,1,,bone,animal
+Item-17280,C03627,S10144,YAB1,R00677,1,vessel,clay,clay: pottery
+Item-17280,C03627,S10144,YAB1,R00677,1,vessel,clay,clay: pottery
+Item-17280,C03627,S10144,YAB1,R00677,1,vessel,clay,clay: pottery
+Item-17281,C03629,S10144,YAB1,R00679,1,vessel,clay,clay: pottery
+Item-17281,C03629,S10144,YAB1,R00679,1,vessel,clay,clay: pottery
+Item-17282,C03716,S10163,ZMALIV1,R00766,1,spindle whorl,clay,clay: pottery
+Item-17282,C03716,S10163,ZMALIV1,R00766,1,vessel,clay,clay: pottery
+Item-17282,C03716,S10163,ZMALIV1,R00766,1,,bone,animal
+Item-17285,C13064,S10143,VAR1,R04229,1,vessel,clay,clay: pottery
+Item-17285,C13064,S10143,VAR1,R04229,1,implement,antler,animal
+Item-17285,C13064,S10143,VAR1,R04229,1,bead,stone,serpentinite
+Item-17285,C13064,S10143,VAR1,R04229,1,bead,shell,animal: mollusca
+Item-17285,C13064,S10143,VAR1,R04229,1,bracelet,shell,animal: mollusca
+Item-17285,C13064,S10143,VAR1,R04229,1,scraper,stone,flint
+Item-17285,C13064,S10143,VAR1,R04229,1,adze,stone,
+Item-17301,C13105,S12525,BOYAN1,R04263,1,vessel,clay,clay: pottery
+Item-17301,C13105,S12525,BOYAN1,R04263,1,pendant,metal,silver
+Item-17303,C13124,S12955,ORLKAR2,R04282,1,mat,wood,
+Item-17303,C13124,S12955,ORLKAR2,R04282,1,vessel,clay,clay: pottery
+Item-17303,C13124,S12955,ORLKAR2,R04282,1,vessel,clay,clay: pottery
+Item-17303,C13124,S12955,ORLKAR2,R04282,1,pigment: lump,stone,ochre
+Item-17304,C13125,S12955,ORLKAR2,R04283,1,plug,clay,
+Item-17304,C13125,S12955,ORLKAR2,R04283,1,vessel,clay,clay: pottery
+Item-17305,C13126,S12955,ORLKAR2,R04284,1,mat,wood,
+Item-17305,C13126,S12955,ORLKAR2,R04284,1,vessel,clay,clay: pottery
+Item-17305,C13126,S12955,ORLKAR2,R04284,1,vessel,clay,clay: pottery
+Item-17306,C13110,S12525,BOYAN1,R04268,1,vessel,clay,clay: pottery
+Item-17307,C13127,S12955,ORLKAR2,R04285,1,mat,wood,
+Item-17308,C13128,S12955,ORLKAR2,R04286,1,flake,stone,flint
+Item-17310,C13129,S12955,ORLKAR2,R04287,1,pigment: lump,stone,ochre
+Item-17310,C13129,S12955,ORLKAR2,R04287,1,vessel,clay,clay: pottery
+Item-17310,C13129,S12955,ORLKAR2,R04287,1,mat,wood,
+Item-17311,C13131,S12955,ORLKAR2,R04289,1,mat,wood,
+Item-17311,C13131,S12955,ORLKAR2,R04289,1,bead,,
+Item-17311,C13131,S12955,ORLKAR2,R04289,1,bead,,
+Item-17311,C13131,S12955,ORLKAR2,R04289,1,bead,,
+Item-17313,C13132,S12956,MAYA2,R04290,1,vessel,clay,clay: pottery
+Item-17314,C13133,S12956,MAYA2,R04291,1,vessel,clay,clay: pottery
+Item-17315,C13134,S12956,MAYA2,R04292,1,vessel,clay,clay: pottery
+Item-17315,C13134,S12956,MAYA2,R04292,1,vessel,clay,clay: pottery
+Item-17316,C13135,S12956,MAYA2,R04293,1,dagger,metal,bronze
+Item-17316,C13135,S12956,MAYA2,R04293,1,vessel,clay,clay: pottery
+Item-17316,C13135,S12956,MAYA2,R04293,1,lid,clay,clay: pottery
+Item-17316,C13135,S12956,MAYA2,R04293,1,vessel,clay,clay: pottery
+Item-17317,C13136,S12956,MAYA2,R04294,1,awl,metal,copper
+Item-17317,C13136,S12956,MAYA2,R04294,1,vessel,clay,clay: pottery
+Item-17317,C13136,S12956,MAYA2,R04294,1,figurine,,
+Item-17317,C13136,S12956,MAYA2,R04294,1,bead,stone,jet
+Item-17320,C13122,S12525,BOYAN,R04280,1,,,
+Item-17321,C13138,S12956,MAYA3,R04296,1,vessel,clay,clay: pottery
+Item-17324,C13141,S12956,MAYA2,R04299,1,vessel,clay,clay: pottery
+Item-17324,C13141,S12956,MAYA2,R04299,1,trapeze,stone,flint
+Item-17326,C13146,S12957,USAT-BOL1,R04304,1,vessel,clay,clay: pottery
+Item-17327,C13147,S12957,USAT-BOL1,R04305,1,vessel,clay,clay: pottery
+Item-17328,C13148,S12957,USAT-BOL1,R04306,1,vessel,clay,clay: pottery
+Item-17330,C13137,S12956,MAYA2,R04295,1,vessel,clay,clay: pottery
+Item-17504,C13005,S10813,PIETR2,R04170,1,grinding stone,stone,
+Item-17508,C13010,S10813,PIETR3,R04175,1,,,
+Item-17509,C13011,S10813,PIETR2,R04176,1,lid,clay,clay: pottery
+Item-17509,C13011,S10813,PIETR2,R04176,1,tool,bone,animal
+Item-17531,C13036,S10813,PIETR2,R04201,1,vessel,clay,clay: pottery
+Item-17531,C13036,S10813,PIETR2,R04201,1,pendant,shell,animal: mollusca
+Item-17544,C13050,S10813,PIETR2,R04215,1,vessel,clay,clay: pottery
+Item-17544,C13050,S10813,PIETR2,R04215,1,bead,clay,clay: pottery
+Item-17544,C13050,S10813,PIETR2,R04215,1,bead,clay,clay: pottery
+Item-17545,C13051,S10813,PIETR2,R04216,1,vessel,clay,clay: pottery
+Item-17554,C13060,S10143,VAR1,R04225,1,vessel,clay,clay: pottery
+Item-17554,C13060,S10143,VAR1,R04225,1,blade,stone,flint
+Item-17554,C13060,S10143,VAR1,R04225,1,awl,metal,copper
+Item-17554,C13060,S10143,VAR1,R04225,1,implement,antler,animal
+Item-17554,C13060,S10143,VAR1,R04225,1,tool,stone,flint
+Item-17554,C13060,S10143,VAR1,R04225,1,axe,metal,copper
+Item-17555,C13061,S10143,VAR1,R04226,1,vessel,clay,clay: pottery
+Item-17555,C13061,S10143,VAR1,R04226,1,tool,stone,flint
+Item-17556,C13062,S10143,VAR1,R04227,1,vessel,clay,clay: pottery
+Item-17556,C13062,S10143,VAR1,R04227,1,tool,stone,flint
+Item-17556,C13062,S10143,VAR1,R04227,1,bracelet,shell,animal: mollusca
+Item-17557,C13063,S10145,YUN1,R04228,1,vessel,clay,clay: pottery
+Item-17558,C13065,S10143,VAR1,R04230,1,bead,shell,animal: mollusca
+Item-17558,C13065,S10143,VAR1,R04230,1,bracelet,shell,animal: mollusca
+Item-17558,C13065,S10143,VAR1,R04230,1,vessel,clay,clay: pottery
+Item-17559,C13066,S10143,VAR1,R04231,1,bracelet,shell,animal: mollusca
+Item-17559,C13066,S10143,VAR1,R04231,1,vessel,clay,clay: pottery
+Item-17560,C13067,S10143,VAR1,R04232,1,vessel,clay,clay: pottery
+Item-17561,C13068,S10143,VAR1,R04233,1,vessel,clay,clay: pottery
+Item-17561,C13068,S10143,VAR1,R04233,1,polisher,stone,
+Item-17561,C13068,S10143,VAR1,R04233,1,bead,shell,animal: mollusca
+Item-17561,C13068,S10143,VAR1,R04233,1,bead,shell,animal: mollusca: snail
+Item-17561,C13068,S10143,VAR1,R04233,1,bracelet,shell,animal: mollusca
+Item-17562,C13069,S10143,VAR1,R04234,1,vessel,clay,clay: pottery
+Item-17563,C13070,S10143,VAR1,R04235,1,vessel,clay,clay: pottery
+Item-17563,C13070,S10143,VAR1,R04235,1,bead,shell,animal: mollusca
+Item-17563,C13070,S10143,VAR1,R04235,1,bead,stone,serpentinite
+Item-17563,C13070,S10143,VAR1,R04235,1,adze,stone,
+Item-17563,C13070,S10143,VAR1,R04235,1,awl,metal,copper
+Item-17563,C13070,S10143,VAR1,R04235,1,bracelet,shell,animal: mollusca
+Item-17564,C13071,S10143,VAR1,R04236,1,vessel,clay,clay: pottery
+Item-17681,C03161,S10034,PRJIN5,R02249,1,vessel,clay,clay: pottery
+Item-17681,C03161,S10034,PRJIN5,R02249,1,arrowhead,stone,
+Item-17682,C03271,S11032,PRNBU6,R02345,1,vessel,clay,clay: pottery
+Item-17683,C03236,S08787,RDVE4,R02310,1,vessel,clay,clay: pottery
+Item-17683,C03236,S08787,RDVE4,R02310,1,vessel,clay,clay: pottery
+Item-17683,C03236,S08787,RDVE4,R02310,1,ornament,metal,gold
+Item-17683,C03236,S08787,RDVE4,R02310,1,ornament,metal,silver
+Item-17683,C03236,S08787,RDVE4,R02310,1,dagger,metal,copper
+Item-17683,C03236,S08787,RDVE4,R02310,1,awl,metal,copper
+Item-17683,C03236,S08787,RDVE4,R02310,1,tool,stone,
+Item-18092,C03185,S10034,PRJIN6,R00149,1,,,
+Item-18094,C03360,S10129,KLH1,R00421,1,,,
+Item-18097,C13776,S10034,PRJIN9,R00261,1,fibula,metal,iron
+Item-18097,C13776,S10034,PRJIN9,R00261,1,bracelet,metal,iron
+Item-18098,C13777,S10034,PRJIN9,R00262,1,fibula,metal,bronze
+Item-18098,C13777,S10034,PRJIN9,R00262,1,fibula,metal,iron
+Item-18098,C13777,S10034,PRJIN9,R00262,1,bracelet,metal,bronze
+Item-18098,C13777,S10034,PRJIN9,R00262,1,bracelet,stone,sapropelite
+Item-18099,C13778,S10034,PRJIN9,R00263,1,sword,metal,iron
+Item-18099,C13778,S10034,PRJIN9,R00263,1,spearhead,metal,iron
+Item-18099,C13778,S10034,PRJIN9,R00263,1,ring,metal,iron
+Item-18099,C13778,S10034,PRJIN9,R00263,1,fibula,metal,iron
+Item-18100,C13779,S10034,PRJIN9,R00264,1,anklet,metal,bronze
+Item-18100,C13779,S10034,PRJIN9,R00264,1,bracelet,metal,bronze
+Item-18100,C13779,S10034,PRJIN9,R00264,1,ring,metal,iron
+Item-18100,C13779,S10034,PRJIN9,R00264,1,fibula,metal,iron
+Item-18101,C13780,S10034,PRJIN9,R00265,1,sword,metal,iron
+Item-18101,C13780,S10034,PRJIN9,R00265,1,spearhead,metal,iron
+Item-18101,C13780,S10034,PRJIN9,R00265,1,spike,metal,iron
+Item-18101,C13780,S10034,PRJIN9,R00265,1,shield: fittings,metal,iron
+Item-18101,C13780,S10034,PRJIN9,R00265,1,bracelet,metal,iron
+Item-18102,C13781,S10034,PRJIN9,R00267,1,fibula,metal,iron
+Item-18103,C13782,S10034,PRJIN9,R00268,1,sword,metal,iron
+Item-18103,C13782,S10034,PRJIN9,R00268,1,sword: hilt: rivet,metal,iron
+Item-18103,C13782,S10034,PRJIN9,R00268,1,shield: boss,metal,iron
+Item-18103,C13782,S10034,PRJIN9,R00268,1,spearhead,metal,iron
+Item-18103,C13782,S10034,PRJIN9,R00268,1,spear: butt,metal,iron
+Item-18103,C13782,S10034,PRJIN9,R00268,1,fibula,metal,iron
+Item-18103,C13782,S10034,PRJIN9,R00268,1,belt,metal,iron
+Item-18105,C13784,S10034,PRJIN9,R00270,1,sword,metal,iron
+Item-18105,C13784,S10034,PRJIN9,R00270,1,shield,metal,iron
+Item-18105,C13784,S10034,PRJIN9,R00270,1,spearhead,metal,iron
+Item-18105,C13784,S10034,PRJIN9,R00270,1,ring,metal,iron
+Item-18105,C13784,S10034,PRJIN9,R00270,1,fibula,metal,iron
+Item-18105,C13784,S10034,PRJIN9,R00270,1,artefact,metal,iron
+Item-18106,C13785,S10034,PRJIN9,R00271,1,fibula,metal,iron
+Item-18107,C13786,S10034,PRJIN9,R00272,1,fibula,metal,iron
+Item-18108,C13787,S10034,PRJIN9,R00273,1,bracelet,metal,iron
+Item-18108,C13787,S10034,PRJIN9,R00273,1,bracelet,metal,bronze
+Item-18108,C13787,S10034,PRJIN9,R00273,1,anklet,metal,bronze
+Item-18108,C13787,S10034,PRJIN9,R00273,1,fibula,metal,iron
+Item-18108,C13787,S10034,PRJIN9,R00273,1,belt,metal,iron
+Item-18108,C13787,S10034,PRJIN9,R00273,1,ring,metal,bronze
+Item-18109,C13788,S10034,PRJIN9,R00274,1,fibula,metal,iron
+Item-18110,C13789,S10034,PRJIN9,R00275,1,fibula,metal,iron
+Item-18111,C13790,S10034,PRJIN9,R00276,1,bracelet,stone,sapropelite
+Item-18112,C13791,S10034,PRJIN9,R00278,1,fibula,metal,iron
+Item-18112,C13791,S10034,PRJIN9,R00278,1,bracelet,metal,iron
+Item-18113,C13792,S10034,PRJIN9,R00279,1,vessel,clay,clay: pottery
+Item-18114,C03423,S10129,KLH1,R00484,1,,,
+Item-18115,C03394,S10129,KLH1,R00455,1,,,
+Item-18116,C13795,S10034,PRJIN9,R00282,1,anklet,metal,bronze
+Item-18116,C13795,S10034,PRJIN9,R00282,1,bracelet,metal,bronze
+Item-18116,C13795,S10034,PRJIN9,R00282,1,fibula,metal,iron
+Item-18117,C13796,S10034,PRJIN9,R00283,1,armring,metal,iron
+Item-18118,C13797,S10034,PRJIN9,R00284,1,belt,metal,
+Item-18119,C13798,S10034,PRJIN9,R00286,1,anklet,metal,bronze
+Item-18119,C13798,S10034,PRJIN9,R00286,1,fibula,metal,bronze
+Item-18119,C13798,S10034,PRJIN9,R00286,1,fibula,metal,iron
+Item-18119,C13798,S10034,PRJIN9,R00286,1,bracelet,metal,iron
+Item-18119,C13798,S10034,PRJIN9,R00286,1,belt,metal,
+Item-18121,C13637,S10034,PRJIN9,R00288,1,torque,metal,
+Item-18121,C13637,S10034,PRJIN9,R00288,1,bracelet,metal,bronze
+Item-18121,C13637,S10034,PRJIN9,R00288,1,anklet,metal,bronze
+Item-18121,C13637,S10034,PRJIN9,R00288,1,fibula,metal,bronze
+Item-18121,C13637,S10034,PRJIN9,R00288,1,vessel,clay,clay: pottery
+Item-18122,C13638,S11033,PRRUZ1,R00289,1,vessel,clay,clay: pottery
+Item-18122,C13638,S11033,PRRUZ1,R00289,1,spindle whorl,,
+Item-18122,C13638,S11033,PRRUZ1,R00289,1,tool,bone,animal
+Item-18122,C13638,S11033,PRRUZ1,R00289,1,grinding stone,stone,
+Item-18122,C13638,S11033,PRRUZ1,R00289,1,artefact,metal,bronze
+Item-18122,C13638,S11033,PRRUZ1,R00289,1,artefact,metal,iron
+Item-18123,C13639,S13519,PRORW11,R00290,1,vessel,clay,clay: pottery
+Item-18123,C13639,S13519,PRORW11,R00290,1,flake,stone,flint
+Item-18123,C13639,S13519,PRORW11,R00290,1,vessel,clay,clay: pottery
+Item-18123,C13639,S13519,PRORW11,R00290,1,vessel,clay,clay: pottery
+Item-18123,C13639,S13519,PRORW11,R00290,1,,wood,charcoal
+Item-18124,C13640,S13519,PRORW11,R00291,1,vessel,clay,clay: pottery
+Item-18124,C13640,S13519,PRORW11,R00291,1,vessel,clay,clay: pottery
+Item-18124,C13640,S13519,PRORW11,R00291,1,axe: battle,stone,
+Item-18124,C13640,S13519,PRORW11,R00291,1,blade,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,blade,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,flake,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,flake,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,blade,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,blade,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,blade,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,blade,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,blade,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,flake,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,flake,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,flake,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,flake,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,flake,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,,bone,animal
+Item-18124,C13640,S13519,PRORW11,R00291,1,,shell,animal: tortoise
+Item-18124,C13640,S13519,PRORW11,R00291,1,,tooth: canine,animal
+Item-18124,C13640,S13519,PRORW11,R00291,1,flake,stone,flint
+Item-18124,C13640,S13519,PRORW11,R00291,1,,wood,charcoal
+Item-18124,C13640,S13519,PRORW11,R00291,1,vessel,clay,clay: pottery
+Item-18128,C07463,S11014,CACHOV3,R01401,1,vessel,clay,clay: pottery
+Item-18128,C07463,S11014,CACHOV3,R01401,1,ring: temple: spiral,metal,copper
+Item-18129,C07464,S11014,CACHOV3,R01402,1,vessel,clay,clay: pottery
+Item-18129,C07464,S11014,CACHOV3,R01402,1,vessel,clay,clay: pottery
+Item-18129,C07464,S11014,CACHOV3,R01402,1,blade,stone,
+Item-18179,C03186,S10034,PRJIN1,R00146,1,vessel,clay,clay: pottery
+Item-18179,C03186,S10034,PRJIN1,R00146,1,vessel,clay,clay: pottery
+Item-18180,C03188,S10034,PRJIN6,R00147,1,vessel,clay,clay: pottery
+Item-18181,C03191,S10034,PRJIN6,R00148,1,,,
+Item-18183,C03162,S10034,PRJIN6,R02250,1,vessel,clay,clay: pottery
+Item-18183,C03162,S10034,PRJIN6,R02250,1,flake,stone,flint
+Item-18184,C03163,S10034,PRJIN6,R02251,1,vessel,clay,clay: pottery
+Item-18184,C03163,S10034,PRJIN6,R02251,1,vessel,clay,clay: pottery
+Item-18186,C03189,S10034,PRJIN6,R02273,1,vessel,clay,clay: pottery
+Item-18186,C03189,S10034,PRJIN6,R02273,1,vessel,clay,clay: pottery
+Item-18188,C03172,S10034,PRJIN6,R02259,1,vessel,clay,clay: pottery
+Item-18188,C03172,S10034,PRJIN6,R02259,1,vessel,clay,clay: pottery
+Item-18189,C03171,S10034,PRJIN6,R02258,1,vessel,clay,clay: pottery
+Item-18221,C13736,S13500,POTTEN1,R00151,1,fibula,metal,bronze
+Item-18221,C13736,S13500,POTTEN1,R00151,1,fibula,metal,bronze
+Item-18221,C13736,S13500,POTTEN1,R00151,1,belt: buckle,metal,iron
+Item-18221,C13736,S13500,POTTEN1,R00151,1,bead,clay,
+Item-18221,C13736,S13500,POTTEN1,R00151,1,belt: buckle,metal,iron
+Item-18221,C13736,S13500,POTTEN1,R00151,1,vessel,clay,clay: pottery
+Item-18221,C13736,S13500,POTTEN1,R00151,1,vessel,clay,clay: pottery
+Item-18221,C13736,S13500,POTTEN1,R00151,1,vessel,clay,clay: pottery
+Item-18221,C13736,S13500,POTTEN1,R00151,1,,bone: tibia,animal: pig
+Item-18221,C13736,S13500,POTTEN1,R00151,1,,bone: talus,animal: pig
+Item-18221,C13736,S13500,POTTEN1,R00151,1,vessel,clay,clay: pottery
+Item-18221,C13736,S13500,POTTEN1,R00151,1,fibula,metal,bronze
+Item-18221,C13736,S13500,POTTEN1,R00151,1,fibula,metal,bronze
+Item-18221,C13736,S13500,POTTEN1,R00151,1,fibula,metal,bronze
+Item-18221,C13736,S13500,POTTEN1,R00151,1,fibula,metal,iron
+Item-18222,C13737,S13500,POTTEN1,R00152,1,vessel,clay,clay: pottery
+Item-18222,C13737,S13500,POTTEN1,R00152,1,scissors,metal,iron
+Item-18222,C13737,S13500,POTTEN1,R00152,1,knife,metal,iron
+Item-18222,C13737,S13500,POTTEN1,R00152,1,armring,metal,bronze
+Item-18222,C13737,S13500,POTTEN1,R00152,1,fibula,metal,iron
+Item-18222,C13737,S13500,POTTEN1,R00152,1,vessel,clay,clay: pottery
+Item-18222,C13737,S13500,POTTEN1,R00152,1,vessel,clay,clay: pottery
+Item-18222,C13737,S13500,POTTEN1,R00152,1,vessel,clay,clay: pottery
+Item-18222,C13737,S13500,POTTEN1,R00152,1,vessel,clay,clay: pottery
+Item-18222,C13737,S13500,POTTEN1,R00152,1,,bone: femur,animal: pig
+Item-18222,C13737,S13500,POTTEN1,R00152,1,,bone: tibia,animal: pig
+Item-18222,C13737,S13500,POTTEN1,R00152,1,,bone: pelvic,animal: pig
+Item-18222,C13737,S13500,POTTEN1,R00152,1,,bone: fibula,animal: pig
+Item-18222,C13737,S13500,POTTEN1,R00152,1,,bone: calcaneus,animal: pig
+Item-18222,C13737,S13500,POTTEN1,R00152,1,,bone: talus,animal: pig
+Item-18222,C13737,S13500,POTTEN1,R00152,1,,bone: femur,animal: cattle
+Item-18223,C13738,S13500,POTTEN1,R00153,1,vessel,clay,clay: pottery
+Item-18223,C13738,S13500,POTTEN1,R00153,1,ring,resin,amber
+Item-18223,C13738,S13500,POTTEN1,R00153,1,fibula,metal,iron
+Item-18223,C13738,S13500,POTTEN1,R00153,1,ring: chain,metal,iron
+Item-18223,C13738,S13500,POTTEN1,R00153,1,armring,metal,bronze
+Item-18223,C13738,S13500,POTTEN1,R00153,1,armring,,
+Item-18223,C13738,S13500,POTTEN1,R00153,1,ring,metal,bronze
+Item-18223,C13738,S13500,POTTEN1,R00153,1,anklet,metal,iron
+Item-18223,C13738,S13500,POTTEN1,R00153,1,anklet,metal,bronze
+Item-18223,C13738,S13500,POTTEN1,R00153,1,vessel,clay,clay: pottery
+Item-18223,C13738,S13500,POTTEN1,R00153,1,vessel,clay,clay: pottery
+Item-18223,C13738,S13500,POTTEN1,R00153,1,vessel,clay,clay: pottery
+Item-18223,C13738,S13500,POTTEN1,R00153,1,,wood,charcoal
+Item-18223,C13738,S13500,POTTEN1,R00153,1,fibula,metal,iron
+Item-18223,C13738,S13500,POTTEN1,R00153,1,ring,metal,bronze
+Item-18223,C13738,S13500,POTTEN1,R00153,1,bead,glass,
+Item-18223,C13738,S13500,POTTEN1,R00153,1,ring,metal,silver
+Item-18223,C13738,S13500,POTTEN1,R00153,1,pendant,bone,animal
+Item-18224,C13739,S13500,POTTEN1,R00156,1,vessel,clay,clay: pottery
+Item-18224,C13739,S13500,POTTEN1,R00156,1,vessel,clay,clay: pottery
+Item-18224,C13739,S13500,POTTEN1,R00156,1,vessel,clay,clay: pottery
+Item-18224,C13739,S13500,POTTEN1,R00156,1,burial,bone,animal: pig
+Item-18224,C13739,S13500,POTTEN1,R00156,1,burial,bone,animal: sheep/goat
+Item-18224,C13739,S13500,POTTEN1,R00156,1,fibula,metal,iron
+Item-18224,C13739,S13500,POTTEN1,R00156,1,knife,metal,iron
+Item-18224,C13739,S13500,POTTEN1,R00156,1,sword,metal,iron
+Item-18224,C13739,S13500,POTTEN1,R00156,1,fibula,metal,bronze
+Item-18224,C13739,S13500,POTTEN1,R00156,1,vessel,clay,clay: pottery
+Item-18224,C13739,S13500,POTTEN1,R00156,1,vessel,clay,clay: pottery
+Item-18224,C13739,S13500,POTTEN1,R00156,1,,wood,charcoal
+Item-18224,C13739,S13500,POTTEN1,R00156,1,rivet,metal,iron
+Item-18224,C13739,S13500,POTTEN1,R00156,1,rivet,metal,iron
+Item-18224,C13739,S13500,POTTEN1,R00156,1,spearhead,metal,iron
+Item-18224,C13739,S13500,POTTEN1,R00156,1,fibula,metal,iron
+Item-18224,C13739,S13500,POTTEN1,R00156,1,knife,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,vessel,clay,clay: pottery
+Item-18225,C13740,S13500,POTTEN1,R00154,1,spearhead,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,knife,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,knife,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,tool: medical,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,arrowhead,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,tool,bone,animal
+Item-18225,C13740,S13500,POTTEN1,R00154,1,shield: edge,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,knife,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,whetstone,stone,
+Item-18225,C13740,S13500,POTTEN1,R00154,1,grinder,stone,
+Item-18225,C13740,S13500,POTTEN1,R00154,1,sword,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,sheath,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,rivet,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,ring,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,ring,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,fibula,metal,iron
+Item-18225,C13740,S13500,POTTEN1,R00154,1,vessel,clay,clay: pottery
+Item-18225,C13740,S13500,POTTEN1,R00154,1,vessel,clay,clay: pottery
+Item-18225,C13740,S13500,POTTEN1,R00154,1,vessel,clay,clay: pottery
+Item-18225,C13740,S13500,POTTEN1,R00154,1,vessel,clay,clay: pottery
+Item-18225,C13740,S13500,POTTEN1,R00154,1,vessel,clay,clay: pottery
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: carpalia,animal: cattle
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: scapula,animal: pig
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: mandible,animal: pig
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: maxilla,animal: pig
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: mandible,animal: pig
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: radius,animal: pig
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: femur,animal: pig
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: tibia,animal: pig
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone,animal: chicken
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: coracoid,animal: chicken
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: humerus,animal: chicken
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: scapula,animal: red deer
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: humerus,animal: red deer
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: radius,animal: red deer
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: ulna,animal: red deer
+Item-18225,C13740,S13500,POTTEN1,R00154,1,,bone: carpalia,animal: red deer
+Item-18225,C13740,S13500,POTTEN1,R00154,1,button,metal,bronze
+Item-18226,C13741,S13500,POTTEN1,R00155,1,vessel,clay,clay: pottery
+Item-18226,C13741,S13500,POTTEN1,R00155,1,vessel,clay,clay: pottery
+Item-18226,C13741,S13500,POTTEN1,R00155,1,vessel,clay,clay: pottery
+Item-18226,C13741,S13500,POTTEN1,R00155,1,vessel,clay,clay: pottery
+Item-18226,C13741,S13500,POTTEN1,R00155,1,vessel,clay,clay: pottery
+Item-18226,C13741,S13500,POTTEN1,R00155,1,vessel,clay,clay: pottery
+Item-18226,C13741,S13500,POTTEN1,R00155,1,fibula,metal,iron
+Item-18226,C13741,S13500,POTTEN1,R00155,1,fibula,metal,iron
+Item-18226,C13741,S13500,POTTEN1,R00155,1,fibula,metal,iron
+Item-18226,C13741,S13500,POTTEN1,R00155,1,fibula,metal,iron
+Item-18226,C13741,S13500,POTTEN1,R00155,1,ring,metal,bronze
+Item-18226,C13741,S13500,POTTEN1,R00155,1,ring,metal,silver
+Item-18226,C13741,S13500,POTTEN1,R00155,1,,bone: femur,animal: sheep/goat
+Item-18226,C13741,S13500,POTTEN1,R00155,1,,bone: tibia,animal: sheep/goat
+Item-18226,C13741,S13500,POTTEN1,R00155,1,,bone: calcaneus,animal: sheep/goat
+Item-18226,C13741,S13500,POTTEN1,R00155,1,,bone: costae,animal: pig
+Item-18226,C13741,S13500,POTTEN1,R00155,1,,bone: humerus,animal: pig
+Item-18226,C13741,S13500,POTTEN1,R00155,1,spindle whorl,clay,clay: pottery
+Item-18226,C13741,S13500,POTTEN1,R00155,1,,wood,charcoal
+Item-18226,C13741,S13500,POTTEN1,R00155,1,vessel,clay,clay: pottery
+Item-18228,C13742,S12954,GUDN3,R00159,1,,,
+Item-18233,C13745,S13504,OSOSTP2,R00175,1,fibula,metal,bronze
+Item-18233,C13745,S13504,OSOSTP2,R00175,1,bracelet,metal,bronze
+Item-18233,C13745,S13504,OSOSTP2,R00175,1,bead,resin,amber
+Item-18233,C13745,S13504,OSOSTP2,R00175,1,bead,glass,
+Item-18233,C13745,S13504,OSOSTP2,R00175,1,bead,bone,animal
+Item-18238,C13747,S10596,SMILJ1,R00180,1,necklace: chain,metal,bronze
+Item-18238,C13747,S10596,SMILJ1,R00180,1,bead,resin,amber
+Item-18242,C13750,S10596,SMILJ1,R00184,1,pin,metal,bronze
+Item-18242,C13750,S10596,SMILJ1,R00184,1,bead,glass,
+Item-18243,C13751,S10596,SMILJ1,R00185,1,fibula,metal,
+Item-18243,C13751,S10596,SMILJ1,R00185,1,bead,glass,
+Item-18243,C13751,S10596,SMILJ1,R00185,1,bead,glass,
+Item-18243,C13751,S10596,SMILJ1,R00185,1,bead,resin,amber
+Item-18244,C13535,S13506,VEL-KOS1,R00186,1,ring,metal,bronze
+Item-18246,C13537,S13506,VEL-KOS1,R00188,1,tweezers,metal,bronze
+Item-18246,C13537,S13506,VEL-KOS1,R00188,1,fibula,metal,
+Item-18247,C13752,S13507,BILINA3,R00189,1,vessel,clay,clay: pottery
+Item-18247,C13752,S13507,BILINA3,R00189,1,pin,metal,bronze
+Item-18248,C13753,S13508,BILRUMG3,R00190,1,vessel,clay,clay: pottery
+Item-18248,C13753,S13508,BILRUMG3,R00190,1,tool,bone,animal
+Item-18248,C13753,S13508,BILRUMG3,R00190,1,,bone,animal
+Item-18248,C13753,S13508,BILRUMG3,R00190,1,,clay,clay: daub
+Item-18254,C13760,S13515,LOVO3,R00241,1,vessel,clay,clay: pottery
+Item-18254,C13760,S13515,LOVO3,R00241,1,torque,metal,bronze
+Item-18254,C13760,S13515,LOVO3,R00241,1,bracelet,metal,bronze
+Item-18254,C13760,S13515,LOVO3,R00241,1,anklet,metal,bronze
+Item-18255,C13761,S13515,LOVO3,R00242,1,vessel,clay,clay: pottery
+Item-18255,C13761,S13515,LOVO3,R00242,1,horse bit,metal,iron
+Item-18255,C13761,S13515,LOVO3,R00242,1,cheek piece,metal,bronze
+Item-18255,C13761,S13515,LOVO3,R00242,1,knife,metal,iron
+Item-18255,C13761,S13515,LOVO3,R00242,1,,bone,animal: pig
+Item-18256,C13762,S13515,LOVO3,R00243,1,vessel,clay,clay: pottery
+Item-18256,C13762,S13515,LOVO3,R00243,1,torque,metal,bronze
+Item-18256,C13762,S13515,LOVO3,R00243,1,bracelet,metal,bronze
+Item-18256,C13762,S13515,LOVO3,R00243,1,knife,metal,iron
+Item-18257,C13763,S13515,LOVO3,R00244,1,vessel,clay,clay: pottery
+Item-18257,C13763,S13515,LOVO3,R00244,1,spearhead,metal,iron
+Item-18257,C13763,S13515,LOVO3,R00244,1,ring,metal,bronze
+Item-18257,C13763,S13515,LOVO3,R00244,1,button,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,vessel,clay,clay: pottery
+Item-18260,C13766,S13518,POLAK2,R00247,1,ring,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,ring,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,ring,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,tweezers,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,armring,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,pin,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,horse bit,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,button,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,knife,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,button,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,button,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,knife,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,ring,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,ring,metal,iron
+Item-18260,C13766,S13518,POLAK2,R00247,1,horse bit,metal,bronze
+Item-18260,C13766,S13518,POLAK2,R00247,1,bead,resin,amber
+Item-18260,C13766,S13518,POLAK2,R00247,1,artefact,metal,iron
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18261,C13767,S13518,POLAK2,R00248,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,vessel,clay,clay: pottery
+Item-18262,C13768,S13518,POLAK2,R00249,1,pin,metal,iron
+Item-18262,C13768,S13518,POLAK2,R00249,1,ring,metal,iron
+Item-18262,C13768,S13518,POLAK2,R00249,1,ring,metal,iron
+Item-18262,C13768,S13518,POLAK2,R00249,1,artefact,metal,iron
+Item-18263,C13769,S13518,POLAK2,R00250,1,,,
+Item-18265,C13770,S10034,PRJIN1,R00253,1,vessel,clay,clay: pottery
+Item-18265,C13770,S10034,PRJIN1,R00253,1,vessel,clay,clay: pottery
+Item-18265,C13770,S10034,PRJIN1,R00253,1,blade,stone,flint
+Item-18265,C13770,S10034,PRJIN1,R00253,1,flake,stone,flint
+Item-18265,C13770,S10034,PRJIN1,R00253,1,pin,bone,animal
+Item-18266,C13771,S10034,PRJIN4,R00254,1,vessel,clay,clay: pottery
+Item-18266,C13771,S10034,PRJIN4,R00254,1,vessel,clay,clay: pottery
+Item-18266,C13771,S10034,PRJIN4,R00254,1,arrowhead,stone,flint
+Item-18270,C13773,S10034,PRJIN9,R00258,1,fibula,metal,iron
+Item-18270,C13773,S10034,PRJIN9,R00258,1,bracelet,stone,sapropelite
+Item-18271,C13774,S10034,PRJIN9,R00259,1,bracelet,metal,bronze
+Item-18271,C13774,S10034,PRJIN9,R00259,1,bracelet,metal,iron
+Item-18271,C13774,S10034,PRJIN9,R00259,1,fibula,metal,bronze
+Item-18272,C13775,S10034,PRJIN9,R00260,1,fibula,metal,iron
+Item-18272,C13775,S10034,PRJIN9,R00260,1,bracelet,stone,sapropelite
+Item-18273,C13783,S10034,PRJIN9,R00269,1,bracelet,metal,bronze
+Item-18273,C13783,S10034,PRJIN9,R00269,1,ring,metal,bronze
+Item-18273,C13783,S10034,PRJIN9,R00269,1,nail,metal,iron
+Item-18273,C13783,S10034,PRJIN9,R00269,1,,metal,iron
+Item-18273,C13783,S10034,PRJIN9,R00269,1,vessel,clay,clay: pottery
+Item-18274,C13793,S10034,PRJIN9,R00280,1,sword,metal,iron
+Item-18274,C13793,S10034,PRJIN9,R00280,1,shield: fittings,metal,iron
+Item-18274,C13793,S10034,PRJIN9,R00280,1,shield: boss,metal,iron
+Item-18274,C13793,S10034,PRJIN9,R00280,1,spearhead,metal,iron
+Item-18274,C13793,S10034,PRJIN9,R00280,1,spear: butt,metal,iron
+Item-18274,C13793,S10034,PRJIN9,R00280,1,fibula,metal,iron
+Item-18274,C13793,S10034,PRJIN9,R00280,1,belt,metal,iron
+Item-18275,C13794,S10034,PRJIN9,R00281,1,fibula,metal,bronze
+Item-18275,C13794,S10034,PRJIN9,R00281,1,fibula,metal,bronze
+Item-18275,C13794,S10034,PRJIN9,R00281,1,bracelet,metal,bronze
+Item-18275,C13794,S10034,PRJIN9,R00281,1,bracelet,metal,bronze
+Item-18275,C13794,S10034,PRJIN9,R00281,1,armring,stone,sapropelite
+Item-18275,C13794,S10034,PRJIN9,R00281,1,anklet,metal,bronze
+Item-18275,C13794,S10034,PRJIN9,R00281,1,bracelet,metal,iron
+Item-18275,C13794,S10034,PRJIN9,R00281,1,fibula,metal,iron
+Item-18276,C13641,S13519,PRORW11,R00292,1,vessel,clay,clay: pottery
+Item-18276,C13641,S13519,PRORW11,R00292,1,vessel,clay,clay: pottery
+Item-18276,C13641,S13519,PRORW11,R00292,1,vessel,clay,clay: pottery
+Item-18276,C13641,S13519,PRORW11,R00292,1,,wood,charcoal
+Item-18277,C13642,S13519,PRORW11,R00293,1,vessel,clay,clay: pottery
+Item-18277,C13642,S13519,PRORW11,R00293,1,vessel,clay,clay: pottery
+Item-18277,C13642,S13519,PRORW11,R00293,1,,stone,flint
+Item-18277,C13642,S13519,PRORW11,R00293,1,,wood,charcoal
+Item-18277,C13642,S13519,PRORW11,R00293,1,vessel,clay,clay: pottery
+Item-18277,C13642,S13519,PRORW11,R00293,1,axe: battle,stone,quartzite: amphibole
+Item-18278,C13643,S13519,PRORW11,R00294,1,,,
+Item-18279,C13644,S13519,PRORW11,R00295,1,vessel,clay,clay: pottery
+Item-18279,C13644,S13519,PRORW11,R00295,1,,wood,charcoal
+Item-18279,C13644,S13519,PRORW11,R00295,1,axe: flat,stone,flint
+Item-18279,C13644,S13519,PRORW11,R00295,1,arrowhead,stone,flint
+Item-18279,C13644,S13519,PRORW11,R00295,1,flake,stone,flint
+Item-18279,C13644,S13519,PRORW11,R00295,1,flake,stone,flint
+Item-18279,C13644,S13519,PRORW11,R00295,1,vessel,clay,clay: pottery
+Item-18279,C13644,S13519,PRORW11,R00295,1,flake,stone,flint
+Item-18279,C13644,S13519,PRORW11,R00295,1,blade,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,axe: battle,stone,
+Item-18280,C13645,S13519,PRORW11,R00296,1,axe: flat,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,flake,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,blade,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,arrowhead,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,arrowhead,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,arrowhead,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,arrowhead,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,arrowhead,stone,flint
+Item-18280,C13645,S13519,PRORW11,R00296,1,vessel,clay,clay: pottery
+Item-18280,C13645,S13519,PRORW11,R00296,1,vessel,clay,clay: pottery
+Item-18280,C13645,S13519,PRORW11,R00296,1,vessel,clay,clay: pottery
+Item-18280,C13645,S13519,PRORW11,R00296,1,,wood,charcoal
+Item-18280,C13645,S13519,PRORW11,R00296,1,vessel,clay,clay: pottery
+Item-18280,C13645,S13519,PRORW11,R00296,1,,bone,
+Item-18281,C13646,S13519,PRORW11,R00297,1,vessel,clay,clay: pottery
+Item-18281,C13646,S13519,PRORW11,R00297,1,blade,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,vessel,clay,clay: pottery
+Item-18282,C13647,S13519,PRORW12,R00298,1,axe: flat,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,flake,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,flake,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,blade,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,vessel,clay,clay: pottery
+Item-18282,C13647,S13519,PRORW12,R00298,1,arrowhead,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,arrowhead,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,arrowhead,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,arrowhead,stone,flint
+Item-18282,C13647,S13519,PRORW12,R00298,1,,bone,
+Item-18282,C13647,S13519,PRORW12,R00298,1,,wood,charcoal
+Item-18282,C13647,S13519,PRORW12,R00298,1,vessel,clay,clay: pottery
+Item-18282,C13647,S13519,PRORW12,R00298,1,vessel,clay,clay: pottery
+Item-18282,C13647,S13519,PRORW12,R00298,1,flake,stone,flint
+Item-18285,C13649,S11032,PRNBU7,R00300,1,,,
+Item-18286,C13650,S11032,PRNBU7,R00301,1,,,
+Item-18288,C13651,S11032,PRNBU7,R00302,1,vessel,clay,clay: pottery
+Item-18288,C13651,S11032,PRNBU7,R00302,1,vessel,clay,clay: pottery
+Item-18288,C13651,S11032,PRNBU7,R00302,1,vessel,clay,clay: pottery
+Item-18291,C13654,S11032,PRNBU7,R00305,1,vessel,clay,clay: pottery
+Item-18291,C13654,S11032,PRNBU7,R00305,1,vessel,clay,clay: pottery
+Item-18291,C13654,S11032,PRNBU7,R00305,1,vessel,clay,clay: pottery
+Item-18291,C13654,S11032,PRNBU7,R00305,1,vessel,clay,clay: pottery
+Item-18291,C13654,S11032,PRNBU7,R00305,1,flake,stone,flint
+Item-18291,C13654,S11032,PRNBU7,R00305,1,awl,bone,animal
+Item-18292,C13655,S11032,PRNBU7,R00306,1,flake,stone,flint
+Item-18294,C13657,S11032,PRNBU7,R00308,1,vessel,clay,clay: pottery
+Item-18294,C13657,S11032,PRNBU7,R00308,1,vessel,clay,clay: pottery
+Item-18294,C13657,S11032,PRNBU7,R00308,1,vessel,clay,clay: pottery
+Item-18294,C13657,S11032,PRNBU7,R00308,1,vessel,clay,clay: pottery
+Item-18294,C13657,S11032,PRNBU7,R00308,1,vessel,clay,clay: pottery
+Item-18298,C13662,S11032,PRNBU7,R00313,1,vessel,clay,clay: pottery
+Item-18298,C13662,S11032,PRNBU7,R00313,1,vessel,clay,clay: pottery
+Item-18298,C13662,S11032,PRNBU7,R00313,1,vessel,clay,clay: pottery
+Item-18298,C13662,S11032,PRNBU7,R00313,1,flake,stone,flint
+Item-18298,C13662,S11032,PRNBU7,R00313,1,,tooth: canine,animal: wild boar
+Item-18300,C13664,S11032,PRNBU7,R00315,1,,,
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,ring,metal,bronze
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,necklace,metal,bronze
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18305,C13672,S13525,STRADO4,R00323,1,vessel,clay,clay: pottery
+Item-18306,C13674,S13525,STRADO4,R00325,1,,,
+Item-18307,C13675,S13525,STRADO4,R00326,1,,,
+Item-18308,C13676,S13525,STRADO4,R00327,1,,,

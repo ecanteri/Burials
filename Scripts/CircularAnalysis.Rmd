@@ -1,0 +1,255 @@
+---
+title: "Circular Analysis"
+author: "Elisabetta Canteri"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, warning=FALSE, message=FALSE, include=FALSE}
+library(data.table)
+library(ggplot2)
+library(FactoMineR)
+library(circular)
+library(CircStats)
+library(bpnreg)
+library(BIADconnect)
+conn <- init.conn()
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r}
+#### DATA ####
+graves <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Data/Burial.csv", na.strings = "")
+graves$DepositionType <- as.factor(graves$DepositionType)
+graves$BodyPositioning <- as.factor(graves$BodyPositioning)
+graves$BurialSide <- as.factor(graves$BurialSide)
+graves <- graves[order(IndividualID)]
+str(graves)
+
+# Sites table (BIAD)
+sites <- setDT(query.database("SELECT * FROM Sites", conn))
+
+# Culture and Period
+culture <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Data/burial rites_culture_period.csv", na.strings = "\\N")
+culture <- culture[!duplicated(IndividualID)]
+
+## Add info to graves table
+graves <- merge(graves, sites[, .(SiteID, Country)], by = "SiteID", all.x = T)
+rm(sites)
+graves <- merge(graves, culture, by = "IndividualID", all.x = T)
+
+## Remove outlier
+graves <- graves[!is.na(YearBP)]
+graves <- graves[YearBP < 15000]
+summary(graves$YearBP)
+hist(graves$YearBP, breaks = 100)
+
+## Create data table
+orientation <- graves[, .(Num, BurialOrientationMin, BurialOrientationMax, BurialSide_back, BurialSide_left, BurialSide_right)]
+```
+
+```{r}
+## We can't just average between the min and max angles because for some angles the average will be 0, so we will not get burials facing south.
+## We create a function to transform the angles that works around this issue.
+
+#----------------------------------------------------------------------
+find.mid.deg <- function(min.deg, max.deg){
+  
+  difference <- max.deg - min.deg
+  i.accute <- difference<180
+  i.obtuse <- difference>180
+  i.bad <- difference==180
+  
+  mid <- numeric()
+  mid[i.accute] <- max.deg[i.accute] - difference[i.accute]/2
+  mid[i.obtuse] <- max.deg[i.obtuse] + (360 - difference[i.obtuse])/2
+  mid[i.bad] <- NA
+  
+  i <- mid>=360
+  mid[i] <- mid[i]-360
+  
+  i <- mid<0
+  mid[i] <- mid[i]+360           
+  return(mid)}
+#----------------------------------------------------------------------
+```
+
+```{r}
+# Remove NAs in both min and max orientation columns
+orientation <- orientation[!(is.na(BurialOrientationMin) & is.na(BurialOrientationMax))]
+
+# Create a table for records with NAs either in one or the other column
+orientation_na <- orientation[is.na(BurialOrientationMin) | is.na(BurialOrientationMax)]
+orientation_na[, BurialOrientationMean := NA]
+
+# Remove from overall table
+orientation <- orientation[!(is.na(BurialOrientationMin) | is.na(BurialOrientationMax))]
+
+# Average across min and max 
+orientation[, BurialOrientationMean := find.mid.deg(BurialOrientationMin, BurialOrientationMax)]
+
+# Bind tables together
+orientation <- rbind(orientation, orientation_na)
+
+## Separate data based on burial side
+left <- orientation[, .(Num, BurialOrientationMean, BurialOrientationMin, BurialOrientationMax), by = "BurialSide_left"][BurialSide_left == 1]
+left[, BurialSide := "Left"]
+right <- orientation[, .(Num, BurialOrientationMean, BurialOrientationMin, BurialOrientationMax), by = "BurialSide_right"][BurialSide_right == 1]
+right[, BurialSide := "Right"]
+back <- orientation[, .(Num, BurialOrientationMean, BurialOrientationMin, BurialOrientationMax), by = "BurialSide_back"][BurialSide_back == 1]
+back[, BurialSide := "Back"]
+
+# Bind together in a new table
+sides <- rbind(left[, -1], right[, -1], back[, -1])
+sides[, BurialOrientationMean_cos := cos(BurialOrientationMean)]
+sides[, BurialOrientationMin_cos := cos(BurialOrientationMin)]
+sides[, BurialOrientationMax_cos := cos(BurialOrientationMax)]
+sides[, BurialOrientationMean_sin := sin(BurialOrientationMean)]
+sides[, BurialOrientationMin_sin := sin(BurialOrientationMin)]
+sides[, BurialOrientationMax_sin := sin(BurialOrientationMax)]
+
+# Add Country, Culture, Period and Ancestry info
+sides$Country <- graves[Num %in% sides$Num]$Country
+sides$Period <- graves[Num %in% sides$Num]$Period
+sides$Culture <- graves[Num %in% sides$Num]$Culture
+sides$Sex <- graves[Num %in% sides$Num]$Sex
+sides$Age <- graves[Num %in% sides$Num]$gaussianModelMu
+sides$EHG <- graves[Num %in% sides$Num]$ANCE2_v2
+sides$WHG <- graves[Num %in% sides$Num]$ANCE4_v2
+sides$LVN <- graves[Num %in% sides$Num]$ANCE6_v2
+sides$CHG <- graves[Num %in% sides$Num]$ANCE8_v2
+sides$mobility <- graves[Num %in% sides$Num]$mobility_MDS_250y_retrospective
+```
+
+```{r}
+#### CIRCULAR MEAN AND VARIANCE ####
+# Example data in degrees
+sides <- sides[!is.na(BurialOrientationMean)]
+left_angles <- sides[BurialSide == "Left", BurialOrientationMean]
+right_angles <- sides[BurialSide == "Right", BurialOrientationMean]
+back_angles <- sides[BurialSide == "Back", BurialOrientationMean]
+
+# Convert to circular objects
+left_circ <- circular(left_angles, units = "degrees", type = "angles", rotation = "clock")
+right_circ <- circular(right_angles, units = "degrees", type = "angles", rotation = "clock")
+back_circ <- circular(back_angles, units = "degrees", type = "angles", rotation = "clock")
+
+# Mean direction
+mean_left <- mean.circular(left_circ)
+mean_right <- mean.circular(right_circ)
+mean_back <- mean.circular(back_circ)
+mean_left
+
+# Variance direction
+var_left <- var.circular(left_circ)
+var_right <- var.circular(right_circ)
+var_back <- var.circular(back_circ)
+
+# Resultant length (measure of concentration)
+rho_left <- rho.circular(left_circ)
+rho_right <- rho.circular(right_circ)
+rho_back <- rho.circular(back_circ)
+
+as.numeric(mean_left); as.numeric(mean_right); as.numeric(mean_back)
+as.numeric(var_left); as.numeric(var_right); as.numeric(var_back)
+as.numeric(rho_left); as.numeric(rho_right); as.numeric(rho_back)
+```
+
+```{r}
+# Function to calculate smallest angular distance
+angular_distance <- function(a, b) {
+  diff <- abs(a - b) %% 360
+  return(min(diff, 360 - diff))
+}
+
+# Calculate distances
+dist_left_right <- angular_distance(as.numeric(mean_left), as.numeric(mean_right))
+dist_left_back <- angular_distance(as.numeric(mean_left), as.numeric(mean_back))
+dist_right_back <- angular_distance(as.numeric(mean_right), as.numeric(mean_back))
+
+print(dist_left_right)
+print(dist_left_back)
+print(dist_right_back)
+```
+
+Shuffle the values of angles for each category and compute the differences in circular means and do a histogram where we plot the differences in circular means against the true difference. Do it for each of the three pairs. Make sure that each group has the same amount of observations. 
+
+```{r}
+n <- min(c(length(left_circ), length(right_circ), length(back_circ)))
+
+diffs <- lapply(1:1000, function(x){
+  l <- sample(left_circ, n)
+  r <- sample(right_circ, n)
+  b <- sample(back_circ, n)
+  mean_l <- mean.circular(l)
+  mean_r <- mean.circular(r)
+  mean_b <- mean.circular(b)
+  dist_lr <- angular_distance(as.numeric(mean_l), as.numeric(mean_r))
+  dist_lb <- angular_distance(as.numeric(mean_l), as.numeric(mean_b))
+  dist_br <- angular_distance(as.numeric(mean_b), as.numeric(mean_r))
+  return(list(dist_lr, dist_lb, dist_br))
+})
+
+diffs_lr <- unlist(sapply(diffs, "[", 1))
+diffs_lb <- unlist(sapply(diffs, "[", 2))
+diffs_br <- unlist(sapply(diffs, "[", 3))
+diffs <- list(diffs_lr, diffs_lb, diffs_br)
+
+## Plot histograms
+hist(diffs_lr, breaks = 100, main = "Difference between left and right orientations", xlab = "Angular distance"); abline(v = dist_left_right, col= "red", lwd = 3)
+
+hist(diffs_lb, breaks = 100, main = "Difference between left and back orientations", xlab = "Angular distance"); abline(v = dist_left_back, col= "red", lwd = 3)
+
+hist(diffs_br, breaks = 100, main = "Difference between back and right orientations", xlab = "Angular distance"); abline(v = dist_right_back, col= "red", lwd = 3)
+
+## Calculate p-value
+# P = (X + 1) / (N + 1)
+obs <- list(dist_left_right, dist_left_back, dist_right_back)
+pval <- lapply(1:length(diffs), function(x){
+  X <- sum(abs(diffs[[x]]) >= abs(obs[[x]]))
+  N <- length(diffs[[x]])
+  return((X + 1) / (N + 1))
+})
+names(pval) <- c("left_right", "left_back", "back_right")
+pval
+```
+
+```{r}
+# Similarity index
+similarity_index <- function(d) {
+  return(1 - (d / 180))
+}
+
+sim_left_right <- similarity_index(dist_left_right)
+sim_left_back <- similarity_index(dist_left_back)
+sim_right_back <- similarity_index(dist_right_back)
+
+print(sim_left_right)
+print(sim_left_back)
+print(sim_right_back)
+```
+
+```{r}
+## Watson-Williams test
+# Combine data
+all_angles <- c(left_angles, right_angles, back_angles) #right_angles, 
+group <- factor(c(rep("left", length(left_angles)),
+                  rep("right", length(right_angles)),
+                  rep("back", length(back_angles))))
+
+## Mardia-Watson-Wheeler test (non-parametric)
+mww_result1 <- watson.two.test(left_circ, right_circ)  # pairwise example
+mww_result2 <- watson.two.test(left_circ, back_circ)
+mww_result3 <- watson.two.test(right_circ, back_circ)
+print(mww_result1)
+print(mww_result2)
+print(mww_result3)
+
+## Watson-Williams test
+watson.williams.test(circular(all_angles, units = "degrees", type = "angles", rotation = "clock"), group)
+
+## Circular ANOVA 
+aov.circular(circular(all_angles, units = "degrees", type = "angles", rotation = "clock"), group)
+```
