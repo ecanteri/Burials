@@ -80,9 +80,9 @@ find.mid.deg <- function(min.deg, max.deg){
 # Remove NAs in both min and max orientation columns
 orientation <- orientation[!(is.na(BurialOrientationMin) & is.na(BurialOrientationMax))]
 
-# Create a table for records with NAs either in one or the other column
-orientation_na <- orientation[is.na(BurialOrientationMin) | is.na(BurialOrientationMax)]
-orientation_na[, BurialOrientationMean := NA]
+# Create a table for records that have a single angle value (in BurialOrientationMin)
+single_angles <- orientation[is.na(BurialOrientationMax)]
+single_angles[, BurialOrientationMean := BurialOrientationMin]
 
 # Remove from overall table
 orientation <- orientation[!(is.na(BurialOrientationMin) | is.na(BurialOrientationMax))]
@@ -91,7 +91,8 @@ orientation <- orientation[!(is.na(BurialOrientationMin) | is.na(BurialOrientati
 orientation[, BurialOrientationMean := find.mid.deg(BurialOrientationMin, BurialOrientationMax)]
 
 # Bind tables together
-orientation <- rbind(orientation, orientation_na)
+orientation <- rbind(orientation, single_angles)
+orientation <- orientation[order(Num)]
 
 ## Separate data based on burial side
 left <- orientation[, .(Num, BurialOrientationMean, BurialOrientationMin, BurialOrientationMax), by = "BurialSide_left"][BurialSide_left == 1]
@@ -103,12 +104,14 @@ back[, BurialSide := "Back"]
 
 # Bind together in a new table
 sides <- rbind(left[, -1], right[, -1], back[, -1])
-sides[, BurialOrientationMean_cos := cos(BurialOrientationMean)]
-sides[, BurialOrientationMin_cos := cos(BurialOrientationMin)]
-sides[, BurialOrientationMax_cos := cos(BurialOrientationMax)]
-sides[, BurialOrientationMean_sin := sin(BurialOrientationMean)]
-sides[, BurialOrientationMin_sin := sin(BurialOrientationMin)]
-sides[, BurialOrientationMax_sin := sin(BurialOrientationMax)]
+
+# Calculate cosine and sine from radians
+sides[, BurialOrientationMean_cos := cos(BurialOrientationMean*pi/180)]
+sides[, BurialOrientationMin_cos := cos(BurialOrientationMin*pi/180)]
+sides[, BurialOrientationMax_cos := cos(BurialOrientationMax*pi/180)]
+sides[, BurialOrientationMean_sin := sin(BurialOrientationMean*pi/180)]
+sides[, BurialOrientationMin_sin := sin(BurialOrientationMin*pi/180)]
+sides[, BurialOrientationMax_sin := sin(BurialOrientationMax*pi/180)]
 
 # Add Country, Culture, Period and Ancestry info
 sides$Country <- graves[Num %in% sides$Num]$Country
