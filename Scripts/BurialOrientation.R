@@ -189,6 +189,13 @@ ggplot(data = dim_angles) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 
+# Circular histogram
+ggplot(data = sides) +
+  geom_histogram(aes(x = BurialOrientationMean), binwidth = 20, fill = "skyblue", color = "black") +
+  coord_polar(start = 0) +
+  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
+  theme_minimal()
+
 
 ##### Burial side ######
 # Group by count within same burial side and same angles
@@ -213,6 +220,16 @@ ggplot(data = dim_side) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 dev.off()
+
+# Circular histogram
+ggplot(data = sides) +
+  geom_histogram(aes(x = BurialOrientationMean, fill = BurialSide),
+             color = 'black',
+             binwidth = 20) +
+  scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
+  coord_polar(start = 0) +
+  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
+  theme_minimal()
 
 ##### Country ######
 dim_country <- sides[, .N, by = c("Country", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -255,6 +272,15 @@ ggplot(data = dim_country) +
         legend.title = element_text(size = 16))
 dev.off()
 
+# Circular histogram
+ggplot(data = sides) +
+  geom_histogram(aes(x = BurialOrientationMean, fill = Country),
+                 color = 'black', binwidth = 20) +
+  scale_fill_manual("Country", values = pals::tol.rainbow(19)) +
+  coord_polar(start = 0) +
+  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
+  theme_minimal()
+
 ##### Period ######
 dim_period <- sides[, .N, by = c("Period", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_period$Period <- factor(dim_period$Period, levels = c("Mesolithic",
@@ -285,6 +311,24 @@ ggplot(data = dim_period) +
         legend.title = element_text(size = 16))
 dev.off()
 
+# Circular histogram
+ggplot(data = sides) +
+  geom_histogram(aes(x = BurialOrientationMean, fill = factor(Period,
+                                                              levels = c("Mesolithic",
+                                                                         "Mesolithic/Neolithic",
+                                                                         "Neolithic",
+                                                                         "Eneolithic",
+                                                                         "Eneolithic/Bronze Age",
+                                                                         "Bronze Age",
+                                                                         "Bronze Age/Iron Age",
+                                                                         "Iron Age"))),
+                 color = 'black', binwidth = 20) +
+  scale_fill_manual("Period", values = pals::parula(8)) +
+  coord_polar(start = 0) +
+  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
+  theme_minimal()
+
+
 ##### Culture #####
 dim_culture <- sides[, .N, by = c("Culture", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_culture <- dim_culture[!is.na(Culture)]
@@ -309,6 +353,15 @@ ggplot(data = dim_culture[Culture %in% culture_keep]) +
         legend.title = element_text(size = 16))
 dev.off()
 
+# Circular histogram
+ggplot(data = sides[Culture %in% culture_keep]) +
+  geom_histogram(aes(x = BurialOrientationMean, fill = Culture),
+                 color = 'black', binwidth = 20) +
+  scale_fill_manual("Culture", values = pals::parula(10)) +
+  coord_polar(start = 0) +
+  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
+  theme_minimal()
+
 ##### Sex #####
 dim_sex <- sides[, .N, by = c("Sex", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 
@@ -328,6 +381,15 @@ ggplot(data = dim_sex) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 dev.off()
+
+# Circular histogram
+ggplot(data = sides) +
+  geom_histogram(aes(x = BurialOrientationMean, fill = as.factor(Sex)),
+                 color = 'black', binwidth = 20) +
+  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(9))) +
+  coord_polar(start = 0) +
+  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
+  theme_minimal()
 
 ##### Age #####
 dim_age <- sides[, .N, by = c("Age", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
