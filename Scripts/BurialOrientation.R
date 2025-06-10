@@ -230,22 +230,38 @@ ggplot(data = dim_side) +
 dev.off()
 
 # Circular histogram
-ggplot(data = sides, aes(x = BurialOrientationMean, fill = BurialSide)) +
+cols <- pals::brewer.paired(3)
+ggplot(data = sides, aes(x = BurialOrientationMean, fill = factor(BurialSide, levels = c("Left", "Right", "Back"))), alpha = 0.5) +
   stat_bin(bins = 30, boundary = 0, color = 'black') +
   scale_x_continuous(expand = expansion(0, 0), 
                      limits = c(0, 360),
                      breaks = seq(0, 360, by = 45)) +
   scale_y_continuous(expand = expansion(c(0, 0.05))) +
   scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
+  ylab("Count") +
   coord_polar() +
   theme_light() +
-  theme(axis.title = element_blank(),
-        axis.text = element_text(size = 12),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank())
+  theme(axis.text = element_text(size = 12))
 
+# Single plots
+ggplot(data = sides, aes(x = BurialOrientationMean, 
+                         fill = factor(BurialSide, levels = c("Left", "Right", "Back")))) +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
+  facet_wrap(~factor(BurialSide, levels = c("Left", "Right", "Back")),
+             scales = "free_y") +
+  ylab("Count") +
+  coord_polar() +
+  theme_light() +
+  theme(axis.text = element_text(size = 12),
+        axis.title.x = element_blank(),
+        legend.position = "none")
 
-##### Country ######
+##### Country ########### Country ######BurialSide
 dim_country <- sides[, .N, by = c("Country", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_country$Country <- factor(dim_country$Country, levels = c("Netherlands",
                                                               "France",
@@ -301,7 +317,26 @@ ggplot(data = sides,
   theme(axis.text.y = element_blank(),
         axis.title = element_blank(),
         axis.ticks.y = element_blank(),
-        axis.text.x = element_text(size = 12))
+        axis.text.x = element_text(size = 12),
+        axis.title.x = element_blank())
+
+
+# Single plots
+ggplot(data = sides, 
+       aes(x = BurialOrientationMean, fill = Country)) +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_fill_manual("Country", values = pals::tol.rainbow(19)) +
+  facet_wrap(~Country, scales = "free_y") +
+  ylab("Count") +
+  coord_polar() +
+  theme_light() +
+  theme(axis.text = element_text(size = 12),
+        axis.title.x = element_blank(),
+        legend.position = "none")
 
 ##### Period ######
 dim_period <- sides[, .N, by = c("Period", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -358,6 +393,39 @@ ggplot(data = sides,
         axis.ticks.y = element_blank(),
         axis.text.x = element_text(size = 12))
 
+# Single plots
+ggplot(data = sides, 
+       aes(x = BurialOrientationMean, fill = factor(Period,
+                                                    levels = c("Mesolithic",
+                                                               "Mesolithic/Neolithic",
+                                                               "Neolithic",
+                                                               "Eneolithic",
+                                                               "Eneolithic/Bronze Age",
+                                                               "Bronze Age",
+                                                               "Bronze Age/Iron Age",
+                                                               "Iron Age")))) +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_fill_manual("Period", values = pals::parula(8)) +
+  facet_wrap(~factor(Period,
+                     levels = c("Mesolithic",
+                                "Mesolithic/Neolithic",
+                                "Neolithic",
+                                "Eneolithic",
+                                "Eneolithic/Bronze Age",
+                                "Bronze Age",
+                                "Bronze Age/Iron Age",
+                                "Iron Age")), scales = "free_y") +
+  ylab("Count") +
+  coord_polar() +
+  theme_light() +
+  theme(axis.text = element_text(size = 12),
+        axis.title.x = element_blank(),
+        legend.position = "none")
+
 
 ##### Culture #####
 dim_culture <- sides[, .N, by = c("Culture", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -400,6 +468,24 @@ ggplot(data = sides[Culture %in% culture_keep],
         axis.ticks.y = element_blank(),
         axis.text.x = element_text(size = 12))
 
+# Single plots
+ggplot(data = sides[Culture %in% culture_keep],
+       aes(x = BurialOrientationMean, fill = Culture),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_fill_manual("Culture", values = pals::parula(10)) +
+  coord_polar(start = 0) +
+  ylab("Count") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  # facet_wrap(~Culture) +
+  facet_wrap(~Culture, scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "none")
+
 ##### Sex #####
 dim_sex <- sides[, .N, by = c("Sex", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 
@@ -436,6 +522,23 @@ ggplot(data = sides,
         axis.title = element_blank(),
         axis.ticks.y = element_blank(),
         axis.text.x = element_text(size = 12))
+
+# Single plots
+ggplot(data = sides,
+       aes(x = BurialOrientationMean, fill = as.factor(Sex)),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(9))) +
+  coord_polar(start = 0) +
+  ylab("Count") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  facet_wrap(~as.factor(Sex), scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "none")
 
 ##### Age #####
 dim_age <- sides[, .N, by = c("Age", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -475,6 +578,25 @@ ggplot(data = dim_age[between(Age, 2000, 8000)]) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 
+# Histograms
+sides$YearBin <- plyr::round_any(sides$Age, 500)
+ggplot(data = sides[between(Age, 3000, 8000)],
+       aes(x = BurialOrientationMean, fill = factor(YearBin, levels = as.character(rev(seq(3000, 8000, 500))))),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_fill_manual("YearBin", values = rev(pals::brewer.piyg(11))) +
+  coord_polar(start = 0) +
+  ylab("Count") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  facet_wrap(~factor(YearBin, levels = as.character(rev(seq(3000, 8000, 500)))), scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "none")
+
+
 ##### Ancestry: WHG ##### 
 png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_WHG.png", width = 12, height = 10, units = 'in', res = 330)
 dim_whg <- sides[, mean(WHG, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -496,6 +618,24 @@ ggplot(data = dim_whg) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 dev.off()
+
+# Histograms
+sides$WHG_bin <- plyr::round_any(sides$WHG, 0.05)
+ggplot(data = sides[!is.na(WHG)],
+       aes(x = BurialOrientationMean, fill = as.factor(WHG_bin)),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_fill_manual("WHG", values = pals::parula(14)) +
+  coord_polar(start = 0) +
+  ylab("Count") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  facet_wrap(~as.factor(WHG_bin), scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "none")
 
 ##### Ancestry: EHG ##### 
 dim_ehg <- sides[, mean(EHG, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -519,6 +659,24 @@ ggplot(data = dim_ehg) +
         legend.title = element_text(size = 16))
 dev.off()
 
+# Histograms
+sides$EHG_bin <- plyr::round_any(sides$EHG, 0.05)
+ggplot(data = sides[!is.na(EHG)],
+       aes(x = BurialOrientationMean, fill = as.factor(EHG_bin)),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_fill_manual("EHG", values = pals::parula(14)) +
+  coord_polar(start = 0) +
+  ylab("Count") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  facet_wrap(~as.factor(EHG_bin), scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "none")
+
 ##### Ancestry: CHG ##### 
 dim_chg <- sides[, mean(CHG, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_chg <- dim_chg[!is.nan(V1),]
@@ -540,6 +698,24 @@ ggplot(data = dim_chg) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 dev.off()
+
+# Histograms
+sides$CHG_bin <- plyr::round_any(sides$CHG, 0.05)
+ggplot(data = sides[!is.na(CHG)],
+       aes(x = BurialOrientationMean, fill = as.factor(CHG_bin)),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_fill_manual("CHG", values = pals::parula(14)) +
+  coord_polar(start = 0) +
+  ylab("Count") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  facet_wrap(~as.factor(CHG_bin), scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "none")
 
 ##### Ancestry: LVN ##### 
 dim_lvn <- sides[, mean(LVN, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -563,6 +739,24 @@ ggplot(data = dim_lvn) +
         legend.title = element_text(size = 16))
 dev.off()
 
+# Histograms
+sides$LVN_bin <- plyr::round_any(sides$LVN, 0.05)
+ggplot(data = sides[!is.na(LVN)],
+       aes(x = BurialOrientationMean, fill = as.factor(LVN_bin)),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_fill_manual("LVN", values = pals::parula(14)) +
+  coord_polar(start = 0) +
+  ylab("Count") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  facet_wrap(~as.factor(LVN_bin), scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "none")
+
 ##### Mobility #####
 dim_mob <- sides[, mean(mobility, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_mob <- dim_mob[!is.nan(V1),]
@@ -584,3 +778,21 @@ ggplot(data = dim_mob) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 dev.off()
+
+# Histograms
+sides$mob_bin <- plyr::round_any(sides$mobility, 50)
+ggplot(data = sides[!is.na(mobility)],
+       aes(x = BurialOrientationMean, fill = as.factor(mob_bin)),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_fill_manual("Mobility", values = pals::parula(28)) +
+  coord_polar(start = 0) +
+  ylab("Count") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  facet_wrap(~as.factor(mob_bin), scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "none")
