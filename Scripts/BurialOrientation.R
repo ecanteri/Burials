@@ -190,11 +190,19 @@ ggplot(data = dim_angles) +
         legend.title = element_text(size = 16))
 
 # Circular histogram
-ggplot(data = sides) +
-  geom_histogram(aes(x = BurialOrientationMean), binwidth = 20, fill = "skyblue", color = "black") +
-  coord_polar(start = 0) +
-  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
-  theme_minimal()
+ggplot(data = sides, aes(x = BurialOrientationMean)) +
+  stat_bin(bins = 30, boundary = 0, fill = "grey80", color = "black") +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  coord_polar() +
+  # coord_radial() +
+  theme_light() +
+  theme(axis.title = element_blank(),
+        axis.text = element_text(size = 12),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
 
 
 ##### Burial side ######
@@ -222,14 +230,20 @@ ggplot(data = dim_side) +
 dev.off()
 
 # Circular histogram
-ggplot(data = sides) +
-  geom_histogram(aes(x = BurialOrientationMean, fill = BurialSide),
-             color = 'black',
-             binwidth = 20) +
+ggplot(data = sides, aes(x = BurialOrientationMean, fill = BurialSide)) +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
   scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
-  coord_polar(start = 0) +
-  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
-  theme_minimal()
+  coord_polar() +
+  theme_light() +
+  theme(axis.title = element_blank(),
+        axis.text = element_text(size = 12),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+
 
 ##### Country ######
 dim_country <- sides[, .N, by = c("Country", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -273,13 +287,21 @@ ggplot(data = dim_country) +
 dev.off()
 
 # Circular histogram
-ggplot(data = sides) +
-  geom_histogram(aes(x = BurialOrientationMean, fill = Country),
-                 color = 'black', binwidth = 20) +
+ggplot(data = sides,
+       aes(x = BurialOrientationMean, fill = Country),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
   scale_fill_manual("Country", values = pals::tol.rainbow(19)) +
   coord_polar(start = 0) +
-  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
-  theme_minimal()
+  theme_light() +
+  theme(axis.text.y = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 12))
 
 ##### Period ######
 dim_period <- sides[, .N, by = c("Period", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -312,21 +334,29 @@ ggplot(data = dim_period) +
 dev.off()
 
 # Circular histogram
-ggplot(data = sides) +
-  geom_histogram(aes(x = BurialOrientationMean, fill = factor(Period,
-                                                              levels = c("Mesolithic",
-                                                                         "Mesolithic/Neolithic",
-                                                                         "Neolithic",
-                                                                         "Eneolithic",
-                                                                         "Eneolithic/Bronze Age",
-                                                                         "Bronze Age",
-                                                                         "Bronze Age/Iron Age",
-                                                                         "Iron Age"))),
-                 color = 'black', binwidth = 20) +
+ggplot(data = sides,
+       aes(x = BurialOrientationMean, fill = factor(Period,
+                                                    levels = c("Mesolithic",
+                                                               "Mesolithic/Neolithic",
+                                                               "Neolithic",
+                                                               "Eneolithic",
+                                                               "Eneolithic/Bronze Age",
+                                                               "Bronze Age",
+                                                               "Bronze Age/Iron Age",
+                                                               "Iron Age"))),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
   scale_fill_manual("Period", values = pals::parula(8)) +
   coord_polar(start = 0) +
-  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
-  theme_minimal()
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  theme_light() +
+  theme(axis.text.y = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 12))
 
 
 ##### Culture #####
@@ -354,13 +384,21 @@ ggplot(data = dim_culture[Culture %in% culture_keep]) +
 dev.off()
 
 # Circular histogram
-ggplot(data = sides[Culture %in% culture_keep]) +
-  geom_histogram(aes(x = BurialOrientationMean, fill = Culture),
-                 color = 'black', binwidth = 20) +
+ggplot(data = sides[Culture %in% culture_keep],
+       aes(x = BurialOrientationMean, fill = Culture),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
   scale_fill_manual("Culture", values = pals::parula(10)) +
   coord_polar(start = 0) +
-  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
-  theme_minimal()
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  theme_light() +
+  theme(axis.text.y = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 12))
 
 ##### Sex #####
 dim_sex <- sides[, .N, by = c("Sex", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -383,13 +421,21 @@ ggplot(data = dim_sex) +
 dev.off()
 
 # Circular histogram
-ggplot(data = sides) +
-  geom_histogram(aes(x = BurialOrientationMean, fill = as.factor(Sex)),
-                 color = 'black', binwidth = 20) +
+ggplot(data = sides,
+       aes(x = BurialOrientationMean, fill = as.factor(Sex)),
+       color = 'black') +
+  stat_bin(bins = 30, boundary = 0, color = 'black') +
   scale_fill_manual("Sex", values = rev(pals::brewer.piyg(9))) +
   coord_polar(start = 0) +
-  scale_x_continuous(limits = c(0, 360), breaks = seq(0, 360, by = 30)) +
-  theme_minimal()
+  scale_x_continuous(expand = expansion(0, 0), 
+                     limits = c(0, 360),
+                     breaks = seq(0, 360, by = 45)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  theme_light() +
+  theme(axis.text.y = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 12))
 
 ##### Age #####
 dim_age <- sides[, .N, by = c("Age", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
@@ -416,10 +462,12 @@ ggplot(data = dim_age[between(Age, 2000, 8000)]) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Age, size = N),
              position = position_jitter(0.1, 0.1),
              shape = 21) +
-  scale_fill_gradientn("Age", colors = pals::coolwarm(100)) +
+  scale_fill_gradientn("Age", colors = pals::coolwarm(100), limits = c(2000, 8000),
+                       breaks = seq(2000, 8000, 2000)) +
   scale_size_continuous("Count", breaks = c(1, 25, 50, 75, 100), range = c(3,10)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
@@ -428,7 +476,7 @@ ggplot(data = dim_age[between(Age, 2000, 8000)]) +
         legend.title = element_text(size = 16))
 
 ##### Ancestry: WHG ##### 
-png("./Figures/BurialOrientation/BurialOrientation_WHG.png", width = 12, height = 10, units = 'in', res = 330)
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_WHG.png", width = 12, height = 10, units = 'in', res = 330)
 dim_whg <- sides[, mean(WHG, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_whg <- dim_whg[!is.nan(V1),]
 names(dim_whg)[3] <- "WHG"
@@ -440,6 +488,7 @@ ggplot(data = dim_whg) +
   scale_fill_gradientn("WHG", colors = pals::parula(100), limits = c(0,1)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
@@ -453,7 +502,7 @@ dim_ehg <- sides[, mean(EHG, na.rm = T), by = c("BurialOrientationMean_sin", "Bu
 dim_ehg <- dim_ehg[!is.nan(V1),]
 names(dim_ehg)[3] <- "EHG"
 
-png("./Figures/BurialOrientation/BurialOrientation_EHG.png", width = 12, height = 10, units = 'in', res = 330)
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_EHG.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_ehg) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = EHG),
              shape = 21,
@@ -461,6 +510,7 @@ ggplot(data = dim_ehg) +
   scale_fill_gradientn("EHG", colors = pals::parula(100), limits = c(0,1)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
@@ -474,7 +524,7 @@ dim_chg <- sides[, mean(CHG, na.rm = T), by = c("BurialOrientationMean_sin", "Bu
 dim_chg <- dim_chg[!is.nan(V1),]
 names(dim_chg)[3] <- "CHG"
 
-png("./Figures/BurialOrientation/BurialOrientation_CHG.png", width = 12, height = 10, units = 'in', res = 330)
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_CHG.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_chg) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = CHG),
              shape = 21,
@@ -482,6 +532,7 @@ ggplot(data = dim_chg) +
   scale_fill_gradientn("CHG", colors = pals::parula(100), limits = c(0,1)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
@@ -495,7 +546,7 @@ dim_lvn <- sides[, mean(LVN, na.rm = T), by = c("BurialOrientationMean_sin", "Bu
 dim_lvn <- dim_lvn[!is.nan(V1),]
 names(dim_lvn)[3] <- "LVN"
 
-png("./Figures/BurialOrientation/BurialOrientation_LVN.png", width = 12, height = 10, units = 'in', res = 330)
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_LVN.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_lvn) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = LVN),
              shape = 21,
@@ -503,6 +554,7 @@ ggplot(data = dim_lvn) +
   scale_fill_gradientn("LVN", colors = pals::parula(100), limits = c(0,1)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
@@ -516,7 +568,7 @@ dim_mob <- sides[, mean(mobility, na.rm = T), by = c("BurialOrientationMean_sin"
 dim_mob <- dim_mob[!is.nan(V1),]
 names(dim_mob)[3] <- "mobility"
 
-png("./Figures/BurialOrientation/BurialOrientation_mobility.png", width = 12, height = 10, units = 'in', res = 330)
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_mobility.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_mob) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = mobility),
              shape = 21,
@@ -524,6 +576,7 @@ ggplot(data = dim_mob) +
   scale_fill_gradientn("Mobility", colors = pals::parula(100)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
