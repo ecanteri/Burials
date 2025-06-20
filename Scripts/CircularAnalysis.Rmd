@@ -19,6 +19,8 @@ conn <- init.conn()
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
+# DATA
+
 ```{r}
 #### DATA ####
 graves <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Data/Burial.csv", na.strings = "")
@@ -88,12 +90,51 @@ single_angles[, BurialOrientationMean := BurialOrientationMin]
 orientation <- orientation[!(is.na(BurialOrientationMin) | is.na(BurialOrientationMax))]
 
 # Average across min and max 
+## Using Adrian's function
 orientation[, BurialOrientationMean := find.mid.deg(BurialOrientationMin, BurialOrientationMax)]
+
+## Using circular package
+means <- round(sapply(1:nrow(orientation), function(x) mean.circular(circular(c(orientation$BurialOrientationMin[x], orientation$BurialOrientationMax[x]), type = "angles", units = "degrees", rotation = "clock"))),2)
+means <- sapply(1:length(means), function(x) ifelse(means[x] < 0, 360 + means[x], means[x]))
+
+## Check differences
+orientation$BurialOrientationMin[698]; orientation$BurialOrientationMax[698]
+orientation$BurialOrientationMean[698]; means[698]
+
+## In this example, we see that the mean.circular function takes into account that 270 is the min angle. Do we think this is the correct way to go?
+
+orientation[, BurialOrientationMean := means]
 
 # Bind tables together
 orientation <- rbind(orientation, single_angles)
 orientation <- orientation[order(Num)]
 
+# Calculate cosine and sine from radians
+orientation[, BurialOrientationMean_cos := cos(BurialOrientationMean*pi/180)]
+orientation[, BurialOrientationMin_cos := cos(BurialOrientationMin*pi/180)]
+orientation[, BurialOrientationMax_cos := cos(BurialOrientationMax*pi/180)]
+orientation[, BurialOrientationMean_sin := sin(BurialOrientationMean*pi/180)]
+orientation[, BurialOrientationMin_sin := sin(BurialOrientationMin*pi/180)]
+orientation[, BurialOrientationMax_sin := sin(BurialOrientationMax*pi/180)]
+
+# Add Country, Culture, Period and Ancestry info
+orientation$Country <- graves[Num %in% orientation$Num]$Country
+orientation$Period <- graves[Num %in% orientation$Num]$Period
+orientation$Culture <- graves[Num %in% orientation$Num]$Culture
+orientation$Sex <- graves[Num %in% orientation$Num]$Sex
+orientation$Age <- graves[Num %in% orientation$Num]$gaussianModelMu
+orientation$EHG <- graves[Num %in% orientation$Num]$ANCE2_v2
+orientation$WHG <- graves[Num %in% orientation$Num]$ANCE4_v2
+orientation$LVN <- graves[Num %in% orientation$Num]$ANCE6_v2
+orientation$CHG <- graves[Num %in% orientation$Num]$ANCE8_v2
+orientation$mobility <- graves[Num %in% orientation$Num]$mobility_MDS_250y_retrospective
+
+```
+
+# TEST STATISTICS WITH BURIAL SIDES
+
+```{r}
+#### CIRCULAR MEAN AND VARIANCE ####
 ## Separate data based on burial side
 left <- orientation[, .(Num, BurialOrientationMean, BurialOrientationMin, BurialOrientationMax), by = "BurialSide_left"][BurialSide_left == 1]
 left[, BurialSide := "Left"]
@@ -105,29 +146,6 @@ back[, BurialSide := "Back"]
 # Bind together in a new table
 sides <- rbind(left[, -1], right[, -1], back[, -1])
 
-# Calculate cosine and sine from radians
-sides[, BurialOrientationMean_cos := cos(BurialOrientationMean*pi/180)]
-sides[, BurialOrientationMin_cos := cos(BurialOrientationMin*pi/180)]
-sides[, BurialOrientationMax_cos := cos(BurialOrientationMax*pi/180)]
-sides[, BurialOrientationMean_sin := sin(BurialOrientationMean*pi/180)]
-sides[, BurialOrientationMin_sin := sin(BurialOrientationMin*pi/180)]
-sides[, BurialOrientationMax_sin := sin(BurialOrientationMax*pi/180)]
-
-# Add Country, Culture, Period and Ancestry info
-sides$Country <- graves[Num %in% sides$Num]$Country
-sides$Period <- graves[Num %in% sides$Num]$Period
-sides$Culture <- graves[Num %in% sides$Num]$Culture
-sides$Sex <- graves[Num %in% sides$Num]$Sex
-sides$Age <- graves[Num %in% sides$Num]$gaussianModelMu
-sides$EHG <- graves[Num %in% sides$Num]$ANCE2_v2
-sides$WHG <- graves[Num %in% sides$Num]$ANCE4_v2
-sides$LVN <- graves[Num %in% sides$Num]$ANCE6_v2
-sides$CHG <- graves[Num %in% sides$Num]$ANCE8_v2
-sides$mobility <- graves[Num %in% sides$Num]$mobility_MDS_250y_retrospective
-```
-
-```{r}
-#### CIRCULAR MEAN AND VARIANCE ####
 # Example data in degrees
 sides <- sides[!is.na(BurialOrientationMean)]
 left_angles <- sides[BurialSide == "Left", BurialOrientationMean]
@@ -143,7 +161,7 @@ back_circ <- circular(back_angles, units = "degrees", type = "angles", rotation 
 mean_left <- mean.circular(left_circ)
 mean_right <- mean.circular(right_circ)
 mean_back <- mean.circular(back_circ)
-mean_left
+as.numeric(deg(mean_left))
 
 # Variance direction
 var_left <- var.circular(left_circ)
@@ -155,9 +173,9 @@ rho_left <- rho.circular(left_circ)
 rho_right <- rho.circular(right_circ)
 rho_back <- rho.circular(back_circ)
 
-as.numeric(mean_left); as.numeric(mean_right); as.numeric(mean_back)
-as.numeric(var_left); as.numeric(var_right); as.numeric(var_back)
-as.numeric(rho_left); as.numeric(rho_right); as.numeric(rho_back)
+as.numeric(deg(mean_left)); as.numeric(deg(mean_right)); as.numeric(deg(mean_back))
+as.numeric(deg(var_left)); as.numeric(deg(var_right)); as.numeric(deg(var_back))
+as.numeric(deg(rho_left)); as.numeric(deg(rho_right)); as.numeric(deg(rho_back))
 ```
 
 ```{r}
@@ -166,6 +184,9 @@ angular_distance <- function(a, b) {
   diff <- abs(a - b) %% 360
   return(min(diff, 360 - diff))
 }
+# Example
+angular_distance(350, 10)
+angular_distance(190, 0)
 
 # Calculate distances
 dist_left_right <- angular_distance(as.numeric(mean_left), as.numeric(mean_right))
@@ -175,6 +196,54 @@ dist_right_back <- angular_distance(as.numeric(mean_right), as.numeric(mean_back
 print(dist_left_right)
 print(dist_left_back)
 print(dist_right_back)
+```
+
+```{r}
+## Circular means
+sides_means <- c(mean_left, mean_right, mean_back)
+names(sides_means) <- c("Left", "Right", "Back")
+d <- list()
+for(a in 1:length(sides_means)){
+  d[[a]] <- sapply(1:length(sides_means), function(x){
+    angular_distance(sides_means[a], sides_means[x])
+  })
+}
+sides_mat <- do.call(cbind, d)
+colnames(sides_mat) <- rownames(sides_mat) <- names(sides_means)
+sides_mat[lower.tri(sides_mat)] <- NA
+sides_dists <- melt(sides_mat)
+
+# Plot burial orientations per country
+sides_means_dt <- data.table(Sides = names(sides_means), Mean = sides_means)
+sides_means_dt[, Mean := ifelse(Mean < 0, Mean + 360, Mean)]
+ggplot(data = sides, aes(x = BurialSide, y = BurialOrientationMean, fill = BurialSide)) +
+  geom_violin(width = 1, drop = F) +
+  geom_point(data = sides_means_dt, aes(x = Sides, y = Mean), size = 2, shape = 23, fill = "white") +
+  scale_fill_manual(values = pals::brewer.set2(3)) +
+  ylab("Burial orientation") +
+  theme_light() +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot pairwise angular distances
+ggplot(data = sides_dists[!is.na(sides_dists$value),]) +
+  geom_tile(aes(Var1, Var2, fill = value), color = "black") +
+  scale_fill_gradientn("Angular distance", colours = rev(pals::brewer.rdylbu(100)), 
+                       na.value = "transparent",
+                       limits = c(0,180)) + # maximum distance between angles?
+                       # guide = guide_colorbar(barwidth = 1, barheight = 15)) +
+  geom_text(aes(Var1, Var2, label = round(value, 1)), size = 10, size.unit = "pt") +
+  scale_x_discrete(position = "top") +
+  ggtitle("Pairwise distance between angles means") +
+  coord_equal(expand = F) +
+  theme_classic() +
+  theme(plot.title = element_text(face = "bold", size = 16),
+        axis.text.x = element_text(angle = 45, hjust = 0),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        axis.text = element_text(size = 14))
 ```
 
 Shuffle the values of angles for each category and compute the differences in circular means and do a histogram where we plot the differences in circular means against the true difference. Do it for each of the three pairs. Make sure that each group has the same amount of observations. 
@@ -256,3 +325,306 @@ watson.williams.test(circular(all_angles, units = "degrees", type = "angles", ro
 ## Circular ANOVA 
 aov.circular(circular(all_angles, units = "degrees", type = "angles", rotation = "clock"), group)
 ```
+
+Now that we have tested different statistics using the left, right, and back angles, we can do the same for other categories, like periods, cultures, and countries.
+
+# COUNTRY
+```{r}
+orientation$Country <- factor(orientation$Country, levels = c("Netherlands",
+                                                              "France",
+                                                              "Germany",
+                                                              "Denmark",
+                                                              "Sweden",
+                                                              "Latvia",
+                                                              "Poland",
+                                                              "Czechia / Czech Republic",
+                                                              "Slovakia",
+                                                              "Austria",
+                                                              "Hungary",
+                                                              "Croatia",
+                                                              "Romania",
+                                                              "Serbia",
+                                                              "Bulgaria",
+                                                              "Ukraine",
+                                                              "Russia",
+                                                              "Armenia",
+                                                              "Kazakhstan"))
+
+## Circular means
+countries <- split(orientation[, .(BurialOrientationMean, Country)], by = "Country")
+countries_means <- lapply(countries, function(x){
+  mean.circular(circular(x$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"))
+})
+countries_means <- unlist(countries_means)
+d <- list()
+for(a in 1:length(countries_means)){
+  d[[a]] <- sapply(1:length(countries_means), function(x){
+    angular_distance(countries_means[a], countries_means[x])
+  })
+}
+countries_mat <- do.call(cbind, d)
+colnames(countries_mat) <- rownames(countries_mat) <- names(countries_means)
+countries_mat[lower.tri(countries_mat)] <- NA
+countries_dists <- melt(countries_mat)
+
+# Plot burial orientations per country
+countries_means_dt <- data.table(Country = names(countries_means), Mean = countries_means)
+countries_means_dt[, Mean := ifelse(Mean < 0, Mean + 360, Mean)]
+ggplot(data = orientation, aes(x = Country, y = BurialOrientationMean, fill = Country)) +
+  geom_violin(width = 1.5, drop = F) +
+  geom_point(data = countries_means_dt, aes(x = Country, y = Mean), size = 2, shape = 23, fill = "white") +
+  scale_fill_manual(values = pals::brewer.set2(19)) +
+  ylab("Burial orientation") +
+  theme_light() +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot pairwise angular distances
+ggplot(data = countries_dists[!is.na(countries_dists$value),]) +
+  geom_tile(aes(Var1, Var2, fill = value), color = "black") +
+  scale_fill_gradientn("Angular distance", colours = rev(pals::brewer.rdylbu(100)), 
+                       na.value = "transparent",
+                       limits = c(0,180)) + # maximum distance between angles?
+                       # guide = guide_colorbar(barwidth = 1, barheight = 15)) +
+  geom_text(aes(Var1, Var2, label = round(value, 1)), size = 10, size.unit = "pt") +
+  scale_x_discrete(position = "top") +
+  ggtitle("Pairwise distance between angles means") +
+  coord_equal(expand = F) +
+  theme_classic() +
+  theme(plot.title = element_text(face = "bold", size = 16),
+        axis.text.x = element_text(angle = 45, hjust = 0),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        axis.text = element_text(size = 14))
+
+
+## Circular ANOVA 
+aov_country <- aov.circular(circular(orientation$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"), orientation$Country)
+aov_country
+aov_country$mu
+aov_country$kappa
+aov_country$rho
+aov_country$p.value
+```
+
+# PERIOD
+```{r}
+orientation$Period <- factor(orientation$Period, levels = c("Mesolithic",
+                                                          "Mesolithic/Neolithic",
+                                                          "Neolithic",
+                                                          "Eneolithic",
+                                                          "Eneolithic/Bronze Age",
+                                                          "Bronze Age",
+                                                          "Bronze Age/Iron Age",
+                                                          "Iron Age"))
+
+## Circular means
+period <- split(orientation[, .(BurialOrientationMean, Period)], by = "Period")
+period_means <- lapply(period, function(x){
+  mean.circular(circular(rad(x$BurialOrientationMean), units = "radians", type = "angles", rotation = "clock"))
+})
+period_means <- unlist(period_means)
+d <- list()
+for(a in 1:length(period_means)){
+  d[[a]] <- sapply(1:length(period_means), function(x){
+    angular_distance(period_means[a], period_means[x])
+  })
+}
+period_mat <- do.call(cbind, d)
+colnames(period_mat) <- rownames(period_mat) <- names(period_means)
+period_mat[lower.tri(period_mat)] <- NA
+period_dists <- melt(period_mat)
+
+# Plot burial orientations per period
+period_means_dt <- data.table(Period = names(period_means), Mean = period_means)
+period_means_dt[, Mean := ifelse(Mean < 0, Mean + 360, Mean)]
+ggplot(data = orientation, aes(x = Period, y = BurialOrientationMean, fill = Period)) +
+  geom_violin(width = 1, drop = F) +
+  geom_point(data = period_means_dt, aes(x = Period, y = Mean), size = 2, shape = 23, fill = "white") +
+  scale_fill_manual(values = pals::brewer.set2(8)) +
+  ylab("Burial orientation") +
+  theme_light() +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot pairwise angular distances
+ggplot(data = period_dists[!is.na(period_dists$value),]) +
+  geom_tile(aes(Var1, Var2, fill = value), color = "black") +
+  scale_fill_gradientn("Angular distance", colours = rev(pals::brewer.rdylbu(100)), 
+                       na.value = "transparent",
+                       limits = c(0, 180)) +
+                       # guide = guide_colorbar(barwidth = 1, barheight = 15)) +
+  geom_text(aes(Var1, Var2, label = round(value, 1)), size = 10, size.unit = "pt") +
+  scale_x_discrete(position = "top") +
+  ggtitle("Pairwise distance between angles means") +
+  coord_equal(expand = F) +
+  theme_classic() +
+  theme(plot.title = element_text(face = "bold", size = 16),
+        axis.text.x = element_text(angle = 45, hjust = 0),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        axis.text = element_text(size = 14))
+
+
+## Circular ANOVA 
+aov_period <- aov.circular(circular(orientation$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"), orientation$Period)
+aov_period
+aov_period$mu
+aov_period$kappa
+aov_period$rho
+aov_period$p.value
+```
+
+# CULTURE
+```{r}
+# Plot only the 10 most frequent cultures
+culture_keep <- orientation[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
+
+## Circular means
+culture <- split(orientation[Culture %in% culture_keep][, .(BurialOrientationMean, Culture)], by = "Culture")
+culture_means <- lapply(culture, function(x){
+  mean.circular(circular(x$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"))
+})
+culture_means <- unlist(culture_means)
+d <- list()
+for(a in 1:length(culture_means)){
+  d[[a]] <- sapply(1:length(culture_means), function(x){
+    angular_distance(culture_means[a], culture_means[x])
+  })
+}
+culture_mat <- do.call(cbind, d)
+colnames(culture_mat) <- rownames(culture_mat) <- names(culture_means)
+culture_mat[lower.tri(culture_mat)] <- NA
+culture_dists <- melt(culture_mat)
+
+# Plot burial orientations per period
+culture_means_dt <- data.table(Culture = names(culture_means), Mean = culture_means)
+culture_means_dt[, Mean := ifelse(Mean < 0, Mean + 360, Mean)]
+ggplot(data = orientation[Culture %in% culture_keep], 
+       aes(x = Culture, y = BurialOrientationMean, 
+           fill = Culture)) +
+  geom_violin(width = 1, drop = F) +
+  geom_point(data = culture_means_dt, aes(x = Culture, y = Mean), size = 2, shape = 23, fill = "white") +
+  scale_fill_manual(values = pals::brewer.set2(10)) +
+  ylab("Burial orientation") +
+  theme_light() +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot pairwise angular distances
+ggplot(data = culture_dists[!is.na(culture_dists$value),]) +
+  geom_tile(aes(Var1, Var2, fill = value), color = "black") +
+  scale_fill_gradientn("Angular distance", colours = rev(pals::brewer.rdylbu(100)), 
+                       na.value = "transparent",
+                       limits = c(0, 180)) +
+                       # guide = guide_colorbar(barwidth = 1, barheight = 15)) +
+  geom_text(aes(Var1, Var2, label = round(value, 1)), size = 10, size.unit = "pt") +
+  scale_x_discrete(position = "top") +
+  ggtitle("Pairwise distance between angles means") +
+  coord_equal(expand = F) +
+  theme_classic() +
+  theme(plot.title = element_text(face = "bold", size = 16),
+        axis.text.x = element_text(angle = 45, hjust = 0),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        axis.text = element_text(size = 14))
+
+
+## Circular ANOVA 
+aov_culture <- aov.circular(circular(orientation[Culture %in% culture_keep]$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"), orientation[Culture %in% culture_keep]$Culture)
+aov_culture
+aov_culture$mu
+aov_culture$kappa
+aov_culture$rho
+aov_culture$p.value
+```
+
+# SEX
+```{r}
+## Circular means
+sex <- split(orientation[, .(BurialOrientationMean, Sex = as.factor(Sex))], by = "Sex")
+sex_means <- lapply(sex, function(x){
+  mean.circular(circular(x$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"))
+})
+sex_means <- unlist(sex_means)
+d <- list()
+for(a in 1:length(sex_means)){
+  d[[a]] <- sapply(1:length(sex_means), function(x){
+    angular_distance(sex_means[a], sex_means[x])
+  })
+}
+sex_mat <- do.call(cbind, d)
+colnames(sex_mat) <- rownames(sex_mat) <- paste0("Prob_", names(sex_means))
+sex_mat[lower.tri(sex_mat)] <- NA
+sex_mat
+sex_dists <- reshape2::melt(sex_mat)
+
+# Plot burial orientations per period
+sex_means_dt <- data.table(Sex = names(sex_means), Mean = sex_means)
+sex_means_dt[, Mean := ifelse(Mean < 0, Mean + 360, Mean)]
+ggplot(data = orientation, 
+       aes(x = as.factor(Sex), y = BurialOrientationMean, 
+           fill = as.factor(Sex))) +
+  geom_violin(width = 1, drop = F) +
+  geom_point(data = sex_means_dt, aes(x = Sex, y = Mean), size = 2, shape = 23, fill = "white") +
+  scale_fill_manual(values = pals::brewer.set2(10)) +
+  ylab("Burial orientation") +
+  theme_light() +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Plot pairwise angular distances
+ggplot(data = sex_dists[!is.na(sex_dists$value),]) +
+  geom_tile(aes(Var1, Var2, fill = value), color = "black") +
+  scale_fill_gradientn("Angular distance", colours = rev(pals::brewer.rdylbu(100)), 
+                       na.value = "transparent",
+                       limits = c(0, 180)) +
+                       # guide = guide_colorbar(barwidth = 1, barheight = 15)) +
+  geom_text(aes(Var1, Var2, label = round(value, 1)), 
+            size = 10, size.unit = "pt") +
+  scale_x_discrete(position = "top") +
+  ggtitle("Pairwise distance between angles means") +
+  coord_equal(expand = F) +
+  theme_classic() +
+  theme(plot.title = element_text(face = "bold", size = 16),
+        axis.text.x = element_text(angle = 45, hjust = 0),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        axis.text = element_text(size = 14))
+
+
+## Circular ANOVA 
+aov_sex <- aov.circular(circular(orientation$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"), orientation[, as.factor(Sex)])
+aov_sex
+aov_sex$mu
+aov_sex$kappa
+aov_sex$rho
+aov_sex$p.value
+
+# Only using sex probabilities (0, 0.5, 1)
+aov_sex2 <- aov.circular(circular(orientation[Sex %in% c(0, 0.5, 1)]$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"), orientation[Sex %in% c(0, 0.5, 1)][, as.factor(Sex)])
+aov_sex2
+aov_sex2$mu
+aov_sex2$kappa
+aov_sex2$rho
+aov_sex2$p.value
+```
+
+# CIRCULAR LINEAR REGRESSIONS WITH ANCESTRY
+## WHG
+```{r}
+y <- rad(circular(orientation[!is.na(WHG)]$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"))
+x <- cbind(orientation[!is.na(WHG)]$WHG, rep(1,length(orientation[!is.na(WHG)]$WHG)))
+colnames(x) <- c("WHG", "Intercept")
+reg <- lm.circular(y = y, x = x, type = "c-l", init = c(0,0))
+summary(reg)
+```
+
