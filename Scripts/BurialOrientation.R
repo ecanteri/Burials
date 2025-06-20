@@ -179,8 +179,8 @@ decimalplaces <- function(x) {
 circular.bins <- function(v, binwidth = NULL){
   decimals <- max(sapply(v, decimalplaces))
   bounds.zero <- c(360 - binwidth/2, 0 + binwidth/2)
-  bounds.zero <- round(bounds.zero, decimals)
-  center.zero <- seq(bounds.zero[1], 360, by = 1/10^decimals)
+  # bounds.zero <- round(bounds.zero, decimals)
+  center.zero <- seq(round(bounds.zero[1], decimals), 360, by = 1/10^decimals)
   center.zero <- center.zero[-length(center.zero)] # remove 360
   center.zero <- append(center.zero, seq(0, bounds.zero[2], by = 1/10^decimals))
   bins <- seq(bounds.zero[2], bounds.zero[1], binwidth)
@@ -220,7 +220,7 @@ ggplot(data = orientation, aes(x = Bins)) +
   geom_bar(fill = "grey80", color = "black") +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   theme_light() +
   theme(axis.title = element_blank(),
         axis.text = element_text(size = 12))
@@ -232,7 +232,7 @@ ggplot(data = orientation, aes(x = Bins)) +
 #   scale_x_continuous(expand = expansion(0, 0),
 #                      limits = c(0, 360),
 #                      breaks = seq(0, 360, by = w)) +
-#   scale_y_continuous(expand = expansion(c(0, 0.05))) +
+#   scale_y_continuous() +
 #   coord_polar() +
 #   # coord_radial() +
 #   theme_light() +
@@ -310,9 +310,9 @@ ggplot(data = sides, aes(x = Bins,
   geom_bar(color = "black") +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   ylab("Count") +
   theme_light() +
   theme(axis.text = element_text(size = 12))
@@ -322,7 +322,7 @@ ggplot(data = sides, aes(x = Bins,
 #   scale_x_continuous(expand = expansion(0, 0), 
 #                      limits = c(0, 360),
 #                      breaks = seq(0, 360, by = 45)) +
-#   scale_y_continuous(expand = expansion(c(0, 0.05))) +
+#   scale_y_continuous() +
 #   scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
 #   ylab("Count") +
 #   coord_polar() +
@@ -335,12 +335,12 @@ ggplot(data = sides, aes(x = Bins,
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
   facet_wrap(~factor(BurialSide, levels = c("Left", "Right", "Back")),
              scales = "free_y") +
   ylab("Count") +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text = element_text(size = 12),
         axis.title.x = element_blank(),
@@ -395,9 +395,9 @@ ggplot(data = orientation,
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Country", values = pals::tol.rainbow(19)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text.y = element_blank(),
         axis.title = element_blank(),
@@ -412,11 +412,11 @@ ggplot(data = orientation,
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Country", values = pals::tol.rainbow(19)) +
   facet_wrap(~Country, scales = "free_y") +
   ylab("Count") +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text = element_text(size = 12),
         axis.title.x = element_blank(),
@@ -468,9 +468,9 @@ ggplot(data = orientation,
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Period", values = pals::parula(8)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text.y = element_blank(),
         axis.title = element_blank(),
@@ -491,7 +491,7 @@ ggplot(data = orientation,
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Period", values = pals::parula(8)) +
   facet_wrap(~factor(Period,
                      levels = c("Mesolithic",
@@ -503,7 +503,7 @@ ggplot(data = orientation,
                                 "Bronze Age/Iron Age",
                                 "Iron Age")), scales = "free_y") +
   ylab("Count") +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text = element_text(size = 12),
         axis.title.x = element_blank(),
@@ -542,9 +542,9 @@ ggplot(data = orientation[Culture %in% culture_keep],
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Culture", values = pals::parula(10)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text.y = element_blank(),
         axis.title = element_blank(),
@@ -558,9 +558,9 @@ ggplot(data = orientation[Culture %in% culture_keep],
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Culture", values = pals::parula(10)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   facet_wrap(~Culture, scales = "free_y") +
   theme_light() +
   theme(axis.title.x = element_blank(),
@@ -594,9 +594,9 @@ ggplot(data = orientation,
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Sex", values = rev(pals::brewer.piyg(9))) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text.y = element_blank(),
         axis.title = element_blank(),
@@ -610,9 +610,9 @@ ggplot(data = orientation,
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Sex", values = rev(pals::brewer.piyg(9))) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   facet_wrap(~as.factor(Sex), scales = "free_y") +
   theme_light() +
   theme(axis.title.x = element_blank(),
@@ -665,9 +665,9 @@ ggplot(data = orientation[between(Age, 3000, 8000)],
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("YearBin", values = rev(pals::brewer.piyg(11))) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~factor(YearBin, levels = as.character(rev(seq(3000, 8000, 500)))), scales = "free_y") +
   theme_light() +
@@ -706,9 +706,9 @@ ggplot(data = orientation[!is.na(WHG)],
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("WHG", values = pals::parula(15)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(WHG_bin), scales = "free_y") +
   theme_light() +
@@ -746,9 +746,9 @@ ggplot(data = orientation[!is.na(EHG)],
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("EHG", values = pals::parula(14)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(EHG_bin), scales = "free_y") +
   theme_light() +
@@ -786,9 +786,9 @@ ggplot(data = orientation[!is.na(CHG)],
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("CHG", values = pals::parula(14)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(CHG_bin), scales = "free_y") +
   theme_light() +
@@ -826,8 +826,8 @@ ggplot(data = orientation[!is.na(LVN)],
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
-  coord_polar(start = -.19) +
+  scale_y_continuous() +
+  coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(LVN_bin), scales = "free_y") +
   theme_light() +
@@ -865,9 +865,9 @@ ggplot(data = orientation[!is.na(mobility)],
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
-  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  scale_y_continuous() +
   scale_fill_manual("Mobility", values = pals::parula(28)) +
-  coord_polar(start = -.19) +
+  coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(mob_bin), scales = "free_y") +
   theme_light() +
