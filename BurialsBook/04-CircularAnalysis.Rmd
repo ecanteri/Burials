@@ -1,7 +1,4 @@
 ---
-title: "Burial orientation: circular analysis"
-author: "Elisabetta Canteri"
-date: "`r Sys.Date()`"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -16,124 +13,22 @@ library(CircStats)
 library(bpnreg)
 library(BIADconnect)
 conn <- init.conn()
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE,
+                      root.dir = "~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/")
 ```
 
-# DATA
+# Circular statistics
 
-```{r}
+```{r stats data}
 #### DATA ####
-graves <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Data/Burial.csv", na.strings = "")
-graves$DepositionType <- as.factor(graves$DepositionType)
-graves$BodyPositioning <- as.factor(graves$BodyPositioning)
-graves$BurialSide <- as.factor(graves$BurialSide)
-graves <- graves[order(IndividualID)]
-str(graves)
-
-# Sites table (BIAD)
-sites <- setDT(query.database("SELECT * FROM Sites", conn))
-
-# Culture and Period
-culture <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Data/burial rites_culture_period.csv", na.strings = "\\N")
-culture <- culture[!duplicated(IndividualID)]
-
-## Add info to graves table
-graves <- merge(graves, sites[, .(SiteID, Country)], by = "SiteID", all.x = T)
-rm(sites)
-graves <- merge(graves, culture, by = "IndividualID", all.x = T)
-
-## Remove outlier
-graves <- graves[!is.na(YearBP)]
-graves <- graves[YearBP < 15000]
-summary(graves$YearBP)
-hist(graves$YearBP, breaks = 100)
-
-## Create data table
-orientation <- graves[, .(Num, BurialOrientationMin, BurialOrientationMax, BurialSide_back, BurialSide_left, BurialSide_right)]
+orientation <- fread("./Data/BurialOrientation.csv")
 ```
 
-```{r}
-## We can't just average between the min and max angles because for some angles the average will be 0, so we will not get burials facing south.
-## We create a function to transform the angles that works around this issue.
+## Test: circular statistics with burial sides
 
-#----------------------------------------------------------------------
-find.mid.deg <- function(min.deg, max.deg){
-  
-  difference <- max.deg - min.deg
-  i.accute <- difference<180
-  i.obtuse <- difference>180
-  i.bad <- difference==180
-  
-  mid <- numeric()
-  mid[i.accute] <- max.deg[i.accute] - difference[i.accute]/2
-  mid[i.obtuse] <- max.deg[i.obtuse] + (360 - difference[i.obtuse])/2
-  mid[i.bad] <- NA
-  
-  i <- mid>=360
-  mid[i] <- mid[i]-360
-  
-  i <- mid<0
-  mid[i] <- mid[i]+360           
-  return(mid)}
-#----------------------------------------------------------------------
-```
+### Mean and variance
 
-```{r}
-# Remove NAs in both min and max orientation columns
-orientation <- orientation[!(is.na(BurialOrientationMin) & is.na(BurialOrientationMax))]
-
-# Create a table for records that have a single angle value (in BurialOrientationMin)
-single_angles <- orientation[is.na(BurialOrientationMax)]
-single_angles[, BurialOrientationMean := BurialOrientationMin]
-
-# Remove from overall table
-orientation <- orientation[!(is.na(BurialOrientationMin) | is.na(BurialOrientationMax))]
-
-# Average across min and max 
-## Using Adrian's function
-orientation[, BurialOrientationMean := find.mid.deg(BurialOrientationMin, BurialOrientationMax)]
-
-## Using circular package
-means <- round(sapply(1:nrow(orientation), function(x) mean.circular(circular(c(orientation$BurialOrientationMin[x], orientation$BurialOrientationMax[x]), type = "angles", units = "degrees", rotation = "clock"))),2)
-means <- sapply(1:length(means), function(x) ifelse(means[x] < 0, 360 + means[x], means[x]))
-
-## Check differences
-orientation$BurialOrientationMin[698]; orientation$BurialOrientationMax[698]
-orientation$BurialOrientationMean[698]; means[698]
-
-## In this example, we see that the mean.circular function takes into account that 270 is the min angle. Do we think this is the correct way to go?
-
-orientation[, BurialOrientationMean := means]
-
-# Bind tables together
-orientation <- rbind(orientation, single_angles)
-orientation <- orientation[order(Num)]
-
-# Calculate cosine and sine from radians
-orientation[, BurialOrientationMean_cos := cos(BurialOrientationMean*pi/180)]
-orientation[, BurialOrientationMin_cos := cos(BurialOrientationMin*pi/180)]
-orientation[, BurialOrientationMax_cos := cos(BurialOrientationMax*pi/180)]
-orientation[, BurialOrientationMean_sin := sin(BurialOrientationMean*pi/180)]
-orientation[, BurialOrientationMin_sin := sin(BurialOrientationMin*pi/180)]
-orientation[, BurialOrientationMax_sin := sin(BurialOrientationMax*pi/180)]
-
-# Add Country, Culture, Period and Ancestry info
-orientation$Country <- graves[Num %in% orientation$Num]$Country
-orientation$Period <- graves[Num %in% orientation$Num]$Period
-orientation$Culture <- graves[Num %in% orientation$Num]$Culture
-orientation$Sex <- graves[Num %in% orientation$Num]$Sex
-orientation$Age <- graves[Num %in% orientation$Num]$gaussianModelMu
-orientation$EHG <- graves[Num %in% orientation$Num]$ANCE2_v2
-orientation$WHG <- graves[Num %in% orientation$Num]$ANCE4_v2
-orientation$LVN <- graves[Num %in% orientation$Num]$ANCE6_v2
-orientation$CHG <- graves[Num %in% orientation$Num]$ANCE8_v2
-orientation$mobility <- graves[Num %in% orientation$Num]$mobility_MDS_250y_retrospective
-
-```
-
-# TEST STATISTICS WITH BURIAL SIDES
-
-```{r}
+```{r stats test}
 #### CIRCULAR MEAN AND VARIANCE ####
 ## Separate data based on burial side
 left <- orientation[, .(Num, BurialOrientationMean, BurialOrientationMin, BurialOrientationMax), by = "BurialSide_left"][BurialSide_left == 1]
@@ -161,7 +56,6 @@ back_circ <- circular(back_angles, units = "degrees", type = "angles", rotation 
 mean_left <- mean.circular(left_circ)
 mean_right <- mean.circular(right_circ)
 mean_back <- mean.circular(back_circ)
-as.numeric(deg(mean_left))
 
 # Variance direction
 var_left <- var.circular(left_circ)
@@ -173,12 +67,19 @@ rho_left <- rho.circular(left_circ)
 rho_right <- rho.circular(right_circ)
 rho_back <- rho.circular(back_circ)
 
-as.numeric(deg(mean_left)); as.numeric(deg(mean_right)); as.numeric(deg(mean_back))
-as.numeric(deg(var_left)); as.numeric(deg(var_right)); as.numeric(deg(var_back))
-as.numeric(deg(rho_left)); as.numeric(deg(rho_right)); as.numeric(deg(rho_back))
+## Table
+stats <- data.table(Mean = c(mean_left, mean_right, mean_back),
+                    Variance = c(var_left, var_right, var_back),
+                    Rho = c(rho_left, rho_right, rho_back),
+                    Side = c("Left", "Right", "Back"))
+stats
 ```
 
-```{r}
+### Angular distance
+
+Here we create a function to calculate the distance between two angles, taking into account that angles can cross zero.
+
+```{r stats angdist}
 # Function to calculate smallest angular distance
 angular_distance <- function(a, b) {
   diff <- abs(a - b) %% 360
@@ -198,7 +99,9 @@ print(dist_left_back)
 print(dist_right_back)
 ```
 
-```{r}
+### Visualization
+
+```{r stats viz}
 ## Circular means
 sides_means <- c(mean_left, mean_right, mean_back)
 names(sides_means) <- c("Left", "Right", "Back")
@@ -246,9 +149,11 @@ ggplot(data = sides_dists[!is.na(sides_dists$value),]) +
         axis.text = element_text(size = 14))
 ```
 
-Shuffle the values of angles for each category and compute the differences in circular means and do a histogram where we plot the differences in circular means against the true difference. Do it for each of the three pairs. Make sure that each group has the same amount of observations. 
+### P-value
 
-```{r}
+Now we shuffle the values of angles for each category and compute the differences in circular means and do a histogram where we plot the differences in circular means against the true difference. Do it for each of the three pairs. Make sure that each group has the same amount of observations.
+
+```{r stats pval}
 n <- min(c(length(left_circ), length(right_circ), length(back_circ)))
 
 diffs <- lapply(1:1000, function(x){
@@ -288,7 +193,11 @@ names(pval) <- c("left_right", "left_back", "back_right")
 pval
 ```
 
-```{r}
+### Similarity
+
+We can also calculate a similarity index that takes into account the distance between the means of the different categories.
+
+```{r stats similarity}
 # Similarity index
 similarity_index <- function(d) {
   return(1 - (d / 180))
@@ -303,7 +212,9 @@ print(sim_left_back)
 print(sim_right_back)
 ```
 
-```{r}
+### Watson-William test and circular ANOVA
+
+```{r stats anova}
 ## Watson-Williams test
 # Combine data
 all_angles <- c(left_angles, right_angles, back_angles) #right_angles, 
@@ -328,8 +239,9 @@ aov.circular(circular(all_angles, units = "degrees", type = "angles", rotation =
 
 Now that we have tested different statistics using the left, right, and back angles, we can do the same for other categories, like periods, cultures, and countries.
 
-# COUNTRY
-```{r}
+## Country
+
+```{r stats country, fig.dim=c(12,10)}
 orientation$Country <- factor(orientation$Country, levels = c("Netherlands",
                                                               "France",
                                                               "Germany",
@@ -409,8 +321,9 @@ aov_country$rho
 aov_country$p.value
 ```
 
-# PERIOD
-```{r}
+## Period
+
+```{r stats period, fig.dim=c(10, 8)}
 orientation$Period <- factor(orientation$Period, levels = c("Mesolithic",
                                                           "Mesolithic/Neolithic",
                                                           "Neolithic",
@@ -423,7 +336,7 @@ orientation$Period <- factor(orientation$Period, levels = c("Mesolithic",
 ## Circular means
 period <- split(orientation[, .(BurialOrientationMean, Period)], by = "Period")
 period_means <- lapply(period, function(x){
-  mean.circular(circular(rad(x$BurialOrientationMean), units = "radians", type = "angles", rotation = "clock"))
+  mean.circular(circular(x$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"))
 })
 period_means <- unlist(period_means)
 d <- list()
@@ -479,8 +392,9 @@ aov_period$rho
 aov_period$p.value
 ```
 
-# CULTURE
-```{r}
+## Culture
+
+```{r stats culture, fig.dim=c(15,10)}
 # Plot only the 10 most frequent cultures
 culture_keep <- orientation[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
 
@@ -545,8 +459,9 @@ aov_culture$rho
 aov_culture$p.value
 ```
 
-# SEX
-```{r}
+## Sex
+
+```{r stats sex}
 ## Circular means
 sex <- split(orientation[, .(BurialOrientationMean, Sex = as.factor(Sex))], by = "Sex")
 sex_means <- lapply(sex, function(x){
@@ -618,13 +533,120 @@ aov_sex2$rho
 aov_sex2$p.value
 ```
 
-# CIRCULAR LINEAR REGRESSIONS WITH ANCESTRY
-## WHG
-```{r}
-y <- rad(circular(orientation[!is.na(WHG)]$BurialOrientationMean, units = "degrees", type = "angles", rotation = "clock"))
+## Circular linear regression models
+
+For data that is not categorical (e.g., ancestry and mobility values), we have to use a regression model that is specific to angular data.
+
+This regression models both the mean direction and the dispersion simultaneously. The model assumes that a circular response variable $\theta$ has a von Mises distribution with concentration parameter $\kappa$, and mean direction ($\mu$) related to a vector of linear predictor variables according to the relationship: $\mu + 2*atan(\beta*x)$, where $\mu$ and $\beta$ are unknown parameters, $\beta$ being a vector of regression coefficients, and $2*atan()$ being the link function.
+
+The von Mises distribution is a function of $\mu$ and $\kappa$, where $\mu$ is the mean direction and $\kappa$ is the concentration parameter. A value $\kappa = 0$ corresponds to the circular uniform distribution; for $\kappa > 0$, the density is unimodal and symmetrical about $\mu$, and increasingly concentrated as $\kappa$ increases. For $\kappa \ge 2$ the density at the antipode $\mu + \pi$ is effectively zero, and the distribution is well approximated by a normal distribution with variance $1/\kappa$.
+
+We can start with an initial value for $\beta$, to calculate $\mu$ and $\kappa$. These estimates can then be used to update the $\beta$ value, and then to update $\mu$ and $\kappa$, analogously to the ML equations for an independent, identically distributed (i.i.d.) von Mises sample. This cycle is repeated until convergence. If $\beta = 0$, we have a null model where all observations cluster around a common mean direction $\mu$. However, as the elements of $\beta$ become infinite, the use of any monotone link function also leads to a null model with mean direction $\mu ± \pi$. In such cases, the likelihood will have a peak in the vicinity of zero, and attain a similar magnitude as the elements of $\beta$ tend to $± \infty$. **The optimization process is simplified if the x are centered at their means**. 
+
+**So should we scale our ancestry values?** (Whether we order the values or scale them, model results don't seem to change)
+
+Further reads: <https://www.jstor.org/stable/2532334?seq=2>; <http://iopscience.iop.org/article/10.1088/1742-6596/1988/1/012108>
+
+The `circular` package, has a `lm.circular` function that can be used for circular and linear data (c-l). We are going to test this function using the ancestry values associated to the grave individuals.
+
+### CHG
+
+```{r stats chg, fig.dim=c(10,10)}
+y <- circular(rad(orientation[!is.na(CHG)]$BurialOrientationMean), units = "radians", type = "angles", rotation = "clock")
+x <- cbind(orientation[!is.na(CHG)]$CHG, rep(1,length(orientation[!is.na(CHG)]$CHG)))
+colnames(x) <- c("CHG", "Intercept")
+mu <- as.numeric(mean.circular(y))
+reg.chg <- lm.circular(y = y, x = x, type = "c-l", init = c(0,1))
+reg.chg
+```
+
+We can see that CHG has a significant positive relationship with the mean direction of the burials. This test was made by using all the data as is. But what if we repeat the analysis by averaging the CHG value of the individuals that have the same burial orientation? Similarly to what we did to plot them.
+
+```{r stats chg2}
+## Based on average value across individuals with the same angle
+dim_chg <- orientation[, mean(CHG, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
+dim_chg <- dim_chg[!is.nan(V1),]
+names(dim_chg)[3] <- "CHG"
+# Get the angle from sin and cos (in radians)
+dim_chg[, BurialOrientationMean := sapply(1:nrow(dim_chg), function(x) atan2(BurialOrientationMean_sin[x], BurialOrientationMean_cos[x]))]
+
+# New variables for the linear regression model
+y2 <- circular(dim_chg$BurialOrientationMean, units = "radians", type = "angles", rotation = "clock")
+x2 <- cbind(dim_chg$CHG, rep(1, nrow(dim_chg)))
+colnames(x2) <- c("CHG", "Intercept")
+mu <- as.numeric(mean.circular(y2))
+m <- mean(x2[,1])
+
+# Model
+reg.chg2 <- lm.circular(y = y2, x = x2, type = "c-l", init = c(0,1))
+reg.chg2
+
+# Plot
+mu.df <- data.frame(mu = c(mu, reg.chg2$mu), type = c("Observed", "Estimated"))
+
+ggplot() +
+  geom_point(data = dim_chg,
+             aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = CHG),
+             shape = 21,
+             size = 5,
+             ) +
+  geom_point(data = mu.df, aes(sin(mu), cos(mu), shape = type), size = 8) +
+  scale_fill_gradientn("CHG", colors = pals::parula(100)) +
+  scale_shape_manual(expression(mu), values = c(7, 8)) +
+  xlab(expression(sin(theta))) +
+  ylab(expression(cos(theta))) +
+  coord_equal() +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16),
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 16))
+```
+
+### WHG
+
+```{r stats whg, fig.dim = c(10,10)}
+y <- circular(rad(orientation[!is.na(WHG)]$BurialOrientationMean), units = "radians", type = "angles", rotation = "clock")
 x <- cbind(orientation[!is.na(WHG)]$WHG, rep(1,length(orientation[!is.na(WHG)]$WHG)))
 colnames(x) <- c("WHG", "Intercept")
-reg <- lm.circular(y = y, x = x, type = "c-l", init = c(0,0))
-summary(reg)
+mu <- as.numeric(mean.circular(y))
+reg.whg <- lm.circular(y = y, x = x, type = "c-l", init = c(0,1))
+reg.whg
 ```
+
+### EHG
+
+```{r stats ehg}
+y <- circular(rad(orientation[!is.na(EHG)]$BurialOrientationMean), units = "radians", type = "angles", rotation = "clock")
+x <- cbind(orientation[!is.na(EHG)]$EHG, rep(1,length(orientation[!is.na(EHG)]$EHG)))
+colnames(x) <- c("EHG", "Intercept")
+mu <- as.numeric(mean.circular(y))
+reg.ehg <- lm.circular(y = y, x = x, type = "c-l", init = c(0,1))
+reg.ehg
+```
+
+### LVN
+
+```{r stats lvn}
+y <- circular(rad(orientation[!is.na(LVN)]$BurialOrientationMean), units = "radians", type = "angles", rotation = "clock")
+x <- cbind(orientation[!is.na(LVN)]$LVN, rep(1,length(orientation[!is.na(LVN)]$LVN)))
+colnames(x) <- c("LVN", "Intercept")
+mu <- as.numeric(mean.circular(y))
+reg.lvn <- lm.circular(y = y, x = x, type = "c-l", init = c(0,1))
+reg.lvn
+```
+
+### Mobility
+
+```{r stats mobility}
+y <- circular(rad(orientation[!is.na(mobility)]$BurialOrientationMean), units = "radians", type = "angles", rotation = "clock")
+x <- cbind(orientation[!is.na(mobility)]$mobility, rep(1,length(orientation[!is.na(mobility)]$mobility)))
+colnames(x) <- c("Mobility", "Intercept")
+mu <- as.numeric(mean.circular(y))
+reg.mob <- lm.circular(y = y, x = x, type = "c-l", init = c(0,1))
+reg.mob
+```
+
+
 

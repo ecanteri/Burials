@@ -1,0 +1,732 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+library(data.table)
+library(ggplot2)
+library(terra)
+library(sf)
+library(inlabru)
+library(INLA)
+library(fmesher)
+library(pbapply)
+library(mobest)
+knitr::opts_knit$set(root.dir = "/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves")
+
+proj <- "+proj=aea +lon_0=44.296875 +lat_1=43.7864128 +lat_2=69.9512657 +lat_0=56.8688392 +datum=WGS84 +units=km +no_defs"
+
+## Coastlines and continents poly
+conts <- rnaturalearth::ne_download(scale = 10, type = "coastline", "physical", returnclass = "sf")
+land <- rnaturalearth::ne_download(scale = 10, type = "land", "physical", returnclass = "sf")
+grat <- rnaturalearth::ne_download(scale = 10, type = "graticules_10", "physical", returnclass = "sf")
+```
+
+# Burial data
+
+Here we are going to track the analysis on the data that Robert and Stephen shared with us. 
+
+We want to explore whether we can find a relationship between large scale human migrations and changes in burial practices during he Holocene.
+
+We will analyse burial practices data against a Gaussian spatial process and values of human ancestry and mobility. The data we have are records of different burial types at grave sites across Europe.
+
+Let's first input the data. We are going to transform characters to factors for the explanatory variables we need, so we can check how many levels they have. 
+
+## Data table
+
+```{r, message=FALSE, warning=FALSE}
+# graves <- fread("./EAA2024_burial_rite_data.csv", stringsAsFactors = F, na.strings = "\\N")
+graves <- fread("./Data/Burial.csv", na.strings = "")
+graves$DepositionType <- as.factor(graves$DepositionType)
+graves$BodyPositioning <- as.factor(graves$BodyPositioning)
+graves$BurialSide <- as.factor(graves$BurialSide)
+str(graves)
+```
+
+As we can see, some of the variables we are most interested in, such as the positioning of the body and the burial side, have more than 2 levels. This means that there are more than 2 descriptors for each variable. This makes it tricky because we cannot model factors with more that 2 levels. Therefore, we will create new columns in the database where we transform the factors to a binomial presence/absence data (0/1).
+
+```{r, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
+factor_to_binomial <- function(d){
+  require(pbapply)
+  cols <- which(sapply(d, is.factor))
+  l <- sapply(d[, ..cols], levels)
+  new_col_names <- lapply(1:length(l), function(x) sapply(l[[x]], function(n) paste0(names(l)[x], "_", n)))
+  pblapply(1:length(new_col_names), function(f){
+    sapply(1:length(new_col_names[[f]]), function(x){
+      c <- names(l)[f]
+      bin <- sapply(d[, ..c], function(b) ifelse(b == l[[f]][x], 1, 0))
+      d[, new_col_names[[f]][x] := bin]
+      return(d)
+    })
+    return(d)
+  })
+  return(d)
+}
+
+factor_to_binomial(graves)
+str(graves)
+fwrite(graves, "./Burial.csv")
+```
+
+Also, for the Burial Side variable, we have a level called "left?" in the original data table, what should we do with this? Can we group this with the left or not? For now I grouped it because it consists of just 5 records, but we can decide later whether we should keep it separate or not.
+
+```{r, echo = F, eval = F, message=FALSE, warning=FALSE}
+graves[BurialSide == "left?"]$BurialSide <- "left"
+graves$BurialSide <- droplevels(factor(graves$BurialSide)[factor(graves$BurialSide) != "left?"])
+```
+
+Let's plot the data to see what we are working with.
+
+## Histograms
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Dismembered
+ggplot(data = graves) +
+  geom_histogram(aes(x = Dismembered), bins = 2, fill = 'white', col = 'black') +
+  theme_classic()
+
+# Body positioning
+ggplot(data = graves[!is.na(BodyPositioning)]) +
+  geom_histogram(aes(x = BodyPositioning), fill = 'white', col = 'black', stat = 'count') +
+  theme_classic()
+
+# Head
+ggplot(data = graves) +
+  geom_histogram(aes(x = Head), bins = 2, fill = 'white', col = 'black') +
+  theme_classic()
+
+# Burial side
+ggplot(data = graves[!is.na(BurialSide)]) +
+  geom_histogram(aes(x = BurialSide), fill = 'white', col = 'black', stat = 'count') +
+  theme_classic()
+
+# BurialOrientationMin
+ggplot(data = graves) +
+  geom_histogram(aes(x = BurialOrientationMin), fill = 'white', col = 'black', bins = 50) +
+  theme_classic()
+
+# BurialOrientationMax
+ggplot(data = graves) +
+  geom_histogram(aes(x = BurialOrientationMax), fill = 'white', col = 'black') +
+  theme_classic()
+
+# GraveGoods
+ggplot(data = graves) +
+  geom_histogram(aes(x = GraveGoods), bins = 2, fill = 'white', col = 'black') +
+  theme_classic()
+
+# Ochre
+ggplot(data = graves) +
+  geom_histogram(aes(x = Ochre), bins = 2, fill = 'white', col = 'black') +
+  theme_classic()
+```
+
+The burial orientation seems interesting because the majority of the data lies on specific angles, for example: 0, 45, 90, 135, 180, 225, and 270.
+
+The body positioning also seems to aggregate towards "crouched", "inside a vessel", "extended", and "scattered", with the two most represented groups being "crouched" and "inside a vessel".
+
+Now let's check the proportion of NA, zeros and ones, after we transformed factors to binary:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Check proportion of NAs
+n <- names(which(sapply(graves, is.factor)))
+cols <- unlist(sapply(n, function(n) grep(paste0(n, "_"), colnames(graves))))
+
+p1 <- graves[, ..cols][, lapply(.SD, function(c) length(which(c == 1))/.N)]
+p0 <- graves[, ..cols][, lapply(.SD, function(c) length(which(c == 0))/.N)]
+pNA <- graves[, ..cols][, lapply(.SD, function(c) length(which(is.na(c)))/.N)]
+
+p <- rbind.data.frame(p1,p0, pNA)
+p[, Group := c("1", "0", "NA")]
+p <- melt(p, id.vars =  c("Group"))
+
+ggplot(data = p) + 
+  geom_col(aes(x = variable, y = value, fill = Group)) +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Temporal patterns
+
+Do we see any temporal patterns?
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Dismembered
+ggplot(data = graves[!is.na(Dismembered)]) +
+  geom_violin(aes(x = as.factor(Dismembered), y = gaussianModelMu), scale = 'width') +
+  geom_boxplot(aes(x = as.factor(Dismembered), y = gaussianModelMu), width = 0.1) +
+  ylab("cal BP") +
+  ggtitle("Dismembered") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# Body positioning
+ggplot(data = graves[!is.na(BodyPositioning)]) +
+  geom_violin(aes(x = BodyPositioning, y = gaussianModelMu), scale = 'width') +
+  geom_boxplot(aes(x = BodyPositioning, y = gaussianModelMu), width = 0.1) +
+  ggtitle("Body Positioning") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# Head
+ggplot(data = graves[!is.na(Head)]) +
+  geom_violin(aes(x = as.factor(Head), y = gaussianModelMu), scale = 'width') +
+  geom_boxplot(aes(x = as.factor(Head), y = gaussianModelMu), width = 0.1) +
+  ylab("cal BP") +
+  ggtitle("Head") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# Burial side
+ggplot(data = graves[!is.na(BurialSide)]) +
+  geom_violin(aes(x = BurialSide, y = gaussianModelMu), scale = 'width') +
+  geom_boxplot(aes(x = BurialSide, y = gaussianModelMu), width = 0.1) +
+  ylab("cal BP") +
+  ggtitle("Burial Side") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# BurialOrientationMin
+ggplot(data = graves) +
+  geom_point(aes(x = gaussianModelMu, y = BurialOrientationMin), shape = 21,
+             size = 4) +
+  ylab("cal BP") +
+  ggtitle("Burial Orientation Min") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# BurialOrientationMax
+ggplot(data = graves) +
+  geom_point(aes(x = gaussianModelMu, y = BurialOrientationMax), shape = 21,
+             size = 4) +
+  ylab("cal BP") +
+  ggtitle("Burial Orientation Max") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# GraveGoods
+ggplot(data = graves[!is.na(GraveGoods)]) +
+  geom_violin(aes(x = as.factor(GraveGoods), y = gaussianModelMu), scale = 'width') +
+  geom_boxplot(aes(x = as.factor(GraveGoods), y = gaussianModelMu), width = 0.1) +
+  ylab("cal BP") +
+  ggtitle("Grave Goods") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# Ochre
+ggplot(data = graves[!is.na(Ochre)]) +
+  geom_violin(aes(x = as.factor(Ochre), y = gaussianModelMu), scale = 'width') +
+  geom_boxplot(aes(x = as.factor(Ochre), y = gaussianModelMu), width = 0.1) +
+  ylab("cal BP") +
+  ggtitle("Ochre") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+```
+
+## Spatiotemporal patterns
+
+Now let's plot everything is space and time:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, eval = T}
+# Dismembered
+ggplot(data = graves[!is.na(Dismembered)]) +
+  geom_sf(data = land, fill = 'grey90', col = 'grey70') +
+  geom_point(aes(x = Longitude, y = Latitude, fill = gaussianModelMu), 
+             shape = 21, 
+             size = 4, 
+             alpha = 0.8,
+             position = position_jitter(0.5, 0.5)) +
+  scale_fill_gradientn("cal BP", colours = pals::coolwarm()) +
+  facet_grid(~Dismembered) +
+  geom_sf(data = conts, inherit.aes = T, color = 'black', alpha = 0.5) +
+  geom_sf(data = grat, inherit.aes = T, color = 'grey60', alpha = 0.1) +
+  coord_sf(xlim = c(-15, 110), ylim = c(30, 80),
+           expand = FALSE) +
+  theme_bw() +
+  ggtitle("Dismembered") +
+  theme(axis.title = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# BodyPositioning
+ggplot(data = graves[!is.na(BodyPositioning)]) +
+  geom_sf(data = land, fill = 'grey90', col = 'grey70') +
+  geom_point(aes(x = Longitude, y = Latitude, fill = gaussianModelMu), 
+             shape = 21, 
+             size = 4, 
+             alpha = 0.8,
+             position = position_jitter(0.5, 0.5)) +
+  scale_fill_gradientn("cal BP", colours = pals::coolwarm()) +
+  facet_wrap(~BodyPositioning) +
+  geom_sf(data = conts, inherit.aes = T, color = 'black', alpha = 0.5) +
+  geom_sf(data = grat, inherit.aes = T, color = 'grey60', alpha = 0.1) +
+  coord_sf(xlim = c(-15, 110), ylim = c(30, 80),
+           expand = FALSE) +
+  theme_bw() +
+  ggtitle("Body Positioning") +
+  theme(axis.title = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# Head
+ggplot(data = graves[!is.na(Head)]) +
+  geom_sf(data = land, fill = 'grey90', col = 'grey70') +
+  geom_point(aes(x = Longitude, y = Latitude, fill = gaussianModelMu), 
+             shape = 21, 
+             size = 4, 
+             alpha = 0.8,
+             position = position_jitter(0.5, 0.5)) +
+  scale_fill_gradientn("cal BP", colours = pals::coolwarm()) +
+  facet_wrap(~Head) +
+  geom_sf(data = conts, inherit.aes = T, color = 'black', alpha = 0.5) +
+  geom_sf(data = grat, inherit.aes = T, color = 'grey60', alpha = 0.1) +
+  coord_sf(xlim = c(-15, 110), ylim = c(30, 80),
+           expand = FALSE) +
+  theme_bw() +
+  ggtitle("Head") +
+  theme(axis.title = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# BurialSide
+ggplot(data = graves[!is.na(BurialSide)]) +
+  geom_sf(data = land, fill = 'grey90', col = 'grey70') +
+  geom_point(aes(x = Longitude, y = Latitude, fill = gaussianModelMu), 
+             shape = 21, 
+             size = 4, 
+             alpha = 0.8,
+             position = position_jitter(0.5, 0.5)) +
+  scale_fill_gradientn("cal BP", colours = pals::coolwarm()) +
+  facet_wrap(~BurialSide) +
+  geom_sf(data = conts, inherit.aes = T, color = 'black', alpha = 0.5) +
+  geom_sf(data = grat, inherit.aes = T, color = 'grey60', alpha = 0.1) +
+  coord_sf(xlim = c(-15, 110), ylim = c(30, 80),
+           expand = FALSE) +
+  theme_bw() +
+  ggtitle("Burial Side") +
+  theme(axis.title = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# GraveGoods
+ggplot(data = graves[!is.na(GraveGoods)]) +
+  geom_sf(data = land, fill = 'grey90', col = 'grey70') +
+  geom_point(aes(x = Longitude, y = Latitude, fill = gaussianModelMu), 
+             shape = 21, 
+             size = 4, 
+             alpha = 0.8,
+             position = position_jitter(0.5, 0.5)) +
+  scale_fill_gradientn("cal BP", colours = pals::coolwarm()) +
+  facet_wrap(~GraveGoods) +
+  geom_sf(data = conts, inherit.aes = T, color = 'black', alpha = 0.5) +
+  geom_sf(data = grat, inherit.aes = T, color = 'grey60', alpha = 0.1) +
+  coord_sf(xlim = c(-15, 110), ylim = c(30, 80),
+           expand = FALSE) +
+  theme_bw() +
+  ggtitle("Grave Goods") +
+  theme(axis.title = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+
+# Ochre
+ggplot(data = graves[!is.na(Ochre)]) +
+  geom_sf(data = land, fill = 'grey90', col = 'grey70') +
+  geom_point(aes(x = Longitude, y = Latitude, fill = gaussianModelMu), 
+             shape = 21, 
+             size = 4, 
+             alpha = 0.8,
+             position = position_jitter(0.5, 0.5)) +
+  scale_fill_gradientn("cal BP", colours = pals::coolwarm()) +
+  facet_wrap(~Ochre) +
+  geom_sf(data = conts, inherit.aes = T, color = 'black', alpha = 0.5) +
+  geom_sf(data = grat, inherit.aes = T, color = 'grey60', alpha = 0.1) +
+  coord_sf(xlim = c(-15, 110), ylim = c(30, 80),
+           expand = FALSE) +
+  theme_bw() +
+  ggtitle("Ochre") +
+  theme(axis.title = element_blank(),
+        plot.title = element_text(face = 'bold', hjust = 0.5))
+```
+
+Both in space and time we do not see a clear pattern, except maybe for the Burial Side variable over time. We will still build a mesh and a Gaussian spatial process for the sites, which will be used as an explanatory variable in the model.
+
+## Adding ancestry and mobility
+
+The next step is to pair the grave individuals with human ancestry and mobility data. For some of them, the aDNAID will match, so we have confidence that the values assigned to those graves are correct. For others, we might have to take values of ancestry and mobility of the closest individuals in space and time.
+
+```{r, message=FALSE, warning=FALSE}
+## Ancestry
+ancestry <- fread("../MesoNeo/MesoNeo/Data3/combined.tsv")
+info <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/MesoNeo/MesoNeo/Data3/neo.impute.1000g.sampleInfo_clusterInfo.txt")
+ancestry2 <- melt(ancestry, id.vars = 1:4, measure.vars = 5:13, variable.name = "ANCE")
+ancestry2 <- merge(ancestry2, info[, .(sampleId, country, region, groupLabel, clusterAlias)], by.x = "IND", by.y = "sampleId")
+ggplot(data = ancestry2, aes(x = forcats::fct_reorder(IND, TIME, .desc = T), y = value, color = ANCE, fill = ANCE)) +
+  geom_bar(stat = 'identity') + 
+  scale_color_manual(values = pals::coolwarm(9)) + 
+  scale_fill_manual(values = pals::coolwarm(9)) + 
+  facet_wrap(~region, scales = "free") + 
+  theme_bw() + 
+  theme(axis.text.x = element_blank(), 
+        axis.ticks.x = element_blank(), 
+        panel.grid = element_blank())
+
+## Mobility
+ov <- fread("~/Documents/Postdoc/mobest/tables/Dataset_S3.csv")
+ov2 <- fread("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/mobest/tables/mobility_estimates_250y_retrospecive_distance.csv")
+info <- fread("~/Documents/Postdoc/mobest/tables/Dataset_S1.csv")
+mobility <- merge(ov2, info, by = "Sample_ID", all.x = T)
+rm(ov, ov2, info)
+# remove modern individuals
+ancestry <- ancestry[TIME > 0]
+# transform time of mobility data from BC/AD to cal BP
+mobility[, Date_BP_Start := 1950 - Date_BC_AD_Start]
+mobility[, Date_BP_Median := 1950 - Date_BC_AD_Median]
+mobility[, Date_BP_Stop := 1950 - Date_BC_AD_Stop]
+
+# Number of common IDs
+length(which(graves$aDNAID %in% ancestry$IND)) # 3%
+length(which(graves$aDNAID %in% mobility$Sample_ID)) # 11%
+```
+
+```{r, eval = F, message=FALSE, warning=FALSE}
+# Merge together
+graves <- merge(graves, ancestry[, .(IND, TIME, ANCE1, ANCE2, ANCE3, ANCE4, ANCE5, ANCE6, ANCE7, ANCE8, ANCE9)], by.x = "aDNAID", by.y = "IND", all.x = T)
+graves <- merge(graves, mobility[, .(Sample_ID, ov_dist_mds2_retro_default, ov_dist_pca5_retro_default, Date_BP_Median)], by.x = "aDNAID", by.y = "Sample_ID", all.x = T)
+
+# Reconcile ages BP
+graves[, YearBP := gaussianModelMu]
+graves[!is.na(TIME)]$YearBP <- graves[!is.na(TIME)]$TIME
+graves[!is.na(Date_BP_Median)]$YearBP <- graves[!is.na(Date_BP_Median)]$Date_BP_Median
+```
+
+We have matched the common IDs, now we try and find the closest individuals to assign the values, starting with mobility estimates.
+
+To match the sites, we will calculate the distances between individuals both in space and in time. We will then add the distances together to calculate values of distances in time and space. We will then extract the individuals with the minimum spatiotemporal distance. We have one problem: for `r length(which(is.na(graves$YearBP)))` graves we do not have an age and therefore we cannot calculate a spatiotemporal distance. I would be cautious of assigning values of mobility and ancestry only based on spatial distance, so I will remove them.
+
+```{r, eval = F, message=FALSE, warning=FALSE}
+graves[, Num := 1:.N]
+
+# Subset data to individuals with no estimates of mobility
+miss <- graves[is.na(ov_dist_mds2_retro_default)]
+
+# Remove individuals for which we do not have an age
+miss <- miss[!is.na(YearBP)]
+
+# Transform to points under equal-area projection
+gr_pnts <- project(
+    vect(x = miss[, .(Longitude, Latitude, ov_dist_mds2_retro_default, aDNAID)],
+                 geom = c("Longitude", "Latitude"), crs = crs(rast())), 
+    proj
+  )
+mob_pnts <- project(
+  vect(mobility[, .(Longitude, Latitude, Sample_ID)], 
+         geom = c("Longitude", "Latitude"),
+         crs = crs(rast())), 
+  proj
+)
+```
+
+```{r, eval = F, message=FALSE, warning=FALSE}
+conts_prj <- st_transform(conts, crs = proj)
+e <- c(min(c(ext(mob_pnts)[1], ext(gr_pnts)[1])),
+       max(c(ext(mob_pnts)[2], ext(gr_pnts)[2])),
+       min(c(ext(mob_pnts)[3], ext(gr_pnts)[3])),
+       max(c(ext(mob_pnts)[4], ext(gr_pnts)[4])))
+plot(mob_pnts, col = "red", xlim = e[1:2], ylim = e[3:4]); points(gr_pnts, col = "blue"); plot(conts_prj$geometry, add = T)
+```
+
+Here we get the closest individual in spatiotemporal distance.
+```{r, eval = F, message=FALSE, warning=FALSE}
+# Calculate euclidean distance in space
+spatdists <- distance(gr_pnts, mob_pnts, unit = "km")
+
+# Calculate euclidean distance in time
+pairs <- expand.grid(miss$YearBP, mobility$Date_BP_Median)
+tempdists <- apply(pairs, 1, function(r) sqrt(sum((r[1] - r[2])^2)))
+tempdists <- matrix(tempdists, 
+                    nrow = length(miss$YearBP), 
+                    ncol = length(mobility$Date_BP_Median))
+
+# spatiotemporal distances (euclidean with km == year)
+st_dists <- sqrt((spatdists + tempdists)^2)
+
+# Find minimum spatial distance
+find_min <- function(row) {
+  which(row == min(row))
+}
+min_columns <- apply(st_dists, 1, find_min)
+min_dists <- apply(st_dists, 1, min)
+
+# Get Sample_ID in mobility table
+ids <- lapply(min_columns, function(x) mobility$Sample_ID[x])
+```
+
+```{r}
+gr_pnts <- project(
+  vect(graves[, .(Longitude, Latitude, aDNAID, Num)], geom = c("Longitude", "Latitude"), 
+                crs = crs(rast())),
+  proj)
+ance_pnts <- project(
+  vect(ancestry[, .(LON, LAT, IND)], 
+                 geom = c("LON", "LAT"),
+                 crs = crs(rast())),
+  proj)
+mob_pnts <- project(
+  vect(mobility[, .(Longitude, Latitude, Sample_ID)], 
+                 geom = c("Longitude", "Latitude"),
+                 crs = crs(rast())),
+  proj)
+
+e <- c(min(c(ext(mob_pnts)[1], ext(gr_pnts)[1]), ext(ance_pnts)[1]),
+       max(c(ext(mob_pnts)[2], ext(gr_pnts)[2]), ext(ance_pnts)[2]),
+       min(c(ext(mob_pnts)[3], ext(gr_pnts)[3]), ext(ance_pnts)[3]),
+       max(c(ext(mob_pnts)[4], ext(gr_pnts)[4]), ext(ance_pnts)[4]))
+conts_prj <- st_transform(conts, crs = proj)
+plot(conts_prj$geometry, xlim = e[1:2], ylim = e[3:4]); points(ance_pnts, bg = "skyblue", pch = 21, cex = 1.5); points(mob_pnts, bg = alpha("violet", 0.5), pch = 22, cex = 1); points(gr_pnts, bg = alpha("gold", 0.8), pch = 24, cex = 1)
+```
+
+We have now the matching IDs with the minimum spatiotemporal distances between the grave individuals and the mobility estimates. In some instances, we have more than 1 match. In this case, I will take the average mobility estimate across the matched ones. 
+
+```{r, eval = F, message=FALSE, warning=FALSE}
+# Extract human mobility value
+# MDS based
+ov_mds <- pblapply(ids, function(x){
+  d <- mobility[Sample_ID %in% x]
+  if(nrow(d) > 1){
+    return(mean(d$ov_dist_mds2_retro_default, na.rm = T))
+  } else {
+    return(d$ov_dist_mds2_retro_default)
+  }
+})
+ov_mds <- lapply(ov_mds, function(x) ifelse(length(x) > 0, x, NA))
+
+# PCA based
+ov_pca <- pblapply(ids, function(x){
+  d <- mobility[Sample_ID %in% x]
+  if(nrow(d) > 1){
+    return(mean(d$ov_dist_pca5_retro_default, na.rm = T))
+  } else {
+    return(d$ov_dist_pca5_retro_default)
+  }
+})
+ov_pca <- lapply(ov_pca, function(x) ifelse(length(x) > 0, x, NA))
+```
+
+We need to acknowledge that in some cases the spatiotemporal distance could be very wide, which could create some bias during the analysis. This results from individuals that have no close match in space or time, or in spacetime, leading to choose the least distant. Here we can see a plot of the distribution of the calculated spatiotemporal distances:
+
+### Radius approach
+
+Here we extract 3-4 closest individuals within a 350 km radius and up to 300 years apart. If there is only 1 individual, I take the value for that one. If there are two, I take the average mobility value for those two, same for up to 4 individuals.
+
+```{r, eval = F, message=FALSE, warning=FALSE}
+d <- apply(spatdists, 1, function(x) which(x <= 350))
+t <- apply(tempdists, 1, function(x) which(x <= 300))
+
+prod <- lapply(1:length(d), function(x) which(d[[x]] %in% t[[x]])) # match between spat and temp
+prod_idx <- lapply(1:length(prod), function(x) d[[x]][prod[[x]]]) # get index
+# Sort distances to get the smallest within the 400 km+yrs spatiotemporal radius
+dists <- lapply(1:length(prod_idx), function(i) {
+  v <- st_dists[i, prod_idx[[i]]]
+  names(v) <- prod_idx[[i]]
+  return(sort(v))
+  })
+
+mob_ids <- lapply(1:length(dists), function(x){
+  if(length(dists[[x]]) >= 1){
+    ix <- as.numeric(names(dists[[x]]))[1:4]
+    ix <- ix[!is.na(ix)]
+    return(mobility$Sample_ID[ix])
+  } else {
+    return(NA)
+  }
+})
+
+## Extract mobility values
+# MDS
+mds_dist <- pbsapply(mob_ids, function(x){
+  d <- mobility[Sample_ID %in% x]
+  if(nrow(d) > 1){
+    return(mean(d$ov_dist_mds2_retro_default, na.rm = T))
+  } else if(nrow(d) == 1){
+    return(d$ov_dist_mds2_retro_default)
+  } else {
+    return(NA)
+  }
+})
+
+# PCA
+pca_dist <- pbsapply(mob_ids, function(x){
+  d <- mobility[Sample_ID %in% x]
+  if(nrow(d) > 1){
+    return(mean(d$ov_dist_pca5_retro_default, na.rm = T))
+  } else if(nrow(d) == 1){
+    return(d$ov_dist_pca5_retro_default)
+  } else {
+    return(NA)
+  }
+})
+
+## Add to table
+miss$ov_dist_mds2_retro_default <- ov_mds
+miss$ov_dist_pca5_retro_default <- ov_pca
+miss$mobility_MDS_method2 <- mds_dist
+miss$mobility_PCA_method2 <- pca_dist
+
+## Fill gaps in graves table
+graves[, MobilityMatch_distance := as.numeric(NA)]
+graves[Num %in% miss$Num]$MobilityMatch_distance <- min_dists
+graves[Num %in% miss$Num]$ov_dist_mds2_retro_default <- unlist(ov_mds)
+graves[Num %in% miss$Num]$ov_dist_pca5_retro_default <- unlist(ov_pca)
+graves[, mobility_MDS_method2 := as.numeric(NA)]
+graves[, mobility_PCA_method2 := as.numeric(NA)]
+graves[miss$Num,]$mobility_MDS_method2 <- miss$mobility_MDS_method2
+graves[miss$Num,]$mobility_PCA_method2 <- miss$mobility_PCA_method2
+```
+
+```{r, message=FALSE, warning=FALSE}
+summary(graves$MobilityMatch_distance)
+hist(graves$MobilityMatch_distance, breaks = 100, main = "Spatiotemporal distance between grave and mobility individuals", xlab = "Distance")
+
+# How many individuals with distance > 500
+length(which(graves$MobilityMatch_distance > 500))
+
+# How many individuals with distance > 5000
+length(which(graves$MobilityMatch_distance > 5000))
+```
+
+We have one individual that has a very large spatiotemporal distance. This is due to the age of the grave (YearBP = `r graves[MobilityMatch_distance > 5000]$YearBP`), being very old. The oldest age of the individuals with mobility estimates is `r max(mobility$Date_BP_Median)`. This creates a combined spatiotemporal distance that is very large. We can discuss whether it would be a good idea to **discard** this grave.
+
+At least, we have few individuals that show very big spatiotemporal distances. We can maybe decide later on if we should put a distance threshold.
+
+Now we do the same for ancestry values.
+```{r, eval = F, message=FALSE, warning=FALSE}
+# Subset data to individuals with no estimates of ancestry
+miss <- graves[is.na(ANCE1)]
+# Remove individuals for which we do not have an age
+miss <- miss[!is.na(YearBP)]
+
+# Transform to points
+gr_pnts <- project(vect(x = miss[, .(Longitude, Latitude, aDNAID, Num, YearBP)],
+                        geom = c("Longitude", "Latitude"), crs = crs(rast())),
+                   proj)
+ance_pnts <- project(vect(ancestry[, .(LON, LAT, IND, TIME)], 
+                          geom = c("LON", "LAT"),
+                          crs = crs(rast())),
+                     proj)
+```
+
+```{r, eval = F, message=FALSE, warning=FALSE}
+plot(ance_pnts, col = "red"); points(gr_pnts, col = "blue"); plot(conts_prj, add = T)
+```
+
+We are going to do the same as before.
+
+```{r, eval = F, message=FALSE, warning=FALSE}
+## Method 1: minimum spatiotemporal distance
+# Calculate euclidean distance in space
+spatdists <- distance(gr_pnts, ance_pnts, unit = "km")
+
+# Calculate euclidean distance in time
+pairs <- expand.grid(gr_pnts$YearBP, ance_pnts$TIME)
+tempdists <- apply(pairs, 1, function(r) sqrt(sum((r[1] - r[2])^2)))
+tempdists <- matrix(tempdists, 
+                    nrow = length(gr_pnts$YearBP), 
+                    ncol = length(ance_pnts$TIME))
+
+# spatiotemporal distances (euclidean with km == year)
+st_dists <- sqrt((spatdists + tempdists)^2)
+
+# Find minimum spatial distance
+min_columns <- apply(st_dists, 1, find_min)
+min_dists <- apply(st_dists, 1, min)
+
+# Get individual ID from ancestry table
+ids <- lapply(min_columns, function(x) ancestry$IND[x])
+
+# Extract ancestry value
+ance <- paste0("ANCE", 1:9)
+anc_vals <- rbindlist(pblapply(ids, function(x){
+  d <- ancestry[IND %in% x]
+  if(nrow(d) > 1){
+    return(as.data.table(matrix(colMeans(d[, ..ance], na.rm = T), nrow = 1, dimnames = list(NULL, ance))))
+  } else {
+    return(d[, ..ance])
+  }
+}))
+
+## Method 2: average across the 4 closest individuals within a 350 km and 300 years radius. This threshold has been chosen to minimize the loss of data (only 16% now are not paired with an ancestry value)
+d <- apply(spatdists, 1, function(x) which(x <= 350))
+t <- apply(tempdists, 1, function(x) which(x <= 300))
+
+prod <- lapply(1:length(d), function(x) which(d[[x]] %in% t[[x]])) # match between spat and temp
+prod_idx <- lapply(1:length(prod), function(x) d[[x]][prod[[x]]]) # get index
+# Sort distances to get the smallest within the spatiotemporal radius
+dists <- lapply(1:length(prod_idx), function(i) {
+  v <- st_dists[i, prod_idx[[i]]]
+  names(v) <- prod_idx[[i]]
+  return(sort(v))
+  })
+
+ance_ids <- lapply(1:length(dists), function(x){
+  if(length(dists[[x]]) >= 1){
+    ix <- as.numeric(names(dists[[x]]))[1:4]
+    ix <- ix[!is.na(ix)]
+    return(ancestry$IND[ix])
+  } else {
+    return(NA)
+  }
+})
+
+## Extract ancestry values
+ance_lookup <- ancestry[, .(IND, ANCE1, ANCE2, ANCE3, ANCE4, ANCE5, ANCE6, ANCE7, ANCE8, ANCE9)]
+ance_v2 <- rbindlist(pblapply(ance_ids, function(x){
+  d <- ance_lookup[IND %in% x]
+  if(nrow(d) > 1){
+    return(as.data.table(matrix(colMeans(d[, ..ance], na.rm = T), nrow = 1, dimnames = list(NULL, ance))))
+  } else if(nrow(d) == 1){
+    return(d[, ..ance])
+  } else {
+    return(data.table(ANCE1 = as.numeric(NA), 
+                      ANCE2 = as.numeric(NA), 
+                      ANCE3 = as.numeric(NA), 
+                      ANCE4 = as.numeric(NA), 
+                      ANCE5 = as.numeric(NA), 
+                      ANCE6 = as.numeric(NA), 
+                      ANCE7 = as.numeric(NA), 
+                      ANCE8 = as.numeric(NA), 
+                      ANCE9 = as.numeric(NA)))
+  }
+}))
+length(which(is.na(ance_v2$ANCE1)))/nrow(ance_v2) # 16% NAs
+
+# Create table of ancestry values
+anc_vals[, Num := miss$Num]
+names(ance_v2) <- paste0(names(ance_v2), "_v2")
+ance_v2[, Num := miss$Num]
+
+# Add minimum distance between grave individuals and ancestry individuals
+graves[, AncestryMatch_distance := as.numeric(NA)]
+graves[miss$Num,]$AncestryMatch_distance <- min_dists
+
+# Fill the gaps
+for(a in ance){
+  graves[anc_vals$Num, a] <- anc_vals[, ..a]
+}
+graves[, names(ance_v2)[-length(names(ance_v2))] := as.numeric(NA)]
+graves[ance_v2$Num, names(ance_v2)[-length(names(ance_v2))]] <- ance_v2[, .(ANCE1_v2, ANCE2_v2, ANCE3_v2, ANCE4_v2, ANCE5_v2, ANCE6_v2, ANCE7_v2, ANCE8_v2, ANCE9_v2)]
+```
+
+```{r}
+summary(graves$AncestryMatch_distance)
+hist(graves$AncestryMatch_distance, breaks = 100, main = "Spatiotemporal distance between graves and ancestry", xlab = "Distance")
+
+length(which(graves$AncestryMatch_distance > 500))
+length(which(graves$AncestryMatch_distance > 5000))
+```
+
+We have now all the data ready to be analysed, but we still need to set up the inlabru model.

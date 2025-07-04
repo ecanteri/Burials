@@ -1,0 +1,55 @@
+---
+title: 'Burial orientation: data'
+author: "Elisabetta Canteri"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, warning=FALSE, message=FALSE, include=FALSE}
+library(data.table)
+library(ggplot2)
+library(FactoMineR)
+library(circular)
+library(CircStats)
+library(BIADconnect)
+conn <- init.conn()
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+# DATA
+```{r}
+#### DATA ####
+graves <- fread("./Data/Burial.csv", na.strings = "")
+graves$DepositionType <- as.factor(graves$DepositionType)
+graves$BodyPositioning <- as.factor(graves$BodyPositioning)
+graves$BurialSide <- as.factor(graves$BurialSide)
+graves[order(IndividualID)]
+str(graves)
+
+# Sites table (BIAD)
+sites <- setDT(query.database("SELECT * FROM Sites", conn))
+
+# Culture and Period
+culture <- fread("./Data/burial rites_culture_period.csv", na.strings = "\\N")
+culture <- culture[!duplicated(IndividualID)]
+
+## Add info to graves table
+graves <- merge(graves, sites[, .(SiteID, Country)], by = "SiteID", all.x = T)
+rm(sites)
+graves <- merge(graves, culture, by = "IndividualID", all.x = T)
+
+## Remove outlier
+graves <- graves[!is.na(YearBP)]
+graves <- graves[YearBP < 15000]
+summary(graves$YearBP)
+hist(graves$YearBP, breaks = 100)
+
+## Create data table
+orientation <- graves[, .(Num, BurialOrientationMin, BurialOrientationMax, BurialSide_back, BurialSide_left, BurialSide_right)]
+```
+
+Now that we have imported the data, we need to calculate the mean angle for each individual. We have the min and max, but we will work with the mean. There are cases where the min angle is the only angle available. In that case, the min will be used as the mean.
+
+

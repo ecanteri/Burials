@@ -1,3 +1,10 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, warning=FALSE, message=FALSE, include=FALSE}
 library(data.table)
 library(ggplot2)
 library(FactoMineR)
@@ -5,7 +12,13 @@ library(circular)
 library(CircStats)
 library(BIADconnect)
 conn <- init.conn()
+knitr::opts_chunk$set(warning = FALSE, message = FALSE,
+                      root.dir = "/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves")
+```
 
+# Burial orientation
+## Data
+```{r b-o data}
 #### DATA ####
 graves <- fread("./Data/Burial.csv", na.strings = "")
 graves$DepositionType <- as.factor(graves$DepositionType)
@@ -34,7 +47,21 @@ hist(graves$YearBP, breaks = 100)
 
 ## Create data table
 orientation <- graves[, .(Num, BurialOrientationMin, BurialOrientationMax, BurialSide_back, BurialSide_left, BurialSide_right)]
+```
 
+### Calculating the average
+
+Now that we have imported the data, we need to calculate the mean angle for each individual. We have the min and max, but we will work with the mean. There are cases where the min angle is the only angle available. In that case, the min will be used as the mean.
+
+We have two ways to get the mean angles:
+
+1.  Use a custom function that we create
+
+2.  Use the `mean.circular` function of the `circular` package.
+
+We can compare the two to see how they perform.
+
+```{r b-o mean function}
 ## We can't just average between the min and max angles because for some angles the average will be 0, so we will not get burials facing south.
 ## We create a function to transform the angles that works around this issue.
 #----------------------------------------------------------------------
@@ -61,7 +88,9 @@ min.deg <- c(5,15,170,270)
 max.deg <- c(356,300,185,360)
 find.mid.deg(min.deg, max.deg)
 #----------------------------------------------------------------------
+```
 
+```{r b-o orientation data}
 # Remove NAs in both min and max orientation columns
 orientation <- orientation[!(is.na(BurialOrientationMin) & is.na(BurialOrientationMax))]
 
@@ -73,13 +102,24 @@ single_angles[, BurialOrientationMean := BurialOrientationMin]
 orientation <- orientation[!(is.na(BurialOrientationMin) | is.na(BurialOrientationMax))]
 
 # Average across min and max 
+## Using Adrian's function
 orientation[, BurialOrientationMean := find.mid.deg(BurialOrientationMin, BurialOrientationMax)]
 
 ## Using circular package
 means <- round(sapply(1:nrow(orientation), function(x) mean.circular(circular(c(orientation$BurialOrientationMin[x], orientation$BurialOrientationMax[x]), type = "angles", units = "degrees", rotation = "clock"))),2)
 means <- sapply(1:length(means), function(x) ifelse(means[x] < 0, 360 + means[x], means[x]))
-orientation[, BurialOrientationMean := means]
 
+## Check differences
+orientation$BurialOrientationMin[698]; orientation$BurialOrientationMax[698]
+orientation$BurialOrientationMean[698]; means[698]
+```
+
+In this last example we can see that the custom function we have does not recognize 270 as the minimum angle, but it takes 0 as the minimum making the mean **135**. However, because 0 is 360, if we consider 270 as the minimum, the mean should be **315**, as determined by the circular package. 
+
+I believe this is the correct way to move forward, so I will use the mean.circular function to calculate the means.
+
+```{r b-o final data}
+orientation[, BurialOrientationMean := means]
 # Bind tables together
 orientation <- rbind(orientation, single_angles)
 orientation <- orientation[order(Num)]
@@ -104,67 +144,64 @@ orientation$LVN <- graves[Num %in% orientation$Num]$ANCE6_v2
 orientation$CHG <- graves[Num %in% orientation$Num]$ANCE8_v2
 orientation$mobility <- graves[Num %in% orientation$Num]$mobility_MDS_250y_retrospective
 
+orientation <- fread("./Data/BurialOrientation.csv", na.strings = "")
+```
+
+Now we can start visualizing the circular orientation data using histograms, circular histograms and scatterplots that combine sine and cosine values.
+
+### Histograms
+
+```{r b-o hists}
 #### HISTOGRAMS ####
-png("./Figures/BurialOrientation/BurialOrientation_Mean.png", width = 10, height = 5, units = 'in', res = 330)
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMean), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation (mean)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
-dev.off()
 
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMin), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation (min)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
 
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMax), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation (max)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
 
-png("./Figures/BurialOrientation/BurialOrientation_cosMean.png", width = 10, height = 5, units = 'in', res = 330)
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMean_cos), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation cos(mean)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
-dev.off()
 
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMin_cos), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation cos(min)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
 
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMax_cos), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation cos(max)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
 
-png("./Figures/BurialOrientation/BurialOrientation_sinMean.png", width = 10, height = 5, units = 'in', res = 330)
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMean_sin), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation sin(mean)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
-dev.off()
 
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMin_sin), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation sin(min)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
 
-ggplot(data = sides) +
+ggplot(data = orientation) +
   geom_histogram(aes(x = BurialOrientationMax_sin), bins = 30, fill = "white", col = "black") +
   xlab("Burial orientation sin(max)") +
-  facet_wrap(~BurialSide) +
   theme_bw()
+```
 
+For the circular histograms, we have to manually create some adjustments in order for ggplot to plot the data correctly. Because there is no way to tell ggplot to create a histogram that can cross zero, we have to manually bin the data in order for data that crosses zero to be in the same bin. This won't shift the data on the axis, or remove data (as ggplot would).
+
+```{r b-o binning function}
 #### --------------------------------------------------------------------------------------------------
 ##### Function to count decimal places #####
 decimalplaces <- function(x) {
@@ -194,8 +231,13 @@ circular.bins <- function(v, binwidth = NULL){
   return(cat)
 }
 #### --------------------------------------------------------------------------------------------------
+```
 
-#### PLOTS ####
+Now that we have the function, we can create circular histograms with binwidth of 22.5, which is 360/16.
+
+## Exploration and visualization
+### All individuals
+```{r b-o inds, fig.dim=c(10,10)}
 ##### All individuals ######
 dim_angles <- orientation[, .N, by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 
@@ -225,22 +267,10 @@ ggplot(data = orientation, aes(x = Bins)) +
   theme_light() +
   theme(axis.title = element_blank(),
         axis.text = element_text(size = 12))
+```
 
-# w <- 22.5
-# ggplot(data = orientation, aes(x = BurialOrientationMean)) +
-#   stat_bin(binwidth = w, fill = "grey80", color = "black") +
-#   # geom_histogram(fill = "grey80", color = "black") +
-#   scale_x_continuous(expand = expansion(0, 0),
-#                      limits = c(0, 360),
-#                      breaks = seq(0, 360, by = w)) +
-#   scale_y_continuous() +
-#   coord_polar() +
-#   # coord_radial() +
-#   theme_light() +
-#   theme(axis.title = element_blank(),
-#         axis.text = element_text(size = 12))
-
-
+### Burial side
+```{r b-o burial side, fig.dim=c(10,10)}
 ##### Burial side ######
 ## Separate data based on burial side
 left <- orientation[, .(Num, BurialOrientationMean, 
@@ -283,7 +313,6 @@ sides <- rbind(left[, -1], right[, -1], back[, -1])
 # Count number of entries per burial side
 dim_side <- sides[, .N, by = c("BurialSide", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 
-png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_BurialSide.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_side) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = factor(BurialSide, levels = c("Left", "Right", "Back")), size = N),
              position = position_jitter(0.05, 0.05),
@@ -301,7 +330,6 @@ ggplot(data = dim_side) +
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Circular histogram
 cols <- pals::brewer.paired(3)
@@ -319,18 +347,6 @@ ggplot(data = sides, aes(x = Bins,
   theme_light() +
   theme(axis.text = element_text(size = 12))
 
-# ggplot(data = sides, aes(x = BurialOrientationMean, fill = factor(BurialSide, levels = c("Left", "Right", "Back"))), alpha = 0.5) +
-#   stat_bin(bins = 30, boundary = 0, color = 'black') +
-#   scale_x_continuous(expand = expansion(0, 0), 
-#                      limits = c(0, 360),
-#                      breaks = seq(0, 360, by = 45)) +
-#   scale_y_continuous() +
-#   scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
-#   ylab("Count") +
-#   coord_polar() +
-#   theme_light() +
-#   theme(axis.text = element_text(size = 12))
-
 # Single plots
 ggplot(data = sides, aes(x = Bins, 
                          fill = factor(BurialSide, levels = c("Left", "Right", "Back")))) +
@@ -347,7 +363,10 @@ ggplot(data = sides, aes(x = Bins,
   theme(axis.text = element_text(size = 12),
         axis.title.x = element_blank(),
         legend.position = "none")
+```
 
+### Country
+```{r b-o country, fig.dim=c(10,10)}
 ##### Country #####
 dim_country <- orientation[, .N, by = c("Country", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_country$Country <- factor(dim_country$Country, levels = c("Netherlands",
@@ -370,7 +389,6 @@ dim_country$Country <- factor(dim_country$Country, levels = c("Netherlands",
                                                               "Armenia",
                                                               "Kazakhstan"))
 
-png("./Figures/BurialOrientation/BurialOrientation_Country.png", width = 13, height = 10, units = 'in', res = 330)
 ggplot(data = dim_country) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Country, size = N),
              position = position_jitter(0.05, 0.05),
@@ -388,7 +406,6 @@ ggplot(data = dim_country) +
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Circular histogram
 w <- 22.5
@@ -424,7 +441,10 @@ ggplot(data = orientation,
   theme(axis.text = element_text(size = 12),
         axis.title.x = element_blank(),
         legend.position = "none")
+```
 
+### Period
+```{r b-o period, fig.dim=c(10,10)}
 ##### Period ######
 dim_period <- orientation[, .N, by = c("Period", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_period$Period <- factor(dim_period$Period, levels = c("Mesolithic",
@@ -436,7 +456,6 @@ dim_period$Period <- factor(dim_period$Period, levels = c("Mesolithic",
                                                           "Bronze Age/Iron Age",
                                                           "Iron Age"))
 
-png("./Figures/BurialOrientation/BurialOrientation_Period.png", width = 13, height = 10, units = 'in', res = 330)
 ggplot(data = dim_period) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Period, size = N),
              position = position_jitter(0.05, 0.05),
@@ -447,14 +466,13 @@ ggplot(data = dim_period) +
   guides(fill = guide_legend(override.aes = list(size=5))) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
-  coord_equal()
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Circular histogram
 w <- 22.5
@@ -513,14 +531,16 @@ ggplot(data = orientation,
         axis.title.x = element_blank(),
         legend.position = "none")
 
+```
 
+### Culture
+```{r b-o culture, fig.dim=c(12,10)}
 ##### Culture #####
 dim_culture <- orientation[, .N, by = c("Culture", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_culture <- dim_culture[!is.na(Culture)]
 # Plot only the 10 most frequent cultures
 culture_keep <- orientation[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
 
-png("./Figures/BurialOrientation/BurialOrientation_Culture.png", width = 15, height = 10, units = 'in', res = 330)
 ggplot(data = dim_culture[Culture %in% culture_keep]) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Culture, size = N),
              position = position_jitter(0.05, 0.05),
@@ -530,13 +550,13 @@ ggplot(data = dim_culture[Culture %in% culture_keep]) +
   guides(fill = guide_legend(override.aes = list(size=5))) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Circular histogram
 w <- 22.5
@@ -569,11 +589,16 @@ ggplot(data = orientation[Culture %in% culture_keep],
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+```
 
+### Sex
+
+In this case, for the circular histograms, I had to transform the sex data into factor (even though this is continuous data).
+
+```{r b-o sex, fig.dim=c(10,10)}
 ##### Sex #####
 dim_sex <- orientation[, .N, by = c("Sex", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 
-png("./Figures/BurialOrientation/BurialOrientation_Sex.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_sex) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Sex, size = N),
              position = position_jitter(0.08, 0.08),
@@ -582,13 +607,13 @@ ggplot(data = dim_sex) +
   scale_size_continuous("Count", breaks = c(1, 30, 60, 90, 120), range = c(3,10)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Circular histogram
 w <- 22.5
@@ -621,11 +646,17 @@ ggplot(data = orientation,
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+```
 
+### Age
+Here we are plotting the data by age. First, we consider the whole time period of the individuals, but then we restrict the data to contain only individuals between 8k to 2k years BP.
+
+Again, for the circular histograms I had to transform the data into factor, by binning the ages into 500 years bins.
+
+```{r b-o age, fig.dim=c(10,10)}
 ##### Age #####
 dim_age <- orientation[, .N, by = c("Age", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 
-png("./Figures/BurialOrientation/BurialOrientation_Age.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_age) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Age, size = N),
              position = position_jitter(0.1, 0.1),
@@ -634,13 +665,13 @@ ggplot(data = dim_age) +
   scale_size_continuous("Count", breaks = c(1, 20, 50, 75), range = c(3,10)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
+  coord_equal() +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 14),
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Age interval between 8k and 2k BP
 ggplot(data = dim_age[between(Age, 2000, 8000)]) +
@@ -677,10 +708,13 @@ ggplot(data = orientation[between(Age, 3000, 8000)],
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+```
 
+### Ancestry
+For the ancestry, we decided to take the average ancestry value for each individual that is in the same angle position.
 
-##### Ancestry: WHG ##### 
-png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_WHG.png", width = 12, height = 10, units = 'in', res = 330)
+#### Western hunter-gatherer ancestry
+```{r b-o whg, fig.dim=c(10,10)}
 dim_whg <- orientation[, mean(WHG, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_whg <- dim_whg[!is.nan(V1),]
 names(dim_whg)[3] <- "WHG"
@@ -699,7 +733,6 @@ ggplot(data = dim_whg) +
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Histograms
 w <- 22.5
@@ -718,13 +751,14 @@ ggplot(data = orientation[!is.na(WHG)],
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+```
 
-##### Ancestry: EHG ##### 
+#### Eastern hunter-gatherer ancestry
+```{r b-o ehg, fig.dim=c(10,10)}
 dim_ehg <- orientation[, mean(EHG, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_ehg <- dim_ehg[!is.nan(V1),]
 names(dim_ehg)[3] <- "EHG"
 
-png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_EHG.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_ehg) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = EHG),
              shape = 21,
@@ -739,7 +773,6 @@ ggplot(data = dim_ehg) +
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Histograms
 w <- 22.5
@@ -758,13 +791,15 @@ ggplot(data = orientation[!is.na(EHG)],
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+```
 
+#### Caucasus hunter-gatherer ancestry
+```{r b-o chg, fig.dim=c(10,10)}
 ##### Ancestry: CHG ##### 
 dim_chg <- orientation[, mean(CHG, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_chg <- dim_chg[!is.nan(V1),]
 names(dim_chg)[3] <- "CHG"
 
-png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_CHG.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_chg) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = CHG),
              shape = 21,
@@ -779,7 +814,6 @@ ggplot(data = dim_chg) +
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Histograms
 w <- 22.5
@@ -798,13 +832,15 @@ ggplot(data = orientation[!is.na(CHG)],
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+```
 
+#### Anatolian farmers ancestry
+```{r b-o LVN, fig.dim=c(10,10)}
 ##### Ancestry: LVN ##### 
 dim_lvn <- orientation[, mean(LVN, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_lvn <- dim_lvn[!is.nan(V1),]
 names(dim_lvn)[3] <- "LVN"
 
-png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_LVN.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_lvn) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = LVN),
              shape = 21,
@@ -819,7 +855,6 @@ ggplot(data = dim_lvn) +
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Histograms
 w <- 22.5
@@ -837,13 +872,15 @@ ggplot(data = orientation[!is.na(LVN)],
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+```
 
+### Mobility
+```{r b-o mobility, fig.dim=c(10,10)}
 ##### Mobility #####
 dim_mob <- orientation[, mean(mobility, na.rm = T), by = c("BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 dim_mob <- dim_mob[!is.nan(V1),]
 names(dim_mob)[3] <- "mobility"
 
-png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/BurialOrientation/BurialOrientation_mobility.png", width = 12, height = 10, units = 'in', res = 330)
 ggplot(data = dim_mob) +
   geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = mobility),
              shape = 21,
@@ -858,7 +895,6 @@ ggplot(data = dim_mob) +
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
-dev.off()
 
 # Histograms
 w <- 22.5
@@ -877,3 +913,6 @@ ggplot(data = orientation[!is.na(mobility)],
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+
+```
+

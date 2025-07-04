@@ -1,0 +1,16 @@
+--- 
+title: "Cultural hitchhiking: burial rites and genomic variation in space and time"
+author: "Elisabetta Canteri"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+---
+
+# Abstract {-}
+
+Describing and interpreting cultural history and transmission has been a central focus of archaeology for over a century. New information coming from ancient DNA has revealed the fundamental role of demography in shaping both genomic and cultural change. Yet, the effects of demographic processes on the spatial and temporal distributions of cultural and genomic patterns are still poorly understood. Here, we examine the relations between demography and space-time patterns of genomic variation and cultural traditions, by testing whether shifts in genomic patterns correspond to spatiotemporal changes in burial rites. Our approach uses data accessed from the Big Interdisciplinary Archaeological Database (BIAD), linking mortuary information from approximately 4,200 individuals with genetic ancestry and mobility data inferred from over 1,300 human genomes, spanning vast parts of Western Eurasia over the last 10,000 years. By integrating and modeling these diverse datasets, we aim to provide a comprehensive understanding of how human mobility and demographic change intersect with cultural traditions, offering new insights into the dynamics behind culture history, and the extent to which genes and culture are transmitted in parallel.
+
+# Aim {-}
+
+This book will show all the main results of the project. We start by exploring the data on burial rites and their link with genetically-derived measures of human ancestry and mobility.
+
