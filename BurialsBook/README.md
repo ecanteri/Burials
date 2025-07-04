@@ -1,13 +1,8 @@
-Welcome! 
+Cultural hitchhiking: burial rites and genomic variation in space and time.
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
+This book shows all the burial data visualization and analysis.
+To view the book, download the BurialsBook folder and navigate to the index.html file by following:
 
-This template provides a skeleton file structure that you can edit to create your book. 
+BurialsBook > _book > index.html
 
-The contents inside the .Rmd files provide some pointers to help you get started, but feel free to also delete the content in each file and start fresh.
-
-Additional resources:
-
-The **bookdown** book: https://bookdown.org/yihui/bookdown/
-
-The **bookdown** package reference site: https://pkgs.rstudio.com/bookdown
+Double click on the index.html file until it opens up in the browser. The book is now ready to be visualized.
