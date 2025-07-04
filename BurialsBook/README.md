@@ -1,4 +1,4 @@
-Cultural hitchhiking: burial rites and genomic variation in space and time.
+**Cultural hitchhiking: burial rites and genomic variation in space and time.**
 
 This book shows all the burial data visualization and analysis.
 To view the book, download the BurialsBook folder and navigate to the index.html file by following:
