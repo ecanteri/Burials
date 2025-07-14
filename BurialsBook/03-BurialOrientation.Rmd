@@ -307,7 +307,7 @@ back <- orientation[, .(Num, BurialOrientationMean,
                         Bins), by = "BurialSide_back"][BurialSide_back == 1]
 back[, BurialSide := "Back"]
 
-# Bind together in a new table
+# Bind together in a ne<- table
 sides <- rbind(left[, -1], right[, -1], back[, -1])
 # Group by count within same burial side and same angles
 # Count number of entries per burial side
@@ -333,11 +333,10 @@ ggplot(data = dim_side) +
 
 # Circular histogram
 cols <- pals::brewer.paired(3)
-w <- 22.5
 ggplot(data = sides, aes(x = Bins,
                          fill = factor(BurialSide, levels = c("Left", "Right", "Back"))),
        alpha = 0.5) +
-  geom_bar(color = "black") +
+  geom_bar(color = "black", position = "dodge") +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
@@ -369,28 +368,36 @@ ggplot(data = sides, aes(x = Bins,
 ```{r b-o country, fig.dim=c(10,10)}
 ##### Country #####
 dim_country <- orientation[, .N, by = c("Country", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
-dim_country$Country <- factor(dim_country$Country, levels = c("Netherlands",
-                                                              "France",
-                                                              "Germany",
-                                                              "Denmark",
-                                                              "Sweden",
-                                                              "Latvia",
-                                                              "Poland",
-                                                              "Czechia / Czech Republic",
-                                                              "Slovakia",
-                                                              "Austria",
-                                                              "Hungary",
-                                                              "Croatia",
-                                                              "Romania",
-                                                              "Serbia",
-                                                              "Bulgaria",
-                                                              "Ukraine",
-                                                              "Russia",
-                                                              "Armenia",
-                                                              "Kazakhstan"))
+dim_country$Country <- factor(dim_country$Country, 
+                              levels = c("Netherlands",
+                                         "France",
+                                         "Germany",
+                                         "Denmark",
+                                         "Sweden",
+                                         "Latvia",
+                                         "Poland",
+                                         "Czechia / Czech Republic",
+                                         "Slovakia",
+                                         "Austria",
+                                         "Hungary",
+                                         "Croatia",
+                                         "Romania",
+                                         "Serbia",
+                                         "Bulgaria",
+                                         "Ukraine",
+                                         "Russia",
+                                         "Armenia",
+                                         "Kazakhstan"))
 
-ggplot(data = dim_country) +
-  geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Country, size = N),
+# Check number of individuals by country
+orientation[, .N, by = "Country"][order(N)]
+
+# Plot
+ggplot(data = dim_country[!(Country %in% c("Armenia", 
+                                           "Kazakhstan"))]) +
+  geom_point(aes(BurialOrientationMean_sin, 
+                 BurialOrientationMean_cos, 
+                 fill = Country, size = N),
              position = position_jitter(0.05, 0.05),
              shape = 21) +
   scale_fill_manual("Country", values = pals::parula(19)) +
@@ -408,11 +415,10 @@ ggplot(data = dim_country) +
         legend.title = element_text(size = 16))
 
 # Circular histogram
-w <- 22.5
-ggplot(data = orientation,
+ggplot(data = orientation[!(Country %in% c("Armenia", "Kazakhstan"))],
        aes(x = Bins, fill = Country),
        color = 'black') +
-  geom_bar(color = 'black') +
+  geom_bar(color = 'black', position = "dodge") +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
@@ -427,7 +433,7 @@ ggplot(data = orientation,
 
 
 # Single plots
-ggplot(data = orientation, 
+ggplot(data = orientation[!(Country %in% c("Armenia", "Kazakhstan"))], 
        aes(x = Bins, fill = Country)) +
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
@@ -447,17 +453,20 @@ ggplot(data = orientation,
 ```{r b-o period, fig.dim=c(10,10)}
 ##### Period ######
 dim_period <- orientation[, .N, by = c("Period", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
-dim_period$Period <- factor(dim_period$Period, levels = c("Mesolithic",
-                                                          "Mesolithic/Neolithic",
-                                                          "Neolithic",
-                                                          "Eneolithic",
-                                                          "Eneolithic/Bronze Age",
-                                                          "Bronze Age",
-                                                          "Bronze Age/Iron Age",
-                                                          "Iron Age"))
+dim_period$Period <- factor(dim_period$Period, 
+                            levels = c("Mesolithic",
+                                       "Mesolithic/Neolithic",
+                                       "Neolithic",
+                                       "Eneolithic",
+                                       "Eneolithic/Bronze Age",
+                                       "Bronze Age",
+                                       "Bronze Age/Iron Age",
+                                       "Iron Age"))
 
 ggplot(data = dim_period) +
-  geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Period, size = N),
+  geom_point(aes(BurialOrientationMean_sin, 
+                 BurialOrientationMean_cos, 
+                 fill = Period, size = N),
              position = position_jitter(0.05, 0.05),
              shape = 21) +
   scale_fill_manual("Period", values = pals::parula(8)) +
@@ -474,9 +483,11 @@ ggplot(data = dim_period) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 
+# Check number of individuals by period
+orientation[, .N, by = "Period"][order(N)]
+
 # Circular histogram
-w <- 22.5
-ggplot(data = orientation,
+ggplot(data = orientation[Period != "Iron Age"],
        aes(x = Bins, fill = factor(Period,
                                    levels = c("Mesolithic",
                                               "Mesolithic/Neolithic",
@@ -487,7 +498,7 @@ ggplot(data = orientation,
                                               "Bronze Age/Iron Age",
                                               "Iron Age"))),
        color = 'black') +
-  geom_bar(color = 'black') +
+  geom_bar(color = 'black', position = "dodge") +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
@@ -500,7 +511,7 @@ ggplot(data = orientation,
         axis.text.x = element_text(size = 12))
 
 # Single plots
-ggplot(data = orientation, 
+ggplot(data = orientation[Period != "Iron Age"], 
        aes(x = Bins, fill = factor(Period,
                                    levels = c("Mesolithic",
                                               "Mesolithic/Neolithic",
@@ -540,13 +551,17 @@ dim_culture <- orientation[, .N, by = c("Culture", "BurialOrientationMean_sin", 
 dim_culture <- dim_culture[!is.na(Culture)]
 # Plot only the 10 most frequent cultures
 culture_keep <- orientation[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
+orientation[Culture %in% culture_keep][, .N, by = "Culture"][order(N, decreasing = T)]
 
 ggplot(data = dim_culture[Culture %in% culture_keep]) +
-  geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Culture, size = N),
+  geom_point(aes(BurialOrientationMean_sin, 
+                 BurialOrientationMean_cos, 
+                 fill = Culture, size = N),
              position = position_jitter(0.05, 0.05),
              shape = 21) +
   scale_fill_manual("Culture", values = pals::parula(10)) +
-  scale_size_continuous("Count", breaks = c(1, 10, 25, 50, 75), range = c(3,10)) +
+  scale_size_continuous("Count", breaks = c(1, 10, 25, 50, 75), 
+                        range = c(3,10)) +
   guides(fill = guide_legend(override.aes = list(size=5))) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
@@ -559,11 +574,10 @@ ggplot(data = dim_culture[Culture %in% culture_keep]) +
         legend.title = element_text(size = 16))
 
 # Circular histogram
-w <- 22.5
 ggplot(data = orientation[Culture %in% culture_keep],
        aes(x = Bins, fill = Culture),
        color = 'black') +
-  geom_bar(color = 'black') +
+  geom_bar(color = 'black', position = "dodge") +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
@@ -600,11 +614,14 @@ In this case, for the circular histograms, I had to transform the sex data into 
 dim_sex <- orientation[, .N, by = c("Sex", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 
 ggplot(data = dim_sex) +
-  geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = Sex, size = N),
+  geom_point(aes(BurialOrientationMean_sin, 
+                 BurialOrientationMean_cos, 
+                 fill = Sex, size = N),
              position = position_jitter(0.08, 0.08),
              shape = 21) +
   scale_fill_gradientn("Sex", colors = rev(pals::brewer.piyg(100))) +
-  scale_size_continuous("Count", breaks = c(1, 30, 60, 90, 120), range = c(3,10)) +
+  scale_size_continuous("Count", breaks = c(1, 30, 60, 90, 120), 
+                        range = c(3,10)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
   coord_equal() +
@@ -615,16 +632,18 @@ ggplot(data = dim_sex) +
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16))
 
+# Group sex
+orientation[, Sex := ifelse(Sex < 0.5, 0, ifelse(Sex > 0.5, 1, Sex))]
+
 # Circular histogram
-w <- 22.5
 ggplot(data = orientation,
        aes(x = Bins, fill = as.factor(Sex)),
        color = 'black') +
-  geom_bar(color = 'black') +
+  geom_bar(color = 'black', position = "dodge") +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(9))) +
+  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(3))) +
   coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text.y = element_blank(),
@@ -640,12 +659,30 @@ ggplot(data = orientation,
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(9))) +
+  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(3))) +
   coord_polar(start = -.2) +
   facet_wrap(~as.factor(Sex), scales = "free_y") +
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
+```
+
+#### Culture by sex
+```{r b-o culture sex, fig.dim=c(12,10)}
+# Single plots
+ggplot(data = orientation[Culture %in% culture_keep],
+       aes(x = Bins, fill = as.factor(Sex)),
+       color = 'black') +
+  geom_bar(color = 'black',
+           position = "dodge") +
+  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
+                     labels = seq(0, 360, w)) +
+  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(3))) +
+  coord_polar(start = -.2) +
+  facet_wrap(~Culture, scales = "free_y") +
+  theme_light() +
+  theme(axis.title.x = element_blank(),
+        legend.position = "right")
 ```
 
 ### Age
@@ -692,10 +729,11 @@ ggplot(data = dim_age[between(Age, 2000, 8000)]) +
         legend.title = element_text(size = 16))
 
 # Histograms
-w <- 22.5
 orientation$YearBin <- plyr::round_any(orientation$Age, 500)
 ggplot(data = orientation[between(Age, 3000, 8000)],
-       aes(x = Bins, fill = factor(YearBin, levels = as.character(rev(seq(3000, 8000, 500))))),
+       aes(x = Bins, 
+           fill = factor(YearBin, 
+                         levels = as.character(rev(seq(3000, 8000, 500))))),
        color = 'black') +
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
@@ -704,7 +742,8 @@ ggplot(data = orientation[between(Age, 3000, 8000)],
   scale_fill_manual("YearBin", values = rev(pals::brewer.piyg(11))) +
   coord_polar(start = -.2) +
   ylab("Count") +
-  facet_wrap(~factor(YearBin, levels = as.character(rev(seq(3000, 8000, 500)))), scales = "free_y") +
+  facet_wrap(~factor(YearBin, 
+                     levels = as.character(rev(seq(3000, 8000, 500)))), scales = "free_y") +
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
@@ -720,10 +759,14 @@ dim_whg <- dim_whg[!is.nan(V1),]
 names(dim_whg)[3] <- "WHG"
 
 ggplot(data = dim_whg) +
-  geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = WHG),
+  geom_point(aes(BurialOrientationMean_sin, 
+                 BurialOrientationMean_cos, 
+                 fill = WHG),
              shape = 21,
              size = 5) +
-  scale_fill_gradientn("WHG", colors = pals::parula(100), limits = c(0,1)) +
+  scale_fill_gradientn("WHG", 
+                       colors = pals::parula(100), 
+                       limits = c(0,1)) +
   xlab(expression(sin(theta))) +
   ylab(expression(cos(theta))) +
   coord_equal() +
@@ -735,8 +778,7 @@ ggplot(data = dim_whg) +
         legend.title = element_text(size = 16))
 
 # Histograms
-w <- 22.5
-orientation$WHG_bin <- plyr::round_any(orientation$WHG, 0.05)
+orientation$WHG_bin <- plyr::round_any(orientation$WHG, 0.25)
 ggplot(data = orientation[!is.na(WHG)],
        aes(x = Bins, fill = as.factor(WHG_bin)),
        color = 'black') +
@@ -744,7 +786,7 @@ ggplot(data = orientation[!is.na(WHG)],
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("WHG", values = pals::parula(15)) +
+  scale_fill_manual("WHG", values = pals::parula(5)) +
   coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(WHG_bin), scales = "free_y") +
@@ -775,8 +817,7 @@ ggplot(data = dim_ehg) +
         legend.title = element_text(size = 16))
 
 # Histograms
-w <- 22.5
-orientation$EHG_bin <- plyr::round_any(orientation$EHG, 0.05)
+orientation$EHG_bin <- plyr::round_any(orientation$EHG, 0.25)
 ggplot(data = orientation[!is.na(EHG)],
        aes(x = Bins, fill = as.factor(EHG_bin)),
        color = 'black') +
@@ -784,7 +825,7 @@ ggplot(data = orientation[!is.na(EHG)],
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("EHG", values = pals::parula(14)) +
+  scale_fill_manual("EHG", values = pals::parula(5)) +
   coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(EHG_bin), scales = "free_y") +
@@ -801,7 +842,9 @@ dim_chg <- dim_chg[!is.nan(V1),]
 names(dim_chg)[3] <- "CHG"
 
 ggplot(data = dim_chg) +
-  geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = CHG),
+  geom_point(aes(BurialOrientationMean_sin, 
+                 BurialOrientationMean_cos, 
+                 fill = CHG),
              shape = 21,
              size = 5) +
   scale_fill_gradientn("CHG", colors = pals::parula(100), limits = c(0,1)) +
@@ -816,7 +859,6 @@ ggplot(data = dim_chg) +
         legend.title = element_text(size = 16))
 
 # Histograms
-w <- 22.5
 orientation$CHG_bin <- plyr::round_any(orientation$CHG, 0.05)
 ggplot(data = orientation[!is.na(CHG)],
        aes(x = Bins, fill = as.factor(CHG_bin)),
@@ -825,7 +867,7 @@ ggplot(data = orientation[!is.na(CHG)],
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("CHG", values = pals::parula(14)) +
+  scale_fill_manual("CHG", values = pals::parula(5)) +
   coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(CHG_bin), scales = "free_y") +
@@ -842,7 +884,9 @@ dim_lvn <- dim_lvn[!is.nan(V1),]
 names(dim_lvn)[3] <- "LVN"
 
 ggplot(data = dim_lvn) +
-  geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = LVN),
+  geom_point(aes(BurialOrientationMean_sin, 
+                 BurialOrientationMean_cos, 
+                 fill = LVN),
              shape = 21,
              size = 5) +
   scale_fill_gradientn("LVN", colors = pals::parula(100), limits = c(0,1)) +
@@ -857,14 +901,14 @@ ggplot(data = dim_lvn) +
         legend.title = element_text(size = 16))
 
 # Histograms
-w <- 22.5
-orientation$LVN_bin <- plyr::round_any(orientation$LVN, 0.05)
+orientation$LVN_bin <- plyr::round_any(orientation$LVN, 0.25)
 ggplot(data = orientation[!is.na(LVN)],
        aes(x = Bins, fill = as.factor(LVN_bin)),
        color = 'black') +
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
+  scale_fill_manual("CHG", values = pals::parula(5)) +
   scale_y_continuous() +
   coord_polar(start = -.2) +
   ylab("Count") +
@@ -882,7 +926,9 @@ dim_mob <- dim_mob[!is.nan(V1),]
 names(dim_mob)[3] <- "mobility"
 
 ggplot(data = dim_mob) +
-  geom_point(aes(BurialOrientationMean_sin, BurialOrientationMean_cos, fill = mobility),
+  geom_point(aes(BurialOrientationMean_sin, 
+                 BurialOrientationMean_cos, 
+                 fill = mobility),
              shape = 21,
              size = 5) +
   scale_fill_gradientn("Mobility", colors = pals::parula(100)) +
@@ -897,8 +943,10 @@ ggplot(data = dim_mob) +
         legend.title = element_text(size = 16))
 
 # Histograms
-w <- 22.5
-orientation$mob_bin <- plyr::round_any(orientation$mobility, 50)
+orientation$mob_bin <- plyr::round_any(orientation$mobility, 200)
+# data between 0 & 100 (0) - 100 & 300 (200) - 300 & 500 (400) etc.
+orientation[, .N, by = mob_bin][order(N)]
+
 ggplot(data = orientation[!is.na(mobility)],
        aes(x = Bins, fill = as.factor(mob_bin)),
        color = 'black') +
@@ -906,7 +954,7 @@ ggplot(data = orientation[!is.na(mobility)],
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("Mobility", values = pals::parula(28)) +
+  scale_fill_manual("Mobility", values = pals::parula(9)) +
   coord_polar(start = -.2) +
   ylab("Count") +
   facet_wrap(~as.factor(mob_bin), scales = "free_y") +

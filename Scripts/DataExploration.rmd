@@ -1,7 +1,4 @@
 ---
-title: "Burials: MCA and modelling"
-author: "Elisabetta Canteri"
-date: "2025-01-21"
 output: 
   html_document:
     toc: true
@@ -29,16 +26,16 @@ library(factoextra)
 library(FactoMineR)
 library(UpSetR)
 knitr::opts_chunk$set(cache = TRUE, warning = FALSE, 
-                      message = FALSE, cache.lazy = FALSE)
+                      message = FALSE, cache.lazy = FALSE,
+                      root.dir = "~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/")
 conn <- init.conn()
-# setwd("/maps/projects/racimolab/people/msb290/Graves/Scripts")
-setwd("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Scripts")
 ```
 
-# Data
+# Burial rites
+## Data
 ```{r data, message=FALSE, warning=FALSE, results = "hide"}
 # graves <- fread("./EAA2024_burial_rite_data.csv", stringsAsFactors = F, na.strings = "\\N")
-graves <- fread("../Data/Burial.csv", na.strings = "")
+graves <- fread("./Data/Burial.csv", na.strings = "")
 graves$DepositionType <- as.factor(graves$DepositionType)
 graves$BodyPositioning <- as.factor(graves$BodyPositioning)
 graves$BurialSide <- as.factor(graves$BurialSide)
@@ -47,7 +44,7 @@ graves$BurialSide <- as.factor(graves$BurialSide)
 sites <- setDT(query.database("SELECT * FROM `Sites`", conn))
 
 # Culture and Period
-culture <- fread("../Data/burial rites_culture_period.csv", na.strings = "\\N")
+culture <- fread("./Data/burial rites_culture_period.csv", na.strings = "\\N")
 culture <- culture[!duplicated(IndividualID)]
 
 ## Add info to graves table
@@ -56,7 +53,7 @@ rm(sites)
 graves <- merge(graves, culture, by = "IndividualID", all.x = T)
 ```
 
-# Multiple correspondence analysis
+## Multiple correspondence analysis
 ```{r mca, warning=F, message=F, fig.dpi=300}
 ## Data
 bp <- grep("BodyPositioning_", colnames(graves))
@@ -78,7 +75,7 @@ fviz_mca_biplot(mca,
                 repel = FALSE, # Avoid text overlapping (slow if many point)
                 ggtheme = theme_minimal()
 )
-knitr::include_graphics("../Figures/MCA_biplot.png", dpi = 300)
+knitr::include_graphics("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/MCA_biplot.png")
 
 # Dimensions 1 and 3
 fviz_mca_biplot(mca,
@@ -92,14 +89,11 @@ fviz_mca_biplot(mca,
 
 ## Eigenvalues
 eig.val <- get_eigenvalue(mca)
-# fviz_screeplot(mca)
-knitr::include_graphics("../Figures/MCA_eig.png", dpi = 300)
+fviz_screeplot(mca)
 
 ## Look at the quality of representation of variable categories
-# fviz_cos2(mca, choice = "var", axes = 1:2)
-# fviz_cos2(mca, choice = "var", axes = c(1,3))
-knitr::include_graphics("../Figures/MCA_cos2_Dim12.png", dpi = 300)
-knitr::include_graphics("../Figures/MCA_cos2_Dim13.png", dpi = 300)
+fviz_cos2(mca, choice = "var", axes = 1:2)
+fviz_cos2(mca, choice = "var", axes = c(1,3))
 
 ## Extract results for individuals
 ind <- get_mca_ind(mca)
@@ -129,7 +123,7 @@ res.desc[[2]]
 res.desc[[3]]
 ```
 
-# UpSet plot
+## UpSet plot
 We can produce an UpSet plot to better visualize the structure of the data. An UpSet plot is a simplified visualization of a Venn diagram.
 
 ```{r UpSet plot, warning=FALSE, message=FALSE}
@@ -189,12 +183,11 @@ var_dims$Variable <- rownames(var_dims)
 var_dims <- var_dims[-which(var_dims$Variable %in% c("BurialSide.NA", "BodyPositioning.NA")),]
 ```
 
-# MCA Biplots
-## Biplot
-```{r biplot default, warning=FALSE, message=FALSE}
+## MCA Biplots
+### Biplot
+```{r biplot default, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
 dim_biplot <- ind_dims[, .N, by = c("Dim 1", "Dim 2")]
 
-png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/Biplot_default.png", width = 14, height = 10, units = 'in', res = 330)
 ggplot() +
   geom_point(data = dim_biplot,
              aes(x = `Dim 1`, y = `Dim 2`,
@@ -224,44 +217,42 @@ ggplot() +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
   theme_bw() +
   theme(legend.position = "right")
-dev.off()
+
 ```
 
-
-## Country
-```{r country, warning=FALSE, message=FALSE}
+### Country
+```{r country, warning=FALSE, message=FALSE, fig.dim=c(14, 10)}
 ## Biplot by COUNTRY
 # png("../Figures/Biplot_Country1.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = ind_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = Country),
-#              position = position_jitter(0.2,0.2),
-#              shape = 21) +
-#   scale_fill_manual("Country", values = pals::tol.rainbow(23),
-#                     guide = guide_legend(override.aes = list(size = 5))) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 0.5,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = ind_dims,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Country),
+             position = position_jitter(0.2,0.2),
+             shape = 21) +
+  scale_fill_manual("Country", values = pals::tol.rainbow(23),
+                    guide = guide_legend(override.aes = list(size = 5))) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 0.5,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_Country1.png", dpi = 300)
 
 # Group by count within same country and same coordinates on the dimensions
 # Count number of entries per country
@@ -291,43 +282,42 @@ dim_country$Country <- factor(dim_country$Country, levels = c("Netherlands",
                                                         "Kazakhstan"))
 
 # png("../Figures/Biplot_Country2.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_country,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = Country,
-#                  size = N),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21) +
-#   scale_fill_manual("Country", values = pals::tol.rainbow(23),
-#                     guide = guide_legend(override.aes = list(size = 5))) +
-#   scale_size_continuous("Count", breaks = c(1, 10, 50, 100, 200, 400, 800),
-#                         range = c(3,20)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = dim_country,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Country,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21) +
+  scale_fill_manual("Country", values = pals::tol.rainbow(23),
+                    guide = guide_legend(override.aes = list(size = 5))) +
+  scale_size_continuous("Count", breaks = c(1, 10, 50, 100, 200, 400, 800),
+                        range = c(3,20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_Country2.png", dpi = 300)
 ```
 
-## Period
-```{r period, warning=FALSE, message=FALSE}
+### Period
+```{r period, warning=FALSE, message=FALSE, fig.dim=c(14, 10)}
 ## Biplot by PERIOD
 dim_period <- ind_dims[, .N, by = c("Period", "Dim 1", "Dim 2")]
 dim_period <- dim_period[!is.na(Period)]
@@ -344,43 +334,42 @@ dim_period$Period <- factor(dim_period$Period, levels = c("Paleolithic",
                                                           "Medieval"))
 
 # png("../Figures/Biplot_Period.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_period,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = Period,
-#                  size = N),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21) +
-#   scale_fill_manual("Period", values = pals::parula(12),
-#                     guide = guide_legend(override.aes = list(size = 5))) +
-#   scale_size_continuous("Count", breaks = c(1,50,100,250,500),
-#                         range = c(3, 20)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = dim_period,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Period,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21) +
+  scale_fill_manual("Period", values = pals::parula(12),
+                    guide = guide_legend(override.aes = list(size = 5))) +
+  scale_size_continuous("Count", breaks = c(1,50,100,250,500),
+                        range = c(3, 20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_Period.png", dpi = 300)
 ```
 
-## Culture
-```{r culture, warning=FALSE, message=FALSE}
+### Culture
+```{r culture, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
 ## Biplot by CULTURE
 dim_culture <- ind_dims[, .N, by = c("Culture", "Dim 1", "Dim 2")]
 dim_culture <- dim_culture[!is.na(Culture)]
@@ -389,311 +378,278 @@ dim_culture <- dim_culture[!is.na(Culture)]
 culture_keep <- dim_culture[, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
 
 # png("../Figures/Biplot_Culture.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_culture[Culture %in% culture_keep],
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = Culture,
-#                  size = N),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21) +
-#   scale_fill_manual(values = pals::tol.rainbow(10),
-#                     guide = guide_legend(override.aes = list(size = 5))) +
-#   scale_size_continuous("Count", breaks = c(1,25,50,100,150, 200),
-#                         range = c(3, 20)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right",
-#         legend.box = "vertical",
-#         legend.direction = "vertical")
+ggplot() +
+  geom_point(data = dim_culture[Culture %in% culture_keep],
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Culture,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21) +
+  scale_fill_manual(values = pals::tol.rainbow(10),
+                    guide = guide_legend(override.aes = list(size = 5))) +
+  scale_size_continuous("Count", breaks = c(1,25,50,100,150, 200),
+                        range = c(3, 20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right",
+        legend.box = "vertical",
+        legend.direction = "vertical")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_Culture.png", dpi = 300)
 ```
 
-## Sex
-```{r sex, warning=FALSE, message=FALSE}
+### Sex
+```{r sex, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
 ## Biplot by sex
 dim_sex <- ind_dims[, .N, by = c("Sex", "Dim 1", "Dim 2")]
 
 # png("../Figures/Biplot_sex.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_sex,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = Sex,
-#                  size = N),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21) +
-#   scale_fill_gradientn("Sex", colors = pals::parula(100)) +
-#   scale_size_continuous("Count", breaks = c(1,50,100,300,600, 900),
-#                         range = c(3, 20)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = dim_sex,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Sex,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21) +
+  scale_fill_gradientn("Sex", colors = pals::parula(100)) +
+  scale_size_continuous("Count", breaks = c(1,50,100,300,600, 900),
+                        range = c(3, 20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_sex.png", dpi = 300)
 ```
 
-## Ancestry
+### Ancestry
 
-### WHG
-```{r whg, warning=FALSE, message=FALSE}
+#### WHG
+```{r whg, warning=FALSE, message=FALSE,fig.dim=c(14,10)}
 ## Biplot by WHG
 dim_whg <- ind_dims[, mean(WHG, na.rm = T), by = c("Dim 1", "Dim 2")]
 dim_whg <- dim_whg[!is.nan(V1),]
 names(dim_whg)[3] <- "WHG"
 
 # png("../Figures/Biplot_WHG.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_whg,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = WHG),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21,
-#              size = 5) +
-#   scale_fill_gradientn("WHG", colors = pals::parula(100), limits = c(0,1)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = dim_whg,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = WHG),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("WHG", colors = pals::parula(100), limits = c(0,1)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_WHG.png", dpi = 300)
 ```
 
-### EHG
-```{r ehg, warning=FALSE, message=FALSE}
+#### EHG
+```{r ehg, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
 ## Biplot by EHG
 dim_ehg <- ind_dims[, mean(EHG, na.rm = T), by = c("Dim 1", "Dim 2")]
 dim_ehg <- dim_ehg[!is.nan(V1),]
 names(dim_ehg)[3] <- "EHG"
 
 # png("../Figures/Biplot_EHG.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_ehg,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = EHG),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21,
-#              size = 5) +
-#   scale_fill_gradientn("EHG", colors = pals::parula(100), limits = c(0,1)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = dim_ehg,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = EHG),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("EHG", colors = pals::parula(100), limits = c(0,1)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_EHG.png", dpi = 300)
 ```
 
-### CHG
-```{r chg, warning=FALSE, message=FALSE}
+#### CHG
+```{r chg, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
 ## Biplot by CHG
 dim_chg <- ind_dims[, mean(CHG, na.rm = T), by = c("Dim 1", "Dim 2")]
 dim_chg <- dim_chg[!is.nan(V1)]
 names(dim_chg)[3] <- "CHG"
 
 # png("../Figures/Biplot_CHG.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_chg,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = CHG),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21,
-#              size = 5) +
-#   scale_fill_gradientn("CHG", colors = pals::parula(100), limits = c(0,1)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = dim_chg,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = CHG),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("CHG", colors = pals::parula(100), limits = c(0,1)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_CHG.png", dpi = 300)
 ```
 
-### LVN
-```{r lvn, warning=FALSE, message=FALSE}
+#### LVN
+```{r lvn, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
 ## Biplot by LVN
 dim_lvn <- ind_dims[, mean(LVN, na.rm = T), by = c("Dim 1", "Dim 2")]
 dim_lvn <- dim_lvn[!is.nan(V1)]
 names(dim_lvn)[3] <- "LVN"
 
 # png("../Figures/Biplot_LVN.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_lvn,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = LVN),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21,
-#              size = 5) +
-#   scale_fill_gradientn("LVN", colors = pals::parula(100), limits = c(0,1)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = dim_lvn,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = LVN),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("LVN", colors = pals::parula(100), limits = c(0,1)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_LVN.png", dpi = 300)
 ```
 
-## Mobility
-```{r mobility, warning=FALSE, message=FALSE}
+### Mobility
+```{r mobility, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
 ## Biplot by mobility
 dim_mobility <- ind_dims[, mean(mobility, na.rm = T), by = c("Dim 1", "Dim 2")]
 dim_mobility <- dim_mobility[!is.nan(V1)]
 names(dim_mobility)[3] <- "mobility"
 
 # png("../Figures/Biplot_mobility.png", width = 14, height = 10, units = 'in', res = 330)
-# ggplot() +
-#   geom_point(data = dim_mobility,
-#              aes(x = `Dim 1`, y = `Dim 2`,
-#                  fill = mobility),
-#              position = position_jitter(0.2, 0.2),
-#              shape = 21,
-#              size = 5) +
-#   scale_fill_gradientn("Mobility", colors = pals::parula(100)) +
-#   geom_point(data = var_dims,
-#              aes(x = `Dim 1`, y = `Dim 2`),
-#              shape = 23,
-#              fill = 'white',
-#              alpha = 0.5,
-#              size = 3,
-#              stroke = 1) +
-#   geom_label_repel(data = var_dims,
-#                    aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
-#                    segment.color = 'black',
-#                    segment.alpha = 0.5,
-#                    fill = alpha("white", 0.8),
-#                    max.overlaps = 50,
-#                    nudge_x = 1,
-#                    nudge_y = 0.5,
-#                    direction = "both") +
-#   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
-#   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
-#   theme_bw() +
-#   theme(legend.position = "right")
+ggplot() +
+  geom_point(data = dim_mobility,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = mobility),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("Mobility", colors = pals::parula(100)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
 # dev.off()
-knitr::include_graphics("../Figures/Biplot_mobility.png", dpi = 300)
 ```
 
-# Modelling
-
-We had the idea of using the dimensions as response variables in the inlabru models. We standardize the values and see if they follow a normal distribution.
-
-```{r scaling, warning=F, message=F, eval=FALSE}
-# Extract dimensions
-dims <- ind$coord[, 1:3]
-colnames(dims) <- paste0("IND_DIM", 1:3)
-summary(dims)
-
-# Scale
-dims_scaled <- scale(dims, center = T, scale = T)
-colnames(dims_scaled) <- paste0("IND_DIM", 1:3, "_SCALED")
-
-# Add to data
-graves <- cbind(graves, dims)
-graves <- cbind(graves, dims_scaled)
-# head(graves)
-summary(graves[, 86:88])
-
-# Plot
-hist(graves$IND_DIM1_SCALED, main = "Dimension 1", breaks = 100)
-hist(graves$IND_DIM2_SCALED, main = "Dimension 2", breaks = 100)
-hist(graves$IND_DIM3_SCALED, main = "Dimension 3", breaks = 100)
-```
-
-**WE ARE NOT DOING THIS ANYMORE**. 
+## Modelling
 
 We decided, based on the upset plot, to model the burial sides: *right*, *left*, *back* against ancestry and mobility. This is because both left and right are associated with the crouched position and the back is associated with the extended position, which are the most commonly found positions in graves.

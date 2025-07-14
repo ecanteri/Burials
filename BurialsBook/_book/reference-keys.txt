@@ -33,6 +33,7 @@ country-1
 period-1
 culture-1
 sex-1
+culture-by-sex
 age
 ancestry-1
 western-hunter-gatherer-ancestry
@@ -51,6 +52,8 @@ watson-william-test-and-circular-anova
 country-2
 period-2
 culture-2
+difference-between-corded-ware-and-bell-beaker-cultures
+difference-between-lažňany-and-únětice-cultures
 sex-2
 circular-linear-regression-models
 chg-1
