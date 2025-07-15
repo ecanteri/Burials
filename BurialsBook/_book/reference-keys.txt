@@ -54,6 +54,7 @@ period-2
 culture-2
 difference-between-corded-ware-and-bell-beaker-cultures
 difference-between-lažňany-and-únětice-cultures
+difference-across-all-cultures
 sex-2
 circular-linear-regression-models
 chg-1
@@ -61,3 +62,4 @@ whg-1
 ehg-1
 lvn-1
 mobility-2
+bayesian-circular-regression-with-continuous-data-in-bpnreg

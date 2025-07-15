@@ -51,6 +51,11 @@ culture <- culture[!duplicated(IndividualID)]
 graves <- merge(graves, sites[, .(SiteID, Country)], by = "SiteID", all.x = T)
 rm(sites)
 graves <- merge(graves, culture, by = "IndividualID", all.x = T)
+
+## Remove outlier
+graves <- graves[!is.na(YearBP)]
+graves <- graves[YearBP < 15000]
+summary(graves$YearBP)
 ```
 
 ## Multiple correspondence analysis
@@ -371,11 +376,10 @@ ggplot() +
 ### Culture
 ```{r culture, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
 ## Biplot by CULTURE
-dim_culture <- ind_dims[, .N, by = c("Culture", "Dim 1", "Dim 2")]
-dim_culture <- dim_culture[!is.na(Culture)]
+dim_culture <- ind_dims[!is.na(Culture)][, .N, by = c("Culture", "Dim 1", "Dim 2")]
 
 # Plot only the 10 most frequent cultures
-culture_keep <- dim_culture[, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
+culture_keep <- ind_dims[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
 
 # png("../Figures/Biplot_Culture.png", width = 14, height = 10, units = 'in', res = 330)
 ggplot() +
@@ -412,6 +416,43 @@ ggplot() +
         legend.box = "vertical",
         legend.direction = "vertical")
 # dev.off()
+
+## Matching burial orientation
+culture_keep <- readRDS("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Data/culture_keep.RDS")
+
+ggplot() +
+  geom_point(data = dim_culture[Culture %in% culture_keep],
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Culture,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21) +
+  scale_fill_manual(values = pals::tol.rainbow(10),
+                    guide = guide_legend(override.aes = list(size = 5))) +
+  scale_size_continuous("Count", breaks = c(1,25,50,100,150, 200),
+                        range = c(3, 20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right",
+        legend.box = "vertical",
+        legend.direction = "vertical")
 ```
 
 ### Sex

@@ -144,7 +144,7 @@ orientation$LVN <- graves[Num %in% orientation$Num]$ANCE6_v2
 orientation$CHG <- graves[Num %in% orientation$Num]$ANCE8_v2
 orientation$mobility <- graves[Num %in% orientation$Num]$mobility_MDS_250y_retrospective
 
-orientation <- fread("./Data/BurialOrientation.csv", na.strings = "")
+# orientation <- fread("./Data/BurialOrientation.csv", na.strings = "")
 ```
 
 Now we can start visualizing the circular orientation data using histograms, circular histograms and scatterplots that combine sine and cosine values.
@@ -547,8 +547,7 @@ ggplot(data = orientation[Period != "Iron Age"],
 ### Culture
 ```{r b-o culture, fig.dim=c(12,10)}
 ##### Culture #####
-dim_culture <- orientation[, .N, by = c("Culture", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
-dim_culture <- dim_culture[!is.na(Culture)]
+dim_culture <- orientation[!is.na(Culture)][, .N, by = c("Culture", "BurialOrientationMean_sin", "BurialOrientationMean_cos")]
 # Plot only the 10 most frequent cultures
 culture_keep <- orientation[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
 orientation[Culture %in% culture_keep][, .N, by = "Culture"][order(N, decreasing = T)]

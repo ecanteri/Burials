@@ -6,10 +6,12 @@ editor_options:
 
 ```{r, warning=FALSE, message=FALSE, include=FALSE}
 library(data.table)
+library(DT)
 library(ggplot2)
 library(FactoMineR)
 library(circular)
 library(CircStats)
+library(circlize)
 library(bpnreg)
 library(BIADconnect)
 conn <- init.conn()
@@ -477,20 +479,20 @@ summary.dat
 
 ## Calculate mean direction and concentration from uniform distribution
 cw_unif <- lapply(1:1000, function(x){
-  r <- abs(rcircularuniform(n = length(cordedware),
+  r <- rcircularuniform(n = length(cordedware),
                             control.circular = list(
                               units = "degrees",
-                              rotation = "clock")))
+                              rotation = "clock"))
   m <- mean.circular(r)
   k <- rho.circular(r)
   return(list(m, k))
 })
   
 bb_unif <- lapply(1:1000, function(x){
-  r <- abs(rcircularuniform(n = length(bellbeaker),
+  r <- rcircularuniform(n = length(bellbeaker),
                             control.circular = list(
                               units = "degrees",
-                              rotation = "clock")))
+                              rotation = "clock"))
   m <- mean.circular(r)
   k <- rho.circular(r)
   return(list(m, k))
@@ -538,6 +540,7 @@ circ.dat$Culture <- as.factor(circ.dat$Culture)
 fit <- bpnr(Angles ~ 1 + Culture, data = circ.dat, 
             its = 10000, burn = 100, n.lag = 3, seed = 1234)
 ```
+
 ```{r stats cw-bb bpnreg2}
 # Means
 aov.dt <- setDT(data.frame(coef_circ(fit, "categorical", "radians")$Means))
@@ -570,15 +573,9 @@ We can also try these other two tests that according to this paper seem to perfo
 
 <https://doi.org/10.1038/s41598-021-99299-5>
 
-```{r stats watson.two manova}
+```{r stats watson.two}
 ## Watson's U2 test
 watson.two(cordedware, bellbeaker)
-
-## MANOVA
-circ.dat$Sin <- sin(circ.dat$Angles)
-circ.dat$Cos <- cos(circ.dat$Angles)
-maov <- manova(cbind(Sin, Cos) ~ 1 + Culture, circ.dat)
-summary(maov)
 ```
 
 So when the Watson's U^2^ test has a small p-value or a large test statistic, it means that the two groups are **NOT** homogeneious, so they are significantly different.
@@ -608,6 +605,7 @@ summary.dat2 <- data.frame(culture = c("Lažňany", "Únětice"),
                                  sd.circular(unetice)))
 summary.dat2
 ```
+
 ```{r stats lz-un bpnreg2, results = 'hide'}
 # Data for regression
 circ.dat2 <- data.frame(Angles = c(as.numeric(laznany)*pi/180,
@@ -619,6 +617,7 @@ circ.dat2$Culture <- as.factor(circ.dat2$Culture)
 fit2 <- bpnr(Angles ~ 1 + Culture, data = circ.dat2, 
             its = 10000, burn = 100, n.lag = 3, seed = 1234)
 ```
+
 ```{r stats lz-un bpnreg3}
 # Means
 aov.dt2 <- setDT(data.frame(coef_circ(fit2, "categorical", "radians")$Means))
@@ -646,21 +645,21 @@ angular_distance(aov.dt2$mean[1]*180/pi, aov.dt2$mean[2]*180/pi)
 
 ## Watson's U2 test
 watson.two(laznany, unetice)
-
-## MANOVA
-circ.dat2$Sin <- sin(circ.dat2$Angles)
-circ.dat2$Cos <- cos(circ.dat2$Angles)
-maov2 <- manova(cbind(Sin, Cos) ~ 1 + Culture, circ.dat2)
-summary(maov2)
 ```
 
 In this case we can see that the HPDs for the two cultures completely overlap and their means differ by only \~3 degrees. Furthermore, the LB and UB of the HPD for the difference crosses 0. Therefore, they are not significantly different from one another.
 
 The Watson's U^2^ test also confirms this interpretation, as the p-value is greater than 0.10 and the test statistic is small.
 
-The MANOVA test seems to be incorrect in this case.
+### Difference across all cultures
 
-```{r stats cultures all, echo=FALSE, eval=F}
+For testing difference across all cultures (groups) we have to rotate the reference culture against which the regression is made. This is because the Intercept in these models is actually the reference culture, so each posterior summary statistic has to be interpreted against the group of reference.
+
+Therefore, to look at the differences table we will have to fit a different model where the reference culture rotates.
+
+But first, we can look at the means table which will always stay the same.
+
+```{r stats cultures all, echo=TRUE, eval=T, results = "hide"}
 circ.dat.all <- lapply(culture, function(x){
   x$BurialOrientationMean <- x$BurialOrientationMean*pi/180
   return(x)
@@ -683,25 +682,212 @@ circ.dat.all$Culture <- factor(circ.dat.all$Culture,
 fit.all <- bpnr(BurialOrientationMean ~ 1 + Culture, 
                 data = circ.dat.all, its = 10000, burn = 1000, 
                 n.lag = 3, seed = 1234)
+```
 
+The table shows the HPD of the means for each group. If the HPDs overlap across groups, the difference between those groups is not significant.
+
+```{r stats cultures all2}
 # Means
-aov.dt.all <- setDT(data.frame(coef_circ(fit.all, "categorical", "radians")$Means))
-aov.dt.all[, Culture := rownames(coef_circ(fit.all, "categorical", "radians")$Means)]
-c1 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 2)
-c2 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 3)
-c1[is.na(c1)] <- c2[is.na(c2)] <- "Linearbandkeramik"
-aov.dt.all[, Culture := paste0(c1, "/", c2)]
+aov.dt.all <- setDT(data.frame(coef_circ(fit.all, "categorical", "radians")$Means))[1:10,]
+aov.dt.all[, Culture := unique(circ.dat.all$Culture)]
+# c1 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 2)
+# c2 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 3)
+# c1[is.na(c1)] <- c2[is.na(c2)] <- "Linearbandkeramik"
+# aov.dt.all[, Culture := paste0(c1, "/", c2)]
 aov.dt.all[, .(Culture, deg(.SD)), .SDcols = c("mean", "mode", "sd", "LB", "UB")]
+```
 
-# Differences
-diff.dt.all <- setDT(data.frame(coef_circ(fit.all, "categorical", units = "degrees")$Differences))
-diff.dt.all[, Difference := rownames(coef_circ(fit.all, "categorical", units = "degrees")$Differences)]
-c1 <- sapply(strsplit(diff.dt.all$Difference, "Culture"), "[", 2)
-c2 <- sapply(strsplit(diff.dt.all$Difference, "Culture"), "[", 3)
-c2[is.na(c2)] <- "Linearbandkeramik"
-diff.dt.all[, Difference := paste0(c1, "/", c2)]
-diff.dt.all[, .(Difference, mean, mode, sd, LB, UB)]
-diff.dt.all[, Significant := ifelse(between(0, LB, UB), "No", "Yes")]
+```{r stats cultures all3, echo = FALSE, fig.dim=c(15,15)}
+## Visualization with circlize package
+culture.means <- deg(aov.dt.all$mean)
+culture.means <- ifelse(culture.means < 0, 360 + culture.means, culture.means)
+culture.ranges.lb <- deg(aov.dt.all$LB)
+culture.ranges.lb <- ifelse(culture.ranges.lb < 0, 360 + culture.ranges.lb, culture.ranges.lb)
+culture.ranges.ub <- deg(aov.dt.all$UB)
+culture.ranges.ub <- ifelse(culture.ranges.ub < 0, 360 + culture.ranges.ub, culture.ranges.ub)
+
+# params
+labs <- as.character(seq(0, 360, 22.5))
+labs[17] <- "0"
+cols <- rev(pals::ocean.thermal(12))[2:11]
+ys <- seq(0, 1, length.out = 10)
+texts <- levels(aov.dt.all$Culture)
+
+# plot
+circos.par(gap.degree = 0, cell.padding = c(0, 0, 0, 0), start.degree = 90)
+circos.initialize("a", xlim = c(0, 360), ring = T)
+circos.track(ylim = c(0,1), bg.border = NA)
+circos.axis(major.at = seq(0, 360, 22.5), 
+            direction = "outside",
+            labels = labs)
+circos.segments(x0 = culture.ranges.lb[1], 
+                y0 = ys[1], 
+                x1 = culture.ranges.ub[1], 
+                y1 = ys[1], col = cols[1], lwd = 2)
+circos.text(x = culture.means[1], 
+            y = ys[1] - 0.05,
+            labels = texts[1], 
+            col = cols[1],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[2], 
+                y0 = ys[2], 
+                x1 = culture.ranges.ub[2], 
+                y1 = ys[2], col = cols[2], 
+                lwd = 2)
+circos.text(x = culture.means[2], 
+            y = ys[2] - 0.05,
+            labels = texts[2], 
+            col = cols[2],
+            facing = "bending.outside",
+            cex = 1)
+# crosses zero
+circos.segments(x0 = culture.ranges.lb[3], 
+                y0 = ys[3], x1 = 360, 
+                y1 = ys[3], col = cols[3], 
+                lwd = 2)
+circos.segments(x0 = 0, y0 = ys[3], 
+                x1 = culture.ranges.ub[3], 
+                y1 = ys[3], col = cols[3], 
+                lwd = 2)
+circos.text(x = culture.means[3], 
+            y = ys[3] - 0.05,
+            labels = texts[3], 
+            col = cols[3],
+            facing = "bending.inside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[4], 
+                y0 = ys[4], 
+                x1 = culture.ranges.ub[4], 
+                y1 = ys[4], col = cols[4], 
+                lwd = 2)
+circos.text(x = culture.means[4], 
+            y = ys[4] - 0.05,
+            labels = texts[4], 
+            col = cols[4],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[5], 
+                y0 = ys[5], 
+                x1 = culture.ranges.ub[5], 
+                y1 = ys[5], col = cols[5], 
+                lwd = 2)
+circos.text(x = culture.means[5], 
+            y = ys[5] - 0.05,
+            labels = texts[5], 
+            col = cols[5],
+            facing = "bending.outside",
+            cex = 1)
+# crosses zero
+circos.segments(x0 = culture.ranges.lb[6], 
+                y0 = ys[6], x1 = 360, 
+                y1 = ys[6], col = cols[6], 
+                lwd = 2)
+circos.segments(x0 = 0, y0 = ys[6], 
+                x1 = culture.ranges.ub[6], 
+                y1 = ys[6], col = cols[6], 
+                lwd = 2)
+circos.text(x = culture.means[6], 
+            y = ys[6] - 0.05,
+            labels = texts[6], 
+            col = cols[6],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[7], 
+                y0 = ys[7], 
+                x1 = culture.ranges.ub[7], 
+                y1 = ys[7], col = cols[7], 
+                lwd = 2)
+circos.text(x = culture.means[7], 
+            y = ys[7] - 0.05,
+            labels = texts[7], 
+            col = cols[7],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[8], 
+                y0 = ys[8], 
+                x1 = culture.ranges.ub[8], 
+                y1 = ys[8], col = cols[8], 
+                lwd = 2)
+circos.text(x = culture.means[8], 
+            y = ys[8] - 0.05,
+            labels = texts[8], 
+            col = cols[8],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[9], 
+                y0 = ys[9], 
+                x1 = culture.ranges.ub[9], 
+                y1 = ys[9], col = cols[9], 
+                lwd = 2)
+circos.text(x = culture.means[9], 
+            y = ys[9] - 0.05,
+            labels = texts[9], 
+            col = cols[9],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[10], 
+                y0 = ys[10], 
+                x1 = culture.ranges.ub[10], 
+                y1 = ys[10], col = cols[10], 
+                lwd = 2)
+circos.text(x = culture.means[10], 
+            y = ys[10] - 0.05,
+            labels = texts[10], 
+            col = cols[10],
+            facing = "bending.outside",
+            cex = 1)
+circos.points(x = culture.means, y = ys, bg = cols, pch = 21)
+circos.clear()
+```
+
+The plot shows the posterior mean direction and HPD range of each culture. If the mean is outside the ranges of another culture, the difference between those cultures is significant.
+
+We will test this statistically by fitting models with rotating group of reference.
+
+```{r stats differences, results = "hide"}
+# Rotate values so that reference culture is always a new one
+culture.labels <- as.character(unique(aov.dt.all$Culture))
+culture.labels <- lapply(0:(length(culture.labels)-1), function(i) {
+  c(culture.labels[(i+1):length(culture.labels)], culture.labels[1:i])
+})
+culture.labels[[1]] <- culture.labels[[1]][1:10]
+
+# Regression model list
+differences.all <- lapply(culture.labels, function(l){
+  # data
+  circ.dat.all$Culture <- as.character(circ.dat.all$Culture)
+  circ.dat.all$Culture <- factor(circ.dat.all$Culture, 
+                                 levels = l)
+  # model
+  fit.m <- bpnr(BurialOrientationMean ~ 1 + Culture, 
+                data = circ.dat.all, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+  # differences
+  diff.dt <- setDT(data.frame(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:9,])
+  diff.dt[, Difference := rownames(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:9]]
+  c1 <- sapply(strsplit(diff.dt$Difference, "Culture"), "[", 2)
+  c2 <- sapply(strsplit(diff.dt$Difference, "Culture"), "[", 3)
+  c2[is.na(c2)] <- l[1]
+  diff.dt[, Difference := paste0(c2, "/", c1)]
+  diff.dt[, .(Difference, mean, mode, sd, LB, UB)]
+  diff.dt[, Significant := ifelse(between(0, LB, UB), "No", "Yes")]
+  return(diff.dt)
+})
+```
+
+```{r stats differences2}
+# Remove duplicated comparisons
+dt <- rbindlist(differences.all)
+dt$Difference <- sapply(strsplit(dt$Difference, "/"), function(pair) {
+  paste(gtools::mixedsort(pair), collapse = "/")
+})
+dt <- dt[!duplicated(Difference)][, .(Difference, mean, mode, sd, LB, UB, Significant)]
+dt[, Culture1 := sapply(strsplit(dt$Difference, "/"), "[", 1)]
+dt[, Culture2 := sapply(strsplit(dt$Difference, "/"), "[", 2)]
+dt <- dt[, .(Difference, Culture1, Culture2, mean, mode, sd, LB, UB, Significant)][order(Culture1)]
+
+datatable(dt[order(Culture1)][, .(Culture1, Culture2, mean, mode, sd, LB, UB, Significant, Difference)], options = list(scrollX = TRUE))
 ```
 
 ## Sex
@@ -735,13 +921,17 @@ sex_dists <- reshape2::melt(sex_mat)
 # Plot burial orientations per period
 sex_means_dt <- data.table(Sex = names(sex_means), Mean = sex_means)
 sex_means_dt[, Mean := ifelse(Mean < 0, Mean + 360, Mean)]
+
+cols <- rev(pals::brewer.piyg(3))
+cols[2] <- "grey80"
+
 ggplot(data = orientation, 
        aes(x = as.factor(Sex), y = BurialOrientationMean, 
            fill = as.factor(Sex))) +
   geom_violin(width = 1, drop = F) +
   geom_point(data = sex_means_dt, aes(x = Sex, y = Mean), 
              size = 2, shape = 23, fill = "white") +
-  scale_fill_manual(values = rev(pals::brewer.piyg(3))) +
+  scale_fill_manual(values = cols) +
   ylab("Burial orientation") +
   theme_light() +
   theme(legend.position = "none",
@@ -766,43 +956,60 @@ ggplot(data = sex_dists[!is.na(sex_dists$value),]) +
         legend.position = "none",
         axis.text = element_text(size = 14))
 ```
+
 ```{r stats sex bpnreg, results = "hide"}
 ## Bayesian circular regression
-sex.dt <- orientation[, .(Angles = BurialOrientationMean, Sex)]
+sex.dt <- orientation[, .(Angles = rad(BurialOrientationMean), Sex)]
 sex.dt <- sex.dt[!is.na(Angles)]
 sex.dt$Sex <- factor(sex.dt$Sex, levels = c("0", "0.5", "1"))
 
 fit.sex <- bpnr(Angles ~ 1 + Sex, data = sex.dt, 
             its = 10000, burn = 100, n.lag = 3, seed = 1234)
 ```
+
 ```{r stats sex bpnreg2}
 # Means
 sex.aov.dt <- setDT(data.frame(coef_circ(fit.sex, "categorical", "radians")$Means))[-4,]
 sex.aov.dt[, Sex := levels(sex.dt$Sex)]
+sex.aov.dt <- sex.aov.dt[, .(Sex, deg(.SD)), .SDcols = c("mean", "mode", "sd", "LB", "UB")]
+sex.aov.dt
 
 # Plot
-plot.circular(c(sex.aov.dt$LB[1], sex.aov.dt$UB[1]), pch = 1, 
-              col = 'red', rotation = "clock", zero = pi/2)
-points.circular(c(sex.aov.dt$LB[2], sex.aov.dt$UB[2]), pch = 5, 
-                col = 'blue', rotation = "clock", zero = pi/2)
-points.circular(c(sex.aov.dt$LB[3], sex.aov.dt$UB[3]), pch = 2, 
-                col = 'green', rotation = "clock", zero = pi/2)
-points.circular(sex.aov.dt$mean[1], pch = 16, col = "red", 
-                rotation = "clock", zero = pi/2)
-points.circular(sex.aov.dt$mean[2], pch = 18, col = "blue", 
-                cex = 1.5, rotation = "clock", zero = pi/2)
-points.circular(sex.aov.dt$mean[3], pch = 17, col = "green", 
-                rotation = "clock", zero = pi/2)
+cols <- rev(pals::brewer.piyg(3))
+cols[2] <- "grey80"
+ys <- seq(0, 1, 0.5)
 
-sex.aov.dt[, .(Sex, deg(.SD)), .SDcols = c("mean", "mode", "sd", "LB", "UB")]
+circos.par(gap.degree = 0, cell.padding = c(0, 0, 0, 0), start.degree = 90)
+circos.initialize("a", xlim = c(0, 360), ring = T)
+circos.track(ylim = c(0,1), bg.border = NA)
+circos.axis(major.at = seq(0, 360, 22.5), 
+            direction = "outside",
+            labels = labs)
+circos.segments(x0 = sex.aov.dt$LB[1], y0 = ys[1], 
+                x1 = sex.aov.dt$UB[1], y1 = ys[1],
+                col = cols[1], lwd = 2)
+circos.segments(x0 = sex.aov.dt$LB[2], y0 = ys[2], 
+                x1 = sex.aov.dt$UB[2], y1 = ys[2],
+                col = cols[2], lwd = 2)
+circos.segments(x0 = sex.aov.dt$LB[3], y0 = ys[3], 
+                x1 = sex.aov.dt$UB[3], y1 = ys[3],
+                col = cols[3], lwd = 2)
+circos.points(x = sex.aov.dt$mean[1], y = ys[1],
+              bg = cols[1], pch = 21)
+circos.points(x = sex.aov.dt$mean[2], y = ys[2],
+              bg = cols[2], pch = 21)
+circos.points(x = sex.aov.dt$mean[3], y = ys[3],
+              bg = cols[3], pch = 21)
+circos.clear()
 
 # Differences
-diff.dt <- setDT(data.frame(coef_circ(fit.sex, "categorical", units = "degrees")$Differences))
+diff.dt <- setDT(data.frame(coef_circ(fit.sex, "categorical", units = "degrees")$Differences)[1:2,])
 diff.dt[, Difference := c("0/0.5",
-                          "0/1",
-                          "0.5/1")]
+                          "0/1")]
 diff.dt[, .(Difference, mean, mode, sd, LB, UB)]
 ```
+
+It seems that 0 is different from 0.5 and 1. So we do see a difference between males and females, although this is of ~20 degrees. There is however no difference between females and the undetermined individuals.
 
 ## Circular linear regression models
 
@@ -918,3 +1125,44 @@ mu <- as.numeric(mean.circular(y))
 reg.mob <- lm.circular(y = y, x = x, type = "c-l", init = c(0,1))
 reg.mob
 ```
+
+## Bayesian circular regression with continuous data in `bpnreg`
+
+We can also try using the same Bayesian regression model that we used for the categories.
+
+For the continuous variable CHG we get a set of parameters, *bc*, *SAM* and *AS*, describing its effect on the circle. The coefficient *bc* represents the slope of the circular regression line at the inflection point. However, this may not be a representative effect for each dataset as the inflection point can lie in the extremes of the data or even completely outside the range of the predictor x. Therefore, two additional circular coefficients were developed by Cremers et al. (2018), the slope at the mean *SAM* and the average slope *AS.* The coefficient *SAM* represents the slope of the circular regression line at the average of the predictor and the coefficients *AS* represents the average slope over all values of x.
+
+If the HPD intervals for all three circular coefficients (*bc, SAM and AS*) include 0, we do not find evidence that at the inflection point, at the average predictor value and on average the covariate influences the angular error.
+
+<https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2018.02040/full#B5> <https://bpspsychub.onlinelibrary.wiley.com/doi/10.1111/bmsp.12108>
+
+First I will center and scale all the ancestries together, so that the centering and scaling is not unique for each ancestry but it is based on all ancestry values together.
+
+```{r stats bpnreg continuous, results = "hide"}
+# Scale ancestries together so they are all on the same scale
+ance <- orientation[, .(WHG, CHG, EHG, LVN)]
+ance <- ance[!is.na(WHG)]
+ance <- melt(ance)
+ance$value <- scale(ance$value)
+
+ance.dt <- orientation[, .(Angles = rad(BurialOrientationMean),
+                          WHG, CHG, EHG, LVN, mobility)]
+ance.dt <- ance.dt[!is.na(WHG)]
+ance.dt$WHG <- ance[variable == "WHG"]$value
+ance.dt$CHG <- ance[variable == "CHG"]$value
+ance.dt$EHG <- ance[variable == "EHG"]$value
+ance.dt$LVN <- ance[variable == "LVN"]$value
+ance.dt <- ance.dt[!is.na(mobility)]
+ance.dt$mobility <- scale(ance.dt$mobility)
+
+fit.cont <- bpnr(Angles ~ 1 + WHG + CHG + EHG + LVN + mobility, data = ance.dt, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+```
+
+Based on the table for linear coefficients, it seems that all ancestries have an effect on the 2nd component (cosine) of the angles. Mobility does not seem to have an effect. Now to determine whether there is an effect on the circle, we have to look at the posterior HPDs of the circular coefficients, specifically bc, AS, SAM and SSDO. These will tell us if there is an accuracy or location effect.
+
+```{r stats bpnreg continuous2}
+fit.cont
+```
+
+When looking at the table, we can see that the HPDs for *bc* cross zero for all ancestries. This is also true for the HPDs for *SSDO*. If the HPD interval of the *SSDO* of a predictor does not include 0, the bivariate regression line does not run through the origin and therefore there is a location effect. Based on this and our HPDs for *SSDO*, we can conclude that **we do not have a location effect**. The effect that we see on the two components might therefore be an accuracy effect, an effect on the spread of the angles around the circles and not on the mean direction. *SAM* is the slope of the regression curve at the mean of the predictor data and the HPDs are outside zero for CHG, EHG and LVN. This means that at the average CHG, EHG, and LVN, with 1 unit increase we have an increase in the spread around the circle of 84.1˚, 54˚ and 33.8˚, respectively. When looking at the average slope at each predictor data point (*AS*), the HPD is outside zero only for CHG. This means that on average, a unit increase in CHG results in an increase of 86.5˚ in the spread around the circle.
