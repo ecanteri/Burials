@@ -55,6 +55,10 @@ culture-2
 difference-between-corded-ware-and-bell-beaker-cultures
 difference-between-lažňany-and-únětice-cultures
 difference-across-all-cultures
+differences-across-cultures-with-orientations-divided-by-body-position
+left
+right
+back
 sex-2
 circular-linear-regression-models
 chg-1

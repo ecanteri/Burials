@@ -871,7 +871,7 @@ differences.all <- lapply(culture.labels, function(l){
   c2[is.na(c2)] <- l[1]
   diff.dt[, Difference := paste0(c2, "/", c1)]
   diff.dt[, .(Difference, mean, mode, sd, LB, UB)]
-  diff.dt[, Significant := ifelse(between(0, LB, UB), "No", "Yes")]
+  diff.dt[, Significant := ifelse(between(0, LB, UB) | LB > UB, "No", "Yes")]
   return(diff.dt)
 })
 ```
@@ -888,6 +888,694 @@ dt[, Culture2 := sapply(strsplit(dt$Difference, "/"), "[", 2)]
 dt <- dt[, .(Difference, Culture1, Culture2, mean, mode, sd, LB, UB, Significant)][order(Culture1)]
 
 datatable(dt[order(Culture1)][, .(Culture1, Culture2, mean, mode, sd, LB, UB, Significant, Difference)], options = list(scrollX = TRUE))
+```
+
+### Differences across cultures with orientations divided by body position
+
+Here we are going to test for differences in cultures when dividing by body position. This means that for each position (left, right, back), we model the orientations against cultures.
+
+#### Left
+
+```{r stats cultures left, echo=TRUE, eval=T, results = "hide"}
+# Add culture information to left data
+left <- merge(left, orientation[, .(Num, Culture)], by = "Num", all.x = T)
+nrow(left)
+nrow(left[!is.na(Culture)][Culture %in% culture_keep])
+
+# Remove NAs in Culture and keep only 10 most common cultures
+culture_left <- left[!is.na(Culture)][Culture %in% culture_keep][, .(BurialOrientationMean, Culture)]
+
+# Transform to radians
+circ.dat.left <- culture_left
+circ.dat.left[, Angles := BurialOrientationMean*pi/180]
+circ.dat.left$Culture <- factor(circ.dat.left$Culture, 
+                               labels = c("Linearbandkeramik",
+                                          "Lažňany",
+                                          "Sopot",
+                                          "Bell Beaker",
+                                          "Corded Ware",
+                                          "Baden",
+                                          "Dnieper-Donets",
+                                          "Únětice",
+                                          "Trichterbecher",
+                                          "Baltic Meso-Neolithic"),
+                               levels = unique(circ.dat.left$Culture))
+
+# Model
+fit.left <- bpnr(Angles ~ 1 + Culture, 
+                data = circ.dat.left, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+```
+```{r stats cultures left2}
+# Means
+aov.dt.left <- setDT(data.frame(coef_circ(fit.left, "categorical", "radians")$Means))[1:10,]
+aov.dt.left[, Culture := unique(circ.dat.left$Culture)]
+# c1 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 2)
+# c2 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 3)
+# c1[is.na(c1)] <- c2[is.na(c2)] <- "Linearbandkeramik"
+# aov.dt.all[, Culture := paste0(c1, "/", c2)]
+aov.dt.left[, .(Culture, deg(.SD)), .SDcols = c("mean", "mode", "sd", "LB", "UB")]
+```
+```{r stats differences left, results = "hide"}
+# Rotate values so that reference culture is always a new one
+culture.labels <- as.character(unique(aov.dt.left$Culture))
+culture.labels <- lapply(0:(length(culture.labels)-1), function(i) {
+  c(culture.labels[(i+1):length(culture.labels)], culture.labels[1:i])
+})
+culture.labels[[1]] <- culture.labels[[1]][1:10]
+
+# Regression model list
+differences.left <- lapply(culture.labels, function(l){
+  # data
+  circ.dat.left$Culture <- as.character(circ.dat.left$Culture)
+  circ.dat.left$Culture <- factor(circ.dat.left$Culture, 
+                                 levels = l)
+  # model
+  fit.m <- bpnr(Angles ~ 1 + Culture, 
+                data = circ.dat.left, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+  # differences
+  diff.dt.left <- setDT(data.frame(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:9,])
+  diff.dt.left[, Difference := rownames(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:9]]
+  c1 <- sapply(strsplit(diff.dt.left$Difference, "Culture"), "[", 2)
+  c2 <- sapply(strsplit(diff.dt.left$Difference, "Culture"), "[", 3)
+  c2[is.na(c2)] <- l[1]
+  diff.dt.left[, Difference := paste0(c2, "/", c1)]
+  diff.dt.left[, .(Difference, mean, mode, sd, LB, UB)]
+  diff.dt.left[, Significant := ifelse(between(0, LB, UB) | LB > UB, "No", "Yes")]
+  return(diff.dt.left)
+})
+```
+```{r stats differences left2}
+# Remove duplicated comparisons
+dt <- rbindlist(differences.left)
+dt$Difference <- sapply(strsplit(dt$Difference, "/"), function(pair) {
+  paste(gtools::mixedsort(pair), collapse = "/")
+})
+dt <- dt[!duplicated(Difference)][, .(Difference, mean, mode, sd, LB, UB, Significant)]
+dt[, Culture1 := sapply(strsplit(dt$Difference, "/"), "[", 1)]
+dt[, Culture2 := sapply(strsplit(dt$Difference, "/"), "[", 2)]
+dt <- dt[, .(Difference, Culture1, Culture2, mean, mode, sd, LB, UB, Significant)][order(Culture1)]
+
+datatable(dt[order(Culture1)][, .(Culture1, Culture2, mean, mode, sd, LB, UB, Significant, Difference)], options = list(scrollX = TRUE))
+```
+```{r stats cultures left3, echo = FALSE, fig.dim=c(15,15)}
+## Visualization with circlize package
+culture.means <- deg(aov.dt.left$mean)
+culture.means <- ifelse(culture.means < 0, 360 + culture.means, culture.means)
+culture.ranges.lb <- deg(aov.dt.left$LB)
+culture.ranges.lb <- ifelse(culture.ranges.lb < 0, 360 + culture.ranges.lb, culture.ranges.lb)
+culture.ranges.ub <- deg(aov.dt.left$UB)
+culture.ranges.ub <- ifelse(culture.ranges.ub < 0, 360 + culture.ranges.ub, culture.ranges.ub)
+
+# params
+labs <- as.character(seq(0, 360, 22.5))
+labs[17] <- "0"
+cols <- rev(pals::ocean.thermal(12))[2:11]
+ys <- seq(0, 1, length.out = 10)
+texts <- levels(aov.dt.left$Culture)
+
+# plot
+circos.par(gap.degree = 0, cell.padding = c(0, 0, 0, 0), start.degree = 90)
+circos.initialize("a", xlim = c(0, 360), ring = T)
+circos.track(ylim = c(0,1), bg.border = NA)
+circos.axis(major.at = seq(0, 360, 22.5), 
+            direction = "outside",
+            labels = labs)
+circos.segments(x0 = culture.ranges.lb[1], 
+                y0 = ys[1], 
+                x1 = culture.ranges.ub[1], 
+                y1 = ys[1], col = cols[1], lwd = 2)
+circos.text(x = culture.means[1], 
+            y = ys[1] - 0.05,
+            labels = texts[1], 
+            col = cols[1],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[2], 
+                y0 = ys[2], 
+                x1 = culture.ranges.ub[2], 
+                y1 = ys[2], col = cols[2], 
+                lwd = 2)
+circos.text(x = culture.means[2], 
+            y = ys[2] - 0.05,
+            labels = texts[2], 
+            col = cols[2],
+            facing = "bending.outside",
+            cex = 1)
+# crosses zero
+circos.segments(x0 = culture.ranges.lb[3], 
+                y0 = ys[3], x1 = 360, 
+                y1 = ys[3], col = cols[3], 
+                lwd = 2)
+circos.segments(x0 = 0, y0 = ys[3], 
+                x1 = culture.ranges.ub[3], 
+                y1 = ys[3], col = cols[3], 
+                lwd = 2)
+circos.text(x = culture.means[3], 
+            y = ys[3] - 0.05,
+            labels = texts[3], 
+            col = cols[3],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[4], 
+                y0 = ys[4], 
+                x1 = culture.ranges.ub[4], 
+                y1 = ys[4], col = cols[4], 
+                lwd = 2)
+circos.text(x = culture.means[4], 
+            y = ys[4] - 0.05,
+            labels = texts[4], 
+            col = cols[4],
+            facing = "bending.inside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[5], 
+                y0 = ys[5], 
+                x1 = culture.ranges.ub[5], 
+                y1 = ys[5], col = cols[5], 
+                lwd = 2)
+circos.text(x = culture.means[5], 
+            y = ys[5] - 0.05,
+            labels = texts[5], 
+            col = cols[5],
+            facing = "bending.inside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[6], 
+                y0 = ys[6],
+                x1 = culture.ranges.ub[6], 
+                y1 = ys[6], col = cols[6], 
+                lwd = 2)
+circos.text(x = culture.means[6], 
+            y = ys[6] - 0.05,
+            labels = texts[6], 
+            col = cols[6],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[7], 
+                y0 = ys[7], 
+                x1 = culture.ranges.ub[7], 
+                y1 = ys[7], col = cols[7], 
+                lwd = 2)
+circos.text(x = culture.means[7], 
+            y = ys[7] - 0.05,
+            labels = texts[7], 
+            col = cols[7],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[8], 
+                y0 = ys[8], 
+                x1 = culture.ranges.ub[8], 
+                y1 = ys[8], col = cols[8], 
+                lwd = 2)
+circos.text(x = culture.means[8], 
+            y = ys[8] - 0.05,
+            labels = texts[8], 
+            col = cols[8],
+            facing = "bending.inside",
+            cex = 1)
+# crosses zero
+circos.segments(x0 = culture.ranges.lb[9], 
+                y0 = ys[9], x1 = 360, 
+                y1 = ys[9], col = cols[9], 
+                lwd = 2)
+circos.segments(x0 = 0, y0 = ys[9], 
+                x1 = culture.ranges.ub[9], 
+                y1 = ys[9], col = cols[9], 
+                lwd = 2)
+circos.text(x = culture.means[9], 
+            y = ys[9] - 0.05,
+            labels = texts[9], 
+            col = cols[9],
+            facing = "bending.inside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[10], 
+                y0 = ys[10], 
+                x1 = culture.ranges.ub[10], 
+                y1 = ys[10], col = cols[10], 
+                lwd = 2)
+circos.text(x = culture.means[10], 
+            y = ys[10] - 0.05,
+            labels = texts[10], 
+            col = cols[10],
+            facing = "bending.outside",
+            cex = 1)
+circos.points(x = culture.means, y = ys, bg = cols, pch = 21)
+circos.clear()
+```
+
+#### Right
+
+```{r stats cultures right, echo=TRUE, eval=T, results = "hide"}
+# Add culture information to left data
+right <- merge(right, orientation[, .(Num, Culture)], by = "Num", all.x = T)
+nrow(right)
+nrow(right[!is.na(Culture)][Culture %in% culture_keep])
+
+# Remove NAs in Culture and keep only 10 most common cultures
+culture_right <- right[!is.na(Culture)][Culture %in% culture_keep][, .(BurialOrientationMean, Culture)]
+
+# Transform to radians
+circ.dat.right <- culture_right
+circ.dat.right[, Angles := BurialOrientationMean*pi/180]
+circ.dat.right$Culture <- factor(circ.dat.right$Culture, 
+                               labels = c("Linearbandkeramik",
+                                          "Lažňany",
+                                          "Sopot",
+                                          "Bell Beaker",
+                                          "Dnieper-Donets",
+                                          "Baden",
+                                          "Corded Ware",
+                                          "Trichterbecher",
+                                          "Únětice",
+                                          "Baltic Meso-Neolithic"),
+                               levels = unique(circ.dat.right$Culture))
+
+# Model
+fit.right <- bpnr(Angles ~ 1 + Culture, 
+                data = circ.dat.right, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+```
+```{r stats cultures right2}
+# Means
+aov.dt.right <- setDT(data.frame(coef_circ(fit.right, "categorical", "radians")$Means))[1:10,]
+aov.dt.right[, Culture := unique(circ.dat.right$Culture)]
+# c1 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 2)
+# c2 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 3)
+# c1[is.na(c1)] <- c2[is.na(c2)] <- "Linearbandkeramik"
+# aov.dt.all[, Culture := paste0(c1, "/", c2)]
+aov.dt.right[, .(Culture, deg(.SD)), .SDcols = c("mean", "mode", "sd", "LB", "UB")]
+```
+```{r stats differences right, results = "hide"}
+# Rotate values so that reference culture is always a new one
+culture.labels <- as.character(unique(aov.dt.right$Culture))
+culture.labels <- lapply(0:(length(culture.labels)-1), function(i) {
+  c(culture.labels[(i+1):length(culture.labels)], culture.labels[1:i])
+})
+culture.labels[[1]] <- culture.labels[[1]][1:10]
+
+# Regression model list
+differences.right <- lapply(culture.labels, function(l){
+  # data
+  circ.dat.right$Culture <- as.character(circ.dat.right$Culture)
+  circ.dat.right$Culture <- factor(circ.dat.right$Culture, 
+                                 levels = l)
+  # model
+  fit.m <- bpnr(Angles ~ 1 + Culture, 
+                data = circ.dat.right, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+  # differences
+  diff.dt.right <- setDT(data.frame(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:9,])
+  diff.dt.right[, Difference := rownames(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:9]]
+  c1 <- sapply(strsplit(diff.dt.right$Difference, "Culture"), "[", 2)
+  c2 <- sapply(strsplit(diff.dt.right$Difference, "Culture"), "[", 3)
+  c2[is.na(c2)] <- l[1]
+  diff.dt.right[, Difference := paste0(c2, "/", c1)]
+  diff.dt.right[, .(Difference, mean, mode, sd, LB, UB)]
+  diff.dt.right[, Significant := ifelse(between(0, LB, UB) | LB > UB, "No", "Yes")]
+  return(diff.dt.right)
+})
+```
+```{r stats differences right2}
+# Remove duplicated comparisons
+dt <- rbindlist(differences.right)
+dt$Difference <- sapply(strsplit(dt$Difference, "/"), function(pair) {
+  paste(gtools::mixedsort(pair), collapse = "/")
+})
+dt <- dt[!duplicated(Difference)][, .(Difference, mean, mode, sd, LB, UB, Significant)]
+dt[, Culture1 := sapply(strsplit(dt$Difference, "/"), "[", 1)]
+dt[, Culture2 := sapply(strsplit(dt$Difference, "/"), "[", 2)]
+dt <- dt[, .(Difference, Culture1, Culture2, mean, mode, sd, LB, UB, Significant)][order(Culture1)]
+
+datatable(dt[order(Culture1)][, .(Culture1, Culture2, mean, mode, sd, LB, UB, Significant, Difference)], options = list(scrollX = TRUE))
+```
+```{r stats cultures right3, echo = FALSE, fig.dim=c(15,15)}
+## Visualization with circlize package
+culture.means <- deg(aov.dt.right$mean)
+culture.means <- ifelse(culture.means < 0, 360 + culture.means, culture.means)
+culture.ranges.lb <- deg(aov.dt.right$LB)
+culture.ranges.lb <- ifelse(culture.ranges.lb < 0, 360 + culture.ranges.lb, culture.ranges.lb)
+culture.ranges.ub <- deg(aov.dt.right$UB)
+culture.ranges.ub <- ifelse(culture.ranges.ub < 0, 360 + culture.ranges.ub, culture.ranges.ub)
+
+# params
+labs <- as.character(seq(0, 360, 22.5))
+labs[17] <- "0"
+cols <- rev(pals::ocean.thermal(12))[2:11]
+ys <- seq(0, 1, length.out = 10)
+texts <- levels(aov.dt.right$Culture)
+
+# plot
+circos.par(gap.degree = 0, cell.padding = c(0, 0, 0, 0), start.degree = 90)
+circos.initialize("a", xlim = c(0, 360), ring = T)
+circos.track(ylim = c(0,1), bg.border = NA)
+circos.axis(major.at = seq(0, 360, 22.5), 
+            direction = "outside",
+            labels = labs)
+circos.segments(x0 = culture.ranges.lb[1], 
+                y0 = ys[1], 
+                x1 = culture.ranges.ub[1], 
+                y1 = ys[1], col = cols[1], lwd = 2)
+circos.text(x = culture.means[1], 
+            y = ys[1] - 0.05,
+            labels = texts[1], 
+            col = cols[1],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[2], 
+                y0 = ys[2], 
+                x1 = culture.ranges.ub[2], 
+                y1 = ys[2], col = cols[2], 
+                lwd = 2)
+circos.text(x = culture.means[2], 
+            y = ys[2] - 0.05,
+            labels = texts[2], 
+            col = cols[2],
+            facing = "bending.outside",
+            cex = 1)
+# crosses zero
+circos.segments(x0 = culture.ranges.lb[3], 
+                y0 = ys[3], x1 = 360, 
+                y1 = ys[3], col = cols[3], 
+                lwd = 2)
+circos.segments(x0 = 0, y0 = ys[3], 
+                x1 = culture.ranges.ub[3], 
+                y1 = ys[3], col = cols[3], 
+                lwd = 2)
+circos.text(x = culture.means[3], 
+            y = ys[3] - 0.05,
+            labels = texts[3], 
+            col = cols[3],
+            facing = "bending.inside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[4], 
+                y0 = ys[4], 
+                x1 = culture.ranges.ub[4], 
+                y1 = ys[4], col = cols[4], 
+                lwd = 2)
+circos.text(x = culture.means[4], 
+            y = ys[4] - 0.05,
+            labels = texts[4], 
+            col = cols[4],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[5], 
+                y0 = ys[5], 
+                x1 = culture.ranges.ub[5], 
+                y1 = ys[5], col = cols[5], 
+                lwd = 2)
+circos.text(x = culture.means[5], 
+            y = ys[5] - 0.05,
+            labels = texts[5], 
+            col = cols[5],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[6], 
+                y0 = ys[6],
+                x1 = culture.ranges.ub[6], 
+                y1 = ys[6], col = cols[6], 
+                lwd = 2)
+circos.text(x = culture.means[6], 
+            y = ys[6] - 0.05,
+            labels = texts[6], 
+            col = cols[6],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[7], 
+                y0 = ys[7], 
+                x1 = culture.ranges.ub[7], 
+                y1 = ys[7], col = cols[7], 
+                lwd = 2)
+circos.text(x = culture.means[7], 
+            y = ys[7] - 0.05,
+            labels = texts[7], 
+            col = cols[7],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[8], 
+                y0 = ys[8], 
+                x1 = culture.ranges.ub[8], 
+                y1 = ys[8], col = cols[8], 
+                lwd = 2)
+circos.text(x = culture.means[8], 
+            y = ys[8] - 0.05,
+            labels = texts[8], 
+            col = cols[8],
+            facing = "bending.outside",
+            cex = 1)
+# crosses zero
+circos.segments(x0 = culture.ranges.lb[9], 
+                y0 = ys[9], 
+                x1 = culture.ranges.ub[9], 
+                y1 = ys[9], col = cols[9], 
+                lwd = 2)
+circos.text(x = culture.means[9], 
+            y = ys[9] - 0.05,
+            labels = texts[9], 
+            col = cols[9],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[10], 
+                y0 = ys[10], 
+                x1 = culture.ranges.ub[10], 
+                y1 = ys[10], col = cols[10], 
+                lwd = 2)
+circos.text(x = culture.means[10], 
+            y = ys[10] - 0.05,
+            labels = texts[10], 
+            col = cols[10],
+            facing = "bending.outside",
+            cex = 1)
+circos.points(x = culture.means, y = ys, bg = cols, pch = 21)
+circos.clear()
+```
+
+#### Back
+
+When filtering for the back position, we have **no** individuals belonging to the Lažňany culture.
+
+```{r stats cultures back, echo=TRUE, eval=T, results = "hide"}
+# Add culture information to left data
+back <- merge(back, orientation[, .(Num, Culture)], by = "Num", all.x = T)
+nrow(back)
+nrow(back[!is.na(Culture)][Culture %in% culture_keep])
+
+# Remove NAs in Culture and keep only 10 most common cultures
+culture_back <- back[!is.na(Culture)][Culture %in% culture_keep][, .(BurialOrientationMean, Culture)]
+
+# Transform to radians
+circ.dat.back <- culture_back
+circ.dat.back[, Angles := BurialOrientationMean*pi/180]
+circ.dat.back$Culture <- factor(circ.dat.back$Culture, 
+                               labels = c("Linearbandkeramik",
+                                          # "Lažňany",
+                                          "Sopot",
+                                          "Bell Beaker",
+                                          "Únětice",
+                                          "Baden",
+                                          "Corded Ware",
+                                          "Trichterbecher",
+                                          "Baltic Meso-Neolithic",
+                                          "Dnieper-Donets"),
+                               levels = unique(circ.dat.back$Culture))
+
+# Model
+fit.back <- bpnr(Angles ~ 1 + Culture, 
+                data = circ.dat.back, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+```
+```{r stats cultures back2}
+# Means
+aov.dt.back <- setDT(data.frame(coef_circ(fit.back, "categorical", "radians")$Means))[1:9,]
+aov.dt.back[, Culture := unique(circ.dat.back$Culture)]
+# c1 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 2)
+# c2 <- sapply(strsplit(aov.dt.all$Culture, "Culture"), "[", 3)
+# c1[is.na(c1)] <- c2[is.na(c2)] <- "Linearbandkeramik"
+# aov.dt.all[, Culture := paste0(c1, "/", c2)]
+aov.dt.back[, .(Culture, deg(.SD)), .SDcols = c("mean", "mode", "sd", "LB", "UB")]
+```
+```{r stats differences back, results = "hide"}
+# Rotate values so that reference culture is always a new one
+culture.labels <- as.character(unique(aov.dt.back$Culture))
+culture.labels <- lapply(0:(length(culture.labels)-1), function(i) {
+  c(culture.labels[(i+1):length(culture.labels)], culture.labels[1:i])
+})
+culture.labels[[1]] <- culture.labels[[1]][1:9]
+
+# Regression model list
+differences.back <- lapply(culture.labels, function(l){
+  # data
+  circ.dat.back$Culture <- as.character(circ.dat.back$Culture)
+  circ.dat.back$Culture <- factor(circ.dat.back$Culture, 
+                                 levels = l)
+  # model
+  fit.m <- bpnr(Angles ~ 1 + Culture, 
+                data = circ.dat.back, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+  # differences
+  diff.dt.back <- setDT(data.frame(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:8,])
+  diff.dt.back[, Difference := rownames(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:8]]
+  c1 <- sapply(strsplit(diff.dt.back$Difference, "Culture"), "[", 2)
+  c2 <- sapply(strsplit(diff.dt.back$Difference, "Culture"), "[", 3)
+  c2[is.na(c2)] <- l[1]
+  diff.dt.back[, Difference := paste0(c2, "/", c1)]
+  diff.dt.back[, .(Difference, mean, mode, sd, LB, UB)]
+  diff.dt.back[, Significant := ifelse(between(0, LB, UB) | LB > UB, "No", "Yes")]
+  return(diff.dt.back)
+})
+```
+```{r stats differences back2}
+# Remove duplicated comparisons
+dt <- rbindlist(differences.back)
+dt$Difference <- sapply(strsplit(dt$Difference, "/"), function(pair) {
+  paste(gtools::mixedsort(pair), collapse = "/")
+})
+dt <- dt[!duplicated(Difference)][, .(Difference, mean, mode, sd, LB, UB, Significant)]
+dt[, Culture1 := sapply(strsplit(dt$Difference, "/"), "[", 1)]
+dt[, Culture2 := sapply(strsplit(dt$Difference, "/"), "[", 2)]
+dt <- dt[, .(Difference, Culture1, Culture2, mean, mode, sd, LB, UB, Significant)][order(Culture1)]
+
+datatable(dt[order(Culture1)][, .(Culture1, Culture2, mean, mode, sd, LB, UB, Significant, Difference)], options = list(scrollX = TRUE))
+```
+```{r stats cultures back3, echo = FALSE, fig.dim=c(15,15)}
+## Visualization with circlize package
+culture.means <- deg(aov.dt.back$mean)
+culture.means <- ifelse(culture.means < 0, 360 + culture.means, culture.means)
+culture.ranges.lb <- deg(aov.dt.back$LB)
+culture.ranges.lb <- ifelse(culture.ranges.lb < 0, 360 + culture.ranges.lb, culture.ranges.lb)
+culture.ranges.ub <- deg(aov.dt.back$UB)
+culture.ranges.ub <- ifelse(culture.ranges.ub < 0, 360 + culture.ranges.ub, culture.ranges.ub)
+
+# params
+labs <- as.character(seq(0, 360, 22.5))
+labs[17] <- "0"
+cols <- rev(pals::ocean.thermal(12))[2:11]
+ys <- seq(0, 1, length.out = 9)
+texts <- levels(aov.dt.back$Culture)
+
+# plot
+circos.par(gap.degree = 0, cell.padding = c(0, 0, 0, 0), start.degree = 90)
+circos.initialize("a", xlim = c(0, 360), ring = T)
+circos.track(ylim = c(0,1), bg.border = NA)
+circos.axis(major.at = seq(0, 360, 22.5), 
+            direction = "outside",
+            labels = labs)
+# cross zero
+circos.segments(x0 = culture.ranges.lb[1], 
+                y0 = ys[1], 
+                x1 = 360, 
+                y1 = ys[1], col = cols[1], lwd = 2)
+circos.segments(x0 = 0, 
+                y0 = ys[1], 
+                x1 = culture.ranges.ub[1], 
+                y1 = ys[1], col = cols[1], lwd = 2)
+circos.text(x = culture.means[1], 
+            y = ys[1] - 0.05,
+            labels = texts[1], 
+            col = cols[1],
+            facing = "bending.inside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[2], 
+                y0 = ys[2], 
+                x1 = culture.ranges.ub[2], 
+                y1 = ys[2], col = cols[2], 
+                lwd = 2)
+circos.text(x = culture.means[2], 
+            y = ys[2] - 0.05,
+            labels = texts[2], 
+            col = cols[2],
+            facing = "bending.inside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[3], 
+                y0 = ys[3], 
+                x1 = culture.ranges.ub[3], 
+                y1 = ys[3], col = cols[3], 
+                lwd = 2)
+circos.text(x = culture.means[3], 
+            y = ys[3] - 0.05,
+            labels = texts[3], 
+            col = cols[3],
+            facing = "bending.inside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[4], 
+                y0 = ys[4], 
+                x1 = culture.ranges.ub[4], 
+                y1 = ys[4], col = cols[4], 
+                lwd = 2)
+circos.text(x = culture.means[4], 
+            y = ys[4] - 0.05,
+            labels = texts[4], 
+            col = cols[4],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[5], 
+                y0 = ys[5], 
+                x1 = culture.ranges.ub[5], 
+                y1 = ys[5], col = cols[5], 
+                lwd = 2)
+circos.text(x = culture.means[5], 
+            y = ys[5] - 0.05,
+            labels = texts[5], 
+            col = cols[5],
+            facing = "bending.outside",
+            cex = 1)
+# cross zero
+circos.segments(x0 = culture.ranges.lb[6], 
+                y0 = ys[6],
+                x1 = 360, 
+                y1 = ys[6], col = cols[6], 
+                lwd = 2)
+circos.segments(x0 = 0, 
+                y0 = ys[6],
+                x1 = culture.ranges.ub[6], 
+                y1 = ys[6], col = cols[6], 
+                lwd = 2)
+circos.text(x = culture.means[6], 
+            y = ys[6] - 0.05,
+            labels = texts[6], 
+            col = cols[6],
+            facing = "bending.outside",
+            cex = 1)
+# cross zero
+circos.segments(x0 = culture.ranges.lb[7], 
+                y0 = ys[7], 
+                x1 = 360, 
+                y1 = ys[7], col = cols[7], 
+                lwd = 2)
+circos.segments(x0 = 0, 
+                y0 = ys[7], 
+                x1 = culture.ranges.ub[7], 
+                y1 = ys[7], col = cols[7], 
+                lwd = 2)
+circos.text(x = culture.means[7], 
+            y = ys[7] - 0.05,
+            labels = texts[7], 
+            col = cols[7],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[8], 
+                y0 = ys[8], 
+                x1 = culture.ranges.ub[8], 
+                y1 = ys[8], col = cols[8], 
+                lwd = 2)
+circos.text(x = culture.means[8], 
+            y = ys[8] - 0.05,
+            labels = texts[8], 
+            col = cols[8],
+            facing = "bending.outside",
+            cex = 1)
+circos.segments(x0 = culture.ranges.lb[9], 
+                y0 = ys[9], 
+                x1 = culture.ranges.ub[9], 
+                y1 = ys[9], col = cols[9], 
+                lwd = 2)
+circos.text(x = culture.means[9], 
+            y = ys[9] - 0.05,
+            labels = texts[9], 
+            col = cols[9],
+            facing = "bending.outside",
+            cex = 1)
+circos.points(x = culture.means, y = ys, bg = cols, pch = 21)
+circos.clear()
 ```
 
 ## Sex
