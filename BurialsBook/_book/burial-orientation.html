@@ -23,7 +23,7 @@
 <meta name="author" content="Elisabetta Canteri" />
 
 
-<meta name="date" content="2025-07-30" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -177,7 +177,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.6" data-path="burial-rites.html"><a href="burial-rites.html#ancestry"><i class="fa fa-check"></i><b>2.4.6</b> Ancestry</a></li>
 <li class="chapter" data-level="2.4.7" data-path="burial-rites.html"><a href="burial-rites.html#mobility"><i class="fa fa-check"></i><b>2.4.7</b> Mobility</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="burial-rites.html"><a href="burial-rites.html#modelling"><i class="fa fa-check"></i><b>2.5</b> Modelling</a></li>
+<li class="chapter" data-level="2.5" data-path="burial-rites.html"><a href="burial-rites.html#modelling"><i class="fa fa-check"></i><b>2.5</b> Modelling</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="burial-rites.html"><a href="burial-rites.html#model-fit"><i class="fa fa-check"></i><b>2.5.1</b> Model fit</a></li>
+<li class="chapter" data-level="2.5.2" data-path="burial-rites.html"><a href="burial-rites.html#results"><i class="fa fa-check"></i><b>2.5.2</b> Results</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="burial-orientation.html"><a href="burial-orientation.html"><i class="fa fa-check"></i><b>3</b> Burial orientation</a>
 <ul>
@@ -651,7 +655,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##     768    4423    5211    5705    7032   10623</code></pre>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="burial-orientation.html#cb94-1" tabindex="-1"></a><span class="fu">hist</span>(graves<span class="sc">$</span>YearBP, <span class="at">breaks =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20data-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o data-1.png" width="672" /></p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="burial-orientation.html#cb95-1" tabindex="-1"></a><span class="do">## Create data table</span></span>
 <span id="cb95-2"><a href="burial-orientation.html#cb95-2" tabindex="-1"></a>orientation <span class="ot">&lt;-</span> graves[, .(Num, BurialOrientationMin, BurialOrientationMax, BurialSide_back, BurialSide_left, BurialSide_right)]</span></code></pre></div>
 <div id="calculating-the-average" class="section level3 hasAnchor" number="3.1.1">
@@ -731,18 +735,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb105-12"><a href="burial-orientation.html#cb105-12" tabindex="-1"></a>orientation[, BurialOrientationMax_sin <span class="sc">:=</span> <span class="fu">sin</span>(BurialOrientationMax<span class="sc">*</span>pi<span class="sc">/</span><span class="dv">180</span>)]</span>
 <span id="cb105-13"><a href="burial-orientation.html#cb105-13" tabindex="-1"></a></span>
 <span id="cb105-14"><a href="burial-orientation.html#cb105-14" tabindex="-1"></a><span class="co"># Add Country, Culture, Period and Ancestry info</span></span>
-<span id="cb105-15"><a href="burial-orientation.html#cb105-15" tabindex="-1"></a>orientation<span class="sc">$</span>Country <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Country</span>
-<span id="cb105-16"><a href="burial-orientation.html#cb105-16" tabindex="-1"></a>orientation<span class="sc">$</span>Period <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Period</span>
-<span id="cb105-17"><a href="burial-orientation.html#cb105-17" tabindex="-1"></a>orientation<span class="sc">$</span>Culture <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Culture</span>
-<span id="cb105-18"><a href="burial-orientation.html#cb105-18" tabindex="-1"></a>orientation<span class="sc">$</span>Sex <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Sex</span>
-<span id="cb105-19"><a href="burial-orientation.html#cb105-19" tabindex="-1"></a>orientation<span class="sc">$</span>Age <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>gaussianModelMu</span>
-<span id="cb105-20"><a href="burial-orientation.html#cb105-20" tabindex="-1"></a>orientation<span class="sc">$</span>EHG <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>ANCE2_v2</span>
-<span id="cb105-21"><a href="burial-orientation.html#cb105-21" tabindex="-1"></a>orientation<span class="sc">$</span>WHG <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>ANCE4_v2</span>
-<span id="cb105-22"><a href="burial-orientation.html#cb105-22" tabindex="-1"></a>orientation<span class="sc">$</span>LVN <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>ANCE6_v2</span>
-<span id="cb105-23"><a href="burial-orientation.html#cb105-23" tabindex="-1"></a>orientation<span class="sc">$</span>CHG <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>ANCE8_v2</span>
-<span id="cb105-24"><a href="burial-orientation.html#cb105-24" tabindex="-1"></a>orientation<span class="sc">$</span>mobility <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>mobility_MDS_250y_retrospective</span>
-<span id="cb105-25"><a href="burial-orientation.html#cb105-25" tabindex="-1"></a></span>
-<span id="cb105-26"><a href="burial-orientation.html#cb105-26" tabindex="-1"></a><span class="co"># orientation &lt;- fread(&quot;./Data/BurialOrientation.csv&quot;, na.strings = &quot;&quot;)</span></span></code></pre></div>
+<span id="cb105-15"><a href="burial-orientation.html#cb105-15" tabindex="-1"></a>orientation<span class="sc">$</span>Longitude <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Longitude</span>
+<span id="cb105-16"><a href="burial-orientation.html#cb105-16" tabindex="-1"></a>orientation<span class="sc">$</span>Latitude <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Latitude</span>
+<span id="cb105-17"><a href="burial-orientation.html#cb105-17" tabindex="-1"></a>orientation<span class="sc">$</span>Country <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Country</span>
+<span id="cb105-18"><a href="burial-orientation.html#cb105-18" tabindex="-1"></a>orientation<span class="sc">$</span>Period <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Period</span>
+<span id="cb105-19"><a href="burial-orientation.html#cb105-19" tabindex="-1"></a>orientation<span class="sc">$</span>Culture <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Culture</span>
+<span id="cb105-20"><a href="burial-orientation.html#cb105-20" tabindex="-1"></a>orientation<span class="sc">$</span>Sex <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>Sex</span>
+<span id="cb105-21"><a href="burial-orientation.html#cb105-21" tabindex="-1"></a>orientation<span class="sc">$</span>Age <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>gaussianModelMu</span>
+<span id="cb105-22"><a href="burial-orientation.html#cb105-22" tabindex="-1"></a>orientation<span class="sc">$</span>EHG <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>ANCE2_v2</span>
+<span id="cb105-23"><a href="burial-orientation.html#cb105-23" tabindex="-1"></a>orientation<span class="sc">$</span>WHG <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>ANCE4_v2</span>
+<span id="cb105-24"><a href="burial-orientation.html#cb105-24" tabindex="-1"></a>orientation<span class="sc">$</span>LVN <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>ANCE6_v2</span>
+<span id="cb105-25"><a href="burial-orientation.html#cb105-25" tabindex="-1"></a>orientation<span class="sc">$</span>CHG <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>ANCE8_v2</span>
+<span id="cb105-26"><a href="burial-orientation.html#cb105-26" tabindex="-1"></a>orientation<span class="sc">$</span>mobility <span class="ot">&lt;-</span> graves[Num <span class="sc">%in%</span> orientation<span class="sc">$</span>Num]<span class="sc">$</span>mobility_MDS_250y_retrospective</span>
+<span id="cb105-27"><a href="burial-orientation.html#cb105-27" tabindex="-1"></a></span>
+<span id="cb105-28"><a href="burial-orientation.html#cb105-28" tabindex="-1"></a><span class="co"># orientation &lt;- fread(&quot;./Data/BurialOrientation.csv&quot;, na.strings = &quot;&quot;)</span></span></code></pre></div>
 <p>Now we can start visualizing the circular orientation data using histograms, circular histograms and scatterplots that combine sine and cosine values.</p>
 </div>
 <div id="histograms-1" class="section level3 hasAnchor" number="3.1.2">
@@ -752,47 +758,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb106-3"><a href="burial-orientation.html#cb106-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMean), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb106-4"><a href="burial-orientation.html#cb106-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation (mean)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb106-5"><a href="burial-orientation.html#cb106-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-1.png" width="672" /></p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="burial-orientation.html#cb107-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation) <span class="sc">+</span></span>
 <span id="cb107-2"><a href="burial-orientation.html#cb107-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMin), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb107-3"><a href="burial-orientation.html#cb107-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation (min)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb107-4"><a href="burial-orientation.html#cb107-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-2.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-2.png" width="672" /></p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="burial-orientation.html#cb108-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation) <span class="sc">+</span></span>
 <span id="cb108-2"><a href="burial-orientation.html#cb108-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMax), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb108-3"><a href="burial-orientation.html#cb108-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation (max)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb108-4"><a href="burial-orientation.html#cb108-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-3.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-3.png" width="672" /></p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="burial-orientation.html#cb109-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation) <span class="sc">+</span></span>
 <span id="cb109-2"><a href="burial-orientation.html#cb109-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMean_cos), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb109-3"><a href="burial-orientation.html#cb109-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation cos(mean)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb109-4"><a href="burial-orientation.html#cb109-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-4.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-4.png" width="672" /></p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="burial-orientation.html#cb110-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation) <span class="sc">+</span></span>
 <span id="cb110-2"><a href="burial-orientation.html#cb110-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMin_cos), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb110-3"><a href="burial-orientation.html#cb110-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation cos(min)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb110-4"><a href="burial-orientation.html#cb110-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-5.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-5.png" width="672" /></p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="burial-orientation.html#cb111-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation) <span class="sc">+</span></span>
 <span id="cb111-2"><a href="burial-orientation.html#cb111-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMax_cos), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb111-3"><a href="burial-orientation.html#cb111-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation cos(max)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb111-4"><a href="burial-orientation.html#cb111-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-6.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-6.png" width="672" /></p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="burial-orientation.html#cb112-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation) <span class="sc">+</span></span>
 <span id="cb112-2"><a href="burial-orientation.html#cb112-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMean_sin), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb112-3"><a href="burial-orientation.html#cb112-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation sin(mean)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb112-4"><a href="burial-orientation.html#cb112-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-7.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-7.png" width="672" /></p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="burial-orientation.html#cb113-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation) <span class="sc">+</span></span>
 <span id="cb113-2"><a href="burial-orientation.html#cb113-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMin_sin), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb113-3"><a href="burial-orientation.html#cb113-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation sin(min)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb113-4"><a href="burial-orientation.html#cb113-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-8.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-8.png" width="672" /></p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="burial-orientation.html#cb114-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation) <span class="sc">+</span></span>
 <span id="cb114-2"><a href="burial-orientation.html#cb114-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> BurialOrientationMax_sin), <span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb114-3"><a href="burial-orientation.html#cb114-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Burial orientation sin(max)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb114-4"><a href="burial-orientation.html#cb114-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20hists-9.png" width="672" /></p>
+<p><img src="_main_files/figure-html/b-o hists-9.png" width="672" /></p>
 <p>For the circular histograms, we have to manually create some adjustments in order for ggplot to plot the data correctly. Because there is no way to tell ggplot to create a histogram that can cross zero, we have to manually bin the data in order for data that crosses zero to be in the same bin. This won’t shift the data on the axis, or remove data (as ggplot would).</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="burial-orientation.html#cb115-1" tabindex="-1"></a><span class="do">#### --------------------------------------------------------------------------------------------------</span></span>
 <span id="cb115-2"><a href="burial-orientation.html#cb115-2" tabindex="-1"></a><span class="do">##### Function to count decimal places #####</span></span>
@@ -847,7 +853,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb116-15"><a href="burial-orientation.html#cb116-15" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb116-16"><a href="burial-orientation.html#cb116-16" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb116-17"><a href="burial-orientation.html#cb116-17" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20inds-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o inds-1.png" width="960" /></p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="burial-orientation.html#cb117-1" tabindex="-1"></a><span class="co"># Circular histogram</span></span>
 <span id="cb117-2"><a href="burial-orientation.html#cb117-2" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fl">22.5</span></span>
 <span id="cb117-3"><a href="burial-orientation.html#cb117-3" tabindex="-1"></a>orientation[, Bins <span class="sc">:=</span> <span class="fu">circular.bins</span>(BurialOrientationMean, <span class="at">binwidth =</span> w)]</span>
@@ -859,7 +865,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb117-9"><a href="burial-orientation.html#cb117-9" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb117-10"><a href="burial-orientation.html#cb117-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb117-11"><a href="burial-orientation.html#cb117-11" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20inds-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o inds-2.png" width="960" /></p>
 </div>
 <div id="burial-side" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Burial side<a href="burial-orientation.html#burial-side" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -922,7 +928,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb118-57"><a href="burial-orientation.html#cb118-57" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb118-58"><a href="burial-orientation.html#cb118-58" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb118-59"><a href="burial-orientation.html#cb118-59" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20burial%20side-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o burial side-1.png" width="960" /></p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="burial-orientation.html#cb119-1" tabindex="-1"></a><span class="co"># Circular histogram</span></span>
 <span id="cb119-2"><a href="burial-orientation.html#cb119-2" tabindex="-1"></a>cols <span class="ot">&lt;-</span> pals<span class="sc">::</span><span class="fu">brewer.paired</span>(<span class="dv">3</span>)</span>
 <span id="cb119-3"><a href="burial-orientation.html#cb119-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> sides, <span class="fu">aes</span>(<span class="at">x =</span> Bins,</span>
@@ -937,7 +943,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb119-12"><a href="burial-orientation.html#cb119-12" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
 <span id="cb119-13"><a href="burial-orientation.html#cb119-13" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb119-14"><a href="burial-orientation.html#cb119-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20burial%20side-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o burial side-2.png" width="960" /></p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="burial-orientation.html#cb120-1" tabindex="-1"></a><span class="co"># Single plots</span></span>
 <span id="cb120-2"><a href="burial-orientation.html#cb120-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> sides, <span class="fu">aes</span>(<span class="at">x =</span> Bins, </span>
 <span id="cb120-3"><a href="burial-orientation.html#cb120-3" tabindex="-1"></a>                         <span class="at">fill =</span> <span class="fu">factor</span>(BurialSide, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Left&quot;</span>, <span class="st">&quot;Right&quot;</span>, <span class="st">&quot;Back&quot;</span>)))) <span class="sc">+</span></span>
@@ -954,7 +960,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb120-14"><a href="burial-orientation.html#cb120-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
 <span id="cb120-15"><a href="burial-orientation.html#cb120-15" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb120-16"><a href="burial-orientation.html#cb120-16" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20burial%20side-3.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o burial side-3.png" width="960" /></p>
 </div>
 <div id="country-1" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> Country<a href="burial-orientation.html#country-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1025,7 +1031,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb123-19"><a href="burial-orientation.html#cb123-19" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb123-20"><a href="burial-orientation.html#cb123-20" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb123-21"><a href="burial-orientation.html#cb123-21" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20country-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o country-1.png" width="960" /></p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="burial-orientation.html#cb124-1" tabindex="-1"></a><span class="co"># Circular histogram</span></span>
 <span id="cb124-2"><a href="burial-orientation.html#cb124-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[<span class="sc">!</span>(Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Armenia&quot;</span>, <span class="st">&quot;Kazakhstan&quot;</span>))],</span>
 <span id="cb124-3"><a href="burial-orientation.html#cb124-3" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Bins, <span class="at">fill =</span> Country),</span>
@@ -1042,7 +1048,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb124-14"><a href="burial-orientation.html#cb124-14" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb124-15"><a href="burial-orientation.html#cb124-15" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
 <span id="cb124-16"><a href="burial-orientation.html#cb124-16" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20country-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o country-2.png" width="960" /></p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="burial-orientation.html#cb125-1" tabindex="-1"></a><span class="co"># Single plots</span></span>
 <span id="cb125-2"><a href="burial-orientation.html#cb125-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[<span class="sc">!</span>(Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Armenia&quot;</span>, <span class="st">&quot;Kazakhstan&quot;</span>))], </span>
 <span id="cb125-3"><a href="burial-orientation.html#cb125-3" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Bins, <span class="at">fill =</span> Country)) <span class="sc">+</span></span>
@@ -1058,7 +1064,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb125-13"><a href="burial-orientation.html#cb125-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
 <span id="cb125-14"><a href="burial-orientation.html#cb125-14" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb125-15"><a href="burial-orientation.html#cb125-15" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20country-3.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o country-3.png" width="960" /></p>
 </div>
 <div id="period-1" class="section level3 hasAnchor" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> Period<a href="burial-orientation.html#period-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1093,7 +1099,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb126-29"><a href="burial-orientation.html#cb126-29" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb126-30"><a href="burial-orientation.html#cb126-30" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb126-31"><a href="burial-orientation.html#cb126-31" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20period-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o period-1.png" width="960" /></p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="burial-orientation.html#cb127-1" tabindex="-1"></a><span class="co"># Check number of individuals by period</span></span>
 <span id="cb127-2"><a href="burial-orientation.html#cb127-2" tabindex="-1"></a>orientation[, .N, by <span class="ot">=</span> <span class="st">&quot;Period&quot;</span>][<span class="fu">order</span>(N)]</span></code></pre></div>
 <pre><code>##                   Period     N
@@ -1129,7 +1135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb129-21"><a href="burial-orientation.html#cb129-21" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb129-22"><a href="burial-orientation.html#cb129-22" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb129-23"><a href="burial-orientation.html#cb129-23" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20period-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o period-2.png" width="960" /></p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="burial-orientation.html#cb130-1" tabindex="-1"></a><span class="co"># Single plots</span></span>
 <span id="cb130-2"><a href="burial-orientation.html#cb130-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[Period <span class="sc">!=</span> <span class="st">&quot;Iron Age&quot;</span>], </span>
 <span id="cb130-3"><a href="burial-orientation.html#cb130-3" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Bins, <span class="at">fill =</span> <span class="fu">factor</span>(Period,</span>
@@ -1161,7 +1167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb130-29"><a href="burial-orientation.html#cb130-29" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
 <span id="cb130-30"><a href="burial-orientation.html#cb130-30" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb130-31"><a href="burial-orientation.html#cb130-31" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20period-3.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o period-3.png" width="960" /></p>
 </div>
 <div id="culture-1" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> Culture<a href="burial-orientation.html#culture-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1201,7 +1207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb133-17"><a href="burial-orientation.html#cb133-17" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb133-18"><a href="burial-orientation.html#cb133-18" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb133-19"><a href="burial-orientation.html#cb133-19" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20culture-1.png" width="1152" /></p>
+<p><img src="_main_files/figure-html/b-o culture-1.png" width="1152" /></p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="burial-orientation.html#cb134-1" tabindex="-1"></a><span class="co"># Circular histogram</span></span>
 <span id="cb134-2"><a href="burial-orientation.html#cb134-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[Culture <span class="sc">%in%</span> culture_keep],</span>
 <span id="cb134-3"><a href="burial-orientation.html#cb134-3" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Bins, <span class="at">fill =</span> Culture),</span>
@@ -1217,7 +1223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb134-13"><a href="burial-orientation.html#cb134-13" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb134-14"><a href="burial-orientation.html#cb134-14" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb134-15"><a href="burial-orientation.html#cb134-15" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20culture-2.png" width="1152" /></p>
+<p><img src="_main_files/figure-html/b-o culture-2.png" width="1152" /></p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="burial-orientation.html#cb135-1" tabindex="-1"></a><span class="co"># Single plots</span></span>
 <span id="cb135-2"><a href="burial-orientation.html#cb135-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[Culture <span class="sc">%in%</span> culture_keep],</span>
 <span id="cb135-3"><a href="burial-orientation.html#cb135-3" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Bins, <span class="at">fill =</span> Culture),</span>
@@ -1232,7 +1238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb135-12"><a href="burial-orientation.html#cb135-12" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb135-13"><a href="burial-orientation.html#cb135-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb135-14"><a href="burial-orientation.html#cb135-14" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20culture-3.png" width="1152" /></p>
+<p><img src="_main_files/figure-html/b-o culture-3.png" width="1152" /></p>
 </div>
 <div id="sex-1" class="section level3 hasAnchor" number="3.2.6">
 <h3><span class="header-section-number">3.2.6</span> Sex<a href="burial-orientation.html#sex-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1258,7 +1264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb136-19"><a href="burial-orientation.html#cb136-19" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb136-20"><a href="burial-orientation.html#cb136-20" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb136-21"><a href="burial-orientation.html#cb136-21" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20sex-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o sex-1.png" width="960" /></p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="burial-orientation.html#cb137-1" tabindex="-1"></a><span class="co"># Group sex</span></span>
 <span id="cb137-2"><a href="burial-orientation.html#cb137-2" tabindex="-1"></a>orientation[, Sex <span class="sc">:=</span> <span class="fu">ifelse</span>(Sex <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fu">ifelse</span>(Sex <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, Sex))]</span>
 <span id="cb137-3"><a href="burial-orientation.html#cb137-3" tabindex="-1"></a></span>
@@ -1277,7 +1283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb137-16"><a href="burial-orientation.html#cb137-16" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb137-17"><a href="burial-orientation.html#cb137-17" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb137-18"><a href="burial-orientation.html#cb137-18" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20sex-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o sex-2.png" width="960" /></p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="burial-orientation.html#cb138-1" tabindex="-1"></a><span class="co"># Single plots</span></span>
 <span id="cb138-2"><a href="burial-orientation.html#cb138-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation,</span>
 <span id="cb138-3"><a href="burial-orientation.html#cb138-3" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Bins, <span class="at">fill =</span> <span class="fu">as.factor</span>(Sex)),</span>
@@ -1292,7 +1298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb138-12"><a href="burial-orientation.html#cb138-12" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb138-13"><a href="burial-orientation.html#cb138-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb138-14"><a href="burial-orientation.html#cb138-14" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20sex-3.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o sex-3.png" width="960" /></p>
 <div id="culture-by-sex" class="section level4 hasAnchor" number="3.2.6.1">
 <h4><span class="header-section-number">3.2.6.1</span> Culture by sex<a href="burial-orientation.html#culture-by-sex" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="burial-orientation.html#cb139-1" tabindex="-1"></a><span class="co"># Single plots</span></span>
@@ -1309,7 +1315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb139-12"><a href="burial-orientation.html#cb139-12" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb139-13"><a href="burial-orientation.html#cb139-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb139-14"><a href="burial-orientation.html#cb139-14" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20culture%20sex-1.png" width="1152" /></p>
+<p><img src="_main_files/figure-html/b-o culture sex-1.png" width="1152" /></p>
 </div>
 </div>
 <div id="age" class="section level3 hasAnchor" number="3.2.7">
@@ -1334,7 +1340,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb140-16"><a href="burial-orientation.html#cb140-16" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb140-17"><a href="burial-orientation.html#cb140-17" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb140-18"><a href="burial-orientation.html#cb140-18" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20age-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o age-1.png" width="960" /></p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="burial-orientation.html#cb141-1" tabindex="-1"></a><span class="co"># Age interval between 8k and 2k BP</span></span>
 <span id="cb141-2"><a href="burial-orientation.html#cb141-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dim_age[<span class="fu">between</span>(Age, <span class="dv">2000</span>, <span class="dv">8000</span>)]) <span class="sc">+</span></span>
 <span id="cb141-3"><a href="burial-orientation.html#cb141-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(BurialOrientationMean_sin, BurialOrientationMean_cos, <span class="at">fill =</span> Age, <span class="at">size =</span> N),</span>
@@ -1352,7 +1358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb141-15"><a href="burial-orientation.html#cb141-15" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb141-16"><a href="burial-orientation.html#cb141-16" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb141-17"><a href="burial-orientation.html#cb141-17" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20age-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o age-2.png" width="960" /></p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="burial-orientation.html#cb142-1" tabindex="-1"></a><span class="co"># Histograms</span></span>
 <span id="cb142-2"><a href="burial-orientation.html#cb142-2" tabindex="-1"></a>orientation<span class="sc">$</span>YearBin <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">round_any</span>(orientation<span class="sc">$</span>Age, <span class="dv">500</span>)</span>
 <span id="cb142-3"><a href="burial-orientation.html#cb142-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[<span class="fu">between</span>(Age, <span class="dv">3000</span>, <span class="dv">8000</span>)],</span>
@@ -1372,7 +1378,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb142-17"><a href="burial-orientation.html#cb142-17" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb142-18"><a href="burial-orientation.html#cb142-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb142-19"><a href="burial-orientation.html#cb142-19" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20age-3.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o age-3.png" width="960" /></p>
 </div>
 <div id="ancestry-1" class="section level3 hasAnchor" number="3.2.8">
 <h3><span class="header-section-number">3.2.8</span> Ancestry<a href="burial-orientation.html#ancestry-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1401,7 +1407,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb143-20"><a href="burial-orientation.html#cb143-20" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb143-21"><a href="burial-orientation.html#cb143-21" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb143-22"><a href="burial-orientation.html#cb143-22" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20whg-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o whg-1.png" width="960" /></p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="burial-orientation.html#cb144-1" tabindex="-1"></a><span class="co"># Histograms</span></span>
 <span id="cb144-2"><a href="burial-orientation.html#cb144-2" tabindex="-1"></a>orientation<span class="sc">$</span>WHG_bin <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">round_any</span>(orientation<span class="sc">$</span>WHG, <span class="fl">0.25</span>)</span>
 <span id="cb144-3"><a href="burial-orientation.html#cb144-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[<span class="sc">!</span><span class="fu">is.na</span>(WHG)],</span>
@@ -1418,7 +1424,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb144-14"><a href="burial-orientation.html#cb144-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb144-15"><a href="burial-orientation.html#cb144-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb144-16"><a href="burial-orientation.html#cb144-16" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20whg-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o whg-2.png" width="960" /></p>
 </div>
 <div id="eastern-hunter-gatherer-ancestry" class="section level4 hasAnchor" number="3.2.8.2">
 <h4><span class="header-section-number">3.2.8.2</span> Eastern hunter-gatherer ancestry<a href="burial-orientation.html#eastern-hunter-gatherer-ancestry" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1440,7 +1446,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb145-16"><a href="burial-orientation.html#cb145-16" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb145-17"><a href="burial-orientation.html#cb145-17" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb145-18"><a href="burial-orientation.html#cb145-18" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20ehg-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o ehg-1.png" width="960" /></p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="burial-orientation.html#cb146-1" tabindex="-1"></a><span class="co"># Histograms</span></span>
 <span id="cb146-2"><a href="burial-orientation.html#cb146-2" tabindex="-1"></a>orientation<span class="sc">$</span>EHG_bin <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">round_any</span>(orientation<span class="sc">$</span>EHG, <span class="fl">0.25</span>)</span>
 <span id="cb146-3"><a href="burial-orientation.html#cb146-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[<span class="sc">!</span><span class="fu">is.na</span>(EHG)],</span>
@@ -1457,7 +1463,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb146-14"><a href="burial-orientation.html#cb146-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb146-15"><a href="burial-orientation.html#cb146-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb146-16"><a href="burial-orientation.html#cb146-16" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20ehg-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o ehg-2.png" width="960" /></p>
 </div>
 <div id="caucasus-hunter-gatherer-ancestry" class="section level4 hasAnchor" number="3.2.8.3">
 <h4><span class="header-section-number">3.2.8.3</span> Caucasus hunter-gatherer ancestry<a href="burial-orientation.html#caucasus-hunter-gatherer-ancestry" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1482,7 +1488,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb147-19"><a href="burial-orientation.html#cb147-19" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb147-20"><a href="burial-orientation.html#cb147-20" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb147-21"><a href="burial-orientation.html#cb147-21" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20chg-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o chg-1.png" width="960" /></p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="burial-orientation.html#cb148-1" tabindex="-1"></a><span class="co"># Histograms</span></span>
 <span id="cb148-2"><a href="burial-orientation.html#cb148-2" tabindex="-1"></a>orientation<span class="sc">$</span>CHG_bin <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">round_any</span>(orientation<span class="sc">$</span>CHG, <span class="fl">0.05</span>)</span>
 <span id="cb148-3"><a href="burial-orientation.html#cb148-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[<span class="sc">!</span><span class="fu">is.na</span>(CHG)],</span>
@@ -1499,7 +1505,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb148-14"><a href="burial-orientation.html#cb148-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb148-15"><a href="burial-orientation.html#cb148-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb148-16"><a href="burial-orientation.html#cb148-16" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20chg-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o chg-2.png" width="960" /></p>
 </div>
 <div id="anatolian-farmers-ancestry" class="section level4 hasAnchor" number="3.2.8.4">
 <h4><span class="header-section-number">3.2.8.4</span> Anatolian farmers ancestry<a href="burial-orientation.html#anatolian-farmers-ancestry" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1524,7 +1530,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb149-19"><a href="burial-orientation.html#cb149-19" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb149-20"><a href="burial-orientation.html#cb149-20" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb149-21"><a href="burial-orientation.html#cb149-21" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20LVN-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o LVN-1.png" width="960" /></p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="burial-orientation.html#cb150-1" tabindex="-1"></a><span class="co"># Histograms</span></span>
 <span id="cb150-2"><a href="burial-orientation.html#cb150-2" tabindex="-1"></a>orientation<span class="sc">$</span>LVN_bin <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">round_any</span>(orientation<span class="sc">$</span>LVN, <span class="fl">0.25</span>)</span>
 <span id="cb150-3"><a href="burial-orientation.html#cb150-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orientation[<span class="sc">!</span><span class="fu">is.na</span>(LVN)],</span>
@@ -1541,7 +1547,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb150-14"><a href="burial-orientation.html#cb150-14" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb150-15"><a href="burial-orientation.html#cb150-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb150-16"><a href="burial-orientation.html#cb150-16" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20LVN-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o LVN-2.png" width="960" /></p>
 </div>
 </div>
 <div id="mobility-1" class="section level3 hasAnchor" number="3.2.9">
@@ -1567,7 +1573,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb151-19"><a href="burial-orientation.html#cb151-19" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
 <span id="cb151-20"><a href="burial-orientation.html#cb151-20" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
 <span id="cb151-21"><a href="burial-orientation.html#cb151-21" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20mobility-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o mobility-1.png" width="960" /></p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="burial-orientation.html#cb152-1" tabindex="-1"></a><span class="co"># Histograms</span></span>
 <span id="cb152-2"><a href="burial-orientation.html#cb152-2" tabindex="-1"></a>orientation<span class="sc">$</span>mob_bin <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">round_any</span>(orientation<span class="sc">$</span>mobility, <span class="dv">200</span>)</span>
 <span id="cb152-3"><a href="burial-orientation.html#cb152-3" tabindex="-1"></a><span class="co"># data between 0 &amp; 100 (0) - 100 &amp; 300 (200) - 300 &amp; 500 (400) etc.</span></span>
@@ -1598,7 +1604,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb154-12"><a href="burial-orientation.html#cb154-12" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
 <span id="cb154-13"><a href="burial-orientation.html#cb154-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb154-14"><a href="burial-orientation.html#cb154-14" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/b-o%20mobility-2.png" width="960" /></p>
+<p><img src="_main_files/figure-html/b-o mobility-2.png" width="960" /></p>
 
 </div>
 </div>

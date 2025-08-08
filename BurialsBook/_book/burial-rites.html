@@ -23,7 +23,7 @@
 <meta name="author" content="Elisabetta Canteri" />
 
 
-<meta name="date" content="2025-07-30" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -177,7 +177,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.6" data-path="burial-rites.html"><a href="burial-rites.html#ancestry"><i class="fa fa-check"></i><b>2.4.6</b> Ancestry</a></li>
 <li class="chapter" data-level="2.4.7" data-path="burial-rites.html"><a href="burial-rites.html#mobility"><i class="fa fa-check"></i><b>2.4.7</b> Mobility</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="burial-rites.html"><a href="burial-rites.html#modelling"><i class="fa fa-check"></i><b>2.5</b> Modelling</a></li>
+<li class="chapter" data-level="2.5" data-path="burial-rites.html"><a href="burial-rites.html#modelling"><i class="fa fa-check"></i><b>2.5</b> Modelling</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="burial-rites.html"><a href="burial-rites.html#model-fit"><i class="fa fa-check"></i><b>2.5.1</b> Model fit</a></li>
+<li class="chapter" data-level="2.5.2" data-path="burial-rites.html"><a href="burial-rites.html#results"><i class="fa fa-check"></i><b>2.5.2</b> Results</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="burial-orientation.html"><a href="burial-orientation.html"><i class="fa fa-check"></i><b>3</b> Burial orientation</a>
 <ul>
@@ -285,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb33-4"><a href="burial-rites.html#cb33-4" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(graves[, ..bp], graves[, ..bs]))</span>
 <span id="cb33-5"><a href="burial-rites.html#cb33-5" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(mat)</span>
 <span id="cb33-6"><a href="burial-rites.html#cb33-6" tabindex="-1"></a><span class="fu">dim</span>(mat)</span></code></pre></div>
-<pre><code>## [1] 4275   22</code></pre>
+<pre><code>## [1] 3995   22</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="burial-rites.html#cb35-1" tabindex="-1"></a><span class="do">## Multiple Correspondence Analysis</span></span>
 <span id="cb35-2"><a href="burial-rites.html#cb35-2" tabindex="-1"></a>mca <span class="ot">&lt;-</span> <span class="fu">MCA</span>(graves[, .(BurialSide, BodyPositioning)], <span class="at">graph =</span> F)</span>
 <span id="cb35-3"><a href="burial-rites.html#cb35-3" tabindex="-1"></a><span class="fu">summary</span>(mca)</span></code></pre></div>
@@ -296,34 +300,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Eigenvalues
 ##                        Dim.1   Dim.2   Dim.3   Dim.4   Dim.5   Dim.6   Dim.7
-## Variance               0.965   0.912   0.872   0.676   0.561   0.513   0.501
-## % of var.              8.773   8.292   7.931   6.147   5.103   4.660   4.555
-## Cumulative % of var.   8.773  17.066  24.997  31.143  36.246  40.906  45.461
+## Variance               0.964   0.910   0.872   0.676   0.561   0.513   0.501
+## % of var.              8.762   8.274   7.930   6.146   5.103   4.660   4.556
+## Cumulative % of var.   8.762  17.036  24.967  31.112  36.215  40.875  45.431
 ##                        Dim.8   Dim.9  Dim.10  Dim.11  Dim.12  Dim.13  Dim.14
 ## Variance               0.500   0.500   0.500   0.500   0.500   0.500   0.500
 ## % of var.              4.545   4.545   4.545   4.545   4.545   4.545   4.545
-## Cumulative % of var.  50.007  54.552  59.098  63.643  68.189  72.734  77.280
+## Cumulative % of var.  49.977  54.522  59.068  63.613  68.159  72.704  77.250
 ##                       Dim.15  Dim.16  Dim.17  Dim.18  Dim.19  Dim.20  Dim.21
-## Variance               0.500   0.499   0.487   0.439   0.324   0.128   0.088
-## % of var.              4.545   4.536   4.431   3.988   2.944   1.160   0.798
-## Cumulative % of var.  81.825  86.361  90.791  94.780  97.724  98.884  99.683
+## Variance               0.500   0.499   0.487   0.439   0.324   0.128   0.090
+## % of var.              4.545   4.535   4.431   3.988   2.945   1.161   0.817
+## Cumulative % of var.  81.795  86.330  90.761  94.749  97.694  98.855  99.671
 ##                       Dim.22
-## Variance               0.035
-## % of var.              0.317
+## Variance               0.036
+## % of var.              0.329
 ## Cumulative % of var. 100.000
 ## 
 ## Individuals (the 10 first)
 ##                  Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3    ctr
-## 1             |  1.323  0.042  0.455 | -0.838  0.018  0.182 |  0.014  0.000
-## 2             |  1.345  0.044  0.005 | -0.887  0.020  0.002 |  0.015  0.000
-## 3             |  1.323  0.042  0.455 | -0.838  0.018  0.182 |  0.014  0.000
-## 4             |  1.323  0.042  0.455 | -0.838  0.018  0.182 |  0.014  0.000
-## 5             |  1.323  0.042  0.455 | -0.838  0.018  0.182 |  0.014  0.000
-## 6             |  1.345  0.044  0.005 | -0.887  0.020  0.002 |  0.015  0.000
-## 7             | -0.743  0.013  0.524 |  0.008  0.000  0.000 | -0.071  0.000
-## 8             |  1.345  0.044  0.006 | -0.887  0.020  0.003 |  0.015  0.000
-## 9             |  1.345  0.044  0.006 | -0.887  0.020  0.003 |  0.015  0.000
-## 10            | -0.743  0.013  0.524 |  0.008  0.000  0.000 | -0.071  0.000
+## 1             |  1.266  0.042  0.453 | -0.796  0.017  0.179 |  0.015  0.000
+## 2             |  1.288  0.043  0.005 | -0.843  0.020  0.002 |  0.016  0.000
+## 3             |  1.266  0.042  0.453 | -0.796  0.017  0.179 |  0.015  0.000
+## 4             |  1.266  0.042  0.453 | -0.796  0.017  0.179 |  0.015  0.000
+## 5             |  1.266  0.042  0.453 | -0.796  0.017  0.179 |  0.015  0.000
+## 6             |  1.288  0.043  0.005 | -0.843  0.020  0.002 |  0.016  0.000
+## 7             | -0.777  0.016  0.494 |  0.004  0.000  0.000 | -0.077  0.000
+## 8             |  1.288  0.043  0.006 | -0.843  0.020  0.002 |  0.016  0.000
+## 9             |  1.288  0.043  0.006 | -0.843  0.020  0.002 |  0.016  0.000
+## 10            | -0.777  0.016  0.494 |  0.004  0.000  0.000 | -0.077  0.000
 ##                 cos2  
 ## 1              0.000 |
 ## 2              0.000 |
@@ -338,32 +342,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Categories (the 10 first)
 ##                   Dim.1     ctr    cos2  v.test     Dim.2     ctr    cos2
-## back          |   1.331   6.206   0.128  23.433 |   3.222  38.472   0.753
-## back/left     |   1.369   0.068   0.001   2.372 |  -0.928   0.033   0.001
-## back/right    |   1.316   0.105   0.002   2.943 |  -0.359   0.008   0.000
-## bottom        |  -1.048   0.067   0.001  -2.344 |  -0.004   0.000   0.000
-## BurialSide.NA |  -0.730  17.739   0.958 -63.987 |  -0.001   0.000   0.000
-## front         |   1.017   0.326   0.006   5.199 |   1.714   0.980   0.018
-## front/left    |   1.369   0.045   0.001   1.937 |  -0.928   0.022   0.000
-## front/right   |   1.412   0.073   0.001   2.447 |   2.370   0.216   0.004
-## left          |   1.326  14.289   0.327  37.394 |  -0.835   6.005   0.130
-## left/back     |   1.369   0.159   0.003   3.625 |  -0.928   0.077   0.001
+## back          |   1.247   5.676   0.118  21.681 |   3.168  38.780   0.759
+## back/left     |   1.312   0.067   0.001   2.274 |  -0.884   0.032   0.001
+## back/right    |   1.256   0.102   0.002   2.810 |  -0.321   0.007   0.000
+## bottom        |  -1.114   0.081   0.002  -2.491 |  -0.024   0.000   0.000
+## BurialSide.NA |  -0.764  18.810   0.956 -61.796 |  -0.006   0.001   0.000
+## front         |   0.949   0.304   0.006   4.852 |   1.711   1.047   0.019
+## front/left    |   1.312   0.045   0.001   1.856 |  -0.884   0.021   0.000
+## front/right   |   1.335   0.069   0.001   2.313 |   2.355   0.229   0.004
+## left          |   1.268  13.999   0.324  35.986 |  -0.793   5.793   0.127
+## left/back     |   1.312   0.157   0.003   3.475 |  -0.884   0.075   0.001
 ##                v.test     Dim.3     ctr    cos2  v.test  
-## back           56.720 |   0.015   0.001   0.000   0.265 |
-## back/left      -1.609 |   0.016   0.000   0.000   0.028 |
-## back/right     -0.803 |   0.013   0.000   0.000   0.028 |
-## bottom         -0.008 |  27.276  49.875   0.871  61.021 |
-## BurialSide.NA  -0.093 |  -0.057   0.121   0.006  -5.024 |
-## front           8.767 |  -0.004   0.000   0.000  -0.020 |
-## front/left     -1.313 |   0.016   0.000   0.000   0.023 |
-## front/right     4.106 |   0.019   0.000   0.000   0.033 |
-## left          -23.567 |   0.014   0.002   0.000   0.395 |
-## left/back      -2.458 |   0.016   0.000   0.000   0.043 |
+## back           55.071 |   0.018   0.001   0.000   0.309 |
+## back/left      -1.531 |   0.017   0.000   0.000   0.030 |
+## back/right     -0.718 |   0.013   0.000   0.000   0.030 |
+## bottom         -0.054 |  26.363  49.857   0.871  58.978 |
+## BurialSide.NA  -0.513 |  -0.062   0.138   0.006  -5.038 |
+## front           8.754 |  -0.003   0.000   0.000  -0.017 |
+## front/left     -1.250 |   0.017   0.000   0.000   0.024 |
+## front/right     4.079 |   0.022   0.000   0.000   0.038 |
+## left          -22.496 |   0.015   0.002   0.000   0.419 |
+## left/back      -2.340 |   0.017   0.000   0.000   0.046 |
 ## 
 ## Categorical variables (eta2)
 ##                   Dim.1 Dim.2 Dim.3  
-## BurialSide      | 0.965 0.912 0.872 |
-## BodyPositioning | 0.965 0.912 0.872 |</code></pre>
+## BurialSide      | 0.964 0.910 0.872 |
+## BodyPositioning | 0.964 0.910 0.872 |</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="burial-rites.html#cb37-1" tabindex="-1"></a><span class="do">## Biplot</span></span>
 <span id="cb37-2"><a href="burial-rites.html#cb37-2" tabindex="-1"></a><span class="co"># Dimensions 1 and 2</span></span>
 <span id="cb37-3"><a href="burial-rites.html#cb37-3" tabindex="-1"></a><span class="fu">fviz_mca_biplot</span>(mca,</span>
@@ -399,60 +403,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb43-2"><a href="burial-rites.html#cb43-2" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">get_mca_ind</span>(mca)</span>
 <span id="cb43-3"><a href="burial-rites.html#cb43-3" tabindex="-1"></a><span class="co"># Coordinates of points</span></span>
 <span id="cb43-4"><a href="burial-rites.html#cb43-4" tabindex="-1"></a><span class="fu">head</span>(ind<span class="sc">$</span>coord)</span></code></pre></div>
-<pre><code>##      Dim 1      Dim 2     Dim 3       Dim 4      Dim 5
-## 1 1.322962 -0.8380609 0.0140271 -0.08612123 -0.1118079
-## 2 1.345229 -0.8867854 0.0152866 -0.07948919 -0.0950504
-## 3 1.322962 -0.8380609 0.0140271 -0.08612123 -0.1118079
-## 4 1.322962 -0.8380609 0.0140271 -0.08612123 -0.1118079
-## 5 1.322962 -0.8380609 0.0140271 -0.08612123 -0.1118079
-## 6 1.345229 -0.8867854 0.0152866 -0.07948919 -0.0950504</code></pre>
+<pre><code>##      Dim 1      Dim 2      Dim 3       Dim 4       Dim 5
+## 1 1.266030 -0.7956139 0.01478983 -0.08249041 -0.10850704
+## 2 1.288348 -0.8432555 0.01612926 -0.07590789 -0.09123125
+## 3 1.266030 -0.7956139 0.01478983 -0.08249041 -0.10850704
+## 4 1.266030 -0.7956139 0.01478983 -0.08249041 -0.10850704
+## 5 1.266030 -0.7956139 0.01478983 -0.08249041 -0.10850704
+## 6 1.288348 -0.8432555 0.01612926 -0.07590789 -0.09123125</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="burial-rites.html#cb45-1" tabindex="-1"></a><span class="co"># Quality of representation</span></span>
 <span id="cb45-2"><a href="burial-rites.html#cb45-2" tabindex="-1"></a><span class="fu">head</span>(ind<span class="sc">$</span>cos2)</span></code></pre></div>
 <pre><code>##         Dim 1       Dim 2        Dim 3        Dim 4        Dim 5
-## 1 0.454573621 0.182415057 5.110289e-05 0.0019263269 3.246791e-03
-## 2 0.005070231 0.002203295 6.547225e-07 0.0000177032 2.531299e-05
-## 3 0.454573621 0.182415057 5.110289e-05 0.0019263269 3.246791e-03
-## 4 0.454573621 0.182415057 5.110289e-05 0.0019263269 3.246791e-03
-## 5 0.454573621 0.182415057 5.110289e-05 0.0019263269 3.246791e-03
-## 6 0.005070231 0.002203295 6.547225e-07 0.0000177032 2.531299e-05</code></pre>
+## 1 0.452535970 0.178718539 6.175774e-05 1.921197e-03 3.324151e-03
+## 2 0.004977372 0.002132319 7.801228e-07 1.727857e-05 2.495865e-05
+## 3 0.452535970 0.178718539 6.175774e-05 1.921197e-03 3.324151e-03
+## 4 0.452535970 0.178718539 6.175774e-05 1.921197e-03 3.324151e-03
+## 5 0.452535970 0.178718539 6.175774e-05 1.921197e-03 3.324151e-03
+## 6 0.004977372 0.002132319 7.801228e-07 1.727857e-05 2.495865e-05</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="burial-rites.html#cb47-1" tabindex="-1"></a><span class="co"># Contributions</span></span>
 <span id="cb47-2"><a href="burial-rites.html#cb47-2" tabindex="-1"></a><span class="fu">head</span>(ind<span class="sc">$</span>contrib)</span></code></pre></div>
 <pre><code>##        Dim 1      Dim 2        Dim 3        Dim 4        Dim 5
-## 1 0.04242218 0.01801113 5.275963e-06 0.0002565910 0.0005209787
-## 2 0.04386221 0.02016633 6.265960e-06 0.0002185934 0.0003765157
-## 3 0.04242218 0.01801113 5.275963e-06 0.0002565910 0.0005209787
-## 4 0.04242218 0.01801113 5.275963e-06 0.0002565910 0.0005209787
-## 5 0.04242218 0.01801113 5.275963e-06 0.0002565910 0.0005209787
-## 6 0.04386221 0.02016633 6.265960e-06 0.0002185934 0.0003765157</code></pre>
+## 1 0.04162644 0.01740859 6.276697e-06 0.0002519636 0.0005250343
+## 2 0.04310695 0.01955588 7.465068e-06 0.0002133559 0.0003711582
+## 3 0.04162644 0.01740859 6.276697e-06 0.0002519636 0.0005250343
+## 4 0.04162644 0.01740859 6.276697e-06 0.0002519636 0.0005250343
+## 5 0.04162644 0.01740859 6.276697e-06 0.0002519636 0.0005250343
+## 6 0.04310695 0.01955588 7.465068e-06 0.0002133559 0.0003711582</code></pre>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="burial-rites.html#cb49-1" tabindex="-1"></a><span class="do">## Extract results for variables</span></span>
 <span id="cb49-2"><a href="burial-rites.html#cb49-2" tabindex="-1"></a>var <span class="ot">&lt;-</span> <span class="fu">get_mca_var</span>(mca)</span>
 <span id="cb49-3"><a href="burial-rites.html#cb49-3" tabindex="-1"></a><span class="co"># Coordinates of points</span></span>
 <span id="cb49-4"><a href="burial-rites.html#cb49-4" tabindex="-1"></a><span class="fu">head</span>(var<span class="sc">$</span>coord)</span></code></pre></div>
-<pre><code>##                    Dim 1        Dim 2        Dim 3       Dim 4        Dim 5
-## back           1.3311704  3.222113770  0.015046611 -0.53813071  0.115302261
-## back/left      1.3693464 -0.928499142  0.016366728 -0.09666886 -0.126870199
-## back/right     1.3155634 -0.358894978  0.012521280  7.10222939 20.812083402
-## bottom        -1.0476985 -0.003798750 27.276489063  0.01478600 -0.003133533
-## BurialSide.NA -0.7299697 -0.001059584 -0.057315989 -0.01435338  0.003810972
-## front          1.0166440  1.714392549 -0.003881921  9.89086156 -2.847342772</code></pre>
+<pre><code>##                    Dim 1        Dim 2       Dim 3       Dim 4        Dim 5
+## back           1.2472461  3.168018069  0.01778109 -0.53901657  0.115387563
+## back/left      1.3122968 -0.883887674  0.01726932 -0.09232318 -0.121769327
+## back/right     1.2560349 -0.321087095  0.01343833  6.86505403 20.118365513
+## bottom        -1.1136302 -0.024014900 26.36270958  0.01574080 -0.003364057
+## BurialSide.NA -0.7642572 -0.006344283 -0.06230112 -0.01528728  0.004091222
+## front          0.9486491  1.711493882 -0.00323245  9.55350777 -2.751694561</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="burial-rites.html#cb51-1" tabindex="-1"></a><span class="co"># Quality of representation</span></span>
 <span id="cb51-2"><a href="burial-rites.html#cb51-2" tabindex="-1"></a><span class="fu">head</span>(var<span class="sc">$</span>cos2)</span></code></pre></div>
 <pre><code>##                     Dim 1        Dim 2        Dim 3        Dim 4        Dim 5
-## back          0.128477727 7.527353e-01 1.641489e-05 2.099598e-02 9.639094e-04
-## back/left     0.001316790 6.054148e-04 1.881108e-07 6.562408e-06 1.130340e-05
-## back/right    0.002026589 1.508262e-04 1.835860e-07 5.906518e-02 5.071930e-01
-## bottom        0.001285330 1.689755e-08 8.712024e-01 2.560022e-07 1.149769e-08
-## BurialSide.NA 0.957954734 2.018395e-06 5.905911e-03 3.703770e-04 2.610999e-05
-## front         0.006324474 1.798486e-02 9.221040e-08 5.986250e-01 4.960965e-02</code></pre>
+## back          0.117697904 7.593460e-01 2.392111e-05 2.198207e-02 1.007355e-03
+## back/left     0.001294180 5.871173e-04 2.241203e-07 6.405488e-06 1.114311e-05
+## back/right    0.001976972 1.291941e-04 2.263018e-07 5.905886e-02 5.072038e-01
+## bottom        0.001554101 7.227010e-07 8.709179e-01 3.104923e-07 1.418155e-08
+## BurialSide.NA 0.956132501 6.588768e-05 6.353759e-03 3.825598e-04 2.739966e-05
+## front         0.005895267 1.918859e-02 6.844723e-08 5.978854e-01 4.960126e-02</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="burial-rites.html#cb53-1" tabindex="-1"></a><span class="co"># Contributions</span></span>
 <span id="cb53-2"><a href="burial-rites.html#cb53-2" tabindex="-1"></a><span class="fu">head</span>(var<span class="sc">$</span>contrib)</span></code></pre></div>
 <pre><code>##                     Dim 1        Dim 2        Dim 3        Dim 4        Dim 5
-## back           6.20630997 3.847153e+01 8.772252e-04 1.447653e+00 8.006058e-02
-## back/left      0.06817360 3.316226e-02 1.077410e-05 4.849372e-04 1.006203e-03
-## back/right     0.10487256 8.257805e-03 1.051001e-05 4.362650e+00 4.512803e+01
-## bottom         0.06651368 9.251483e-07 4.987499e+01 1.890874e-05 1.023019e-06
-## BurialSide.NA 17.73930766 3.954480e-05 1.209891e-01 9.789451e-03 8.313336e-04
-## front          0.32567127 9.798368e-01 5.252941e-06 4.399797e+01 4.392362e+00</code></pre>
+## back           5.67625281 3.878025e+01 1.274670e-03 1.511511e+00 8.341922e-02
+## back/left      0.06708671 3.222882e-02 1.283649e-05 4.734167e-04 9.918337e-04
+## back/right     0.10242937 7.088343e-03 1.295494e-05 4.362734e+00 4.512292e+01
+## bottom         0.08051988 3.965159e-05 4.985684e+01 2.293636e-05 1.261649e-06
+## BurialSide.NA 18.80969773 1.372606e-03 1.381077e-01 1.073032e-02 9.255495e-04
+## front          0.30383351 1.047256e+00 3.897729e-06 4.393392e+01 4.389506e+00</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="burial-rites.html#cb55-1" tabindex="-1"></a><span class="do">## Dimension description</span></span>
 <span id="cb55-2"><a href="burial-rites.html#cb55-2" tabindex="-1"></a>res.desc <span class="ot">&lt;-</span> <span class="fu">dimdesc</span>(mca, <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb55-3"><a href="burial-rites.html#cb55-3" tabindex="-1"></a><span class="co"># Description of dimension 1</span></span>
@@ -460,74 +464,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## 
 ## Link between the variable and the categorical variable (1-way anova)
 ## =============================================
-##                       R2 p.value
-## BurialSide      0.965085       0
-## BodyPositioning 0.965085       0
+##                        R2 p.value
+## BurialSide      0.9638337       0
+## BodyPositioning 0.9638337       0
 ## 
 ## Link between variable and the categories of the categorical variables
 ## ================================================================
 ##                                        Estimate       p.value
-## BodyPositioning=crouched            1.045987510  0.000000e+00
-## BurialSide=left                     0.307231364  0.000000e+00
-## BurialSide=right                    0.300770843 1.601385e-248
-## BurialSide=back                     0.312706294 8.638593e-130
-## BodyPositioning=extended            1.104703965 1.007513e-127
-## BurialSide=front                    0.003719506  1.924871e-07
-## BurialSide=left/back                0.350209949  2.860113e-04
-## BurialSide=left/front               0.350209949  7.856862e-04
-## BurialSide=back/right               0.297374167  3.239553e-03
-## BodyPositioning=irregular           0.800256221  3.750315e-03
-## BurialSide=front/right              0.392292906  1.440611e-02
-## BurialSide=right/back               0.371251427  1.595971e-02
-## BurialSide=right/front              0.350209949  1.765871e-02
-## BurialSide=back/left                0.350209949  1.765871e-02
-## BurialSide=bottom                  -2.024264493  1.906977e-02
-## BodyPositioning=heap               -0.976252195  1.842972e-02
-## BodyPositioning=sitting            -1.162677341  3.419115e-03
-## BodyPositioning=scattered          -0.976252195  2.317330e-13
-## BodyPositioning=inside a vessel    -0.976252195 4.132094e-173
-## BodyPositioning=BodyPositioning.NA -0.922634967  0.000000e+00
-## BurialSide=BurialSide.NA           -1.712131758  0.000000e+00</code></pre>
+## BodyPositioning=crouched            1.043299943  0.000000e+00
+## BurialSide=left                     0.310675575  0.000000e+00
+## BurialSide=right                    0.307901895 1.404840e-228
+## BurialSide=back                     0.289832770 9.773030e-111
+## BodyPositioning=extended            1.074366780 7.578031e-109
+## BurialSide=left/back                0.353696275  5.078170e-04
+## BurialSide=left/front               0.353696275  1.291090e-03
+## BurialSide=back/right               0.298461146  4.941094e-03
+## BodyPositioning=irregular           0.787100787  6.763821e-03
+## BurialSide=front/right              0.376022406  2.070762e-02
+## BurialSide=right/back               0.364859340  2.181590e-02
+## BurialSide=back/left                0.353696275  2.297543e-02
+## BurialSide=right/front              0.353696275  2.297543e-02
+## BodyPositioning=heap               -0.960671607  1.966937e-02
+## BurialSide=bottom                  -2.027958362  1.270613e-02
+## BodyPositioning=sitting            -1.166083538  1.911605e-03
+## BurialSide=front                   -0.003314913  1.181872e-06
+## BodyPositioning=scattered          -0.960671607  2.741842e-14
+## BodyPositioning=inside a vessel    -0.960671607 3.735126e-198
+## BodyPositioning=BodyPositioning.NA -0.899336024  0.000000e+00
+## BurialSide=BurialSide.NA           -1.684961232  0.000000e+00</code></pre>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="burial-rites.html#cb57-1" tabindex="-1"></a><span class="co"># Description of dimension 2</span></span>
 <span id="cb57-2"><a href="burial-rites.html#cb57-2" tabindex="-1"></a>res.desc[[<span class="dv">2</span>]]</span></code></pre></div>
 <pre><code>## 
 ## Link between the variable and the categorical variable (1-way anova)
 ## =============================================
 ##                        R2 p.value
-## BurialSide      0.9121663       0
-## BodyPositioning 0.9121663       0
+## BurialSide      0.9101736       0
+## BodyPositioning 0.9101736       0
 ## 
 ## Link between variable and the categories of the categorical variables
 ## ================================================================
 ##                             Estimate       p.value
-## BodyPositioning=extended   2.6669805  0.000000e+00
-## BurialSide=back            2.9823430  0.000000e+00
-## BurialSide=front           1.5423577  1.300797e-18
-## BodyPositioning=irregular  1.0140679  7.337985e-06
-## BurialSide=front/right     2.1683493  3.974399e-05
-## BodyPositioning=prone      1.4891308  3.255675e-03
-## BurialSide=left/front     -0.9817994  2.284775e-02
-## BurialSide=left/back      -0.9817994  1.394247e-02
-## BurialSide=right          -0.8519653  1.172108e-83
-## BurialSide=left           -0.8929097 2.353349e-131
-## BodyPositioning=crouched  -1.2281751 4.093779e-271</code></pre>
+## BodyPositioning=extended   2.6130814  0.000000e+00
+## BurialSide=back            2.9096872  0.000000e+00
+## BurialSide=front           1.5201192  1.428323e-18
+## BodyPositioning=irregular  1.0135773  7.217535e-06
+## BurialSide=front/right     2.1336689  4.449380e-05
+## BodyPositioning=prone      1.4933972  3.158197e-03
+## BurialSide=left/front     -0.9559531  3.026078e-02
+## BurialSide=left/back      -0.9559531  1.924924e-02
+## BurialSide=right          -0.8299554  2.290910e-75
+## BurialSide=left           -0.8692288 1.179039e-119
+## BodyPositioning=crouched  -1.1887624 2.623678e-249</code></pre>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="burial-rites.html#cb59-1" tabindex="-1"></a><span class="co"># Description of dimension 3</span></span>
 <span id="cb59-2"><a href="burial-rites.html#cb59-2" tabindex="-1"></a>res.desc[[<span class="dv">3</span>]]</span></code></pre></div>
 <pre><code>## 
 ## Link between the variable and the categorical variable (1-way anova)
 ## =============================================
 ##                        R2 p.value
-## BurialSide      0.8723646       0
-## BodyPositioning 0.8723646       0
+## BurialSide      0.8723255       0
+## BodyPositioning 0.8723255       0
 ## 
 ## Link between variable and the categories of the categorical variables
 ## ================================================================
 ##                                     Estimate      p.value
-## BodyPositioning=sitting            17.100574 0.000000e+00
-## BurialSide=bottom                  23.649086 0.000000e+00
-## BodyPositioning=inside a vessel    -1.944305 8.541114e-03
-## BodyPositioning=BodyPositioning.NA -1.942110 8.857277e-05
-## BurialSide=BurialSide.NA           -1.880814 4.887254e-07</code></pre>
+## BodyPositioning=sitting            16.528300 0.000000e+00
+## BurialSide=bottom                  22.855377 0.000000e+00
+## BodyPositioning=inside a vessel    -1.884894 3.889698e-03
+## BodyPositioning=BodyPositioning.NA -1.882119 1.625618e-04
+## BurialSide=BurialSide.NA           -1.825152 4.543943e-07</code></pre>
 </div>
 <div id="upset-plot" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> UpSet plot<a href="burial-rites.html#upset-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -536,7 +540,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb61-2"><a href="burial-rites.html#cb61-2" tabindex="-1"></a></span>
 <span id="cb61-3"><a href="burial-rites.html#cb61-3" tabindex="-1"></a><span class="co"># UpSet plot with all variables</span></span>
 <span id="cb61-4"><a href="burial-rites.html#cb61-4" tabindex="-1"></a><span class="fu">upset</span>(upset_df, <span class="at">sets =</span> <span class="fu">colnames</span>(upset_df)[<span class="sc">-</span><span class="dv">1</span>], <span class="at">order.by =</span> <span class="st">&#39;freq&#39;</span>, <span class="at">keep.order =</span> F)</span></code></pre></div>
-<p><img src="_main_files/figure-html/UpSet%20plot-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/UpSet plot-1.png" width="672" /></p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="burial-rites.html#cb62-1" tabindex="-1"></a>set_size <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Set =</span> <span class="fu">colnames</span>(upset_df)[<span class="sc">-</span><span class="dv">1</span>],</span>
 <span id="cb62-2"><a href="burial-rites.html#cb62-2" tabindex="-1"></a>                       <span class="at">Size =</span> <span class="fu">colSums</span>(upset_df[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">na.rm =</span> T))</span>
 <span id="cb62-3"><a href="burial-rites.html#cb62-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> set_size) <span class="sc">+</span></span>
@@ -546,11 +550,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb62-7"><a href="burial-rites.html#cb62-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
 <span id="cb62-8"><a href="burial-rites.html#cb62-8" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb62-9"><a href="burial-rites.html#cb62-9" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">30</span>, <span class="at">b =</span> <span class="dv">5</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/UpSet%20plot-2.png" width="672" /></p>
+<p><img src="_main_files/figure-html/UpSet plot-2.png" width="672" /></p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="burial-rites.html#cb63-1" tabindex="-1"></a><span class="co"># UpSet plot with selected variables</span></span>
 <span id="cb63-2"><a href="burial-rites.html#cb63-2" tabindex="-1"></a>sets <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;BodyPositioning_crouched&quot;</span>, <span class="st">&quot;BodyPositioning_extended&quot;</span>, <span class="st">&quot;BodyPositioning_heap&quot;</span>, <span class="st">&quot;BodyPositioning_inside a vessel&quot;</span>, <span class="st">&quot;BodyPositioning_prone&quot;</span>, <span class="st">&quot;BodyPositioning_scattered&quot;</span>, <span class="st">&quot;BodyPositioning_sitting&quot;</span>,<span class="st">&quot;BurialSide_bottom&quot;</span>, <span class="st">&quot;BurialSide_front&quot;</span>, <span class="st">&quot;BurialSide_left&quot;</span>, <span class="st">&quot;BurialSide_right&quot;</span>, <span class="st">&quot;BurialSide_back&quot;</span>)</span>
 <span id="cb63-3"><a href="burial-rites.html#cb63-3" tabindex="-1"></a><span class="fu">upset</span>(upset_df, <span class="at">sets =</span> sets, <span class="at">order.by =</span> <span class="st">&#39;freq&#39;</span>, <span class="at">keep.order =</span> T, <span class="at">set_size.show =</span> T)</span></code></pre></div>
-<p><img src="_main_files/figure-html/UpSet%20plot-3.png" width="672" /></p>
+<p><img src="_main_files/figure-html/UpSet plot-3.png" width="672" /></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="burial-rites.html#cb64-1" tabindex="-1"></a>set_size <span class="ot">&lt;-</span> set_size[<span class="fu">which</span>(set_size<span class="sc">$</span>Set <span class="sc">%in%</span> sets),]</span>
 <span id="cb64-2"><a href="burial-rites.html#cb64-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> set_size) <span class="sc">+</span></span>
 <span id="cb64-3"><a href="burial-rites.html#cb64-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Set, Size, <span class="at">decreasing =</span> T), <span class="at">y =</span> Size), <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
@@ -559,7 +563,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb64-6"><a href="burial-rites.html#cb64-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
 <span id="cb64-7"><a href="burial-rites.html#cb64-7" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb64-8"><a href="burial-rites.html#cb64-8" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">20</span>, <span class="at">b =</span> <span class="dv">5</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/UpSet%20plot-4.png" width="672" /></p>
+<p><img src="_main_files/figure-html/UpSet plot-4.png" width="672" /></p>
 <p>Now let’s plot the MCA biplots without the repel option. We color the individuals by other variables, including <strong>culture</strong>, <strong>period</strong>, <strong>country</strong>, and <strong>ancestry</strong> values.</p>
 <p>In this case, because the individuals are too many, I decided to count the number of individuals in each variable and for each dimension coordinate.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="burial-rites.html#cb65-1" tabindex="-1"></a><span class="do">## Create dataframe</span></span>
@@ -576,13 +580,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-12"><a href="burial-rites.html#cb65-12" tabindex="-1"></a>ind_dims<span class="sc">$</span>CHG <span class="ot">&lt;-</span> graves<span class="sc">$</span>ANCE8_v2</span>
 <span id="cb65-13"><a href="burial-rites.html#cb65-13" tabindex="-1"></a>ind_dims<span class="sc">$</span>mobility <span class="ot">&lt;-</span> graves<span class="sc">$</span>mobility_MDS_250y_retrospective</span>
 <span id="cb65-14"><a href="burial-rites.html#cb65-14" tabindex="-1"></a><span class="fu">head</span>(ind_dims)</span></code></pre></div>
-<pre><code>##      Dim 1      Dim 2     Dim 3       Dim 4      Dim 5 Individual  Country
-## 1 1.322962 -0.8380609 0.0140271 -0.08612123 -0.1118079          1 Slovakia
-## 2 1.345229 -0.8867854 0.0152866 -0.07948919 -0.0950504          2 Slovakia
-## 3 1.322962 -0.8380609 0.0140271 -0.08612123 -0.1118079          3 Slovakia
-## 4 1.322962 -0.8380609 0.0140271 -0.08612123 -0.1118079          4 Slovakia
-## 5 1.322962 -0.8380609 0.0140271 -0.08612123 -0.1118079          5 Slovakia
-## 6 1.345229 -0.8867854 0.0152866 -0.07948919 -0.0950504          6 Slovakia
+<pre><code>##      Dim 1      Dim 2      Dim 3       Dim 4       Dim 5 Individual  Country
+## 1 1.266030 -0.7956139 0.01478983 -0.08249041 -0.10850704          1 Slovakia
+## 2 1.288348 -0.8432555 0.01612926 -0.07590789 -0.09123125          2 Slovakia
+## 3 1.266030 -0.7956139 0.01478983 -0.08249041 -0.10850704          3 Slovakia
+## 4 1.266030 -0.7956139 0.01478983 -0.08249041 -0.10850704          4 Slovakia
+## 5 1.266030 -0.7956139 0.01478983 -0.08249041 -0.10850704          5 Slovakia
+## 6 1.288348 -0.8432555 0.01612926 -0.07590789 -0.09123125          6 Slovakia
 ##      Period           Culture  Sex        EHG        WHG       LVN        CHG
 ## 1 Neolithic Linearbandkeramik 1.00 0.01482775 0.09702275 0.8293732 0.04803575
 ## 2 Neolithic Linearbandkeramik 0.00 0.01482775 0.09702275 0.8293732 0.04803575
@@ -639,7 +643,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb68-29"><a href="burial-rites.html#cb68-29" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste0</span>(<span class="st">&quot;Dim 2 (&quot;</span>, <span class="fu">round</span>(eig.val[<span class="dv">2</span>,<span class="dv">2</span>], <span class="dv">2</span>), <span class="st">&quot;%)&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb68-30"><a href="burial-rites.html#cb68-30" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb68-31"><a href="burial-rites.html#cb68-31" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/biplot%20default-1.png" width="1344" /></p>
+<p><img src="_main_files/figure-html/biplot default-1.png" width="1344" /></p>
 </div>
 <div id="country" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Country<a href="burial-rites.html#country" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1114,7 +1118,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="modelling" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Modelling<a href="burial-rites.html#modelling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We decided, based on the upset plot, to model the burial sides: <em>right</em>, <em>left</em>, <em>back</em> against ancestry and mobility. This is because both left and right are associated with the crouched position and the back is associated with the extended position, which are the most commonly found positions in graves.</p>
+<div id="model-fit" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Model fit<a href="burial-rites.html#model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we take a look at the model fit. We tested different models, with different combinations of covariates. Her we take a look at the model fit, based on WAIC and DIC scores.</p>
+<p><img src="_main_files/figure-html/model fit-1.png" width="960" /></p>
+<p>Because of colinearity between WHG and the other ancestries, we should exclude the full ancestry models from the evaluation of model fit.</p>
+<p><img src="_main_files/figure-html/model fit2-1.png" width="960" /></p>
+<p>We also look at model fit for the models before 5k BP.</p>
+<p><img src="_main_files/figure-html/fit before steppe-1.png" width="960" /></p>
+<p>And the fit for the models with steppe ancestry</p>
+<p><img src="_main_files/figure-html/fit steppe-1.png" width="960" /></p>
+</div>
+<div id="results" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Results<a href="burial-rites.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we look at the posterior densities of the coefficients for the variables of the full model (without WHG ancestry).</p>
+<p><img src="_main_files/figure-html/full model results-1.png" width="960" /><img src="_main_files/figure-html/full model results-2.png" width="960" /><img src="_main_files/figure-html/full model results-3.png" width="960" /></p>
 
+</div>
 </div>
 </div>
             </section>

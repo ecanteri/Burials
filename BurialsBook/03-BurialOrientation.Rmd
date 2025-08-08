@@ -11,6 +11,7 @@ library(FactoMineR)
 library(circular)
 library(CircStats)
 library(BIADconnect)
+library(webshot)
 conn <- init.conn()
 knitr::opts_chunk$set(warning = FALSE, message = FALSE,
                       root.dir = "/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves")
@@ -133,6 +134,8 @@ orientation[, BurialOrientationMin_sin := sin(BurialOrientationMin*pi/180)]
 orientation[, BurialOrientationMax_sin := sin(BurialOrientationMax*pi/180)]
 
 # Add Country, Culture, Period and Ancestry info
+orientation$Longitude <- graves[Num %in% orientation$Num]$Longitude
+orientation$Latitude <- graves[Num %in% orientation$Num]$Latitude
 orientation$Country <- graves[Num %in% orientation$Num]$Country
 orientation$Period <- graves[Num %in% orientation$Num]$Period
 orientation$Culture <- graves[Num %in% orientation$Num]$Culture

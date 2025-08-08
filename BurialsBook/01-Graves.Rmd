@@ -13,6 +13,7 @@ library(INLA)
 library(fmesher)
 library(pbapply)
 library(mobest)
+library(webshot)
 knitr::opts_knit$set(root.dir = "/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves")
 
 proj <- "+proj=aea +lon_0=44.296875 +lat_1=43.7864128 +lat_2=69.9512657 +lat_0=56.8688392 +datum=WGS84 +units=km +no_defs"
