@@ -23,7 +23,7 @@
 <meta name="author" content="Elisabetta Canteri" />
 
 
-<meta name="date" content="2025-08-07" />
+<meta name="date" content="2025-08-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -540,7 +540,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb61-2"><a href="burial-rites.html#cb61-2" tabindex="-1"></a></span>
 <span id="cb61-3"><a href="burial-rites.html#cb61-3" tabindex="-1"></a><span class="co"># UpSet plot with all variables</span></span>
 <span id="cb61-4"><a href="burial-rites.html#cb61-4" tabindex="-1"></a><span class="fu">upset</span>(upset_df, <span class="at">sets =</span> <span class="fu">colnames</span>(upset_df)[<span class="sc">-</span><span class="dv">1</span>], <span class="at">order.by =</span> <span class="st">&#39;freq&#39;</span>, <span class="at">keep.order =</span> F)</span></code></pre></div>
-<p><img src="_main_files/figure-html/UpSet plot-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/UpSet%20plot-1.png" width="672" /></p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="burial-rites.html#cb62-1" tabindex="-1"></a>set_size <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Set =</span> <span class="fu">colnames</span>(upset_df)[<span class="sc">-</span><span class="dv">1</span>],</span>
 <span id="cb62-2"><a href="burial-rites.html#cb62-2" tabindex="-1"></a>                       <span class="at">Size =</span> <span class="fu">colSums</span>(upset_df[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">na.rm =</span> T))</span>
 <span id="cb62-3"><a href="burial-rites.html#cb62-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> set_size) <span class="sc">+</span></span>
@@ -550,11 +550,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb62-7"><a href="burial-rites.html#cb62-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
 <span id="cb62-8"><a href="burial-rites.html#cb62-8" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb62-9"><a href="burial-rites.html#cb62-9" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">30</span>, <span class="at">b =</span> <span class="dv">5</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/UpSet plot-2.png" width="672" /></p>
+<p><img src="_main_files/figure-html/UpSet%20plot-2.png" width="672" /></p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="burial-rites.html#cb63-1" tabindex="-1"></a><span class="co"># UpSet plot with selected variables</span></span>
 <span id="cb63-2"><a href="burial-rites.html#cb63-2" tabindex="-1"></a>sets <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;BodyPositioning_crouched&quot;</span>, <span class="st">&quot;BodyPositioning_extended&quot;</span>, <span class="st">&quot;BodyPositioning_heap&quot;</span>, <span class="st">&quot;BodyPositioning_inside a vessel&quot;</span>, <span class="st">&quot;BodyPositioning_prone&quot;</span>, <span class="st">&quot;BodyPositioning_scattered&quot;</span>, <span class="st">&quot;BodyPositioning_sitting&quot;</span>,<span class="st">&quot;BurialSide_bottom&quot;</span>, <span class="st">&quot;BurialSide_front&quot;</span>, <span class="st">&quot;BurialSide_left&quot;</span>, <span class="st">&quot;BurialSide_right&quot;</span>, <span class="st">&quot;BurialSide_back&quot;</span>)</span>
 <span id="cb63-3"><a href="burial-rites.html#cb63-3" tabindex="-1"></a><span class="fu">upset</span>(upset_df, <span class="at">sets =</span> sets, <span class="at">order.by =</span> <span class="st">&#39;freq&#39;</span>, <span class="at">keep.order =</span> T, <span class="at">set_size.show =</span> T)</span></code></pre></div>
-<p><img src="_main_files/figure-html/UpSet plot-3.png" width="672" /></p>
+<p><img src="_main_files/figure-html/UpSet%20plot-3.png" width="672" /></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="burial-rites.html#cb64-1" tabindex="-1"></a>set_size <span class="ot">&lt;-</span> set_size[<span class="fu">which</span>(set_size<span class="sc">$</span>Set <span class="sc">%in%</span> sets),]</span>
 <span id="cb64-2"><a href="burial-rites.html#cb64-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> set_size) <span class="sc">+</span></span>
 <span id="cb64-3"><a href="burial-rites.html#cb64-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Set, Size, <span class="at">decreasing =</span> T), <span class="at">y =</span> Size), <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
@@ -563,7 +563,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb64-6"><a href="burial-rites.html#cb64-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
 <span id="cb64-7"><a href="burial-rites.html#cb64-7" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb64-8"><a href="burial-rites.html#cb64-8" tabindex="-1"></a>        <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">20</span>, <span class="at">b =</span> <span class="dv">5</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/UpSet plot-4.png" width="672" /></p>
+<p><img src="_main_files/figure-html/UpSet%20plot-4.png" width="672" /></p>
 <p>Now let’s plot the MCA biplots without the repel option. We color the individuals by other variables, including <strong>culture</strong>, <strong>period</strong>, <strong>country</strong>, and <strong>ancestry</strong> values.</p>
 <p>In this case, because the individuals are too many, I decided to count the number of individuals in each variable and for each dimension coordinate.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="burial-rites.html#cb65-1" tabindex="-1"></a><span class="do">## Create dataframe</span></span>
@@ -643,7 +643,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb68-29"><a href="burial-rites.html#cb68-29" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste0</span>(<span class="st">&quot;Dim 2 (&quot;</span>, <span class="fu">round</span>(eig.val[<span class="dv">2</span>,<span class="dv">2</span>], <span class="dv">2</span>), <span class="st">&quot;%)&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb68-30"><a href="burial-rites.html#cb68-30" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb68-31"><a href="burial-rites.html#cb68-31" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/biplot default-1.png" width="1344" /></p>
+<p><img src="_main_files/figure-html/biplot%20default-1.png" width="1344" /></p>
 </div>
 <div id="country" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Country<a href="burial-rites.html#country" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1121,18 +1121,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="model-fit" class="section level3 hasAnchor" number="2.5.1">
 <h3><span class="header-section-number">2.5.1</span> Model fit<a href="burial-rites.html#model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here we take a look at the model fit. We tested different models, with different combinations of covariates. Her we take a look at the model fit, based on WAIC and DIC scores.</p>
-<p><img src="_main_files/figure-html/model fit-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/model%20fit-1.png" width="960" /></p>
 <p>Because of colinearity between WHG and the other ancestries, we should exclude the full ancestry models from the evaluation of model fit.</p>
-<p><img src="_main_files/figure-html/model fit2-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/model%20fit2-1.png" width="960" /></p>
 <p>We also look at model fit for the models before 5k BP.</p>
-<p><img src="_main_files/figure-html/fit before steppe-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/fit%20before%20steppe-1.png" width="960" /></p>
 <p>And the fit for the models with steppe ancestry</p>
-<p><img src="_main_files/figure-html/fit steppe-1.png" width="960" /></p>
+<p><img src="_main_files/figure-html/fit%20steppe-1.png" width="960" /></p>
 </div>
 <div id="results" class="section level3 hasAnchor" number="2.5.2">
 <h3><span class="header-section-number">2.5.2</span> Results<a href="burial-rites.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here we look at the posterior densities of the coefficients for the variables of the full model (without WHG ancestry).</p>
-<p><img src="_main_files/figure-html/full model results-1.png" width="960" /><img src="_main_files/figure-html/full model results-2.png" width="960" /><img src="_main_files/figure-html/full model results-3.png" width="960" /></p>
+<p><img src="_main_files/figure-html/full%20model%20results-1.png" width="960" /><img src="_main_files/figure-html/full%20model%20results-2.png" width="960" /><img src="_main_files/figure-html/full%20model%20results-3.png" width="960" /></p>
 
 </div>
 </div>

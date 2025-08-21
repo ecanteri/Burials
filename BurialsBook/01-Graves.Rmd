@@ -238,7 +238,7 @@ ggplot(data = graves[!is.na(Ochre)]) +
 
 Now let's plot everything is space and time:
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, eval = T}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, eval = F}
 # Dismembered
 ggplot(data = graves[!is.na(Dismembered)]) +
   geom_sf(data = land, fill = 'grey90', col = 'grey70') +

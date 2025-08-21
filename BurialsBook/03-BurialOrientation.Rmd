@@ -272,6 +272,15 @@ ggplot(data = orientation, aes(x = Bins)) +
         axis.text = element_text(size = 12))
 ```
 
+We should also check how burial orientation relates to latitude. This is because it is possible that people were buried facing east, where the sun rises. However the angle of where the sun rises changes with latitude, creating a variation in the east-west axis. We can check whether this is true by just plotting burial orientation against latitude.
+
+```{r b-o latitude, fig.dim=c(10,10)}
+ggplot(data = orientation) +
+  geom_point(aes(y = Latitude, x = BurialOrientationMean)) +
+  theme_light() +
+  xlab("Angle")
+```
+
 ### Burial side
 ```{r b-o burial side, fig.dim=c(10,10)}
 ##### Burial side ######
@@ -555,13 +564,29 @@ dim_culture <- orientation[!is.na(Culture)][, .N, by = c("Culture", "BurialOrien
 culture_keep <- orientation[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
 orientation[Culture %in% culture_keep][, .N, by = "Culture"][order(N, decreasing = T)]
 
-ggplot(data = dim_culture[Culture %in% culture_keep]) +
+dim_culture_keep <- dim_culture[Culture %in% culture_keep]
+dim_culture_keep$Culture <- factor(dim_culture_keep$Culture, 
+                               labels = c("Linearbandkeramik",
+                                          "Lažňany",
+                                          "Sopot",
+                                          "Bell Beaker",
+                                          "Únětice",
+                                          "Corded Ware",
+                                          "Baden",
+                                          "Dnieper-Donets",
+                                          "Trichterbecher",
+                                          "Baltic Meso-Neolithic"),
+                               levels = unique(dim_culture_keep$Culture))
+
+cols <- rev(pals::ocean.thermal(12))[2:11]
+
+ggplot(data = dim_culture_keep) +
   geom_point(aes(BurialOrientationMean_sin, 
                  BurialOrientationMean_cos, 
                  fill = Culture, size = N),
              position = position_jitter(0.05, 0.05),
              shape = 21) +
-  scale_fill_manual("Culture", values = pals::parula(10)) +
+  scale_fill_manual("Culture", values = cols) +
   scale_size_continuous("Count", breaks = c(1, 10, 25, 50, 75), 
                         range = c(3,10)) +
   guides(fill = guide_legend(override.aes = list(size=5))) +
@@ -576,14 +601,27 @@ ggplot(data = dim_culture[Culture %in% culture_keep]) +
         legend.title = element_text(size = 16))
 
 # Circular histogram
-ggplot(data = orientation[Culture %in% culture_keep],
+orientation_culture <- orientation[Culture %in% culture_keep]
+orientation_culture$Culture <- factor(orientation_culture$Culture,
+                                      labels = c("Linearbandkeramik",
+                                          "Lažňany",
+                                          "Sopot",
+                                          "Bell Beaker",
+                                          "Únětice",
+                                          "Corded Ware",
+                                          "Baden",
+                                          "Dnieper-Donets",
+                                          "Trichterbecher",
+                                          "Baltic Meso-Neolithic"),
+                               levels = unique(orientation_culture$Culture))
+ggplot(data = orientation_culture,
        aes(x = Bins, fill = Culture),
        color = 'black') +
   geom_bar(color = 'black', position = "dodge") +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("Culture", values = pals::parula(10)) +
+  scale_fill_manual("Culture", values = cols) +
   coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text.y = element_blank(),
@@ -592,14 +630,14 @@ ggplot(data = orientation[Culture %in% culture_keep],
         axis.text.x = element_text(size = 12))
 
 # Single plots
-ggplot(data = orientation[Culture %in% culture_keep],
+ggplot(data = orientation_culture,
        aes(x = Bins, fill = Culture),
        color = 'black') +
   geom_bar(color = 'black') +
   scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
                      labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("Culture", values = pals::parula(10)) +
+  scale_fill_manual("Culture", values = cols) +
   coord_polar(start = -.2) +
   facet_wrap(~Culture, scales = "free_y") +
   theme_light() +

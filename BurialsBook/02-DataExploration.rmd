@@ -200,7 +200,7 @@ ggplot() +
                  size = N),
              position = position_jitter(0.2, 0.2),
              shape = 21,
-             fill = "lightblue") +
+             fill = "#E18434") +
   scale_size_continuous("Count", breaks = c(1, 50, 100, 250, 500, 750, 1000),
                         range = c(3,20)) +
   geom_point(data = var_dims,
