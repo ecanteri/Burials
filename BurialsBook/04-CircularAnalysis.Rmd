@@ -2176,7 +2176,7 @@ fit.cult
 ```{r bpnreg ance, results = "hide"}
 fit.ance <- bpnr(Angles ~ 1 + CHG + EHG + LVN, data = ance.dt, its = 10000, burn = 1000, n.lag = 3, seed = 1234)
 ```
-```{r bpnreg ance}
+```{r bpnreg ance2}
 fit.ance
 ```
 
@@ -2233,7 +2233,7 @@ Based on both DIC and WAIC scores, we can see that the best models are always th
 
 Here we are going to visualize the differences between ancestries for this subset of data, i.e. grave individuals for which we have a value of ancestry and for which we know their culture and burial orientation.
 
-```{r stats cultures all2, fig.dim = c(15,15)}
+```{r bpnreg cultures only, fig.dim = c(15,15)}
 # Means
 results.dt <- setDT(data.frame(coef_circ(fit.cult, "categorical", "radians")$Means))[1:10,]
 results.dt[, Culture := levels(ance.dt$Culture)]

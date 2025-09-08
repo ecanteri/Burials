@@ -74,3 +74,11 @@ ehg-1
 lvn-1
 mobility-2
 bayesian-circular-regression-with-continuous-data-in-bpnreg
+full-model-space-time-culture-3-ancestries
+space-time-culture
+space-time-ancestry
+culture-only-model
+ancestry-only-model
+space-time-only-model
+models-fit
+visualize-cultures
