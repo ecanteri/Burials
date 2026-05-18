@@ -11,6 +11,7 @@ editor_options:
 library(BIADconnect)
 library(data.table)
 library(ggplot2)
+library(paletteer)
 library(ggrepel)
 library(segmented)
 library(terra)
@@ -152,13 +153,19 @@ sets <- c("BodyPositioning_crouched", "BodyPositioning_extended", "BodyPositioni
 upset(upset_df, sets = sets, order.by = 'freq', keep.order = T, set_size.show = T)
 
 set_size <- set_size[which(set_size$Set %in% sets),]
+set_size$Type <- sapply(strsplit(set_size$Set, "_"), "[", 1)
+set_size$Type <- factor(set_size$Type, labels = c("Body Positioning", "Burial Side"))
+set_size$Set <- sapply(strsplit(set_size$Set, "_"), "[", 2)
 ggplot(data = set_size) +
-  geom_bar(aes(x = reorder(Set, Size, decreasing = T), y = Size), stat = "identity") +
-  theme_bw() +
+  geom_bar(aes(x = reorder(Set, Size, decreasing = T), y = Size, fill = Type), 
+           stat = "identity") +
+  scale_fill_manual(values = paletteer_d("beyonce::X6", 6)[3:4]) +
+  theme_classic() +
   ylab("Set Size") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         axis.title.x = element_blank(),
-        plot.margin = margin(t = 5, r = 10, l = 20, b = 5))
+        plot.margin = margin(t = 5, r = 10, l = 20, b = 5),
+        legend.title = element_blank())
 
 ```
 
@@ -294,9 +301,12 @@ ggplot() +
                  fill = Country,
                  size = N),
              position = position_jitter(0.2, 0.2),
-             shape = 21) +
-  scale_fill_manual("Country", values = pals::tol.rainbow(23),
-                    guide = guide_legend(override.aes = list(size = 5))) +
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_manual(values = paletteer_c("grDevices::RdYlBu", 23),
+                         guide = guide_legend(override.aes = list(size = 5))) +
+  # scale_fill_manual("Country", values = pals::tol.rainbow(23),
+  #                   guide = guide_legend(override.aes = list(size = 5))) +
   scale_size_continuous("Count", breaks = c(1, 10, 50, 100, 200, 400, 800),
                         range = c(3,20)) +
   geom_point(data = var_dims,
@@ -318,7 +328,8 @@ ggplot() +
   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
   theme_bw() +
-  theme(legend.position = "right")
+  theme(legend.position = "right",
+        aspect.ratio = 1)
 # dev.off()
 ```
 
@@ -346,9 +357,12 @@ ggplot() +
                  fill = Period,
                  size = N),
              position = position_jitter(0.2, 0.2),
-             shape = 21) +
-  scale_fill_manual("Period", values = pals::parula(12),
-                    guide = guide_legend(override.aes = list(size = 5))) +
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_paletteer_d("MetBrewer::Hiroshige",
+                         guide = guide_legend(override.aes = list(size = 5))) +
+  # scale_fill_manual("Period", values = pals::parula(12),
+  #                   guide = guide_legend(override.aes = list(size = 5))) +
   scale_size_continuous("Count", breaks = c(1,50,100,250,500),
                         range = c(3, 20)) +
   geom_point(data = var_dims,
@@ -370,7 +384,8 @@ ggplot() +
   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
   theme_bw() +
-  theme(legend.position = "right")
+  theme(legend.position = "right",
+        aspect.ratio = 1)
 # dev.off()
 ```
 
@@ -389,7 +404,8 @@ ggplot() +
                  fill = Culture,
                  size = N),
              position = position_jitter(0.2, 0.2),
-             shape = 21) +
+             shape = 21,
+             alpha = 0.8) +
   scale_fill_manual(values = pals::tol.rainbow(10),
                     guide = guide_legend(override.aes = list(size = 5))) +
   scale_size_continuous("Count", breaks = c(1,25,50,100,150, 200),
@@ -419,17 +435,33 @@ ggplot() +
 # dev.off()
 
 ## Matching burial orientation
-culture_keep <- readRDS("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Data/culture_keep.RDS")
+culture_keep <- readRDS("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/Data/culture_keep.RDS")
 
+dim_culture <- dim_culture[Culture %in% culture_keep]
+dim_culture$Culture <- factor(dim_culture$Culture, 
+                               labels = c("Linearbandkeramik",
+                                          "Lažňany",
+                                          "Sopot",
+                                          "Bell Beaker",
+                                          "Únětice",
+                                          "Corded Ware",
+                                          "Baden",
+                                          "Dnieper-Donets",
+                                          "Trichterbecher",
+                                          "Baltic Meso-Neolithic"),
+                               levels = unique(dim_culture$Culture))
 ggplot() +
-  geom_point(data = dim_culture[Culture %in% culture_keep],
+  geom_point(data = dim_culture,
              aes(x = `Dim 1`, y = `Dim 2`,
                  fill = Culture,
                  size = N),
              position = position_jitter(0.2, 0.2),
-             shape = 21) +
-  scale_fill_manual(values = pals::tol.rainbow(10),
-                    guide = guide_legend(override.aes = list(size = 5))) +
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_manual(values = rev(pals::ocean.thermal(12))[2:11],
+                         guide = guide_legend(override.aes = list(size = 5))) +
+  # scale_fill_manual(values = pals::tol.rainbow(10),
+  #                   guide = guide_legend(override.aes = list(size = 5))) +
   scale_size_continuous("Count", breaks = c(1,25,50,100,150, 200),
                         range = c(3, 20)) +
   geom_point(data = var_dims,
@@ -453,7 +485,8 @@ ggplot() +
   theme_bw() +
   theme(legend.position = "right",
         legend.box = "vertical",
-        legend.direction = "vertical")
+        legend.direction = "vertical",
+        aspect.ratio = 1)
 ```
 
 ### Sex
@@ -468,8 +501,9 @@ ggplot() +
                  fill = Sex,
                  size = N),
              position = position_jitter(0.2, 0.2),
-             shape = 21) +
-  scale_fill_gradientn("Sex", colors = pals::parula(100)) +
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_gradientn("Sex", colors = paletteer_c("grDevices::Tropic", 100)) +
   scale_size_continuous("Count", breaks = c(1,50,100,300,600, 900),
                         range = c(3, 20)) +
   geom_point(data = var_dims,
@@ -491,7 +525,8 @@ ggplot() +
   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
   theme_bw() +
-  theme(legend.position = "right")
+  theme(legend.position = "right", 
+        aspect.ratio = 1)
 # dev.off()
 ```
 
@@ -531,8 +566,11 @@ ggplot() +
                    direction = "both") +
   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Western hunter-gatherers ancestry") +
   theme_bw() +
-  theme(legend.position = "right")
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
 # dev.off()
 ```
 
@@ -570,8 +608,11 @@ ggplot() +
                    direction = "both") +
   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Eastern hunter-gatherers ancestry") +
   theme_bw() +
-  theme(legend.position = "right")
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
 # dev.off()
 ```
 
@@ -609,8 +650,11 @@ ggplot() +
                    direction = "both") +
   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Caucasus hunter-gatherers ancestry") +
   theme_bw() +
-  theme(legend.position = "right")
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
 # dev.off()
 ```
 
@@ -648,8 +692,11 @@ ggplot() +
                    direction = "both") +
   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Anatolian Neolithic farmers ancestry") +
   theme_bw() +
-  theme(legend.position = "right")
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
 # dev.off()
 ```
 
@@ -687,9 +734,19 @@ ggplot() +
                    direction = "both") +
   xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
   ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Genetically-inferred mobility") +
   theme_bw() +
-  theme(legend.position = "right")
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
 # dev.off()
+```
+
+```{r ance plots, warning=FALSE, message=FALSE, eval = F}
+library(ggpubr)
+png("./Figures/Supplementary/Figure_S10.png", width = 15, height = 20, units = 'in', res = 330)
+plot_grid(plotlist = list(p1,p2,p3,p4,p5), labels = "AUTO", ncol = 2)
+dev.off()
 ```
 
 ## Modelling
@@ -751,16 +808,16 @@ model_fit[, colorDIC := ifelse(deltaDIC == 0, "red", "black")]
 model_fit$Variable <- factor(model_fit$Variable, levels = unique(model_fit$Variable))
 
 p1 <- ggplot(data = model_fit) +
-    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
+    geom_line(aes(x = Model, y = deltaDIC, group = 1)) +
     geom_hline(
-        data = model_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
+        data = model_fit[Model == "baseline"], aes(yintercept = deltaDIC),
         linetype = 2, color = "black"
     ) +
-    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
+    geom_point(aes(x = Model, y = deltaDIC, fill = colorDIC), shape = 21, size = 4) +
     facet_grid(rows = vars(Variable), scales = "free_y") +
     scale_fill_identity() +
-    ylab("Delta WAIC") +
-    ggtitle("Whole period") +
+    ylab("Delta DIC") +
+    # ggtitle("Whole period") +
     labs(tag = "A") +
     theme_bw() +
     theme(
@@ -775,15 +832,15 @@ p1 <- ggplot(data = model_fit) +
     )
 
 p2 <- ggplot(data = model_fit) +
-    geom_line(aes(x = Model, y = deltaDIC, group = 1)) +
+    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
     geom_hline(
-        data = model_fit[Model == "baseline"], aes(yintercept = deltaDIC),
+        data = model_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
         linetype = 2, color = "black"
     ) +
-    geom_point(aes(x = Model, y = deltaDIC, fill = colorDIC), shape = 21, size = 4) +
+    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
     facet_grid(rows = vars(Variable), scales = "free_y") +
     scale_fill_identity() +
-    ylab("Delta DIC") +
+    ylab("Delta WAIC") +
     labs(tag = "B") +
     theme_bw() +
     theme(
@@ -809,6 +866,9 @@ model_fit[, colorWAIC := ifelse(deltaWAIC == 0, "red", "black")]
 model_fit[, deltaDIC := dic - min(dic), by = "Variable"]
 model_fit[, colorDIC := ifelse(deltaDIC == 0, "red", "black")]
 model_fit$Variable <- factor(model_fit$Variable, levels = unique(model_fit$Variable))
+model_fit$Model <- as.character(model_fit$Model)
+model_fit$Model <- gsub(" no WHG", "", model_fit$Model)
+model_fit$Model <- factor(model_fit$Model, levels = unique(model_fit$Model))
 
 p1 <- ggplot(data = model_fit) +
     geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
@@ -820,18 +880,19 @@ p1 <- ggplot(data = model_fit) +
     facet_grid(rows = vars(Variable), scales = "free_y") +
     scale_fill_identity() +
     ylab("Delta WAIC") +
-    ggtitle("Whole period") +
-    labs(tag = "A") +
+    # ggtitle("Whole period") +
+    # labs(tag = "A") +
     theme_bw() +
     theme(
         plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
         strip.text = element_text(size = 18),
         axis.title.x = element_blank(),
         axis.title.y = element_text(size = 18),
-        axis.text.x = element_blank(),
+        # axis.text.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 16),
         axis.text.y = element_text(size = 16),
         aspect.ratio = 0.2,
-        plot.tag = element_text(face = 'bold', size = 22)
+        # plot.tag = element_text(face = 'bold', size = 22)
     )
 
 p2 <- ggplot(data = model_fit) +
@@ -869,32 +930,11 @@ model_5k_fit[, colorWAIC := ifelse(deltaWAIC == 0, "red", "black")]
 model_5k_fit[, deltaDIC := dic - min(dic), by = "Variable"]
 model_5k_fit[, colorDIC := ifelse(deltaDIC == 0, "red", "black")]
 model_5k_fit$Variable <- factor(model_5k_fit$Variable, levels = unique(model_5k_fit$Variable))
+model_5k_fit$Model <- factor(model_5k_fit$Model,
+                             levels = unique(model_5k_fit$Model),
+                             labels = gsub(" no WHG", "", unique(model_5k_fit$Model)))
 
 p3 <- ggplot(data = model_5k_fit) +
-    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
-    geom_hline(
-        data = model_5k_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
-        linetype = 2, color = "black"
-    ) +
-    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
-    facet_grid(rows = vars(Variable), scales = "free_y") +
-    scale_fill_identity() +
-    ylab("Delta WAIC") +
-    ggtitle("Before 5k BP") +
-    labs(tag = "A") +
-    theme_bw() +
-    theme(
-        plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
-        strip.text = element_text(size = 18),
-        axis.title.x = element_blank(),
-        axis.title.y = element_text(size = 18),
-        axis.text.x = element_blank(),
-        axis.text.y = element_text(size = 16),
-        aspect.ratio = 0.2,
-        plot.tag = element_text(face = 'bold', size = 22)
-    )
-
-p4 <- ggplot(data = model_5k_fit) +
     geom_line(aes(x = Model, y = deltaDIC, group = 1)) +
     geom_hline(
         data = model_5k_fit[Model == "baseline"], aes(yintercept = deltaDIC),
@@ -904,7 +944,31 @@ p4 <- ggplot(data = model_5k_fit) +
     facet_grid(rows = vars(Variable), scales = "free_y") +
     scale_fill_identity() +
     ylab("Delta DIC") +
-    labs(tag = "B") +
+    # ggtitle("Before 5k BP") +
+    # labs(tag = "A") +
+    theme_bw() +
+    theme(
+        plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+        strip.text = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.5,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p4 <- ggplot(data = model_5k_fit) +
+    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
+    geom_hline(
+        data = model_5k_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta WAIC") +
+    # labs(tag = "B") +
     theme_bw() +
     theme(
         strip.text = element_text(size = 18),
@@ -912,7 +976,7 @@ p4 <- ggplot(data = model_5k_fit) +
         axis.title.x = element_blank(),
         axis.text.x = element_text(angle = 45, hjust = 1, size = 16),
         axis.text.y = element_text(size = 16),
-        aspect.ratio = 0.2,
+        aspect.ratio = 0.5,
         plot.tag = element_text(face = 'bold', size = 22)
     )
 
@@ -931,30 +995,6 @@ model_steppe_fit[, colorDIC := ifelse(deltaDIC == 0, "red", "black")]
 model_steppe_fit$Variable <- factor(model_steppe_fit$Variable, levels = unique(model_steppe_fit$Variable))
 
 p5 <- ggplot(data = model_steppe_fit) +
-    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
-    geom_hline(
-        data = model_steppe_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
-        linetype = 2, color = "black"
-    ) +
-    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
-    facet_grid(rows = vars(Variable), scales = "free_y") +
-    scale_fill_identity() +
-    ylab("Delta WAIC") +
-    ggtitle("Steppe ancestry") +
-    labs(tag = "A") +
-    theme_bw() +
-    theme(
-        plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
-        strip.text = element_text(size = 18),
-        axis.title.x = element_blank(),
-        axis.title.y = element_text(size = 18),
-        axis.text.x = element_blank(),
-        axis.text.y = element_text(size = 16),
-        aspect.ratio = 0.2,
-        plot.tag = element_text(face = 'bold', size = 22)
-    )
-
-p6 <- ggplot(data = model_steppe_fit) +
     geom_line(aes(x = Model, y = deltaDIC, group = 1)) +
     geom_hline(
         data = model_steppe_fit[Model == "baseline"], aes(yintercept = deltaDIC),
@@ -964,7 +1004,31 @@ p6 <- ggplot(data = model_steppe_fit) +
     facet_grid(rows = vars(Variable), scales = "free_y") +
     scale_fill_identity() +
     ylab("Delta DIC") +
-    labs(tag = "B") +
+    # ggtitle("Steppe ancestry") +
+    # labs(tag = "A") +
+    theme_bw() +
+    theme(
+        plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+        strip.text = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.5,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p6 <- ggplot(data = model_steppe_fit) +
+    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
+    geom_hline(
+        data = model_steppe_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta WAIC") +
+    # labs(tag = "B") +
     theme_bw() +
     theme(
         strip.text = element_text(size = 18),
@@ -972,7 +1036,7 @@ p6 <- ggplot(data = model_steppe_fit) +
         axis.title.x = element_blank(),
         axis.text.x = element_text(angle = 45, hjust = 1, size = 16),
         axis.text.y = element_text(size = 16),
-        aspect.ratio = 0.2,
+        aspect.ratio = 0.5,
         plot.tag = element_text(face = 'bold', size = 22)
     )
 
@@ -984,8 +1048,12 @@ p5/p6
 Here we look at the posterior densities of the coefficients for the variables of the full model (without WHG ancestry).
 
 ```{r full model results, fig.dim = c(10, 5), echo = F}
-cols <- rev(pals::ocean.phase(5)[2:4])
-cols[1] <- "grey50"
+# cols <- rev(pals::ocean.phase(5)[2:4])
+# cols[1] <- "grey50"
+# 
+# cols <- paletteer::paletteer_d("beyonce::X6", 4)[c(2,4,3)]
+# cols <- paletteer::paletteer_d("nationalparkcolors::Acadia",6)[c(5,1,3)]
+cols <- paletteer::paletteer_d("ButterflyColors::anteos_menippe", 3)
 
 ## Full model no WHG
 results_df <- fread("./Results/FullModelNoWHG_results.csv")
@@ -1034,7 +1102,7 @@ p_5k <- ggplot(data = results_df) +
     scale_fill_manual("", values = cols) +
     facet_grid(cols = vars(Variable), scales = "free_x") +
     theme_bw() +
-    ggtitle("Full model before 5k BP") +
+    ggtitle("Before 5k BP") +
     theme(aspect.ratio = 0.9,
     plot.title = element_text(size = 20, face = 'bold'),
     axis.title = element_blank(),
@@ -1063,7 +1131,7 @@ p_steppe <- ggplot(data = results_df) +
     scale_fill_manual("", values = cols) +
     facet_grid(cols = vars(Variable), scales = "free_x") +
     theme_bw() +
-    ggtitle("Full model after 5k BP") +
+    ggtitle("After 5k BP") +
     theme(aspect.ratio = 0.9,
     plot.title = element_text(size = 20, face = 'bold'),
     axis.title = element_blank(),
@@ -1074,5 +1142,98 @@ p_steppe <- ggplot(data = results_df) +
     legend.text = element_text(size = 16))
 
 p_steppe
+```
+
+```{r best models results, echo = F, eval = F}
+## Best full model
+results_df <- fread("./Results/BestModels_results.csv")
+
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "LVN", "Mobility")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry", "Mobility"))
+
+pbA <- ggplot(data = results_df) +
+  geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, 
+                    y = Predictors, color = Type),
+                width = 0.2, linewidth = 1) +
+  geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+  geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+  geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+  scale_color_manual("", values = cols) +
+  scale_fill_manual("", values = cols) +
+  facet_grid(cols = vars(Variable), scales = "free_x") +
+  theme_bw() +
+  ggtitle("Full period") +
+  theme(aspect.ratio = 0.9,
+        plot.title = element_text(size = 20, face = 'bold'),
+        axis.title = element_blank(),
+        axis.text = element_text(size = 16),
+        strip.text = element_text(size = 18),
+        legend.position = "none",
+        legend.direction = "horizontal",
+        legend.text = element_text(size = 16))
+
+## Best model before 5k BP
+results_df <- fread("./Results/BestModelsBefore5k_results.csv")
+
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "EHG", "CHG","LVN", "Mobility")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry", "Mobility"))
+
+pbB <- ggplot(data = results_df) +
+  geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, 
+                    y = Predictors, color = Type),
+                width = 0.2, linewidth = 1) +
+  geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+  geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+  geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+  scale_color_manual("", values = cols) +
+  scale_fill_manual("", values = cols) +
+  facet_grid(cols = vars(Variable), scales = "free_x") +
+  theme_bw() +
+  ggtitle("Before 5k BP") +
+  theme(aspect.ratio = 0.9,
+        plot.title = element_text(size = 20, face = 'bold'),
+        axis.title = element_blank(),
+        axis.text = element_text(size = 16),
+        strip.text = element_text(size = 18),
+        legend.position = "none",
+        legend.direction = "horizontal",
+        legend.text = element_text(size = 16))
+
+## Best model after 5k BP
+results_df <- fread("./Results/BestModelsAfter5k_results.csv")
+
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "LVN", "Steppe ancestry")),
+    labels = rev(c("Intercept", "LVN", "Steppe")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry"))
+
+pbC <- ggplot(data = results_df) +
+  geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, 
+                    y = Predictors, color = Type),
+                width = 0.2, linewidth = 1) +
+  geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+  geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+  geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+  scale_color_manual("", values = cols) +
+  scale_fill_manual("", values = cols) +
+  facet_grid(cols = vars(Variable), scales = "free_x") +
+  theme_bw() +
+  ggtitle("After 5k BP") +
+  theme(aspect.ratio = 0.9,
+        plot.title = element_text(size = 20, face = 'bold'),
+        axis.title = element_blank(),
+        axis.text = element_text(size = 16),
+        strip.text = element_text(size = 18),
+        legend.position = "none",
+        legend.direction = "horizontal",
+        legend.text = element_text(size = 16))
+
+egg::ggarrange(plots = list(pbA, pbB, pbC), nrow = 3, labels = c("A", "B", "C"), 
+               label.args = list(gp = grid::gpar(font = 2, cex = 2)))
 ```
 

@@ -14,7 +14,7 @@ library(fmesher)
 library(pbapply)
 library(mobest)
 library(webshot)
-knitr::opts_knit$set(root.dir = "/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves")
+knitr::opts_knit$set(root.dir = "/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves")
 
 proj <- "+proj=aea +lon_0=44.296875 +lat_1=43.7864128 +lat_2=69.9512657 +lat_0=56.8688392 +datum=WGS84 +units=km +no_defs"
 
@@ -133,7 +133,61 @@ Now let's check the proportion of NA, zeros and ones, after we transformed facto
 # Check proportion of NAs
 n <- names(which(sapply(graves, is.factor)))
 cols <- unlist(sapply(n, function(n) grep(paste0(n, "_"), colnames(graves))))
+colids <- colnames(graves)[26:53]
 
+p2 <- melt(graves[, ..colids])
+p2[, Type := sapply(strsplit(as.character(p2$variable), "_"), "[", 1)]
+p2[, variable := sapply(strsplit(as.character(p2$variable), "_"), "[", 2)]
+p2$Type <- factor(p2$Type, levels = unique(p2$Type), labels = c("Deposition Type",
+                                                                "Body Positioning",
+                                                                "Burial Side" ))
+p2$variable <- factor(p2$variable, levels = unique(p2$variable))
+
+ggplot(data = p2) + 
+  geom_histogram_pattern(aes(x = variable, fill = as.factor(value), 
+                             pattern = Type, 
+                             pattern_density = Type,
+                             pattern_spacing = Type),
+                 stat = "count",
+                 pattern_spacing = 0.01,
+                 pattern_angle = 45,
+                 pattern_colour = "transparent",
+                 pattern_fill = alpha("grey90", 0.4)) +
+  scale_fill_manual("Presence/absence", 
+                    values = paletteer::paletteer_d("beyonce::X6", 4)[3:4],
+                    na.value = as.character(paletteer::paletteer_d("beyonce::X6", 4)[2])) +
+  scale_pattern_discrete("Type", choices = c("none", "stripe", "circle")) +
+  scale_pattern_density_manual(values = c(0, 0.1, 0.3)) +
+  guides(fill = guide_legend(override.aes = list(pattern = "none")),
+         pattern = guide_legend(override.aes = list(fill = "white", 
+                                                    alpha = 1,
+                                                    pattern_fill = "black"))) +
+  ylab("N. individuals") +
+  theme_classic() +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.key = element_rect(color = "grey10"))
+
+ggplot(data = p2) + 
+  geom_bar(aes(x = variable,
+               fill = as.factor(value)),
+           stat = "count") +
+  scale_fill_manual("", 
+                    values = paletteer::paletteer_d("beyonce::X6", 4)[3:4],
+                    na.value = as.character(paletteer::paletteer_d("beyonce::X6", 4)[2]),
+                    labels = c("No", "Yes", "NA")) +
+  facet_wrap(~Type, scales = "free_x", space = "free_x") +
+  ylab("Number of individuals") +
+  theme_classic() +
+  theme(
+        axis.title.x = element_blank(),
+        strip.background = element_rect(colour = "white"),
+        strip.text = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+        )
+
+
+# As proportion summing to 1
 p1 <- graves[, ..cols][, lapply(.SD, function(c) length(which(c == 1))/.N)]
 p0 <- graves[, ..cols][, lapply(.SD, function(c) length(which(c == 0))/.N)]
 pNA <- graves[, ..cols][, lapply(.SD, function(c) length(which(is.na(c)))/.N)]
@@ -141,9 +195,12 @@ pNA <- graves[, ..cols][, lapply(.SD, function(c) length(which(is.na(c)))/.N)]
 p <- rbind.data.frame(p1,p0, pNA)
 p[, Group := c("1", "0", "NA")]
 p <- melt(p, id.vars =  c("Group"))
+p[, Type := sapply(strsplit(as.character(p$variable), "_"), "[", 1)]
+p[, variable := sapply(strsplit(as.character(p$variable), "_"), "[", 2)]
 
 ggplot(data = p) + 
-  geom_col(aes(x = variable, y = value, fill = Group)) +
+  geom_col(aes(x = interaction(factor(variable), factor(Type)), y = value, fill = Group)) +
+  guides(x = guide_axis_nested(delim = ".")) +
   theme_classic() +
   theme(axis.title.x = element_blank(),
         axis.text.x = element_text(angle = 45, hjust = 1))
@@ -362,8 +419,8 @@ The next step is to pair the grave individuals with human ancestry and mobility 
 
 ```{r, message=FALSE, warning=FALSE}
 ## Ancestry
-ancestry <- fread("../MesoNeo/MesoNeo/Data3/combined.tsv")
-info <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/MesoNeo/MesoNeo/Data3/neo.impute.1000g.sampleInfo_clusterInfo.txt")
+ancestry <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/MesoNeo/MesoNeo/Data3/combined.tsv")
+info <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/MesoNeo/MesoNeo/Data3/neo.impute.1000g.sampleInfo_clusterInfo.txt")
 ancestry2 <- melt(ancestry, id.vars = 1:4, measure.vars = 5:13, variable.name = "ANCE")
 ancestry2 <- merge(ancestry2, info[, .(sampleId, country, region, groupLabel, clusterAlias)], by.x = "IND", by.y = "sampleId")
 ggplot(data = ancestry2, aes(x = forcats::fct_reorder(IND, TIME, .desc = T), y = value, color = ANCE, fill = ANCE)) +
@@ -378,7 +435,7 @@ ggplot(data = ancestry2, aes(x = forcats::fct_reorder(IND, TIME, .desc = T), y =
 
 ## Mobility
 ov <- fread("~/Documents/Postdoc/mobest/tables/Dataset_S3.csv")
-ov2 <- fread("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/mobest/tables/mobility_estimates_250y_retrospecive_distance.csv")
+ov2 <- fread("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/mobest/tables/mobility_estimates_250y_retrospecive_distance.csv")
 info <- fread("~/Documents/Postdoc/mobest/tables/Dataset_S1.csv")
 mobility <- merge(ov2, info, by = "Sample_ID", all.x = T)
 rm(ov, ov2, info)
@@ -483,12 +540,52 @@ mob_pnts <- project(
                  crs = crs(rast())),
   proj)
 
+conts_prj <- st_transform(conts, crs = proj)
+land_prj <- st_transform(land, crs = proj)
+
 e <- c(min(c(ext(mob_pnts)[1], ext(gr_pnts)[1]), ext(ance_pnts)[1]),
        max(c(ext(mob_pnts)[2], ext(gr_pnts)[2]), ext(ance_pnts)[2]),
        min(c(ext(mob_pnts)[3], ext(gr_pnts)[3]), ext(ance_pnts)[3]),
        max(c(ext(mob_pnts)[4], ext(gr_pnts)[4]), ext(ance_pnts)[4]))
-conts_prj <- st_transform(conts, crs = proj)
+
 plot(conts_prj$geometry, xlim = e[1:2], ylim = e[3:4]); points(ance_pnts, bg = "skyblue", pch = 21, cex = 1.5); points(mob_pnts, bg = alpha("violet", 0.5), pch = 22, cex = 1); points(gr_pnts, bg = alpha("gold", 0.8), pch = 24, cex = 1)
+
+gr_pnts$Type = "Graves"
+mob_pnts$Type = "Mobility"
+ance_pnts$Type = "Ancestry"
+
+all_pnts <- rbind(ance_pnts, mob_pnts, gr_pnts)
+all_pnts$Type <- factor(all_pnts$Type, levels = c("Graves", "Mobility", "Ancestry"),
+                        labels = c("Graves (BIAD)",
+                               "Genomes (Schmid & Schiffels, 2023)",
+                               "Genomes (Allentoft et al., 2024)"))
+
+ggplot() +
+  geom_sf(data = land_prj, inherit.aes = T, fill = "grey98", color = "black", linewidth = 0.3) +
+  geom_sf(data = st_as_sf(all_pnts), aes(fill = Type, 
+                                         shape = Type,
+                                         size = Type,
+                                         alpha = Type)) +
+  # scale_fill_manual(values = paletteer::paletteer_d("ltc::trio3", 3)[c(1,3,2)]) +
+  scale_fill_manual(values = paletteer::paletteer_d("nationalparkcolors::Acadia",
+                                                    6)[c(1,5,3)],
+                    guide = guide_legend(override.aes = list(size = 4, alpha = 1))) +
+  # scale_fill_manual(values = rev(pals::parula(5)[2:4])) +
+  scale_shape_manual(values = c(24, 22, 21)) +
+  scale_size_manual(values = c(2.5, 2, 3)) +
+  scale_alpha_manual(values = c(0.8, 0.5, 1)) +
+  coord_sf(xlim = e[1:2], ylim = e[3:4]) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        panel.background = element_rect(fill = "aliceblue"),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.key = element_rect(fill = "white"),
+        legend.title = element_blank(),
+        legend.position = "bottom",
+        legend.direction = "horizontal",
+        legend.text = element_text(size = 12))
+
 ```
 
 We have now the matching IDs with the minimum spatiotemporal distances between the grave individuals and the mobility estimates. In some instances, we have more than 1 match. In this case, I will take the average mobility estimate across the matched ones. 

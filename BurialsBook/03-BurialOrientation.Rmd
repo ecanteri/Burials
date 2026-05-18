@@ -362,13 +362,13 @@ ggplot(data = sides, aes(x = Bins,
 ggplot(data = sides, aes(x = Bins, 
                          fill = factor(BurialSide, levels = c("Left", "Right", "Back")))) +
   geom_bar(color = 'black') +
-  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
-                     labels = seq(0, 360, w)) +
+  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 2),
+                     labels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N")) +
   scale_y_continuous() +
   scale_fill_manual("Burial side", values = pals::brewer.paired(3)) +
   facet_wrap(~factor(BurialSide, levels = c("Left", "Right", "Back")),
              scales = "free_y") +
-  ylab("Count") +
+  ylab("Number of individuals") +
   coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text = element_text(size = 12),
@@ -445,15 +445,45 @@ ggplot(data = orientation[!(Country %in% c("Armenia", "Kazakhstan"))],
 
 
 # Single plots
-ggplot(data = orientation[!(Country %in% c("Armenia", "Kazakhstan"))], 
+orientation_country <- orientation[!(Country %in% c("Armenia", "Kazakhstan"))]
+orientation_country$Country <- factor(orientation_country$Country,
+                                      levels = c("Netherlands",
+                                                        "France",
+                                                        "Germany",
+                                                        "Denmark",
+                                                        "Norway",
+                                                        "Sweden",
+                                                        "Latvia",
+                                                        "Poland",
+                                                        "Czechia / Czech Republic",
+                                                        "Slovakia",
+                                                        "Austria",
+                                                        "Hungary",
+                                                        "Croatia",
+                                                        "Romania",
+                                                        "Serbia",
+                                                        "Bulgaria",
+                                                        "North Macedonia",
+                                                        "Belarus",
+                                                        "Ukraine",
+                                                        "Russia",
+                                                        "Georgia",
+                                                        "Armenia",
+                                                        "Kazakhstan"))
+
+ggplot(data = orientation_country, 
        aes(x = Bins, fill = Country)) +
   geom_bar(color = 'black') +
-  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
-                     labels = seq(0, 360, w)) +
+  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 2),
+                     labels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N")) +
+                     # labels = seq(0, 360, w)) +
   scale_y_continuous() +
-  scale_fill_manual("Country", values = pals::tol.rainbow(19)) +
+  # scale_fill_manual("Country", values = pals::tol.rainbow(19)) +
+  scale_fill_manual("Country", 
+                    values = paletteer::paletteer_c("grDevices::RdYlBu",23)
+                    [c(1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,18,19)]) +
   facet_wrap(~Country, scales = "free_y") +
-  ylab("Count") +
+  ylab("Number of individuals") +
   coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text = element_text(size = 12),
@@ -534,10 +564,12 @@ ggplot(data = orientation[Period != "Iron Age"],
                                               "Bronze Age/Iron Age",
                                               "Iron Age")))) +
   geom_bar(color = 'black') +
-  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
-                     labels = seq(0, 360, w)) +
+  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 2),
+                     labels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N")) +
   scale_y_continuous() +
-  scale_fill_manual("Period", values = pals::parula(8)) +
+  # scale_fill_manual("Period", values = pals::parula(8)) +
+  scale_fill_manual("Period", values = paletteer::paletteer_d("MetBrewer::Hiroshige",
+                                                              10)[c(1,2,3,5,6,7,8)]) +
   facet_wrap(~factor(Period,
                      levels = c("Mesolithic",
                                 "Mesolithic/Neolithic",
@@ -547,7 +579,7 @@ ggplot(data = orientation[Period != "Iron Age"],
                                 "Bronze Age",
                                 "Bronze Age/Iron Age",
                                 "Iron Age")), scales = "free_y") +
-  ylab("Count") +
+  ylab("Number of individuals") +
   coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text = element_text(size = 12),
@@ -618,10 +650,10 @@ ggplot(data = orientation_culture,
        aes(x = Bins, fill = Culture),
        color = 'black') +
   geom_bar(color = 'black', position = "dodge") +
-  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
-                     labels = seq(0, 360, w)) +
+  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 2),
+                     labels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N")) +
   scale_y_continuous() +
-  scale_fill_manual("Culture", values = cols) +
+  scale_fill_manual("Culture", values = rev(pals::ocean.thermal(12))[2:11]) +
   coord_polar(start = -.2) +
   theme_light() +
   theme(axis.text.y = element_blank(),
@@ -634,10 +666,11 @@ ggplot(data = orientation_culture,
        aes(x = Bins, fill = Culture),
        color = 'black') +
   geom_bar(color = 'black') +
-  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
-                     labels = seq(0, 360, w)) +
+  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 2),
+                     labels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N")) +
   scale_y_continuous() +
-  scale_fill_manual("Culture", values = cols) +
+  scale_fill_manual("Culture", values = rev(pals::ocean.thermal(12))[2:11]) +
+  ylab("Number of individuals") +
   coord_polar(start = -.2) +
   facet_wrap(~Culture, scales = "free_y") +
   theme_light() +
@@ -696,12 +729,13 @@ ggplot(data = orientation,
        aes(x = Bins, fill = as.factor(Sex)),
        color = 'black') +
   geom_bar(color = 'black') +
-  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
-                     labels = seq(0, 360, w)) +
+  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 2),
+                     labels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N")) +
   scale_y_continuous() +
-  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(3))) +
+  scale_fill_manual("Sex", values = paletteer::paletteer_c("grDevices::Tropic", 3)) +
+  ylab("Number of individuals") +
   coord_polar(start = -.2) +
-  facet_wrap(~as.factor(Sex), scales = "free_y") +
+  facet_wrap(~as.factor(Sex), scales = "free_y", ) +
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "none")
@@ -710,16 +744,19 @@ ggplot(data = orientation,
 #### Culture by sex
 ```{r b-o culture sex, fig.dim=c(12,10)}
 # Single plots
-ggplot(data = orientation[Culture %in% culture_keep],
+orientation_culture[, Sex := ifelse(Sex < 0.5, 0, ifelse(Sex > 0.5, 1, Sex))]
+
+ggplot(data = orientation_culture,
        aes(x = Bins, fill = as.factor(Sex)),
        color = 'black') +
   geom_bar(color = 'black',
            position = "dodge") +
-  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 1),
-                     labels = seq(0, 360, w)) +
-  scale_fill_manual("Sex", values = rev(pals::brewer.piyg(3))) +
+  scale_x_continuous(breaks = seq(0, length(seq(0, 360, w))-1, 2),
+                     labels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N")) +
+  scale_fill_manual("Sex", values = paletteer::paletteer_c("grDevices::Tropic", 3)) +
   coord_polar(start = -.2) +
   facet_wrap(~Culture, scales = "free_y") +
+  ylab("Number of individuals") +
   theme_light() +
   theme(axis.title.x = element_blank(),
         legend.position = "right")

@@ -17,7 +17,7 @@ library(BIADconnect)
 library(webshot)
 conn <- init.conn()
 knitr::opts_chunk$set(warning = FALSE, message = FALSE,
-                      root.dir = "~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/")
+                      root.dir = "~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/")
 ```
 
 # Circular statistics
@@ -117,7 +117,7 @@ for(a in 1:length(sides_means)){
 sides_mat <- do.call(cbind, d)
 colnames(sides_mat) <- rownames(sides_mat) <- names(sides_means)
 sides_mat[lower.tri(sides_mat)] <- NA
-sides_dists <- melt(sides_mat)
+sides_dists <- reshape2::melt(sides_mat)
 
 # Plot burial orientations per country
 sides_means_dt <- data.table(Sides = names(sides_means), Mean = sides_means)
@@ -139,12 +139,14 @@ ggplot(data = sides_dists[!is.na(sides_dists$value),]) +
                        na.value = "transparent",
                        limits = c(0,180)) + # maximum distance between angles?
                        # guide = guide_colorbar(barwidth = 1, barheight = 15)) +
-  geom_text(aes(Var1, Var2, label = round(value, 1)), size = 10, size.unit = "pt") +
+  geom_text(aes(Var1, Var2, label = round(value, 1)), size = 16, size.unit = "pt") +
   scale_x_discrete(position = "top") +
-  ggtitle("Pairwise distance between angles means") +
+  ggtitle("Burial side") +
   coord_equal(expand = F) +
   theme_classic() +
-  theme(plot.title = element_text(face = "bold", size = 16),
+  theme(plot.title = element_text(face = "bold", size = 18),
+        plot.title.position = "plot",
+        plot.margin = margin(l = 0, t = 5, b = 20, r = 30),
         axis.text.x = element_text(angle = 45, hjust = 0),
         axis.title = element_blank(),
         panel.grid = element_blank(),
@@ -289,16 +291,17 @@ ggplot(data = countries_dists) +
   geom_text(aes(as.factor(Var1), as.factor(Var2), label = round(value, 1)), size = 10, size.unit = "pt") +
   scale_x_discrete(position = "top") +
   scale_y_discrete(position = "left") +
-  ggtitle("Pairwise distance between angles means") +
+  ggtitle("Country") +
   coord_equal(expand = F) +
   theme_classic() +
-  theme(plot.title = element_text(face = "bold", size = 16),
+  theme(plot.title = element_text(face = "bold", size = 18),
+        plot.title.position = "plot",
         axis.text.x = element_text(angle = 45, hjust = 0),
         axis.title = element_blank(),
         panel.grid = element_blank(),
         legend.position = "none",
         axis.text = element_text(size = 14),
-        plot.margin = margin(l = 0, t = 10, b = 10, r = 0))
+        plot.margin = margin(l = 30, t = 5, b = 20, r = 0))
 
 ```
 
@@ -363,10 +366,12 @@ ggplot(data = period_dists[!is.na(period_dists$value),]) +
   geom_text(aes(Var1, Var2, label = round(value, 1)), 
             size = 10, size.unit = "pt") +
   scale_x_discrete(position = "top") +
-  ggtitle("Pairwise distance between angles means") +
+  ggtitle("Period") +
   coord_equal(expand = F) +
   theme_classic() +
-  theme(plot.title = element_text(face = "bold", size = 16),
+  theme(plot.title = element_text(face = "bold", size = 18),
+        plot.title.position = "plot",
+        plot.margin = margin(l = 0, t = 20, b = 0, r = 30),
         axis.text.x = element_text(angle = 45, hjust = 0),
         axis.title = element_blank(),
         panel.grid = element_blank(),
@@ -382,9 +387,21 @@ ggplot(data = period_dists[!is.na(period_dists$value),]) +
 culture_keep <- orientation[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
 
 ## Circular means
-culture <- split(orientation[Culture %in% culture_keep]
-                 [, .(BurialOrientationMean, Culture)], 
-                 by = "Culture")
+culture <- orientation[Culture %in% culture_keep][, .(BurialOrientationMean, Culture)]
+culture$Culture <- factor(culture$Culture, 
+                               labels = c("Linearbandkeramik",
+                                          "Lažňany",
+                                          "Sopot",
+                                          "Bell Beaker",
+                                          "Únětice",
+                                          "Corded Ware",
+                                          "Baden",
+                                          "Dnieper-Donets",
+                                          "Trichterbecher",
+                                          "Baltic Meso-Neolithic"),
+                               levels = unique(culture$Culture))
+
+culture <- split(culture, by = "Culture")
 culture_means <- lapply(culture, function(x){
   mean.circular(circular(x$BurialOrientationMean, 
                          units = "degrees", 
@@ -432,10 +449,12 @@ ggplot(data = culture_dists[!is.na(culture_dists$value),]) +
   geom_text(aes(Var1, Var2, label = round(value, 1)), 
             size = 10, size.unit = "pt") +
   scale_x_discrete(position = "top") +
-  ggtitle("Pairwise distance between angles means") +
+  ggtitle("Culture") +
   coord_equal(expand = F) +
   theme_classic() +
-  theme(plot.title = element_text(face = "bold", size = 16),
+  theme(plot.title = element_text(face = "bold", size = 18),
+        plot.title.position = "plot",
+        plot.margin = margin(l = 50, t = 20, b = 0, r = 0),
         axis.text.x = element_text(angle = 45, hjust = 0),
         axis.title = element_blank(),
         panel.grid = element_blank(),
@@ -733,10 +752,13 @@ texts <- levels(aov.dt.all$Culture)
 # plot
 circos.par(gap.degree = 0, cell.padding = c(0, 0, 0, 0), start.degree = 90)
 circos.initialize("a", xlim = c(0, 360), ring = T)
-circos.track(ylim = c(0,1), bg.border = NA)
-circos.axis(major.at = seq(0, 360, 22.5), 
+circos.track(ylim = c(0.75, 1.05), bg.border = NA)
+circos.axis(major.at = seq(0, 360, 45), 
             direction = "outside",
-            labels = labs)
+            labels.facing = "inside",
+            labels.niceFacing = T,
+            labels = labs,
+            labels.cex = 2)
 circos.segments(x0 = culture.ranges.lb[1], 
                 y0 = ys[1], 
                 x1 = culture.ranges.ub[1], 
@@ -2261,7 +2283,7 @@ texts <- results.dt$Culture
 # plot
 circos.par(gap.degree = 0, cell.padding = c(0, 0, 0, 0), start.degree = 90)
 circos.initialize("a", xlim = c(0, 360), ring = T)
-circos.track(ylim = c(0,1), bg.border = NA)
+circos.track(ylim = c(0.75, 1.05), bg.border = NA)
 circos.axis(major.at = seq(0, 360, 22.5), 
             direction = "outside",
             labels = labs)
@@ -2376,4 +2398,50 @@ circos.text(x = culture.means[10],
             cex = 1)
 circos.points(x = culture.means, y = ys, bg = cols, pch = 21)
 circos.clear()
+```
+
+```{r culture only table, results = "hide"}
+# Rotate values so that reference culture is always a new one
+culture.labels <- as.character(unique(ance.dt$Culture))
+culture.labels <- lapply(0:(length(culture.labels)-1), function(i) {
+  c(culture.labels[(i+1):length(culture.labels)], culture.labels[1:i])
+})
+culture.labels[[1]] <- culture.labels[[1]][1:10]
+
+# Regression model list
+differences.all <- lapply(culture.labels, function(l){
+  # data
+  ance.dt$Culture <- as.character(ance.dt$Culture)
+  ance.dt$Culture <- factor(ance.dt$Culture, 
+                                 levels = l)
+  # model
+  fit.m <- bpnr(Angles ~ 1 + Culture, 
+                data = ance.dt, its = 10000, burn = 1000, 
+                n.lag = 3, seed = 1234)
+  # differences
+  diff.dt <- setDT(data.frame(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:9,])
+  diff.dt[, Comparison := rownames(coef_circ(fit.m, "categorical", units = "degrees")$Differences)[1:9]]
+  c1 <- sapply(strsplit(diff.dt$Comparison, "Culture"), "[", 2)
+  c2 <- sapply(strsplit(diff.dt$Comparison, "Culture"), "[", 3)
+  c2[is.na(c2)] <- l[1]
+  diff.dt[, Comparison := paste0(c2, "/", c1)]
+  diff.dt[, .(Comparison, mean, mode, sd, LB, UB)]
+  diff.dt[, Different := ifelse(between(0, LB, UB) | LB > UB, "No", "Yes")]
+  return(diff.dt)
+})
+```
+
+```{r stats differences2}
+# Remove duplicated comparisons
+dt <- rbindlist(differences.all)
+dt$Comparison <- sapply(strsplit(dt$Comparison, "/"), function(pair) {
+  paste(gtools::mixedsort(pair), collapse = "/")
+})
+dt <- dt[!duplicated(Comparison)][, .(Comparison, mean, mode, sd, LB, UB, Overlapping)]
+dt[, Culture1 := sapply(strsplit(dt$Comparison, "/"), "[", 1)]
+dt[, Culture2 := sapply(strsplit(dt$Comparison, "/"), "[", 2)]
+dt <- dt[, .(Comparison, Culture1, Culture2, mean, mode, sd, LB, UB, Overlapping)][order(Culture1)]
+dt <- dt[, .(Comparison, Culture1, Culture2, round(.SD, 2), Overlapping), .SDcols = c("mean", "mode", "sd", "LB", "UB")]
+
+fwrite(dt, "~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/Results/BurialOrientationDifferences_culture_ance.csv")
 ```

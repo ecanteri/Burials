@@ -658,10 +658,31 @@ ggplot(data = performance.dt) +
         color = "grey60"
     ) +
     scale_fill_identity() +
-    facet_wrap(~Variable, ncol = 3, scales = "free_y") +
+    facet_wrap(~Variable, ncol = 3, scales = "fixed") +
     theme_bw() +
     theme(
         axis.title.x = element_blank(),
         legend.position = "none",
     )
+dev.off()
+
+
+cols <- pals::brewer.paired(3)
+
+png("./Plots/Permutations.png", width = 10, height = 8, res = 330, units = 'in')
+ggplot(data = performance.dt) +
+  geom_violin(aes(y = Performance, x = Model, fill = Variable),
+              width = 0.6) +
+  geom_boxplot(aes(y = Performance, x = Model, fill = Variable),
+               width = 0.15,
+               linewidth = 0.8,
+               color = "grey30"
+  ) +
+  scale_fill_manual(values = cols) +
+  facet_wrap(~Variable, ncol = 3, scales = "fixed") +
+  theme_bw() +
+  theme(
+    axis.title.x = element_blank(),
+    legend.position = "none",
+  )
 dev.off()
