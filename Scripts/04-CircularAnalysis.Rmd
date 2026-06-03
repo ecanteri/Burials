@@ -2449,7 +2449,7 @@ fwrite(dt, "~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Grav
 
 We are going to try calculate the percentage of explained variance by the model with the best fit to the data, the "Culture only" model. To do so, we must manually compute the circular variance of the predicted values and divide it by the circular variance of the observed data. Because *bpnreg* fits an ANOVA via a Projected Normal linear model onto a bivariate latent space, standard linear \(R^{2}\) formulas do not work directly. We need to extract the posterior samples of the predicted circular means, convert them to circular variance, and compare them to the observed data.
 
-```{r variance explained}
+```{r variance explained1}
 # --- 1. Reconstruct the Model Matrix (Design Matrix) ---
 # Create the linear design matrix (e.g., intercept and dummy-coded group factors)
 XI <- fit.cult$mm$XI
@@ -2492,5 +2492,49 @@ hpd_r2  <- quantile(r2_posterior, probs = c(0.025, 0.975)) * 100
 # Print the final percentage of explained variance
 cat("Percentage of Explained Variance (Mean R²):", round(mean_r2, 2), "%\n")
 cat("95% Credible Interval:", round(hpd_r2[1], 2), "% to", round(hpd_r2[2], 2), "%\n")
+```
+
+We can also use the Gelman's Bayesian \(R^{2}\) framework on the Bayesian circular regression, but to do so we have to apply it to each latent linear components (I and II) individually. This is because *bpnreg* uses an embedding approach called the Projected Normal distribution. This means it takes your circular outcome and projects it onto a bivariate, 2D latent linear space (Component I and Component II). Gelman's \(R^{2}\) relies on linear combinations of variance (\(\text{Var}_{\text{fit}} / (\text{Var}_{\text{fit}} + \text{Var}_{\text{res}})\)), thus we cannot apply it directly to the circular surface angles. 
+
+```{r variance explained2}
+
+n_samples <- nrow(B1) # 10000
+
+# Initialize vectors to track Gelman R² for each MCMC iteration
+r2_component_I  <- numeric(n_samples)
+r2_component_II <- numeric(n_samples)
+
+# --- Compute Gelman's Variance Ratio Across MCMC Iterations ---
+for (s in 1:n_samples) {
+  
+  # Linear predictions for this specific posterior slice (952 individual values)
+  mu_I  <- XI %*% B1[s, ]
+  mu_II <- XII %*% B2[s, ]
+  
+  # Calculate the sample variance of the model-fit values (Var_fit)
+  var_fit_I  <- var(as.numeric(mu_I))
+  var_fit_II <- var(as.numeric(mu_II))
+  
+  # Standard Projected Normal models fix the residual error variance to 1.0
+  var_res_latent <- 1.0
+  
+  # Apply Gelman's Formula: Var_fit / (Var_fit + Var_res)
+  r2_component_I[s]  <- var_fit_I  / (var_fit_I  + var_res_latent)
+  r2_component_II[s] <- var_fit_II / (var_fit_II + var_res_latent)
+}
+
+# --- Combine and Summarize Latent R² ---
+# Total Latent R² is the average explained variance across both axes
+r2_total_gelman <- (r2_component_I + r2_component_II) / 2
+
+# Package the Bayesian Credible Intervals
+gelman_summary <- data.frame(
+  Metric = c("Component I R-squared", "Component II R-squared", "Overall Latent Gelman R-squared"),
+  Mean_Percentage = c(mean(r2_component_I), mean(r2_component_II), mean(r2_total_gelman)) * 100,
+  Lower_95_CI     = c(quantile(r2_component_I, 0.025), quantile(r2_component_II, 0.025), quantile(r2_total_gelman, 0.025)) * 100,
+  Upper_95_CI     = c(quantile(r2_component_I, 0.975), quantile(r2_component_II, 0.975), quantile(r2_total_gelman, 0.975)) * 100
+)
+
+print(round(gelman_summary, 2))
 ```
 

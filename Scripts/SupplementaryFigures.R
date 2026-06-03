@@ -151,6 +151,40 @@ png("./Figures/Supplementary/Figure_S3.png", width = 14, height = 10, res = 330,
 pS3
 dev.off()
 
+## Explained variance
+evar <- fread("/Users/msb290/Documents/GitHub/Burials/Results/ExplainedVariance.csv")
+evar$Side <- factor(evar$Side, levels = c("Left", "Right", "Back"))
+evar <- evar[Effect != "No Fixed Predictor"]
+evar$Effect <- factor(evar$Effect,
+                      levels = c("Full Model Fit", "Spatiotemporal Process Alone", "NEOL Effect Alone", "Mobility Effect Alone"),
+                      labels = c("Full model fit", "Spatiotemporal process", "NEOL", "Mobility"))
+
+pS3.2 <- ggplot(data = evar, 
+                aes(x = Effect, y = Mean, fill = Side)) +
+  # Draw the bars for each effect
+  geom_bar(
+    stat = "identity", 
+    width = 0.65, 
+    color = "black", 
+    linewidth = 0.25, 
+    alpha = 0.85
+  ) +
+  # Add the Bayesian 95% Credible Interval error bars
+  geom_errorbar(
+    aes(ymin = Lower, ymax = Upper),
+    width = 0.15,
+    size = 0.6,
+    color = "grey20"
+  ) +
+  facet_grid(Framework ~ Side, scales = "free_x") +
+  theme_bw() +
+  scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), breaks = seq(0, 100, 25))
+
+png("./Figures/Supplementary/Figure_S3_ExplainedVar.png", width = 12, height = 10, res = 330, units = "in")
+pS3.2
+dev.off()
+
 ## ---------------------------
 ## Figure S4 ##
 
@@ -356,7 +390,7 @@ performance.dt <- fread("./Results/Culture/CulturePerformance.csv")
 performance.dt$Variable <- factor(performance.dt$Variable,
                                   levels = c("Left", "Right", "Back"))
 
-pS3.2 <- ggplot(data = performance.dt) +
+pS3.3 <- ggplot(data = performance.dt) +
   geom_violin(aes(y = Performance, x = Variable, fill = Variable),
               width = 0.5) +
   geom_boxplot(aes(y = Performance, x = Variable, fill = Variable),
@@ -376,7 +410,40 @@ pS3.2 <- ggplot(data = performance.dt) +
   )
 
 png("./Figures/Supplementary/Figure_S3_culture.png", width = 12, height = 10, res = 330, units = "in")
-pS3.2
+pS3.3
+dev.off()
+
+## Explained variance
+evar <- fread("/Users/msb290/Documents/GitHub/Burials/Results/Culture/Culture_ExplainedVariance.csv")
+evar$Side <- factor(evar$Side, levels = c("Left", "Right", "Back"))
+evar$Effect <- factor(evar$Effect, 
+                      levels = c("Full Model Fit", "Culture Effect Alone", "Spatiotemporal Process Alone"),
+                      labels = c("Full model fit", "Culture", "Spatiotemporal process"))
+
+pS3.4 <- ggplot(data = evar, 
+       aes(x = Effect, y = Mean, fill = Side)) +
+  # Draw the bars for each effect
+  geom_bar(
+    stat = "identity", 
+    width = 0.65, 
+    color = "black", 
+    linewidth = 0.25, 
+    alpha = 0.85
+  ) +
+  # Add the Bayesian 95% Credible Interval error bars
+  geom_errorbar(
+    aes(ymin = Lower, ymax = Upper),
+    width = 0.15,
+    size = 0.6,
+    color = "grey20"
+  ) +
+  facet_grid(Framework ~ Side, scales = "fixed") +
+  theme_bw() +
+  scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), breaks = seq(0, 100, 25))
+
+png("./Figures/Supplementary/Figure_S3_CultureExplainedVar.png", width = 12, height = 10, res = 330, units = "in")
+pS3.4
 dev.off()
 
 ## ---------------------------
