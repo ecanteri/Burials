@@ -1,0 +1,1240 @@
+---
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, message=FALSE, warning=FALSE, include=FALSE, echo = F}
+library(BIADconnect)
+library(data.table)
+library(ggplot2)
+library(paletteer)
+library(ggrepel)
+library(segmented)
+library(terra)
+library(sf)
+library(spatstat)
+library(inlabru)
+library(INLA)
+library(fmesher)
+library(pbapply)
+library(mobest)
+library(knitr)
+library(factoextra)
+library(FactoMineR)
+library(UpSetR)
+library(webshot)
+knitr::opts_chunk$set(cache = TRUE, warning = FALSE, 
+                      message = FALSE, cache.lazy = FALSE)
+conn <- init.conn()
+```
+
+# Burial rites
+## Data
+```{r data, message=FALSE, warning=FALSE, results = "hide"}
+# graves <- fread("./EAA2024_burial_rite_data.csv", stringsAsFactors = F, na.strings = "\\N")
+graves <- fread("./Data/Burial.csv", na.strings = "")
+graves$DepositionType <- as.factor(graves$DepositionType)
+graves$BodyPositioning <- as.factor(graves$BodyPositioning)
+graves$BurialSide <- as.factor(graves$BurialSide)
+
+# Sites table (BIAD)
+sites <- setDT(query.database("SELECT * FROM `Sites`", conn))
+
+# Culture and Period
+culture <- fread("./Data/burial rites_culture_period.csv", na.strings = "\\N")
+culture <- culture[!duplicated(IndividualID)]
+
+## Add info to graves table
+graves <- merge(graves, sites[, .(SiteID, Country)], by = "SiteID", all.x = T)
+rm(sites)
+graves <- merge(graves, culture, by = "IndividualID", all.x = T)
+
+## Remove outlier
+graves <- graves[!is.na(YearBP)]
+graves <- graves[YearBP < 15000]
+summary(graves$YearBP)
+```
+
+## Multiple correspondence analysis
+```{r mca, warning=F, message=F, fig.dpi=300}
+## Data
+bp <- grep("BodyPositioning_", colnames(graves))
+bs <- grep("BurialSide_", colnames(graves))
+mat <- as.data.frame(cbind(graves[, ..bp], graves[, ..bs]))
+mat <- as.matrix(mat)
+dim(mat)
+
+## Multiple Correspondence Analysis
+mca <- MCA(graves[, .(BurialSide, BodyPositioning)], graph = F)
+summary(mca)
+
+## Biplot
+# Dimensions 1 and 2
+fviz_mca_biplot(mca,
+                col.ind = c("#C1E8AF"),
+                col.var = c("#382F55"),
+                alpha.ind = 0.2,
+                repel = FALSE, # Avoid text overlapping (slow if many point)
+                ggtheme = theme_minimal()
+)
+# knitr::include_graphics("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Graves/Figures/MCA_biplot.png")
+
+# Dimensions 1 and 3
+fviz_mca_biplot(mca,
+                axes = c(1,3),
+                col.ind = c("#C1E8AF"),
+                col.var = c("#382F55"),
+                alpha.ind = 0.2,
+                repel = FALSE, # Avoid text overlapping (slow if many point)
+                ggtheme = theme_minimal()
+)
+
+## Eigenvalues
+eig.val <- get_eigenvalue(mca)
+fviz_screeplot(mca)
+
+## Look at the quality of representation of variable categories
+fviz_cos2(mca, choice = "var", axes = 1:2)
+fviz_cos2(mca, choice = "var", axes = c(1,3))
+
+## Extract results for individuals
+ind <- get_mca_ind(mca)
+# Coordinates of points
+head(ind$coord)
+# Quality of representation
+head(ind$cos2)
+# Contributions
+head(ind$contrib)
+
+## Extract results for variables
+var <- get_mca_var(mca)
+# Coordinates of points
+head(var$coord)
+# Quality of representation
+head(var$cos2)
+# Contributions
+head(var$contrib)
+
+## Dimension description
+res.desc <- dimdesc(mca, axes = c(1,2,3))
+# Description of dimension 1
+res.desc[[1]]
+# Description of dimension 2
+res.desc[[2]]
+# Description of dimension 3
+res.desc[[3]]
+```
+
+## UpSet plot
+We can produce an UpSet plot to better visualize the structure of the data. An UpSet plot is a simplified visualization of a Venn diagram.
+
+```{r UpSet plot, warning=FALSE, message=FALSE}
+upset_df <- graves[, .(IndividualID, BodyPositioning_crouched, BodyPositioning_extended, `BodyPositioning_extended, rhomboid`, BodyPositioning_heap, `BodyPositioning_inside a vessel`, BodyPositioning_irregular, BodyPositioning_prone, BodyPositioning_scattered, BodyPositioning_sitting, BurialSide_back, `BurialSide_back/left`, `BurialSide_back/right`, BurialSide_bottom, BurialSide_front, `BurialSide_front/left`, `BurialSide_front/right`, BurialSide_left, `BurialSide_left/back`, `BurialSide_left/front`, BurialSide_right, `BurialSide_right/back`, `BurialSide_right/front`)]
+
+# UpSet plot with all variables
+upset(upset_df, sets = colnames(upset_df)[-1], order.by = 'freq', keep.order = F)
+set_size <- data.frame(Set = colnames(upset_df)[-1],
+                       Size = colSums(upset_df[,-1], na.rm = T))
+ggplot(data = set_size) +
+  geom_bar(aes(x = reorder(Set, Size, decreasing = T), y = Size), stat = "identity") +
+  theme_bw() +
+  ylab("Set Size") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(),
+        plot.margin = margin(t = 5, r = 10, l = 30, b = 5))
+
+# UpSet plot with selected variables
+sets <- c("BodyPositioning_crouched", "BodyPositioning_extended", "BodyPositioning_heap", "BodyPositioning_inside a vessel", "BodyPositioning_prone", "BodyPositioning_scattered", "BodyPositioning_sitting","BurialSide_bottom", "BurialSide_front", "BurialSide_left", "BurialSide_right", "BurialSide_back")
+upset(upset_df, sets = sets, order.by = 'freq', keep.order = T, set_size.show = T)
+
+set_size <- set_size[which(set_size$Set %in% sets),]
+set_size$Type <- sapply(strsplit(set_size$Set, "_"), "[", 1)
+set_size$Type <- factor(set_size$Type, labels = c("Body Positioning", "Burial Side"))
+set_size$Set <- sapply(strsplit(set_size$Set, "_"), "[", 2)
+ggplot(data = set_size) +
+  geom_bar(aes(x = reorder(Set, Size, decreasing = T), y = Size, fill = Type), 
+           stat = "identity") +
+  scale_fill_manual(values = paletteer_d("beyonce::X6", 6)[3:4]) +
+  theme_classic() +
+  ylab("Set Size") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(),
+        plot.margin = margin(t = 5, r = 10, l = 20, b = 5),
+        legend.title = element_blank())
+
+```
+
+Now let's plot the MCA biplots without the repel option. We color the individuals by other variables, including **culture**, **period**, **country**, and **ancestry** values.
+
+In this case, because the individuals are too many, I decided to count the number of individuals in each variable and for each dimension coordinate.
+
+```{r biplots, warning=FALSE, message=FALSE}
+## Create dataframe
+# Individuals
+ind_dims <- as.data.frame(ind$coord)
+ind_dims$Individual <- 1:nrow(ind_dims)
+ind_dims$Country <- graves$Country
+ind_dims$Period <- graves$Period
+ind_dims$Culture <- graves$Culture
+ind_dims$Sex <- graves$Sex
+ind_dims$EHG <- graves$ANCE2_v2
+ind_dims$WHG <- graves$ANCE4_v2
+ind_dims$LVN <- graves$ANCE6_v2
+ind_dims$CHG <- graves$ANCE8_v2
+ind_dims$mobility <- graves$mobility_MDS_250y_retrospective
+head(ind_dims)
+ind_dims <- setDT(ind_dims)
+
+# Variables
+var_dims <- as.data.frame(var$coord)
+var_dims$Variable <- rownames(var_dims)
+var_dims <- var_dims[-which(var_dims$Variable %in% c("BurialSide.NA", "BodyPositioning.NA")),]
+```
+
+## MCA Biplots
+### Biplot
+```{r biplot default, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
+dim_biplot <- ind_dims[, .N, by = c("Dim 1", "Dim 2")]
+
+ggplot() +
+  geom_point(data = dim_biplot,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             fill = "#E18434") +
+  scale_size_continuous("Count", breaks = c(1, 50, 100, 250, 500, 750, 1000),
+                        range = c(3,20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
+
+```
+
+### Country
+```{r country, warning=FALSE, message=FALSE, fig.dim=c(14, 10)}
+## Biplot by COUNTRY
+# png("../Figures/Biplot_Country1.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = ind_dims,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Country),
+             position = position_jitter(0.2,0.2),
+             shape = 21) +
+  scale_fill_manual("Country", values = pals::tol.rainbow(23),
+                    guide = guide_legend(override.aes = list(size = 5))) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 0.5,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right")
+# dev.off()
+
+# Group by count within same country and same coordinates on the dimensions
+# Count number of entries per country
+dim_country <- ind_dims[, .N, by = c("Country", "Dim 1", "Dim 2")]
+dim_country$Country <- factor(dim_country$Country, levels = c("Netherlands",
+                                                        "France",
+                                                        "Germany",
+                                                        "Denmark",
+                                                        "Norway",
+                                                        "Sweden",
+                                                        "Latvia",
+                                                        "Poland",
+                                                        "Czechia / Czech Republic",
+                                                        "Slovakia",
+                                                        "Austria",
+                                                        "Hungary",
+                                                        "Croatia",
+                                                        "Romania",
+                                                        "Serbia",
+                                                        "Bulgaria",
+                                                        "North Macedonia",
+                                                        "Belarus",
+                                                        "Ukraine",
+                                                        "Russia",
+                                                        "Georgia",
+                                                        "Armenia",
+                                                        "Kazakhstan"))
+
+# png("../Figures/Biplot_Country2.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_country,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Country,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_manual(values = paletteer_c("grDevices::RdYlBu", 23),
+                         guide = guide_legend(override.aes = list(size = 5))) +
+  # scale_fill_manual("Country", values = pals::tol.rainbow(23),
+  #                   guide = guide_legend(override.aes = list(size = 5))) +
+  scale_size_continuous("Count", breaks = c(1, 10, 50, 100, 200, 400, 800),
+                        range = c(3,20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right",
+        aspect.ratio = 1)
+# dev.off()
+```
+
+### Period
+```{r period, warning=FALSE, message=FALSE, fig.dim=c(14, 10)}
+## Biplot by PERIOD
+dim_period <- ind_dims[, .N, by = c("Period", "Dim 1", "Dim 2")]
+dim_period <- dim_period[!is.na(Period)]
+dim_period$Period <- factor(dim_period$Period, levels = c("Paleolithic",
+                                                          "Mesolithic",
+                                                          "Mesolithic/Neolithic",
+                                                          "Neolithic",
+                                                          "Neolithic/Bronze Age",
+                                                          "Eneolithic",
+                                                          "Eneolithic/Bronze Age",
+                                                          "Bronze Age",
+                                                          "Bronze Age/Iron Age",
+                                                          "Iron Age",
+                                                          "Medieval"))
+
+# png("../Figures/Biplot_Period.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_period,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Period,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_paletteer_d("MetBrewer::Hiroshige",
+                         guide = guide_legend(override.aes = list(size = 5))) +
+  # scale_fill_manual("Period", values = pals::parula(12),
+  #                   guide = guide_legend(override.aes = list(size = 5))) +
+  scale_size_continuous("Count", breaks = c(1,50,100,250,500),
+                        range = c(3, 20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right",
+        aspect.ratio = 1)
+# dev.off()
+```
+
+### Culture
+```{r culture, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
+## Biplot by CULTURE
+dim_culture <- ind_dims[!is.na(Culture)][, .N, by = c("Culture", "Dim 1", "Dim 2")]
+
+# Plot only the 10 most frequent cultures
+culture_keep <- ind_dims[!is.na(Culture)][, .N, by = "Culture"][order(N, decreasing = T)][, Culture][1:10]
+
+# png("../Figures/Biplot_Culture.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_culture[Culture %in% culture_keep],
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Culture,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_manual(values = pals::tol.rainbow(10),
+                    guide = guide_legend(override.aes = list(size = 5))) +
+  scale_size_continuous("Count", breaks = c(1,25,50,100,150, 200),
+                        range = c(3, 20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right",
+        legend.box = "vertical",
+        legend.direction = "vertical")
+# dev.off()
+
+## Matching burial orientation
+culture_keep <- readRDS("./Data/culture_keep.RDS")
+
+dim_culture <- dim_culture[Culture %in% culture_keep]
+dim_culture$Culture <- factor(dim_culture$Culture, 
+                               labels = c("Linearbandkeramik",
+                                          "Lažňany",
+                                          "Sopot",
+                                          "Bell Beaker",
+                                          "Únětice",
+                                          "Corded Ware",
+                                          "Baden",
+                                          "Dnieper-Donets",
+                                          "Trichterbecher",
+                                          "Baltic Meso-Neolithic"),
+                               levels = unique(dim_culture$Culture))
+ggplot() +
+  geom_point(data = dim_culture,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Culture,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_manual(values = rev(pals::ocean.thermal(12))[2:11],
+                         guide = guide_legend(override.aes = list(size = 5))) +
+  # scale_fill_manual(values = pals::tol.rainbow(10),
+  #                   guide = guide_legend(override.aes = list(size = 5))) +
+  scale_size_continuous("Count", breaks = c(1,25,50,100,150, 200),
+                        range = c(3, 20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right",
+        legend.box = "vertical",
+        legend.direction = "vertical",
+        aspect.ratio = 1)
+```
+
+### Sex
+```{r sex, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
+## Biplot by sex
+dim_sex <- ind_dims[, .N, by = c("Sex", "Dim 1", "Dim 2")]
+
+# png("../Figures/Biplot_sex.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_sex,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = Sex,
+                 size = N),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             alpha = 0.8) +
+  scale_fill_gradientn("Sex", colors = paletteer_c("grDevices::Tropic", 100)) +
+  scale_size_continuous("Count", breaks = c(1,50,100,300,600, 900),
+                        range = c(3, 20)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  theme_bw() +
+  theme(legend.position = "right", 
+        aspect.ratio = 1)
+# dev.off()
+```
+
+### Ancestry
+
+#### WHG
+```{r whg, warning=FALSE, message=FALSE,fig.dim=c(14,10)}
+## Biplot by WHG
+dim_whg <- ind_dims[, mean(WHG, na.rm = T), by = c("Dim 1", "Dim 2")]
+dim_whg <- dim_whg[!is.nan(V1),]
+names(dim_whg)[3] <- "WHG"
+
+# png("../Figures/Biplot_WHG.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_whg,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = WHG),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("WHG", colors = pals::parula(100), limits = c(0,1)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Western hunter-gatherers ancestry") +
+  theme_bw() +
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
+# dev.off()
+```
+
+#### EHG
+```{r ehg, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
+## Biplot by EHG
+dim_ehg <- ind_dims[, mean(EHG, na.rm = T), by = c("Dim 1", "Dim 2")]
+dim_ehg <- dim_ehg[!is.nan(V1),]
+names(dim_ehg)[3] <- "EHG"
+
+# png("../Figures/Biplot_EHG.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_ehg,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = EHG),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("EHG", colors = pals::parula(100), limits = c(0,1)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Eastern hunter-gatherers ancestry") +
+  theme_bw() +
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
+# dev.off()
+```
+
+#### CHG
+```{r chg, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
+## Biplot by CHG
+dim_chg <- ind_dims[, mean(CHG, na.rm = T), by = c("Dim 1", "Dim 2")]
+dim_chg <- dim_chg[!is.nan(V1)]
+names(dim_chg)[3] <- "CHG"
+
+# png("../Figures/Biplot_CHG.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_chg,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = CHG),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("CHG", colors = pals::parula(100), limits = c(0,1)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Caucasus hunter-gatherers ancestry") +
+  theme_bw() +
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
+# dev.off()
+```
+
+#### LVN
+```{r lvn, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
+## Biplot by LVN
+dim_lvn <- ind_dims[, mean(LVN, na.rm = T), by = c("Dim 1", "Dim 2")]
+dim_lvn <- dim_lvn[!is.nan(V1)]
+names(dim_lvn)[3] <- "LVN"
+
+# png("../Figures/Biplot_LVN.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_lvn,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = LVN),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("LVN", colors = pals::parula(100), limits = c(0,1)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Anatolian Neolithic farmers ancestry") +
+  theme_bw() +
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
+# dev.off()
+```
+
+### Mobility
+```{r mobility, warning=FALSE, message=FALSE, fig.dim=c(14,10)}
+## Biplot by mobility
+dim_mobility <- ind_dims[, mean(mobility, na.rm = T), by = c("Dim 1", "Dim 2")]
+dim_mobility <- dim_mobility[!is.nan(V1)]
+names(dim_mobility)[3] <- "mobility"
+
+# png("../Figures/Biplot_mobility.png", width = 14, height = 10, units = 'in', res = 330)
+ggplot() +
+  geom_point(data = dim_mobility,
+             aes(x = `Dim 1`, y = `Dim 2`,
+                 fill = mobility),
+             position = position_jitter(0.2, 0.2),
+             shape = 21,
+             size = 5) +
+  scale_fill_gradientn("Mobility", colors = pals::parula(100)) +
+  geom_point(data = var_dims,
+             aes(x = `Dim 1`, y = `Dim 2`),
+             shape = 23,
+             fill = 'white',
+             alpha = 0.5,
+             size = 3,
+             stroke = 1) +
+  geom_label_repel(data = var_dims,
+                   aes(x = `Dim 1`, y = `Dim 2`, label = Variable),
+                   segment.color = 'black',
+                   segment.alpha = 0.5,
+                   fill = alpha("white", 0.8),
+                   max.overlaps = 50,
+                   nudge_x = 1,
+                   nudge_y = 0.5,
+                   direction = "both") +
+  xlab(paste0("Dim 1 (", round(eig.val[1,2], 2), "%)")) +
+  ylab(paste0("Dim 2 (", round(eig.val[2,2], 2), "%)")) +
+  ggtitle("Genetically-inferred mobility") +
+  theme_bw() +
+  theme(legend.position = "right",
+        plot.title = element_text(face = "bold"),
+        aspect.ratio = 1)
+# dev.off()
+```
+
+```{r ance plots, warning=FALSE, message=FALSE, eval = F}
+library(ggpubr)
+png("./Figures/Supplementary/Figure_S10.png", width = 15, height = 20, units = 'in', res = 330)
+plot_grid(plotlist = list(p1,p2,p3,p4,p5), labels = "AUTO", ncol = 2)
+dev.off()
+```
+
+## Modelling
+
+We decided, based on the upset plot, to model the burial sides: *right*, *left*, *back* against ancestry and mobility. This is because both left and right are associated with the crouched position and the back is associated with the extended position, which are the most commonly found positions in graves.
+
+The models were run on a HPC following the scripts "FinalModels.r" and "Permutations.r" to calculate model performance. The files can be found in the "Scripts" folder.
+
+### Model fit
+
+Here we take a look at the model fit. We tested different models, with different combinations of covariates. Her we take a look at the model fit, based on WAIC and DIC scores.
+
+```{r model fit, fig.dim = c(10,15), echo = F}
+model_info <- data.frame(
+    model = paste0("m", 1:10),
+    name = c(
+        "baseline",
+        "baseline + mobility + ancestry",
+        "baseline + ancestry",
+        "baseline + no WHG ancestry",
+        "baseline + no WHG ancestry + mobility",
+        "baseline + EHG",
+        "baseline + WHG",
+        "baseline + CHG",
+        "baseline + LVN",
+        "baseline + mobility"
+    )
+)
+
+model_5k_info <- data.frame(
+    model = paste0("mb", 1:3),
+    name = c(
+        "baseline",
+        "baseline + no WHG ancestry",
+        "baseline + no WHG ancestry + mobility"
+    )
+)
+
+model_steppe_info <- data.frame(
+    model = paste0("ms", 1:4),
+    name = c(
+        "baseline",
+        "baseline + mobility + steppe ancestry + LVN",
+        "baseline + steppe ancestry + LVN",
+        "baseline + steppe ancestry"
+    )
+)
+
+# Model fit
+model_fit <- fread("./Results/Models_fit.csv")
+model_5k_fit <- fread("./Results/ModelsFit_BeforeSteppe.csv")
+model_steppe_fit <- fread("./Results/ModelsFit_Steppe.csv")
+
+## Plot model fit
+# Whole period
+model_fit$Model <- factor(model_fit$Model, levels = unique(model_fit$Model))
+model_fit[, deltaWAIC := waic - min(waic), by = "Variable"]
+model_fit[, colorWAIC := ifelse(deltaWAIC == 0, "red", "black")]
+model_fit[, deltaDIC := dic - min(dic), by = "Variable"]
+model_fit[, colorDIC := ifelse(deltaDIC == 0, "red", "black")]
+model_fit$Variable <- factor(model_fit$Variable, levels = unique(model_fit$Variable))
+
+p1 <- ggplot(data = model_fit) +
+    geom_line(aes(x = Model, y = deltaDIC, group = 1)) +
+    geom_hline(
+        data = model_fit[Model == "baseline"], aes(yintercept = deltaDIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaDIC, fill = colorDIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta DIC") +
+    # ggtitle("Whole period") +
+    labs(tag = "A") +
+    theme_bw() +
+    theme(
+        plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+        strip.text = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.2,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p2 <- ggplot(data = model_fit) +
+    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
+    geom_hline(
+        data = model_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta WAIC") +
+    labs(tag = "B") +
+    theme_bw() +
+    theme(
+        strip.text = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 16),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.2,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+library(patchwork)
+p1/p2
+```
+
+Because of colinearity between WHG and the other ancestries, we should exclude the full ancestry models from the evaluation of model fit.
+
+```{r model fit2, fig.dim = c(10,15), echo = F}
+model_fit <- model_fit[!(Model %in% c("baseline + mobility + ancestry",
+                                             "baseline + ancestry"))]
+model_fit[, deltaWAIC := waic - min(waic), by = "Variable"]
+model_fit[, colorWAIC := ifelse(deltaWAIC == 0, "red", "black")]
+model_fit[, deltaDIC := dic - min(dic), by = "Variable"]
+model_fit[, colorDIC := ifelse(deltaDIC == 0, "red", "black")]
+model_fit$Variable <- factor(model_fit$Variable, levels = unique(model_fit$Variable))
+model_fit$Model <- as.character(model_fit$Model)
+model_fit$Model <- gsub(" no WHG", "", model_fit$Model)
+model_fit$Model <- factor(model_fit$Model, levels = unique(model_fit$Model))
+
+p1 <- ggplot(data = model_fit) +
+    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
+    geom_hline(
+        data = model_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta WAIC") +
+    # ggtitle("Whole period") +
+    # labs(tag = "A") +
+    theme_bw() +
+    theme(
+        plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+        strip.text = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(size = 18),
+        # axis.text.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 16),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.2,
+        # plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p2 <- ggplot(data = model_fit) +
+    geom_line(aes(x = Model, y = deltaDIC, group = 1)) +
+    geom_hline(
+        data = model_fit[Model == "baseline"], aes(yintercept = deltaDIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaDIC, fill = colorDIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta DIC") +
+    labs(tag = "B") +
+    theme_bw() +
+    theme(
+        strip.text = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 16),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.2,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p1/p2
+```
+
+We also look at model fit for the models before 5k BP.
+
+```{r fit before steppe, fig.dim = c(10,15), echo = F}
+# Before steppe
+model_5k_fit$Model <- factor(model_5k_fit$Model, levels = unique(model_5k_fit$Model))
+model_5k_fit[, deltaWAIC := waic - min(waic), by = "Variable"]
+model_5k_fit[, colorWAIC := ifelse(deltaWAIC == 0, "red", "black")]
+model_5k_fit[, deltaDIC := dic - min(dic), by = "Variable"]
+model_5k_fit[, colorDIC := ifelse(deltaDIC == 0, "red", "black")]
+model_5k_fit$Variable <- factor(model_5k_fit$Variable, levels = unique(model_5k_fit$Variable))
+model_5k_fit$Model <- factor(model_5k_fit$Model,
+                             levels = unique(model_5k_fit$Model),
+                             labels = gsub(" no WHG", "", unique(model_5k_fit$Model)))
+
+p3 <- ggplot(data = model_5k_fit) +
+    geom_line(aes(x = Model, y = deltaDIC, group = 1)) +
+    geom_hline(
+        data = model_5k_fit[Model == "baseline"], aes(yintercept = deltaDIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaDIC, fill = colorDIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta DIC") +
+    # ggtitle("Before 5k BP") +
+    # labs(tag = "A") +
+    theme_bw() +
+    theme(
+        plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+        strip.text = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.5,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p4 <- ggplot(data = model_5k_fit) +
+    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
+    geom_hline(
+        data = model_5k_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta WAIC") +
+    # labs(tag = "B") +
+    theme_bw() +
+    theme(
+        strip.text = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 16),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.5,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p3/p4
+```
+
+And the fit for the models with steppe ancestry
+
+```{r fit steppe, fig.dim = c(10,15), echo = F}
+# After steppe
+model_steppe_fit$Model <- factor(model_steppe_fit$Model, levels = unique(model_steppe_fit$Model))
+model_steppe_fit[, deltaWAIC := waic - min(waic), by = "Variable"]
+model_steppe_fit[, colorWAIC := ifelse(deltaWAIC == 0, "red", "black")]
+model_steppe_fit[, deltaDIC := dic - min(dic), by = "Variable"]
+model_steppe_fit[, colorDIC := ifelse(deltaDIC == 0, "red", "black")]
+model_steppe_fit$Variable <- factor(model_steppe_fit$Variable, levels = unique(model_steppe_fit$Variable))
+
+p5 <- ggplot(data = model_steppe_fit) +
+    geom_line(aes(x = Model, y = deltaDIC, group = 1)) +
+    geom_hline(
+        data = model_steppe_fit[Model == "baseline"], aes(yintercept = deltaDIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaDIC, fill = colorDIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta DIC") +
+    # ggtitle("Steppe ancestry") +
+    # labs(tag = "A") +
+    theme_bw() +
+    theme(
+        plot.title = element_text(face = "bold", size = 20, hjust = 0.5),
+        strip.text = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.5,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p6 <- ggplot(data = model_steppe_fit) +
+    geom_line(aes(x = Model, y = deltaWAIC, group = 1)) +
+    geom_hline(
+        data = model_steppe_fit[Model == "baseline"], aes(yintercept = deltaWAIC),
+        linetype = 2, color = "black"
+    ) +
+    geom_point(aes(x = Model, y = deltaWAIC, fill = colorWAIC), shape = 21, size = 4) +
+    facet_grid(rows = vars(Variable), scales = "free_y") +
+    scale_fill_identity() +
+    ylab("Delta WAIC") +
+    # labs(tag = "B") +
+    theme_bw() +
+    theme(
+        strip.text = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 16),
+        axis.text.y = element_text(size = 16),
+        aspect.ratio = 0.5,
+        plot.tag = element_text(face = 'bold', size = 22)
+    )
+
+p5/p6
+```
+
+### Results
+
+Here we look at the posterior densities of the coefficients for the variables of the full model (without WHG ancestry).
+
+```{r full model results, fig.dim = c(10, 5), echo = F}
+# cols <- rev(pals::ocean.phase(5)[2:4])
+# cols[1] <- "grey50"
+# 
+# cols <- paletteer::paletteer_d("beyonce::X6", 4)[c(2,4,3)]
+# cols <- paletteer::paletteer_d("nationalparkcolors::Acadia",6)[c(5,1,3)]
+cols <- paletteer::paletteer_d("ButterflyColors::anteos_menippe", 3)
+
+## Full model no WHG
+results_df <- fread("./Results/FullModelNoWHG_results.csv")
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "EHG", "CHG", "LVN", "Mobility")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry", "Mobility"))
+
+# Plot
+p_noWHG <- ggplot(data = results_df) +
+    geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, y = Predictors, color = Type),
+    width = 0.2, linewidth = 1) +
+    geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+    geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+    geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+    scale_color_manual("", values = cols) +
+    scale_fill_manual("", values = cols) +
+    facet_grid(cols = vars(Variable), scales = "free_x") +
+    theme_bw() +
+    ggtitle("Full model without WHG") +
+    theme(aspect.ratio = 0.9,
+    plot.title = element_text(size = 20, face = 'bold'),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 16),
+    strip.text = element_text(size = 18),
+    legend.position = "none",
+    legend.direction = "horizontal",
+    legend.text = element_text(size = 16))
+
+p_noWHG
+
+## Full model before 5k BP
+results_df <- fread("./Results/FullModelBefore5k_results.csv")
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "EHG", "CHG", "LVN", "Mobility")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry", "Mobility"))
+
+p_5k <- ggplot(data = results_df) +
+    geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, y = Predictors, color = Type),
+    width = 0.2, linewidth = 1) +
+    geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+    geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+    geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+    scale_color_manual("", values = cols) +
+    scale_fill_manual("", values = cols) +
+    facet_grid(cols = vars(Variable), scales = "free_x") +
+    theme_bw() +
+    ggtitle("Before 5k BP") +
+    theme(aspect.ratio = 0.9,
+    plot.title = element_text(size = 20, face = 'bold'),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 16),
+    strip.text = element_text(size = 18),
+    legend.position = "none",
+    legend.direction = "horizontal",
+    legend.text = element_text(size = 16))
+
+p_5k
+
+## Full model after steppe
+results_df <- fread("./Results/FullModelSteppe_results.csv")
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "LVN", "Steppe", "Mobility")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry", "Mobility"))
+
+p_steppe <- ggplot(data = results_df) +
+    geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, y = Predictors, color = Type),
+    width = 0.2, linewidth = 1) +
+    geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+    geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+    geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+    scale_color_manual("", values = cols) +
+    scale_fill_manual("", values = cols) +
+    facet_grid(cols = vars(Variable), scales = "free_x") +
+    theme_bw() +
+    ggtitle("After 5k BP") +
+    theme(aspect.ratio = 0.9,
+    plot.title = element_text(size = 20, face = 'bold'),
+    axis.title = element_blank(),
+    axis.text = element_text(size = 16),
+    strip.text = element_text(size = 18),
+    legend.position = "none",
+    legend.direction = "horizontal",
+    legend.text = element_text(size = 16))
+
+p_steppe
+```
+
+```{r best models results, echo = F, eval = F}
+## Best full model
+results_df <- fread("./Results/BestModels_results.csv")
+
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "LVN", "Mobility")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry", "Mobility"))
+
+pbA <- ggplot(data = results_df) +
+  geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, 
+                    y = Predictors, color = Type),
+                width = 0.2, linewidth = 1) +
+  geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+  geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+  geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+  scale_color_manual("", values = cols) +
+  scale_fill_manual("", values = cols) +
+  facet_grid(cols = vars(Variable), scales = "free_x") +
+  theme_bw() +
+  ggtitle("Full period") +
+  theme(aspect.ratio = 0.9,
+        plot.title = element_text(size = 20, face = 'bold'),
+        axis.title = element_blank(),
+        axis.text = element_text(size = 16),
+        strip.text = element_text(size = 18),
+        legend.position = "none",
+        legend.direction = "horizontal",
+        legend.text = element_text(size = 16))
+
+## Best model before 5k BP
+results_df <- fread("./Results/BestModelsBefore5k_results.csv")
+
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "EHG", "CHG","LVN", "Mobility")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry", "Mobility"))
+
+pbB <- ggplot(data = results_df) +
+  geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, 
+                    y = Predictors, color = Type),
+                width = 0.2, linewidth = 1) +
+  geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+  geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+  geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+  scale_color_manual("", values = cols) +
+  scale_fill_manual("", values = cols) +
+  facet_grid(cols = vars(Variable), scales = "free_x") +
+  theme_bw() +
+  ggtitle("Before 5k BP") +
+  theme(aspect.ratio = 0.9,
+        plot.title = element_text(size = 20, face = 'bold'),
+        axis.title = element_blank(),
+        axis.text = element_text(size = 16),
+        strip.text = element_text(size = 18),
+        legend.position = "none",
+        legend.direction = "horizontal",
+        legend.text = element_text(size = 16))
+
+## Best model after 5k BP
+results_df <- fread("./Results/BestModelsAfter5k_results.csv")
+
+results_df$Predictors <- factor(results_df$Predictors,
+    levels = rev(c("Intercept", "LVN", "Steppe ancestry")),
+    labels = rev(c("Intercept", "LVN", "Steppe")))
+results_df$Variable <- factor(results_df$Variable, levels = unique(results_df$Variable))
+results_df$Type <- factor(results_df$Type, levels = c("Intercept", "Ancestry"))
+
+pbC <- ggplot(data = results_df) +
+  geom_errorbar(aes(xmin = `0.025quant`, xmax = `0.975quant`, x = mean, 
+                    y = Predictors, color = Type),
+                width = 0.2, linewidth = 1) +
+  geom_point(aes(x = mean, y = Predictors, fill = Type), shape = 21, size = 3) +
+  geom_blank(aes(x = -mean, xmin = -`0.025quant`, xmax = -`0.975quant`)) +
+  geom_vline(aes(xintercept = 0), linetype = 2, alpha = 0.5) +
+  scale_color_manual("", values = cols) +
+  scale_fill_manual("", values = cols) +
+  facet_grid(cols = vars(Variable), scales = "free_x") +
+  theme_bw() +
+  ggtitle("After 5k BP") +
+  theme(aspect.ratio = 0.9,
+        plot.title = element_text(size = 20, face = 'bold'),
+        axis.title = element_blank(),
+        axis.text = element_text(size = 16),
+        strip.text = element_text(size = 18),
+        legend.position = "none",
+        legend.direction = "horizontal",
+        legend.text = element_text(size = 16))
+
+egg::ggarrange(plots = list(pbA, pbB, pbC), nrow = 3, labels = c("A", "B", "C"), 
+               label.args = list(gp = grid::gpar(font = 2, cex = 2)))
+```
+

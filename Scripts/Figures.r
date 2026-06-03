@@ -10,7 +10,7 @@ library(ggrepel)
 library(factoextra)
 library(FactoMineR)
 library(UpSetR)
-library(BIADconnect)
+# library(BIADconnect)
 library(cowplot)
 library(patchwork)
 library(circular)
@@ -20,9 +20,9 @@ library(bpnreg)
 library(sf)
 library(terra)
 
-setwd("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/")
-Sys.setenv(MARIADB_TLS_DISABLE_PEER_VERIFICATION = "1")
-conn <- init.conn()
+# setwd("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/")
+# Sys.setenv(MARIADB_TLS_DISABLE_PEER_VERIFICATION = "1")
+# conn <- init.conn()
 proj <- "+proj=laea +lon_0=0 +lat_0=49.06 +datum=WGS84 +units=km +no_defs"
 
 ## ------------------------------------------------------------------------------------------------------
@@ -42,17 +42,17 @@ graves$DepositionType <- as.factor(graves$DepositionType)
 graves$BodyPositioning <- as.factor(graves$BodyPositioning)
 graves$BurialSide <- as.factor(graves$BurialSide)
 
-# Sites table (BIAD)
-sites <- setDT(query.database("SELECT * FROM `Sites`", conn))
-
-# Culture and Period
-culture <- fread("./Data/burial rites_culture_period.csv", na.strings = "\\N")
-culture <- culture[!duplicated(IndividualID)]
-
-# Add info to graves table
-graves <- merge(graves, sites[, .(SiteID, Country)], by = "SiteID", all.x = T)
-rm(sites)
-graves <- merge(graves, culture, by = "IndividualID", all.x = T)
+# # Sites table (BIAD)
+# sites <- setDT(query.database("SELECT * FROM `Sites`", conn))
+# 
+# # Culture and Period
+# culture <- fread("./Data/burial rites_culture_period.csv", na.strings = "\\N")
+# culture <- culture[!duplicated(IndividualID)]
+# 
+# # Add info to graves table
+# graves <- merge(graves, sites[, .(SiteID, Country)], by = "SiteID", all.x = T)
+# rm(sites)
+# graves <- merge(graves, culture, by = "IndividualID", all.x = T)
 
 # Remove outlier
 graves <- graves[!is.na(YearBP)]
@@ -63,9 +63,9 @@ summary(graves$YearBP)
 ## FIGURE 1
 
 # Ancestry and mobility data
-ancestry <- fread("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/MesoNeo/MesoNeo/Data3/combined.tsv")
-ov <- fread("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/mobest/tables/mobility_estimates_250y_retrospecive_distance.csv")
-info <- fread("~/Documents/Postdoc/mobest/tables/Dataset_S1.csv")
+ancestry <- fread("./Data/combined.tsv")
+ov <- fread("./Data/mobility_estimates_250y_retrospecive_distance.csv")
+info <- fread("./Data/Dataset_S1.csv")
 mobility <- merge(ov, info, by = "Sample_ID", all.x = T)
 rm(ov, info)
 
@@ -314,7 +314,7 @@ pnts <- project(
   proj
 )
 
-poly <- vect("./Spatial/IntersectionVector.shp")
+poly <- vect("./Data/Spatial/IntersectionVector.shp")
 pnts <- intersect(pnts, poly)
 
 # Remove data without age and too old sample

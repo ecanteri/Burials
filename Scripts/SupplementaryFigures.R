@@ -1,4 +1,4 @@
-library(BIADconnect)
+# library(BIADconnect)
 library(data.table)
 library(ggplot2)
 library(ggpattern)
@@ -19,8 +19,8 @@ library(FactoMineR)
 library(UpSetR)
 library(webshot)
 
-setwd("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves")
-conn <- init.conn()
+# setwd("~/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves")
+# conn <- init.conn()
 proj <- "+proj=aea +lon_0=44.296875 +lat_1=43.7864128 +lat_2=69.9512657 +lat_0=56.8688392 +datum=WGS84 +units=km +no_defs"
 
 ## ---- ##
@@ -347,6 +347,36 @@ p4b <- egg::ggarrange(plots = list(f4a, f4b), ncol = 1, nrow = 2, heights = c(1,
 
 png("./Figures/Supplementary/Figure_S4.png", res = 330, units = 'in', height = 10, width = 18)
 plot_grid(p4a, p4b, rel_widths = c(0.8, 1))
+dev.off()
+
+## ---------------------------
+## Figure S3 - CULTURE ##
+
+performance.dt <- fread("./Results/Culture/CulturePerformance.csv")
+performance.dt$Variable <- factor(performance.dt$Variable,
+                                  levels = c("Left", "Right", "Back"))
+
+pS3.2 <- ggplot(data = performance.dt) +
+  geom_violin(aes(y = Performance, x = Variable, fill = Variable),
+              width = 0.5) +
+  geom_boxplot(aes(y = Performance, x = Variable, fill = Variable),
+               width = 0.08,
+               linewidth = 0.5,
+               color = "grey20"
+  ) +
+  scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
+  theme_bw() +
+  ggtitle("Model: baseline + culture") +
+  theme(
+    axis.title.x = element_blank(),
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 18),
+    plot.title = element_text(size = 20, face = "bold")
+  )
+
+png("./Figures/Supplementary/Figure_S3_culture.png", width = 12, height = 10, res = 330, units = "in")
+pS3.2
 dev.off()
 
 ## ---------------------------
