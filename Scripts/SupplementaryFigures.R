@@ -128,7 +128,7 @@ performance.dt <- fread("./Results/ModelPerformance.csv")
 performance.dt$Variable <- factor(performance.dt$Variable,
                                   levels = c("Left", "Right", "Back"))
 
-pS3 <- ggplot(data = performance.dt) +
+pS3a <- ggplot(data = performance.dt) +
   geom_violin(aes(y = Performance, x = Model, fill = Variable),
               width = 0.8) +
   geom_boxplot(aes(y = Performance, x = Model, fill = Variable),
@@ -143,12 +143,12 @@ pS3 <- ggplot(data = performance.dt) +
     axis.title.x = element_blank(),
     legend.position = "none",
     axis.text = element_text(size = 14),
-    axis.title = element_text(size = 18),
-    strip.text = element_text(size = 18, face = "bold")
+    axis.title = element_text(size = 16),
+    strip.text = element_text(size = 16)
   )
 
 png("./Figures/Supplementary/Figure_S3.png", width = 14, height = 10, res = 330, units = "in")
-pS3
+pS3.a
 dev.off()
 
 ## Explained variance
@@ -159,7 +159,7 @@ evar$Effect <- factor(evar$Effect,
                       levels = c("Full Model Fit", "Spatiotemporal Process Alone", "NEOL Effect Alone", "Mobility Effect Alone"),
                       labels = c("Full model fit", "Spatiotemporal process", "NEOL", "Mobility"))
 
-pS3.2 <- ggplot(data = evar, 
+pS3b <- ggplot(data = evar, 
                 aes(x = Effect, y = Mean, fill = Side)) +
   # Draw the bars for each effect
   geom_bar(
@@ -179,14 +179,85 @@ pS3.2 <- ggplot(data = evar,
   facet_grid(Framework ~ Side, scales = "free_x") +
   theme_bw() +
   scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), breaks = seq(0, 100, 25))
+  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), breaks = seq(0, 100, 25)) +
+  theme(legend.position = "none",
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16),
+        strip.text = element_text(size = 16))
 
 png("./Figures/Supplementary/Figure_S3_ExplainedVar.png", width = 12, height = 10, res = 330, units = "in")
-pS3.2
+pS3.b
+dev.off()
+
+png("./Figures/Supplementary/Figure_S3.png", width = 18, height = 20, res = 330, units = "in")
+egg::ggarrange(pS3a, pS3b, nrow = 2, labels = c("A", "B"), label.args = list(gp = grid::gpar(font = 2, cex = 2)), heights = c(0.6, 1))
 dev.off()
 
 ## ---------------------------
-## Figure S4 ##
+## Figure S4 - CULTURE ##
+
+performance.dt <- fread("./Results/Culture/CulturePerformance.csv")
+performance.dt$Variable <- factor(performance.dt$Variable,
+                                  levels = c("Left", "Right", "Back"))
+
+pS3.3 <- ggplot(data = performance.dt) +
+  geom_violin(aes(y = Performance, x = Variable, fill = Variable),
+              width = 0.5) +
+  geom_boxplot(aes(y = Performance, x = Variable, fill = Variable),
+               width = 0.08,
+               linewidth = 0.5,
+               color = "grey20"
+  ) +
+  scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
+  theme_bw() +
+  ggtitle("Model: baseline + culture") +
+  theme(
+    axis.title.x = element_blank(),
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 18),
+    plot.title = element_text(size = 20, face = "bold")
+  )
+
+png("./Figures/Supplementary/Figure_S3_culture.png", width = 12, height = 10, res = 330, units = "in")
+pS3.3
+dev.off()
+
+## Explained variance
+evar <- fread("/Users/msb290/Documents/GitHub/Burials/Results/Culture/Culture_ExplainedVariance.csv")
+evar$Side <- factor(evar$Side, levels = c("Left", "Right", "Back"))
+evar$Effect <- factor(evar$Effect, 
+                      levels = c("Full Model Fit", "Culture Effect Alone", "Spatiotemporal Process Alone"),
+                      labels = c("Full model fit", "Culture", "Spatiotemporal process"))
+
+pS3.4 <- ggplot(data = evar, 
+       aes(x = Effect, y = Mean, fill = Side)) +
+  # Draw the bars for each effect
+  geom_bar(
+    stat = "identity", 
+    width = 0.65, 
+    color = "black", 
+    linewidth = 0.25, 
+    alpha = 0.85
+  ) +
+  # Add the Bayesian 95% Credible Interval error bars
+  geom_errorbar(
+    aes(ymin = Lower, ymax = Upper),
+    width = 0.15,
+    size = 0.6,
+    color = "grey20"
+  ) +
+  facet_grid(Framework ~ Side, scales = "fixed") +
+  theme_bw() +
+  scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), breaks = seq(0, 100, 25))
+
+png("./Figures/Supplementary/Figure_S3_CultureExplainedVar.png", width = 12, height = 10, res = 330, units = "in")
+pS3.4
+dev.off()
+
+## ---------------------------
+## Figure S5 ##
 
 # 10 most frequent cultures (for burial orientation data)
 culture_keep <- readRDS("./Data/culture_keep.RDS")
@@ -384,70 +455,7 @@ plot_grid(p4a, p4b, rel_widths = c(0.8, 1))
 dev.off()
 
 ## ---------------------------
-## Figure S3 - CULTURE ##
-
-performance.dt <- fread("./Results/Culture/CulturePerformance.csv")
-performance.dt$Variable <- factor(performance.dt$Variable,
-                                  levels = c("Left", "Right", "Back"))
-
-pS3.3 <- ggplot(data = performance.dt) +
-  geom_violin(aes(y = Performance, x = Variable, fill = Variable),
-              width = 0.5) +
-  geom_boxplot(aes(y = Performance, x = Variable, fill = Variable),
-               width = 0.08,
-               linewidth = 0.5,
-               color = "grey20"
-  ) +
-  scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
-  theme_bw() +
-  ggtitle("Model: baseline + culture") +
-  theme(
-    axis.title.x = element_blank(),
-    legend.position = "none",
-    axis.text = element_text(size = 14),
-    axis.title = element_text(size = 18),
-    plot.title = element_text(size = 20, face = "bold")
-  )
-
-png("./Figures/Supplementary/Figure_S3_culture.png", width = 12, height = 10, res = 330, units = "in")
-pS3.3
-dev.off()
-
-## Explained variance
-evar <- fread("/Users/msb290/Documents/GitHub/Burials/Results/Culture/Culture_ExplainedVariance.csv")
-evar$Side <- factor(evar$Side, levels = c("Left", "Right", "Back"))
-evar$Effect <- factor(evar$Effect, 
-                      levels = c("Full Model Fit", "Culture Effect Alone", "Spatiotemporal Process Alone"),
-                      labels = c("Full model fit", "Culture", "Spatiotemporal process"))
-
-pS3.4 <- ggplot(data = evar, 
-       aes(x = Effect, y = Mean, fill = Side)) +
-  # Draw the bars for each effect
-  geom_bar(
-    stat = "identity", 
-    width = 0.65, 
-    color = "black", 
-    linewidth = 0.25, 
-    alpha = 0.85
-  ) +
-  # Add the Bayesian 95% Credible Interval error bars
-  geom_errorbar(
-    aes(ymin = Lower, ymax = Upper),
-    width = 0.15,
-    size = 0.6,
-    color = "grey20"
-  ) +
-  facet_grid(Framework ~ Side, scales = "fixed") +
-  theme_bw() +
-  scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), breaks = seq(0, 100, 25))
-
-png("./Figures/Supplementary/Figure_S3_CultureExplainedVar.png", width = 12, height = 10, res = 330, units = "in")
-pS3.4
-dev.off()
-
-## ---------------------------
-## FIGURE S5
+## FIGURE S6
 
 ## Data
 bp <- grep("BodyPositioning_", colnames(graves))
@@ -497,7 +505,7 @@ pS5
 dev.off()
 
 ## ---------------------------
-## FIGURE S6
+## FIGURE S7
 upset_df <- graves[, .(IndividualID, BodyPositioning_crouched, BodyPositioning_extended, `BodyPositioning_extended, rhomboid`, BodyPositioning_heap, `BodyPositioning_inside a vessel`, BodyPositioning_irregular, BodyPositioning_prone, BodyPositioning_scattered, BodyPositioning_sitting, BurialSide_back, `BurialSide_back/left`, `BurialSide_back/right`, BurialSide_bottom, BurialSide_front, `BurialSide_front/left`, `BurialSide_front/right`, BurialSide_left, `BurialSide_left/back`, `BurialSide_left/front`, BurialSide_right, `BurialSide_right/back`, `BurialSide_right/front`)]
 set_size <- data.frame(Set = colnames(upset_df)[-1],
                        Size = colSums(upset_df[,-1], na.rm = T))
@@ -538,7 +546,7 @@ pS6
 dev.off()
 
 ## ---------------------------
-## FIGURE S7
+## FIGURE S8
 
 ## Biplot by PERIOD
 dim_period <- ind_dims[, .N, by = c("Period", "Dim 1", "Dim 2")]
@@ -693,7 +701,7 @@ egg::ggarrange(plots = list(pS7.a, pS7.b, pS7.c), ncol = 2, labels = c("A", "B",
 dev.off()
 
 ## ---------------------------
-## FIGURE S8
+## FIGURE S9
 
 ## Biplot by WHG
 dim_whg <- ind_dims[, mean(WHG, na.rm = T), by = c("Dim 1", "Dim 2")]
@@ -886,7 +894,7 @@ egg::ggarrange(plots = list(pS8.a, pS8.b, pS8.c, pS8.d, pS8.e), ncol = 2, labels
 dev.off()
 
 ## ---------------------------
-## FIGURE S9
+## FIGURE S10
 
 # Data
 results_best <- fread("./Results/BestModels_results.csv")
@@ -989,7 +997,7 @@ egg::ggarrange(plots = list(pS9.a, pS9.b, pS9.c), nrow = 3, labels = c("A", "B",
 dev.off()
 
 ## ---------------------------
-## FIGURE S10
+## FIGURE S11
 
 # Data
 results_full_b5k <- fread("./Results/FullModelBefore5k_results.csv")
@@ -1084,7 +1092,7 @@ egg::ggarrange(plots = list(pS10.a, pS10.b, pS10.c), nrow = 3, labels = c("A", "
 dev.off()
 
 ## ---------------------------
-## FIGURE S11
+## FIGURE S12
 
 # Data
 results_full_steppe <- fread("./Results/FullModelSteppe_results.csv")
@@ -1177,7 +1185,7 @@ egg::ggarrange(plots = list(pS11.a, pS11.b, pS11.c), nrow = 3, labels = c("A", "
 dev.off()
 
 ## ---------------------------
-## FIGURE S12
+## FIGURE S13
 
 # Data
 model_fit_all <- fread("./Results/Models_fit.csv")
@@ -1384,7 +1392,7 @@ pS13.b
 dev.off()
 
 ## ---------------------------
-## FIGURE S14
+## FIGURE S15
 left <- orientation[, .(Num, BurialOrientationMean, 
                         BurialOrientationMin, 
                         BurialOrientationMax, 
@@ -1449,7 +1457,7 @@ pS14
 dev.off()
 
 ## ---------------------------
-## FIGURE S15
+## FIGURE S16
 
 # Check number of individuals by period
 orientation[, .N, by = "Period"][order(N)]
@@ -1497,7 +1505,7 @@ pS15
 dev.off()
 
 ## ---------------------------
-## FIGURE S16
+## FIGURE S17
 
 # Group sex
 orientation[, Sex := ifelse(Sex < 0.5, 0, ifelse(Sex > 0.5, 1, Sex))]
@@ -1528,7 +1536,7 @@ pS16
 dev.off()
 
 ## ---------------------------
-## FIGURE S17
+## FIGURE S18
 
 # Data
 bo_all <- fread("./Results/BurialOrientationMeans_AllIndividuals.csv")

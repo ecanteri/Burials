@@ -304,7 +304,7 @@ culture_perm <- future_map(1:100, function(i) {
     
     ## Models
     left_culture_m <- bru(as.formula(paste("Left ~", components$cb)[2]),
-        data = train_left,
+        newdata = train_left,
         domain = list(geometry = mesh, YearBin = mesh.t),
         family = "binomial",
         options = list(safe = TRUE)
@@ -415,3 +415,173 @@ culture_performance.dt[, Variable :=
 ]
 culture_performance.dt$Variable <- factor(culture_performance.dt$Variable, levels = unique(culture_performance.dt$Variable))
 fwrite(culture_performance.dt, "./Results/CulturePerformance.csv")
+
+## --------------------------------------------------------------------------------------
+## PERCENTAGE OF EXPLAINED VARIANCE
+load("/projects/racimolab/people/msb290/Graves/Models/Culture/Left.RData")
+load("/projects/racimolab/people/msb290/Graves/Models/Culture/Right.RData")
+load("/projects/racimolab/people/msb290/Graves/Models/Culture/Back.RData")
+
+left_culture <- left_models[[8]]
+right_culture <- right_models[[8]]
+back_culture <- back_models[[8]]
+
+## BUILD A COMPREHENSIVE TABLE OF NAKAGAWA, EFRON, and GELMAN R-SQUARED METRICS
+
+# --- 1. Set Up the Parallel Infrastructure ---
+# We use 3 workers since we have exactly 3 burial sides to process
+plan(multisession, workers = 3)
+
+# Define our list structures
+model_list <- list(
+  Left  = left_culture,
+  Right = right_culture,
+  Back  = back_culture
+)
+
+data_list <- list(
+  Left  = left,
+  Right = right,
+  Back  = back
+)
+
+# Shared logistic variance constant (pi^2 / 3)
+var_binomial <- (pi^2) / 3
+
+# --- 2. Parallel Processing across Sides ---
+parallel_r2_results <- future_map(names(model_list), function(side) {
+    # Extract the correct model and data objects for this background worker
+    current_model <- model_list[[side]]
+    current_data <- data_list[[side]]
+    observed <- current_data[[side]]
+    n_obs <- length(observed)
+
+    # Baseline total sum of squares for Efron calculation
+    mean_obs <- mean(observed)
+    ss_total <- sum((observed - mean_obs)^2)
+
+    # Draw 1000 posterior realizations inside the worker environment
+    set.seed(123)
+    post_samples <- inlabru::generate(
+        object = current_model,
+        newdata = current_data,
+        formula = ~ list(
+            eta_full = Intercept + culture + spt,
+            culture_link = culture,
+            spatial_link = spt,
+            p_full = INLA::inla.link.invlogit(Intercept + culture + spt),
+            p_culture = INLA::inla.link.invlogit(Intercept + culture),
+            p_spatial = INLA::inla.link.invlogit(Intercept + spt)
+        ),
+        n.samples = 1000
+    )
+
+    # Initialize tracking arrays for all frameworks
+    nak_culture <- numeric(1000)
+    nak_spatial <- numeric(1000)
+    nak_full <- numeric(1000)
+    efr_culture <- numeric(1000)
+    efr_spatial <- numeric(1000)
+    efr_full <- numeric(1000)
+    gel_culture <- numeric(1000)
+    gel_spatial <- numeric(1000)
+    gel_full <- numeric(1000)
+
+    for (s in 1:1000) {
+        # Extract Link Scale Vectors
+        v_nak_full <- as.numeric(post_samples[[s]]$eta_full)
+        v_nak_culture <- as.numeric(post_samples[[s]]$culture_link)
+        v_nak_spatial <- as.numeric(post_samples[[s]]$spatial_link)
+
+        # --- A. NAKAGAWA FRAMEWORK ---
+        var_c_link <- var(v_nak_culture)
+        var_s_link <- var(v_nak_spatial)
+        total_model_var <- var_c_link + var_s_link
+        total_denom <- total_model_var + var_binomial
+
+        nak_culture[s] <- max(0, min(1, var_c_link / total_denom))
+        nak_spatial[s] <- max(0, min(1, var_s_link / total_denom))
+        nak_full[s] <- max(0, min(1, total_model_var / total_denom))
+
+        # Extract Probability Scale Vectors
+        pi_full <- as.numeric(post_samples[[s]]$p_full)
+        pi_culture <- as.numeric(post_samples[[s]]$p_culture)
+        pi_spatial <- as.numeric(post_samples[[s]]$p_spatial)
+
+        # --- B. EFRON FRAMEWORK ---
+        ss_res_full <- sum((observed - pi_full)^2)
+        ss_res_culture <- sum((observed - pi_culture)^2)
+        ss_res_spatial <- sum((observed - pi_spatial)^2)
+
+        efr_culture[s] <- max(0, min(1, 1 - (ss_res_culture / ss_total)))
+        efr_spatial[s] <- max(0, min(1, 1 - (ss_res_spatial / ss_total)))
+        efr_full[s] <- max(0, min(1, 1 - (ss_res_full / ss_total)))
+
+        # --- C. GELMAN FRAMEWORK ---
+        # Full Model
+        var_fit_full <- var(pi_full)
+        var_res_full <- mean(pi_full * (1 - pi_full))
+        gel_full[s] <- var_fit_full / (var_fit_full + var_res_full)
+
+        # Culture Only
+        var_fit_cult <- var(pi_culture)
+        var_res_cult <- mean(pi_culture * (1 - pi_culture))
+        gel_culture[s] <- var_fit_cult / (var_fit_cult + var_res_cult)
+
+        # Spatial Only
+        var_fit_spat <- var(pi_spatial)
+        var_res_spat <- mean(pi_spatial * (1 - pi_spatial))
+        gel_spatial[s] <- var_fit_spat / (var_fit_spat + var_res_spat)
+    }
+
+    # Package all 3 frameworks neatly for this side
+    side_table <- data.table::data.table(
+        Side = side,
+        Framework = c(
+            rep("Nakagawa (Latent Log-Odds)", 3),
+            rep("Efron (Observed Probability)", 3),
+            rep("Gelman (Model-Based Probability)", 3)
+        ),
+        Effect = rep(c("Culture Effect Alone", "Spatiotemporal Process Alone", "Full Model Fit"), 3),
+        Mean = c(
+            mean(nak_culture), mean(nak_spatial), mean(nak_full),
+            mean(efr_culture), mean(efr_spatial), mean(efr_full),
+            mean(gel_culture), mean(gel_spatial), mean(gel_full)
+        ) * 100,
+        Lower = c(
+            quantile(nak_culture, 0.025), quantile(nak_spatial, 0.025), quantile(nak_full, 0.025),
+            quantile(efr_culture, 0.025), quantile(efr_spatial, 0.025), quantile(efr_full, 0.025),
+            quantile(gel_culture, 0.025), quantile(gel_spatial, 0.025), quantile(gel_full, 0.025)
+        ) * 100,
+        Upper = c(
+            quantile(nak_culture, 0.975), quantile(nak_spatial, 0.975), quantile(nak_full, 0.975),
+            quantile(efr_culture, 0.975), quantile(efr_spatial, 0.975), quantile(efr_full, 0.975),
+            quantile(gel_culture, 0.975), quantile(gel_spatial, 0.975), quantile(gel_full, 0.975)
+        ) * 100
+    )
+
+    return(side_table)
+},
+.options = furrr_options(
+    seed = 123,
+    packages = c("inlabru", "INLA", "data.table"),
+    globals = c("model_list", "data_list", "var_binomial")
+),
+.progress = TRUE
+)
+
+# --- 3. Bind and Format Master Combined Output ---
+comprehensive_master_table <- data.table::rbindlist(parallel_r2_results)
+
+comprehensive_master_table[, `:=`(
+  Mean  = round(Mean, 2),
+  Lower = round(Lower, 2),
+  Upper = round(Upper, 2)
+)]
+
+# Revert to standard execution and print master compiled metrics
+plan(sequential)
+print(comprehensive_master_table)
+
+# Save to file
+fwrite(comprehensive_master_table, file = "./Results/Culture_ExplainedVariance.csv")
