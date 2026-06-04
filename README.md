@@ -1,4 +1,4 @@
-Cultural affiliation accounts for most of the spatiotemporal variation in burial rite practices
+__Cultural affiliation accounts for most of the spatiotemporal variation in burial rite practices__
 
 This is the github repository with code and data associated to the manuscript Canteri et al. (2026) _Cultural affiliation accounts for most of the spatiotemporal variation in burial rite practices_ __bioRxiv__ https://doi.org/10.64898/2026.05.25.725982.
 
