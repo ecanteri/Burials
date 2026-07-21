@@ -200,7 +200,7 @@ performance.dt <- fread("./Results/Culture/CulturePerformance.csv")
 performance.dt$Variable <- factor(performance.dt$Variable,
                                   levels = c("Left", "Right", "Back"))
 
-pS3.3 <- ggplot(data = performance.dt) +
+pS3.2a <- ggplot(data = performance.dt) +
   geom_violin(aes(y = Performance, x = Variable, fill = Variable),
               width = 0.5) +
   geom_boxplot(aes(y = Performance, x = Variable, fill = Variable),
@@ -210,7 +210,6 @@ pS3.3 <- ggplot(data = performance.dt) +
   ) +
   scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
   theme_bw() +
-  ggtitle("Model: baseline + culture") +
   theme(
     axis.title.x = element_blank(),
     legend.position = "none",
@@ -230,7 +229,7 @@ evar$Effect <- factor(evar$Effect,
                       levels = c("Full Model Fit", "Culture Effect Alone", "Spatiotemporal Process Alone"),
                       labels = c("Full model fit", "Culture", "Spatiotemporal process"))
 
-pS3.4 <- ggplot(data = evar, 
+pS3.2b <- ggplot(data = evar, 
        aes(x = Effect, y = Mean, fill = Side)) +
   # Draw the bars for each effect
   geom_bar(
@@ -250,10 +249,19 @@ pS3.4 <- ggplot(data = evar,
   facet_grid(Framework ~ Side, scales = "fixed") +
   theme_bw() +
   scale_fill_manual(values = c("#aedbf1", "#1a7bbb", "#b5e48c")) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), breaks = seq(0, 100, 25))
+  scale_y_continuous(expand = expansion(mult = c(0, 0.08)), breaks = seq(0, 100, 25)) +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 18),
+    strip.text = element_text(size = 14))
 
 png("./Figures/Supplementary/Figure_S3_CultureExplainedVar.png", width = 12, height = 10, res = 330, units = "in")
 pS3.4
+dev.off()
+
+png("./Figures/Supplementary/Figure_S3_culture.png", width = 18, height = 20, res = 330, units = "in")
+egg::ggarrange(pS3.2a, pS3.2b, nrow = 2, labels = c("A", "B"), label.args = list(gp = grid::gpar(font = 2, cex = 2)), heights = c(0.6, 1))
 dev.off()
 
 ## ---------------------------

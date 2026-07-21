@@ -289,8 +289,9 @@ png("./Figures/Main/Fig3b.png", res = 330, units = 'in', height = 8, width = 10)
 plot_grid(f2b)
 dev.off()
 
-png("./Figures/Main/Fig3.png", res = 330, units = 'in', height = 14, width = 10)
-(f2a + labs(tag = c("A")) + theme(plot.tag = element_text(face = "bold", size = 14)))/ patchwork::wrap_elements(f2b) + labs(tag = c("B"))  + theme(plot.tag = element_text(face = "bold", size = 14))
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/Figures/Main/Fig3.png", res = 330, units = 'in', height = 8, width = 16)
+# (f2a + labs(tag = c("(a)")) + theme(plot.tag = element_text(face = "italic", size = 11))) | patchwork::wrap_elements(f2b) + labs(tag = c("(b)"))  + theme(plot.tag = element_text(face = "italic", size = 11))
+egg::ggarrange(plots = list(f2a, ggdraw(f2b)), ncol = 2, labels = c("(a)", "(b)"), label.args = list(gp = grid::gpar(font = 3, cex = 1.2)))
 dev.off()
 
 
@@ -407,16 +408,16 @@ f3a <- ggplot(data = results_df) +
   theme_bw() +
   labs(tag = "C") +
   # ggtitle("Full model") +
-  theme(plot.title = element_text(size = 14, face = 'bold'),
+  theme(plot.title = element_text(size = 11, face = 'bold'),
         axis.title = element_blank(),
-        axis.text = element_text(size = 12),
-        strip.text = element_text(size = 14),
+        axis.text = element_text(size = 11),
+        strip.text = element_text(size = 11),
         legend.position = "none",
         legend.direction = "horizontal",
-        legend.text = element_text(size = 14),
+        legend.text = element_text(size = 11),
         # aspect.ratio = 0.9,
         # plot.margin = margin(t = 10, b = 0, l = 5, r = 5),
-        plot.tag = element_text(face = 'bold', size = 18))
+        plot.tag = element_text(face = 'italic', size = 11))
 
 # Model fit
 model_fit <- fread("./Results/Models_fit.csv")
@@ -449,25 +450,25 @@ f3b <- ggplot(data = model_fit) +
   labs(tag = "D") +
   theme_bw() +
   theme(
-    strip.text = element_text(size = 14),
-    axis.title.y = element_text(size = 14),
+    strip.text = element_text(size = 11),
+    axis.title.y = element_text(size = 11),
     axis.title.x = element_blank(),
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 11),
+    axis.text.y = element_text(size = 11),
     # aspect.ratio = 0.3,
-    plot.tag = element_text(face = 'bold', size = 18)
+    plot.tag = element_text(face = 'italic', size = 11)
   )
 
 p3a <- egg::ggarrange(plots = list(p3.1, p3.2), ncol = 1, nrow = 2,
-                      labels = c("A", "B"), 
-                      label.args = list(gp = grid::gpar(font = 2, cex = 1.2))
+                      labels = c("(a)", "(b)"), 
+                      label.args = list(gp = grid::gpar(font = 3, cex = 1.2))
                       )
 p3b <- egg::ggarrange(plots = list(f3a, f3b), ncol = 1, nrow = 2, heights = c(.6,1),
-                      labels = c("C", "D"), 
-                      label.args = list(gp = grid::gpar(font = 2, cex = 1.2))
+                      labels = c("(c)", "(d)"), 
+                      label.args = list(gp = grid::gpar(font = 3, cex = 1.2))
                       )
 
-png("./Figures/Main/Fig4.png", res = 330, units = 'in', height = 8, width = 14)
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/Figures/Main/Fig4.png", res = 330, units = 'in', height = 8, width = 14)
 plot_grid(p3a, p3b, rel_widths = c(0.8, 1))
 dev.off()
 
@@ -666,13 +667,13 @@ f4b <- ggplot(data = model_fit) +
   )
 
 p4a <- egg::ggarrange(plots = list(p4.1, p4.2), ncol = 1, nrow = 2, 
-                      labels = c("A", "B"), 
-                      label.args = list(gp = grid::gpar(font = 2, cex = 1.2)))
+                      labels = c("(a)", "(b)"), 
+                      label.args = list(gp = grid::gpar(font = 3, cex = 1.2)))
 p4b <- egg::ggarrange(plots = list(f4a, f4b), ncol = 1, nrow = 2, heights = c(1,0.8),
-                      labels = c("C", "D"), 
-                      label.args = list(gp = grid::gpar(font = 2, cex = 1.2)))
+                      labels = c("(c)", "(d)"), 
+                      label.args = list(gp = grid::gpar(font = 3, cex = 1.2)))
 
-png("./Figures/Main/Fig5.png", res = 330, units = 'in', height = 10, width = 18)
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/Figures/Main/Fig5.png", res = 330, units = 'in', height = 10, width = 18)
 plot_grid(p4a, p4b, rel_widths = c(0.8, 1))
 dev.off()
 
@@ -1070,8 +1071,8 @@ f7d <- ggplot(data = fit.dt) +
 
 f7c <- grid::rasterGrob(magick::image_read("./Figures/Main/Fig7a.png"), interpolate = T)
 
-png("./Figures/Main/Fig7.png", res = 330, units = 'in', height = 9, width = 15)
-plot_grid(p7.1, f7c, p7.2, f7d, rel_heights = c(1, 0.8), labels = c("A", "C", "B", "D"))
+png("/Users/msb290/Library/CloudStorage/OneDrive-UniversityofCopenhagen/Projects/Graves/Figures/Main/Fig7.png", res = 330, units = 'in', height = 9, width = 15)
+plot_grid(p7.1, f7c, p7.2, f7d, rel_heights = c(1, 0.8), labels = c("(a)", "(c)", "(b)", "(d)"), label_fontface = "italic", label_size = 11)
 dev.off()
 
 ## DIFFERENCES TABLE
