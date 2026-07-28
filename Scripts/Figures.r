@@ -41,31 +41,15 @@ graves <- fread("./Data/Burial.csv", na.strings = "")
 graves$DepositionType <- as.factor(graves$DepositionType)
 graves$BodyPositioning <- as.factor(graves$BodyPositioning)
 graves$BurialSide <- as.factor(graves$BurialSide)
-
-# # Sites table (BIAD)
-# sites <- setDT(query.database("SELECT * FROM `Sites`", conn))
-# 
-# # Culture and Period
-# culture <- fread("./Data/burial rites_culture_period.csv", na.strings = "\\N")
-# culture <- culture[!duplicated(IndividualID)]
-# 
-# # Add info to graves table
-# graves <- merge(graves, sites[, .(SiteID, Country)], by = "SiteID", all.x = T)
-# rm(sites)
-# graves <- merge(graves, culture, by = "IndividualID", all.x = T)
-
-# Remove outlier
-graves <- graves[!is.na(YearBP)]
-graves <- graves[YearBP < 15000]
 summary(graves$YearBP)
 
 ## ------------------------------------------------------------------------------------------------------
 ## FIGURE 1
 
 # Ancestry and mobility data
-ancestry <- fread("./Data/combined.tsv")
-ov <- fread("./Data/mobility_estimates_250y_retrospecive_distance.csv")
-info <- fread("./Data/Dataset_S1.csv")
+ancestry <- fread("../Data/Ancestry/combined.tsv")
+ov <- fread("./Data/Ancestry/mobility_estimates_250y_retrospecive_distance.csv")
+info <- fread("./Data/Ancestry/Dataset_S1.csv")
 mobility <- merge(ov, info, by = "Sample_ID", all.x = T)
 rm(ov, info)
 

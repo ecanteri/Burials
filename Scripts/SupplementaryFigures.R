@@ -33,7 +33,7 @@ land <- rnaturalearth::ne_download(scale = 10, type = "land", "physical", return
 grat <- rnaturalearth::ne_download(scale = 10, type = "graticules_10", "physical", returnclass = "sf")
 
 ## Graves
-graves <- fread("./Data/Burial.csv", na.strings = "")
+graves <- fread("../Data/Burial.csv", na.strings = "")
 graves$DepositionType <- as.factor(graves$DepositionType)
 graves$BodyPositioning <- as.factor(graves$BodyPositioning)
 graves$BurialSide <- as.factor(graves$BurialSide)
@@ -42,7 +42,7 @@ graves$BurialSide <- as.factor(graves$BurialSide)
 sites <- setDT(query.database("SELECT * FROM `Sites`", conn))
 
 # Culture and Period
-culture <- fread("./Data/burial rites_culture_period.csv", na.strings = "\\N")
+culture <- fread("../Data/burial rites_culture_period.csv", na.strings = "\\N")
 culture <- culture[!duplicated(IndividualID)]
 
 ## Add info to graves table

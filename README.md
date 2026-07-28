@@ -17,7 +17,7 @@ The repository contains a Data folder, a Results folder and a Scripts folder. Th
 ├── Burials.Rproj
 ├── Data/
 │   ├── Burial.csv
-│   ├── Raw/
+│   ├── Ancestry/
 │   │   ├── Dataset_S1.csv
 │   │   ├── combined.tsv
 │   │   ├── mobility_estimates_250y_retrospecive_distance.csv
